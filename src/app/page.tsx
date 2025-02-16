@@ -2,6 +2,7 @@ import {
   ChevronRightIcon,
 } from '@heroicons/react/20/solid'
 import { DocumentTextIcon, ArchiveBoxIcon, ChartBarIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 const primaryFeatures = [
   {
@@ -56,8 +57,21 @@ const LandingPage = () => {
   return (
     <div className="bg-gray-900">
       <main>
+
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
+          {/* Header */}
+          <header className='flex justify-end space-x-4 p-4 items-center'>
+            <Link href="/login" className="hidden text-sm/6 font-semibold text-white lg:block">
+              Log in
+            </Link>
+            <Link
+              href="signup"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign up
+            </Link>
+          </header>
           <svg
             aria-hidden="true"
             className="absolute inset-0 -z-10 size-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
