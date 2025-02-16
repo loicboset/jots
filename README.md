@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+DevLog
+DevLog is an open-source, developer-focused journaling tool designed to help you track your progress, set meaningful goals, and reflect on your growth as a developer. Whether you're aiming for a promotion, improving your coding skills, or simply documenting your daily development journey, DevLog makes it easy to stay organized and focused.
 
-## Getting Started
+Features
+Smart Journaling: Easily track your goals, and reflect on your coding journey. DevLog prompts you to think about key learnings, helping you improve faster.
 
-First, run the development server:
+Measure and Reflect: Set meaningful goals, track achievements, and reflect on what you’ve learned to ensure continuous improvement.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Track and Record: Keep a detailed log of your progress, challenges, and insights. Documenting your journey enhances learning and growth.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open-Source: DevLog is completely open-source, allowing you to contribute, modify, and extend it to suit your needs.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Why DevLog?
+Professional Growth: Whether you're working a full-time dev job, tinkering on personal projects, or simply learning new technologies, DevLog helps you track progress in an organized way.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Daily Reflection: Writing about what you’ve learned each day solidifies knowledge and improves retention. DevLog encourages consistency.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Simplifies Tracking: With a simple interface and focused features, DevLog removes unnecessary complexity, helping you focus on what matters most.
