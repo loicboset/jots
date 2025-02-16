@@ -66,7 +66,7 @@ const LandingPage = () => {
               Log in
             </Link>
             <Link
-              href="signup"
+              href="/signup"
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Sign up
@@ -135,12 +135,12 @@ const LandingPage = () => {
                 Track your progress, learn from your challenges and make continuous improvements to become a better, faster developer every day.
               </p>
               <div className="mt-10 flex items-center gap-x-6">
-                <a
-                  href="#"
+                <Link
+                  href="/signup"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
                   Start a new habit now
-                </a>
+                </Link>
                 <p className="text-sm/6 font-semibold text-white">
                   It’s free, healthy and open source.
                 </p>
@@ -236,12 +236,12 @@ const LandingPage = () => {
               Track your progress, set goals, and reflect on your journey to continuously grow as a developer.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <Link
+                href="/signup"
                 className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Get started now
-              </a>
+              </Link>
             </div>
           </div>
         </div>
