@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   ChevronRightIcon,
 } from '@heroicons/react/20/solid'

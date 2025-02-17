@@ -14,6 +14,7 @@ export default [
     rules: {
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
+      "max-len": ["error", { code: 120, tabWidth: 2, ignoreComments: true }],
     },
   },
 ];

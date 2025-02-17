@@ -14,12 +14,15 @@ export async function login(formData: FormValues) {
     password: formData.password,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const {
+    error,
+    data: { user },
+  } = await supabase.auth.signInWithPassword(data);
 
-  if (error) {
+  if (error || !user) {
     redirect("/error");
   }
 
   revalidatePath("/", "layout");
-  redirect("/private");
+  redirect(`/${user.id}`);
 }
