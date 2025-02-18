@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
+import NavBar from './parts/Navbar'
+import Editor from './parts/Editor'
 
 type Props = {
   params: Promise<{ userID: string }>
@@ -18,7 +20,12 @@ const UserAppRoot = async ({ params }: Props) => {
     redirect('/login')
   }
 
-  return <p>Hello there, {userID}</p>
+  return (
+    <div className='flex h-screen'>
+      <NavBar />
+      <Editor />
+    </div>
+  )
 }
 
 export default UserAppRoot
