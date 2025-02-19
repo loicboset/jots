@@ -1,23 +1,31 @@
 'use client';
 
-import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { ContentEditable } from "@lexical/react/LexicalContentEditable";
+import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { EditorState, ParagraphNode } from "lexical";
+import { CollapsibleContainerNode } from "./nodes/CollapsibleContainerNode";
+import { CollapsibleContentNode } from "./nodes/CollapsibleContentNode";
+import { CollapsibleTitleNode } from "./nodes/CollapsibleTitleNode";
 import { CustomParagraphNode } from "./nodes/CustomParagraphNode";
-import { CollapsibleContainerNode } from "./plugins/CollapsiblePlugin/CollapsibleContainerNode";
-import { CollapsibleTitleNode } from "./plugins/CollapsiblePlugin/CollapsibleTitleNode";
-import { CollapsibleContentNode } from "./plugins/CollapsiblePlugin/CollapsibleContentNode";
+import { DayContainerNode } from "./nodes/DayContainerNode";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
+import DayContainerPlugin from "./plugins/DayContainerPlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
-import { ParagraphNode } from "lexical";
-
+import { DayTitleNode } from "./nodes/DayTitleNode";
+import { DayContentNode } from "./nodes/DayContentNode";
 
 const Editor = () => {
   // METHODS
-  function onError(error: Error) {
+  const onError = (error: Error) => {
     console.error(error);
   }
+
+  const onChange = (editorState: EditorState) => {
+    console.log(editorState.toJSON());
+  };
 
   // VARS
   const initialConfig = {
@@ -27,6 +35,9 @@ const Editor = () => {
       CollapsibleTitleNode,
       CollapsibleContentNode,
       CustomParagraphNode,
+      DayContainerNode,
+      DayTitleNode,
+      DayContentNode,
       {
         replace: ParagraphNode,
         with: () => {
@@ -53,6 +64,8 @@ const Editor = () => {
         />
         <CollapsiblePlugin />
         <TransformCategoryPlugin />
+        <DayContainerPlugin />
+        <OnChangePlugin onChange={onChange} />
       </div>
     </LexicalComposer>
   )

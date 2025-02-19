@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import './Collapsible.css';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -26,18 +18,21 @@ import {
   LexicalNode,
 } from 'lexical';
 import { useEffect } from 'react';
-
 import {
-  $createCollapsibleContainerNode,
-  $isCollapsibleContainerNode,
   CollapsibleContainerNode,
-} from './CollapsibleContainerNode';
+  $isCollapsibleContainerNode,
+  $createCollapsibleContainerNode,
+} from '../../nodes/CollapsibleContainerNode';
 import {
-  $createCollapsibleContentNode,
-  $isCollapsibleContentNode,
+  CollapsibleTitleNode,
+  $isCollapsibleTitleNode,
+  $createCollapsibleTitleNode,
+} from '../../nodes/CollapsibleTitleNode';
+import {
   CollapsibleContentNode,
-} from './CollapsibleContentNode';
-import { $createCollapsibleTitleNode, $isCollapsibleTitleNode, CollapsibleTitleNode } from './CollapsibleTitleNode';
+  $isCollapsibleContentNode,
+  $createCollapsibleContentNode,
+} from '@/components/Editor/nodes/CollapsibleContentNode';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 

@@ -15,8 +15,6 @@ export class CustomParagraphNode extends ParagraphNode {
 
   createDOM(config: EditorConfig) {
     const dom = super.createDOM(config);
-    // dom.style.background = 'green';
-    // dom.dataset.customAttribute = this.__datasetValue; // Initialize dataset
     return dom;
   }
 

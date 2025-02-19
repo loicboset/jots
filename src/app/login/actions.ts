@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
-import { createClient } from "@/utils/supabase/server";
-import { FormValues } from "./page";
+import { createClient } from '@/lib/supabase/server';
+import { FormValues } from './page';
 
 export async function login(formData: FormValues) {
   const supabase = await createClient();
@@ -20,9 +20,9 @@ export async function login(formData: FormValues) {
   } = await supabase.auth.signInWithPassword(data);
 
   if (error || !user) {
-    redirect("/error");
+    redirect('/error');
   }
 
-  revalidatePath("/", "layout");
+  revalidatePath('/', 'layout');
   redirect(`/${user.id}`);
 }

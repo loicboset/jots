@@ -22,7 +22,7 @@ import {
 import { IS_CHROME } from '../utils/environment';
 import invariant from '../utils/invariant';
 
-import { setDomHiddenUntilFound } from './CollapsibleUtils';
+import { setDomHiddenUntilFound } from '../plugins/CollapsiblePlugin/CollapsibleUtils';
 
 type SerializedCollapsibleContainerNode = Spread<
   {

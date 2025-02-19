@@ -1,10 +1,10 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $createParagraphNode, TextNode } from 'lexical';
 import { useEffect } from 'react';
-import { CustomParagraphNode } from '../../nodes/CustomParagraphNode';
-import { $createCollapsibleContainerNode } from '../CollapsiblePlugin/CollapsibleContainerNode';
-import { $createCollapsibleContentNode } from '../CollapsiblePlugin/CollapsibleContentNode';
-import { $createCollapsibleTitleNode } from '../CollapsiblePlugin/CollapsibleTitleNode';
+import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/CollapsibleContainerNode';
+import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
+import { CustomParagraphNode } from '@/components/Editor/nodes/CustomParagraphNode';
+import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
 import { $insertNodeToNearestRoot } from '@lexical/utils';
 
 const TransformPlugin = () => {
