@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import NavBar from './parts/Navbar'
-import Editor from './parts/Editor'
+import Editor from '@/components/Editor'
 
 type Props = {
   params: Promise<{ userID: string }>

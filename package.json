@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@lexical/react": "^0.24.0",
     "@supabase/ssr": "^0.5.2",
@@ -29,6 +30,7 @@
     "eslint": "^9.20.1",
     "eslint-config-next": "15.1.7",
     "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.15.0",
     "postcss": "^8",
     "tailwindcss": "^4.0.0",
