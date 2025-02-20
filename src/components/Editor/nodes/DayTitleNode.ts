@@ -30,7 +30,7 @@ export class DayTitleNode extends ElementNode {
   }
 
   createDOM(): HTMLElement {
-    const dom = document.createElement('summary');
+    const dom = document.createElement('div');
     return dom;
   }
 
@@ -71,7 +71,7 @@ export class DayTitleNode extends ElementNode {
     const containerNode = this.getParentOrThrow();
 
     if (!$isDayContainerNode(containerNode)) {
-      throw new Error('DayTitleNode expects to be child of CollapsibleContainerNode');
+      throw new Error('DayTitleNode expects to be child of DayContainerNode');
     }
     const paragraph = $createParagraphNode();
     containerNode.insertAfter(paragraph, restoreSelection);

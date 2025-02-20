@@ -28,9 +28,6 @@ export class DayContainerNode extends ElementNode {
 
   createDOM(): HTMLElement {
     const dom = document.createElement('div');
-
-    dom.classList.add('bg-gray-500');
-
     return dom;
   }
 
@@ -44,7 +41,6 @@ export class DayContainerNode extends ElementNode {
 
   exportDOM(): DOMExportOutput {
     const element = document.createElement('div');
-    element.classList.add('bg-red-500');
     return { element };
   }
 

@@ -1,7 +1,7 @@
 import '../CollapsiblePlugin/Collapsible.css';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $findMatchingParent, $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
+import { $findMatchingParent, $insertFirst, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -53,7 +53,8 @@ const DayContainerPlugin = (): null => {
 
         const contentParagraph = $createParagraphNode();
 
-        $insertNodeToNearestRoot(
+        $insertFirst(
+          root,
           $createDayContainerNode(true, today).append(
             title.append(paragraph),
             $createDayContentNode().append(contentParagraph),

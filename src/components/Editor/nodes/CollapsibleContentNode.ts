@@ -85,6 +85,7 @@ export class CollapsibleContentNode extends ElementNode {
   }
 
   static importJSON(serializedNode: SerializedCollapsibleContentNode): CollapsibleContentNode {
+    console.log('importJSON CollapsibleContentNode');
     return $createCollapsibleContentNode().updateFromJSON(serializedNode);
   }
 
