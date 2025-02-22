@@ -3,9 +3,7 @@
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { EditorState } from "lexical";
 import { CollapsibleContainerNode } from "./nodes/CollapsibleContainerNode";
 import { CollapsibleContentNode } from "./nodes/CollapsibleContentNode";
 import { CollapsibleTitleNode } from "./nodes/CollapsibleTitleNode";
@@ -15,182 +13,40 @@ import DayContainerPlugin from "./plugins/DayContainerPlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
 import { DayTitleNode } from "./nodes/DayTitleNode";
 import { DayContentNode } from "./nodes/DayContentNode";
+import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
+import { useJournalEntries } from "@/services/journal_entries";
 
-// Get editor initial state (e.g. loaded from backend)
-const loadContent = () => {
-
-  const state = {
-    "root": {
-      "children": [
-        {
-          "children": [
-            {
-              "children": [
-                {
-                  "children": [
-                    {
-                      "detail": 0,
-                      "format": 0,
-                      "mode": "normal",
-                      "style": "",
-                      "text": "@February 19, 2025",
-                      "type": "text",
-                      "version": 1
-                    }
-                  ],
-                  "direction": "ltr",
-                  "format": "",
-                  "indent": 0,
-                  "type": "paragraph",
-                  "version": 1,
-                  "textFormat": 0,
-                  "textStyle": ""
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "type": "day-title",
-              "version": 1
-            },
-            {
-              "children": [
-                {
-                  "children": [],
-                  "direction": "ltr",
-                  "format": "",
-                  "indent": 0,
-                  "type": "paragraph",
-                  "version": 1,
-                  "textFormat": 0,
-                  "textStyle": ""
-                },
-                {
-                  "children": [
-                    {
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "detail": 0,
-                              "format": 0,
-                              "mode": "normal",
-                              "style": "",
-                              "text": "#todo",
-                              "type": "text",
-                              "version": 1
-                            }
-                          ],
-                          "direction": "ltr",
-                          "format": "",
-                          "indent": 0,
-                          "type": "paragraph",
-                          "version": 1,
-                          "textFormat": 0,
-                          "textStyle": ""
-                        }
-                      ],
-                      "direction": "ltr",
-                      "format": "",
-                      "indent": 0,
-                      "type": "collapsible-title",
-                      "version": 1
-                    },
-                    {
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "detail": 0,
-                              "format": 0,
-                              "mode": "normal",
-                              "style": "",
-                              "text": "- [x] task on",
-                              "type": "text",
-                              "version": 1
-                            }
-                          ],
-                          "direction": "ltr",
-                          "format": "",
-                          "indent": 0,
-                          "type": "paragraph",
-                          "version": 1,
-                          "textFormat": 0,
-                          "textStyle": ""
-                        }
-                      ],
-                      "direction": "ltr",
-                      "format": "",
-                      "indent": 0,
-                      "type": "collapsible-content",
-                      "version": 1
-                    }
-                  ],
-                  "direction": "ltr",
-                  "format": "",
-                  "indent": 0,
-                  "type": "collapsible-container",
-                  "version": 1,
-                  "open": true
-                },
-                {
-                  "children": [],
-                  "direction": null,
-                  "format": "",
-                  "indent": 0,
-                  "type": "paragraph",
-                  "version": 1,
-                  "textFormat": 0,
-                  "textStyle": ""
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "type": "day-content",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "day-container",
-          "version": 1,
-          "open": true,
-          "date": "2/19/2025"
-        }
-      ],
-      "direction": "ltr",
-      "format": "",
-      "indent": 0,
-      "type": "root",
-      "version": 1
-    }
-  }
-
-  const value = JSON.stringify(state);
-  console.log('- value', JSON.parse(value));
-
-  return value;
+type Props = {
+  userID: string;
 }
 
-const Editor = () => {
+const Editor = ({ userID }: Props) => {
   // RQ
-  const initialEditorState = loadContent();
+  const { data: entries = [], isLoading } = useJournalEntries();
 
+  if (isLoading) return <p className="p-8 text-lg">Loading...</p>
 
   // METHODS
   const onError = (error: Error) => {
     console.error(error);
   }
 
-  const onChange = (editorState: EditorState) => {
-    console.log(editorState.toJSON());
-  };
-
   // VARS
+  const root = {
+    root: {
+      children: entries.map((entry) => JSON.parse(entry.content)),
+      direction: "ltr",
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1
+    }
+  }
+
+  console.log('root', root);
+
   const initialConfig = {
-    editorState: initialEditorState,
+    editorState: JSON.stringify(root),
     namespace: 'MyEditor',
     nodes: [
       CollapsibleContainerNode,
@@ -202,6 +58,7 @@ const Editor = () => {
     ],
     onError,
   };
+
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
@@ -219,7 +76,7 @@ const Editor = () => {
         <CollapsiblePlugin />
         <TransformCategoryPlugin />
         <DayContainerPlugin />
-        <OnChangePlugin onChange={onChange} />
+        <OnDayEntryChangePlugin userID={userID} />
       </div>
     </LexicalComposer>
   )
