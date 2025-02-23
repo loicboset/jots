@@ -1,4 +1,5 @@
 'use client';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import NavBar from "@/app/[userID]/parts/Navbar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -21,6 +22,7 @@ const App = ({ userID }: Props) => {
     <QueryClientProvider client={queryClient}>
       <NavBar />
       <Editor userID={userID} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
