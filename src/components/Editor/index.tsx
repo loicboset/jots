@@ -43,10 +43,8 @@ const Editor = ({ userID }: Props) => {
     }
   }
 
-  console.log('root', root);
-
   const initialConfig = {
-    editorState: JSON.stringify(root),
+    editorState: entries.length > 0 ? JSON.stringify(root) : null,
     namespace: 'MyEditor',
     nodes: [
       CollapsibleContainerNode,
