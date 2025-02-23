@@ -1,11 +1,14 @@
 /**
- * Formats a date into a string (e.g. January 5, 2024).
+ * Formats a date into a string (e.g. Friday, January 5, 2024).
  */
-const formatDate = (date: Date): string => {
-  const month = date.toLocaleString('default', { month: 'long' });
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${month} ${day}, ${year}`;
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+const formatDate = (inputDate: Date): string => {
+  const month = inputDate.toLocaleString('default', { month: 'long' });
+  const day = inputDate.getDay();
+  const date = inputDate.getDate();
+  const year = inputDate.getFullYear();
+  return `${DAY_NAMES[day]}, ${month} ${date}, ${year}`;
 };
 
 export default formatDate;
