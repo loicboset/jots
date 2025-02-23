@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useEffect, useState } from "react";
-import { useCreateJournalEntry } from "@/services/journal_entries";
+import { useUpsertJournalEntry, useJournalEntries } from "@/services/journal_entries";
 import { SerializedEditorState, SerializedLexicalNode } from "lexical";
 import useDebounce from "@/utils/hooks/useDebounce";
 
@@ -17,8 +17,8 @@ const OnDayEntryChangePlugin = ({ userID }: Props) => {
   const [newEditorState, setNewEditorState] = useState('');
 
   // RQ
-  // const {} = useJournalEntries();
-  const { mutate: createJournalEntry } = useCreateJournalEntry();
+  const { data: entries = [] } = useJournalEntries();
+  const { mutate: upsertJournalEntry } = useUpsertJournalEntry();
 
   // HOOKS
   const [editor] = useLexicalComposerContext();
@@ -38,18 +38,22 @@ const OnDayEntryChangePlugin = ({ userID }: Props) => {
   useEffect(() => {
     if (!debouncedNewEditorState) return;
 
+
     const state = JSON.parse(debouncedNewEditorState) as SerializedEditorState;
     const days = state.root.children;
     days.forEach((day) => {
       if (day.type !== 'day-container') return;
-      createJournalEntry({
+      const existingEntry = entries.find((entry) => entry.date === (day as ExtendedNode).date);
+      if (existingEntry && existingEntry.content === JSON.stringify(day)) return;
+
+      upsertJournalEntry({
         user_id: userID,
         content: JSON.stringify(day),
         date: (day as ExtendedNode).date
       })
     });
 
-  }, [createJournalEntry, debouncedNewEditorState, userID])
+  }, [upsertJournalEntry, debouncedNewEditorState, userID, entries])
 
   return null;
 };

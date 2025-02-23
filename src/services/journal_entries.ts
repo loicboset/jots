@@ -19,7 +19,7 @@ const postJournalEntry = async (body: CreateJournalEntry) => {
   return data;
 };
 
-const useCreateJournalEntry = () => {
+const useUpsertJournalEntry = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -30,4 +30,4 @@ const useCreateJournalEntry = () => {
   });
 };
 
-export { useJournalEntries, useCreateJournalEntry };
+export { useJournalEntries, useUpsertJournalEntry };
