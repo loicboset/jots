@@ -65,7 +65,7 @@ const Editor = ({ userID }: Props) => {
           contentEditable={
             <div className="h-full">
               <div className="h-full w-full relative focus:outline-none">
-                <ContentEditable className="h-full w-full text-lg focus:outline-none p-8" />
+                <ContentEditable className="h-full overflow-y-scroll w-full text-lg focus:outline-none p-8" />
               </div>
             </div>
           }
