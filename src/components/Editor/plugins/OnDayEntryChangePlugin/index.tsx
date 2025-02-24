@@ -17,7 +17,7 @@ const OnDayEntryChangePlugin = ({ userID }: Props) => {
   const [newEditorState, setNewEditorState] = useState('');
 
   // RQ
-  const { data: entries = [] } = useJournalEntries();
+  const { data: entries = [] } = useJournalEntries(userID);
   const { mutate: upsertJournalEntry } = useUpsertJournalEntry();
 
   // HOOKS

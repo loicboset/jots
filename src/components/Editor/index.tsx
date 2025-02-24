@@ -22,7 +22,7 @@ type Props = {
 
 const Editor = ({ userID }: Props) => {
   // RQ
-  const { data: entries = [], isLoading } = useJournalEntries();
+  const { data: entries = [], isLoading } = useJournalEntries(userID);
 
   if (isLoading) return <p className="p-8 text-lg">Loading...</p>
 

@@ -1,10 +1,17 @@
 import { createClient } from '@/lib/supabase/server';
 import { CreateJournalEntry } from '@/types/payload/journal_entries';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const userID = searchParams.get('user_id');
+
   const supabase = await createClient();
 
-  const { data: journal_entries } = await supabase.from('journal_entries').select('*');
+  const { data: journal_entries } = await supabase
+    .from('journal_entries')
+    .select('*')
+    .eq('user_id', userID)
+    .order('created_at', { ascending: false });
 
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');

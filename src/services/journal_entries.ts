@@ -4,13 +4,13 @@ import { useMutation, useQuery, useQueryClient, UseQueryResult } from '@tanstack
 import axios from 'axios';
 
 // GET JOURNAL ENTRIES
-const getJournalEntries = async () => {
-  const { data } = await axios.get('/api/journal_entries');
+const getJournalEntries = async (userID: string) => {
+  const { data } = await axios.get(`/api/journal_entries?user_id=${userID}`);
   return data;
 };
 
-const useJournalEntries = (): UseQueryResult<JournalEntry[], Error> => {
-  return useQuery({ queryKey: ['journal_entries'], queryFn: getJournalEntries });
+const useJournalEntries = (userID: string): UseQueryResult<JournalEntry[], Error> => {
+  return useQuery({ queryKey: ['journal_entries'], queryFn: () => getJournalEntries(userID) });
 };
 
 // POST JOURNAL ENTRY
