@@ -63,7 +63,7 @@ const LandingPage = () => {
         <div className="relative isolate overflow-hidden">
           {/* Header */}
           <header className='flex justify-end space-x-4 p-4 items-center'>
-            <Link href="/login" className="hidden text-sm/6 font-semibold text-white lg:block">
+            <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">
               Log in
             </Link>
             <Link

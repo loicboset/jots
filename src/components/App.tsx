@@ -1,7 +1,7 @@
 'use client';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import NavBar from "@/app/[userID]/parts/Navbar";
+import NavBar from "@/components/Navbar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Editor from "./Editor";
 
