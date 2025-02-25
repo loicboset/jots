@@ -4,30 +4,32 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+
+import { useJournalEntries } from "@/services/journal_entries";
+
 import { CollapsibleContainerNode } from "./nodes/CollapsibleContainerNode";
 import { CollapsibleContentNode } from "./nodes/CollapsibleContentNode";
 import { CollapsibleTitleNode } from "./nodes/CollapsibleTitleNode";
 import { DayContainerNode } from "./nodes/DayContainerNode";
+import { DayContentNode } from "./nodes/DayContentNode";
+import { DayTitleNode } from "./nodes/DayTitleNode";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import DayContainerPlugin from "./plugins/DayContainerPlugin";
-import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
-import { DayTitleNode } from "./nodes/DayTitleNode";
-import { DayContentNode } from "./nodes/DayContentNode";
 import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
-import { useJournalEntries } from "@/services/journal_entries";
+import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
 
 type Props = {
   userID: string;
 }
 
-const Editor = ({ userID }: Props) => {
+const Editor = ({ userID }: Props): React.ReactElement => {
   // RQ
   const { data: entries = [], isLoading } = useJournalEntries(userID);
 
   if (isLoading) return <p className="p-8 text-lg">Loading...</p>
 
   // METHODS
-  const onError = (error: Error) => {
+  const onError = (error: Error): void => {
     console.error(error);
   }
 

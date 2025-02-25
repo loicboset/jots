@@ -18,13 +18,18 @@ import {
   RangeSelection,
   SerializedElementNode,
 } from 'lexical';
-import { IS_CHROME } from '../utils/environment';
-import invariant from '../utils/invariant';
 
 import { $isCollapsibleContainerNode } from './CollapsibleContainerNode';
 import { $isCollapsibleContentNode } from './CollapsibleContentNode';
+import { IS_CHROME } from '../utils/environment';
+import invariant from '../utils/invariant';
 
 type SerializedCollapsibleTitleNode = SerializedElementNode;
+
+type TitleConversionDetails = {
+  conversion: () => DOMConversionOutput | null
+  priority: 0 | 1 | 2 | 3 | 4 | undefined
+}
 
 export function $convertSummaryElement(): DOMConversionOutput | null {
   const node = $createCollapsibleTitleNode();
@@ -66,7 +71,7 @@ export class CollapsibleTitleNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      summary: () => {
+      summary: (): TitleConversionDetails => {
         return {
           conversion: $convertSummaryElement,
           priority: 1,

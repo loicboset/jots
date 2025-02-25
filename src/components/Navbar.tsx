@@ -1,12 +1,13 @@
+import { useRouter } from "next/navigation";
+
 import { createClient } from "@/lib/supabase/client";
 import { useCategories } from "@/services/categories";
-import { useRouter } from "next/navigation";
 
 type Props = {
   userID: string;
 };
 
-const NavBar = ({ userID }: Props) => {
+const NavBar = ({ userID }: Props): React.ReactElement => {
   // ROUTER
   const router = useRouter();
 
@@ -14,7 +15,7 @@ const NavBar = ({ userID }: Props) => {
   const { data: categories = [] } = useCategories(userID);
 
   // METHODS
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     const client = createClient();
     await client.auth.signOut();
     router.push('/');

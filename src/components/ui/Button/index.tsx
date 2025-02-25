@@ -5,7 +5,7 @@ type Props = {
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = ({ children, size = "md", ...props }: Props) => {
+const Button = ({ children, size = "md", ...props }: Props): React.ReactElement => {
   const baseStyles = `
     font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2
     focus-visible:outline-offset-2 focus-visible:outline-indigo-500

@@ -1,8 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from './lib/supabase/middleware';
+
 import { createClient } from '@/lib/supabase/server';
 
-export async function middleware(request: NextRequest) {
+import { updateSession } from './lib/supabase/middleware';
+
+
+export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
   const response = await updateSession(request);
 
   // Get user session

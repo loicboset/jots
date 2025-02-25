@@ -1,13 +1,13 @@
 import { redirect } from 'next/navigation'
 
-import { createClient } from '@/lib/supabase/server'
 import App from '@/components/App'
+import { createClient } from '@/lib/supabase/server'
 
 type Props = {
   params: Promise<{ userID: string }>
 }
 
-const UserAppRoot = async ({ params }: Props) => {
+const UserAppRoot = async ({ params }: Props): Promise<React.ReactElement> => {
   // PROPS
   const userID = (await params).userID
 

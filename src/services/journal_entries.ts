@@ -1,10 +1,11 @@
-import { JournalEntry } from '@/types/api/journal_entries';
-import { CreateJournalEntry } from '@/types/payload/journal_entries';
-import { useMutation, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from '@tanstack/react-query';
 import axios from 'axios';
 
+import { JournalEntry } from '@/types/api/journal_entries';
+import { CreateJournalEntry } from '@/types/payload/journal_entries';
+
 // GET JOURNAL ENTRIES
-const getJournalEntries = async (userID: string) => {
+const getJournalEntries = async (userID: string): Promise<JournalEntry[]> => {
   const { data } = await axios.get(`/api/journal_entries?user_id=${userID}`);
   return data;
 };
@@ -14,12 +15,12 @@ const useJournalEntries = (userID: string): UseQueryResult<JournalEntry[], Error
 };
 
 // UPSERT JOURNAL ENTRY
-const upsertJournalEntry = async (body: CreateJournalEntry) => {
+const upsertJournalEntry = async (body: CreateJournalEntry): Promise<JournalEntry> => {
   const { data } = await axios.put('/api/journal_entries', body);
   return data;
 };
 
-const useUpsertJournalEntry = () => {
+const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJournalEntry, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({

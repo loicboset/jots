@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -7,18 +10,17 @@ import {
   INSERT_PARAGRAPH_COMMAND,
   TextNode,
 } from 'lexical';
-import { useEffect } from 'react';
+
 import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/CollapsibleContainerNode';
-import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
 import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
-import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
+import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
 import { useCategories } from '@/services/categories';
 
 type Props = {
   userID: string;
 };
 
-const TransformPlugin = ({ userID }: Props) => {
+const TransformPlugin = ({ userID }: Props): null => {
   // RQ
   const { data: categories = [], isLoading } = useCategories(userID);
 

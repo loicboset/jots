@@ -8,13 +8,18 @@ import {
   LexicalNode,
   SerializedElementNode,
 } from 'lexical';
-import { IS_CHROME } from '../utils/environment';
-import invariant from '../utils/invariant';
 
 import { $isCollapsibleContainerNode } from './CollapsibleContainerNode';
 import { domOnBeforeMatch, setDomHiddenUntilFound } from '../plugins/CollapsiblePlugin/CollapsibleUtils';
+import { IS_CHROME } from '../utils/environment';
+import invariant from '../utils/invariant';
 
 type SerializedCollapsibleContentNode = SerializedElementNode;
+
+type ContentConversionDetails = {
+  conversion: (domNode: HTMLElement) => DOMConversionOutput | null
+  priority: 0 | 1 | 2 | 3 | 4 | undefined
+}
 
 export function $convertCollapsibleContentElement(): DOMConversionOutput | null {
   const node = $createCollapsibleContentNode();
@@ -65,7 +70,7 @@ export class CollapsibleContentNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      div: (domNode: HTMLElement) => {
+      div: (domNode: HTMLElement): ContentConversionDetails | null  => {
         if (!domNode.hasAttribute('data-lexical-collapsible-content')) {
           return null;
         }

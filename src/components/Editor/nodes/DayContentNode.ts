@@ -9,6 +9,11 @@ import {
 
 type SerializedDayContentNode = SerializedElementNode;
 
+type DayContentConversionDetails = {
+  conversion: (domNode: HTMLElement) => DOMConversionOutput | null
+  priority: 0 | 1 | 2 | 3 | 4 | undefined
+}
+
 export function $convertDayContentElement(): DOMConversionOutput | null {
   const node = $createDayContentNode();
   return {
@@ -36,7 +41,7 @@ export class DayContentNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      div: (domNode: HTMLElement) => {
+      div: (domNode: HTMLElement): DayContentConversionDetails | null  => {
         if (!domNode.hasAttribute('data-lexical-collapsible-content')) {
           return null;
         }

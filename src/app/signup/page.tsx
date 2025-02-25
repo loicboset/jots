@@ -1,7 +1,10 @@
 'use client'
 
+import type { JSX } from 'react';
+
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+
 import { signup } from "./actions";
 
 export type FormValues = {
@@ -10,7 +13,7 @@ export type FormValues = {
   repeatPassword: string;
 }
 
-const Signup = () => {
+const Signup = (): JSX.Element => {
   // RHF
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>();
 
