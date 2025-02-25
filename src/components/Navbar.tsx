@@ -1,18 +1,18 @@
-import type { JSX } from 'react';
-
 import { useRouter } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/client";
+import { useCategories } from "@/services/categories";
 
-const DUMMY_CATEGORIES = [
-  { label: 'Todo', color: '#FF0000' },
-  { label: 'Work', color: '#00FF00' },
-  { label: 'Side project', color: '#0000FF' },
-]
+type Props = {
+  userID: string;
+};
 
-const NavBar = (): JSX.Element => {
+const NavBar = ({ userID }: Props): React.ReactElement => {
   // ROUTER
   const router = useRouter();
+
+  // RQ
+  const { data: categories = [] } = useCategories(userID);
 
   // METHODS
   const handleLogout = async (): Promise<void> => {
@@ -24,10 +24,10 @@ const NavBar = (): JSX.Element => {
   return (
     <div className="bg-gray-600/30 flex flex-col justify-between text-lg border-r border-white/10 text-white p-8">
       <ul className="space-y-4">
-        {DUMMY_CATEGORIES.map((cat) => (
-          <li key={cat.label} className="flex items-center space-x-2">
+        {categories.map((cat) => (
+          <li key={cat.name} className="flex items-center space-x-2">
             <span style={{ backgroundColor: cat.color }} className="h-2 w-2 rounded-full" />
-            <span className="whitespace-nowrap text-ellipsis">#{cat.label}</span>
+            <span className="whitespace-nowrap text-ellipsis">#{cat.name}</span>
           </li>
         ))}
       </ul>

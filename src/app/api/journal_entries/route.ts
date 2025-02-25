@@ -19,7 +19,7 @@ export async function GET(request: Request): Promise<Response> {
   return new Response(JSON.stringify(journal_entries), { status: 200, headers });
 }
 
-export async function POST(request: Request): Promise<Response> {
+export async function PUT(request: Request): Promise<Response> {
   const supabase = await createClient();
 
   const req = await request.json();

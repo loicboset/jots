@@ -19,6 +19,8 @@ import invariant from '../utils/invariant';
 type SerializedCollapsibleContainerNode = Spread<
   {
     open: boolean;
+    name: string;
+    color: string;
   },
   SerializedElementNode
 >;
@@ -30,7 +32,9 @@ type ContainerConversionDetails = {
 
 export function $convertDetailsElement(domNode: HTMLDetailsElement): DOMConversionOutput | null {
   const isOpen = domNode.open !== undefined ? domNode.open : true;
-  const node = $createCollapsibleContainerNode(isOpen);
+  const name = domNode.name;
+  const color = domNode.getAttribute('color') || '';
+  const node = $createCollapsibleContainerNode(isOpen, name, color);
   return {
     node,
   };
@@ -38,10 +42,14 @@ export function $convertDetailsElement(domNode: HTMLDetailsElement): DOMConversi
 
 export class CollapsibleContainerNode extends ElementNode {
   __open: boolean;
+  __name: string;
+  __color: string;
 
-  constructor(open: boolean, key?: NodeKey) {
+  constructor(open: boolean, name: string, color: string, key?: NodeKey) {
     super(key);
     this.__open = open;
+    this.__name = name;
+    this.__color = color;
   }
 
   static getType(): string {
@@ -49,12 +57,13 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   static clone(node: CollapsibleContainerNode): CollapsibleContainerNode {
-    return new CollapsibleContainerNode(node.__open, node.__key);
+    return new CollapsibleContainerNode(node.__open, node.__name, node.__color, node.__key);
   }
 
   createDOM(config: EditorConfig, editor: LexicalEditor): HTMLElement {
     // details is not well supported in Chrome #5582
     let dom: HTMLElement;
+
     if (IS_CHROME) {
       dom = document.createElement('div');
       dom.setAttribute('open', '');
@@ -69,13 +78,17 @@ export class CollapsibleContainerNode extends ElementNode {
       });
       dom = detailsDom;
     }
+    dom.setAttribute('name', this.__name);
     dom.classList.add('Collapsible__container');
+    dom.style.borderColor = this.__color;
 
     return dom;
   }
 
   updateDOM(prevNode: this, dom: HTMLDetailsElement): boolean {
     const currentOpen = this.__open;
+    dom.setAttribute('name', this.__name);
+
     if (prevNode.__open !== currentOpen) {
       // details is not well supported in Chrome #5582
       if (IS_CHROME) {
@@ -108,13 +121,16 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   static importJSON(serializedNode: SerializedCollapsibleContainerNode): CollapsibleContainerNode {
-    return $createCollapsibleContainerNode(serializedNode.open).updateFromJSON(serializedNode);
+    const { open, name, color } = serializedNode;
+    return $createCollapsibleContainerNode(open, name, color).updateFromJSON(serializedNode);
   }
 
   exportDOM(): DOMExportOutput {
     const element = document.createElement('details');
     element.classList.add('Collapsible__container');
     element.setAttribute('open', this.__open.toString());
+    element.setAttribute('name', this.__name.toString());
+    element.setAttribute('color', this.__color.toString());
     return { element };
   }
 
@@ -122,7 +138,19 @@ export class CollapsibleContainerNode extends ElementNode {
     return {
       ...super.exportJSON(),
       open: this.__open,
+      name: this.__name,
+      color: this.__color,
     };
+  }
+
+  setName(name: string): void {
+    const writable = this.getWritable();
+    writable.__name = name;
+  }
+
+  setColor(dom: HTMLElement | null, color: string) {
+    if (!dom) return;
+    dom.style.borderColor = color;
   }
 
   setOpen(open: boolean): void {
@@ -139,8 +167,12 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 }
 
-export function $createCollapsibleContainerNode(isOpen: boolean): CollapsibleContainerNode {
-  return new CollapsibleContainerNode(isOpen);
+export function $createCollapsibleContainerNode(
+  isOpen: boolean,
+  name: string,
+  color: string,
+): CollapsibleContainerNode {
+  return new CollapsibleContainerNode(isOpen, name, color);
 }
 
 export function $isCollapsibleContainerNode(node: LexicalNode | null | undefined): node is CollapsibleContainerNode {

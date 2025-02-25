@@ -73,8 +73,8 @@ const Editor = ({ userID }: Props): React.ReactElement => {
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <CollapsiblePlugin />
-        <TransformCategoryPlugin />
+        <CollapsiblePlugin userID={userID} />
+        <TransformCategoryPlugin userID={userID} />
         <DayContainerPlugin />
         <OnDayEntryChangePlugin userID={userID} />
       </div>

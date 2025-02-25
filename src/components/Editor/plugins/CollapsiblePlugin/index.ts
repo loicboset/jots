@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
+import randomColor from '@/utils/color/randomColor';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $findMatchingParent, $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
+import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -18,29 +19,67 @@ import {
   LexicalNode,
 } from 'lexical';
 
-import './Collapsible.css';
-
 import {
   CollapsibleContentNode,
-  $isCollapsibleContentNode,
-  $createCollapsibleContentNode,
+  $isCollapsibleContentNode
 } from '@/components/Editor/nodes/CollapsibleContentNode';
+
+import { useCategories, useUpsertCategory } from '@/services/categories';
 
 import {
   CollapsibleContainerNode,
-  $isCollapsibleContainerNode,
-  $createCollapsibleContainerNode,
+  $isCollapsibleContainerNode
 } from '../../nodes/CollapsibleContainerNode';
 import {
   CollapsibleTitleNode,
-  $isCollapsibleTitleNode,
-  $createCollapsibleTitleNode,
+  $isCollapsibleTitleNode
 } from '../../nodes/CollapsibleTitleNode';
+import './Collapsible.css';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 
-export default function CollapsiblePlugin(): null {
+type Props = {
+  userID: string;
+};
+
+export default function CollapsiblePlugin({ userID }: Props): null {
+  // RQ
+  const { data: categories = [], isLoading } = useCategories(userID);
+  const { mutate: upsertCategory } = useUpsertCategory();
+
+  // HOOKS
   const [editor] = useLexicalComposerContext();
+
+  // EFFECTS
+  useEffect(() => {
+    if (isLoading) return;
+
+    const remove = editor.registerNodeTransform(CollapsibleTitleNode, (node) => {
+      const parentNode = node.getParent();
+      if (!$isCollapsibleContainerNode(parentNode)) return;
+
+      const categoryName = parentNode.__name;
+      if (!categoryName) return;
+
+      const existingCategory = categories.find((category) => category.name === categoryName);
+      if (existingCategory) {
+        editor.getEditorState().read(() => {
+          const dom = editor.getElementByKey(parentNode.getKey());
+          console.log('- dom', dom);
+          parentNode.setColor(dom, existingCategory.color);
+        });
+      } else {
+        const color = randomColor();
+        upsertCategory({ name: categoryName, user_id: userID, color });
+        const dom = editor.getElementByKey(parentNode.getKey());
+        parentNode.setColor(dom, color);
+      }
+    });
+
+    return () => {
+      remove();
+    };
+  }, [categories, editor, isLoading, upsertCategory, userID]);
 
   useEffect(() => {
     if (!editor.hasNodes([CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode])) {
@@ -197,24 +236,6 @@ export default function CollapsiblePlugin(): null {
           }
 
           return false;
-        },
-        COMMAND_PRIORITY_LOW,
-      ),
-      editor.registerCommand(
-        INSERT_COLLAPSIBLE_COMMAND,
-        () => {
-          editor.update(() => {
-            const title = $createCollapsibleTitleNode();
-            const paragraph = $createParagraphNode();
-            $insertNodeToNearestRoot(
-              $createCollapsibleContainerNode(true).append(
-                title.append(paragraph),
-                $createCollapsibleContentNode().append($createParagraphNode()),
-              ),
-            );
-            paragraph.select();
-          });
-          return true;
         },
         COMMAND_PRIORITY_LOW,
       ),
