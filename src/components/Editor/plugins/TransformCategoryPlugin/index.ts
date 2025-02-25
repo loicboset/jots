@@ -12,11 +12,23 @@ import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/Colla
 import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
 import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
 import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
+import { useCategories } from '@/services/categories';
 
-const TransformPlugin = () => {
+type Props = {
+  userID: string;
+};
+
+const TransformPlugin = ({ userID }: Props) => {
+  // RQ
+  const { data: categories = [], isLoading } = useCategories(userID);
+
+  // HOOKS
   const [editor] = useLexicalComposerContext();
 
+  // EFFECTS
   useEffect(() => {
+    if (isLoading) return;
+
     return mergeRegister(
       editor.registerCommand(
         INSERT_PARAGRAPH_COMMAND,
@@ -24,14 +36,18 @@ const TransformPlugin = () => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
             const node = selection.anchor.getNode();
-            if (node.__type === 'text' && node.getTextContent().startsWith('#')) {
+            const textContent = node.getTextContent();
+            if (node.__type === 'text' && textContent.startsWith('#')) {
               editor.update(() => {
-                const containerNode = $createCollapsibleContainerNode(true);
+                const categoryName = textContent.slice(1).trim();
+                const category = categories.find((category) => category.name === categoryName);
+                const color = category?.color || 'white';
+                const containerNode = $createCollapsibleContainerNode(true, categoryName, color);
 
                 const titleNode = $createCollapsibleTitleNode();
                 const paragraph = $createParagraphNode();
                 titleNode.append(paragraph);
-                const textNode = new TextNode(node.getTextContent());
+                const textNode = new TextNode(textContent);
                 paragraph.append(textNode);
 
                 const contentNode = $createCollapsibleContentNode();
@@ -52,7 +68,7 @@ const TransformPlugin = () => {
         COMMAND_PRIORITY_LOW,
       ),
     );
-  }, [editor]);
+  }, [editor, isLoading]);
 
   return null;
 };

@@ -13,9 +13,9 @@ const useJournalEntries = (userID: string): UseQueryResult<JournalEntry[], Error
   return useQuery({ queryKey: ['journal_entries'], queryFn: () => getJournalEntries(userID) });
 };
 
-// POST JOURNAL ENTRY
-const postJournalEntry = async (body: CreateJournalEntry) => {
-  const { data } = await axios.post('/api/journal_entries', body);
+// UPSERT JOURNAL ENTRY
+const upsertJournalEntry = async (body: CreateJournalEntry) => {
+  const { data } = await axios.put('/api/journal_entries', body);
   return data;
 };
 
@@ -23,7 +23,7 @@ const useUpsertJournalEntry = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: postJournalEntry,
+    mutationFn: upsertJournalEntry,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journal_entries'] });
     },

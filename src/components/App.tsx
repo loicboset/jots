@@ -20,7 +20,7 @@ type Props = {
 const App = ({ userID }: Props) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <NavBar />
+      <NavBar userID={userID} />
       <Editor userID={userID} />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

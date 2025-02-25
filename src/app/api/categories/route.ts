@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { CreateJournalEntry } from '@/types/payload/journal_entries';
+import { UpsertCategory } from '@/types/payload/categories';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -7,25 +7,25 @@ export async function GET(request: Request) {
 
   const supabase = await createClient();
 
-  const { data: journal_entries } = await supabase
-    .from('journal_entries')
+  const { data: categories } = await supabase
+    .from('categories')
     .select('*')
     .eq('user_id', userID)
-    .order('created_at', { ascending: false });
+    .order('name', { ascending: true });
 
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
-  return new Response(JSON.stringify(journal_entries), { status: 200, headers });
+  return new Response(JSON.stringify(categories), { status: 200, headers });
 }
 
 export async function PUT(request: Request) {
   const supabase = await createClient();
 
   const req = await request.json();
-  const { user_id, content, date } = req as CreateJournalEntry;
+  const { user_id, name, color } = req as UpsertCategory;
 
-  const { data } = await supabase.from('journal_entries').upsert({ user_id, content, date }).select();
+  const { data } = await supabase.from('categories').upsert({ user_id, name, color }).select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }
