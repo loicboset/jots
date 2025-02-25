@@ -11,9 +11,10 @@ import {
   SerializedElementNode,
   Spread,
 } from 'lexical';
+
+import { setDomHiddenUntilFound } from '../plugins/CollapsiblePlugin/CollapsibleUtils';
 import { IS_CHROME } from '../utils/environment';
 import invariant from '../utils/invariant';
-import { setDomHiddenUntilFound } from '../plugins/CollapsiblePlugin/CollapsibleUtils';
 
 type SerializedCollapsibleContainerNode = Spread<
   {
@@ -21,6 +22,11 @@ type SerializedCollapsibleContainerNode = Spread<
   },
   SerializedElementNode
 >;
+
+type ContainerConversionDetails = {
+  conversion: (domNode: HTMLDetailsElement) => DOMConversionOutput | null
+  priority: 0 | 1 | 2 | 3 | 4 | undefined
+}
 
 export function $convertDetailsElement(domNode: HTMLDetailsElement): DOMConversionOutput | null {
   const isOpen = domNode.open !== undefined ? domNode.open : true;
@@ -92,7 +98,7 @@ export class CollapsibleContainerNode extends ElementNode {
 
   static importDOM(): DOMConversionMap<HTMLDetailsElement> | null {
     return {
-      details: () => {
+      details: (): ContainerConversionDetails => {
         return {
           conversion: $convertDetailsElement,
           priority: 1,

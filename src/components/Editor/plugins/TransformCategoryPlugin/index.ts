@@ -1,4 +1,8 @@
+
+import { useEffect } from 'react';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -7,13 +11,12 @@ import {
   INSERT_PARAGRAPH_COMMAND,
   TextNode,
 } from 'lexical';
-import { useEffect } from 'react';
-import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/CollapsibleContainerNode';
-import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
-import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
-import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
 
-const TransformPlugin = () => {
+import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/CollapsibleContainerNode';
+import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
+import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
+
+const TransformPlugin = (): null => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {

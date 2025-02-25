@@ -1,4 +1,4 @@
-import './Collapsible.css';
+import { useEffect } from 'react';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $findMatchingParent, $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
@@ -17,7 +17,15 @@ import {
   KEY_ARROW_UP_COMMAND,
   LexicalNode,
 } from 'lexical';
-import { useEffect } from 'react';
+
+import './Collapsible.css';
+
+import {
+  CollapsibleContentNode,
+  $isCollapsibleContentNode,
+  $createCollapsibleContentNode,
+} from '@/components/Editor/nodes/CollapsibleContentNode';
+
 import {
   CollapsibleContainerNode,
   $isCollapsibleContainerNode,
@@ -28,11 +36,6 @@ import {
   $isCollapsibleTitleNode,
   $createCollapsibleTitleNode,
 } from '../../nodes/CollapsibleTitleNode';
-import {
-  CollapsibleContentNode,
-  $isCollapsibleContentNode,
-  $createCollapsibleContentNode,
-} from '@/components/Editor/nodes/CollapsibleContentNode';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 
@@ -47,7 +50,7 @@ export default function CollapsiblePlugin(): null {
       );
     }
 
-    const $onEscapeUp = () => {
+    const $onEscapeUp = (): boolean => {
       const selection = $getSelection();
       if ($isRangeSelection(selection) && selection.isCollapsed() && selection.anchor.offset === 0) {
         const container = $findMatchingParent(selection.anchor.getNode(), $isCollapsibleContainerNode);
@@ -67,7 +70,7 @@ export default function CollapsiblePlugin(): null {
       return false;
     };
 
-    const $onEscapeDown = () => {
+    const $onEscapeDown = (): boolean => {
       const selection = $getSelection();
       if ($isRangeSelection(selection) && selection.isCollapsed()) {
         const container = $findMatchingParent(selection.anchor.getNode(), $isCollapsibleContainerNode);

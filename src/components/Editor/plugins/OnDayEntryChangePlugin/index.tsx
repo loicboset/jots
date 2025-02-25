@@ -1,7 +1,9 @@
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useEffect, useState } from "react";
-import { useUpsertJournalEntry, useJournalEntries } from "@/services/journal_entries";
+
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { SerializedEditorState, SerializedLexicalNode } from "lexical";
+
+import { useUpsertJournalEntry, useJournalEntries } from "@/services/journal_entries";
 import useDebounce from "@/utils/hooks/useDebounce";
 
 type ExtendedNode = SerializedLexicalNode & {
@@ -12,7 +14,7 @@ type Props = {
   userID: string;
 }
 
-const OnDayEntryChangePlugin = ({ userID }: Props) => {
+const OnDayEntryChangePlugin = ({ userID }: Props): null => {
   // STATE
   const [newEditorState, setNewEditorState] = useState('');
 
@@ -30,7 +32,7 @@ const OnDayEntryChangePlugin = ({ userID }: Props) => {
       setNewEditorState(JSON.stringify(editorState.toJSON()));
     });
 
-    return () => {
+    return (): void => {
       removeUpdateListener();
     };
   }, [editor]);

@@ -7,11 +7,16 @@ import {
   RangeSelection,
   SerializedElementNode,
 } from 'lexical';
-import invariant from '../utils/invariant';
 
 import { $isDayContainerNode } from './DayContainerNode';
+import invariant from '../utils/invariant';
 
 type SerializedDayTitleNode = SerializedElementNode;
+
+type DayTitleConversionDetails = {
+  conversion: () => DOMConversionOutput | null
+  priority: 0 | 1 | 2 | 3 | 4 | undefined
+}
 
 export function $convertSummaryElement(): DOMConversionOutput | null {
   const node = $createDayTitleNode();
@@ -40,7 +45,7 @@ export class DayTitleNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      summary: () => {
+      summary: (): DayTitleConversionDetails => {
         return {
           conversion: $convertSummaryElement,
           priority: 1,

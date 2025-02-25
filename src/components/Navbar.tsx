@@ -1,5 +1,8 @@
-import { createClient } from "@/lib/supabase/client";
+import type { JSX } from 'react';
+
 import { useRouter } from "next/navigation";
+
+import { createClient } from "@/lib/supabase/client";
 
 const DUMMY_CATEGORIES = [
   { label: 'Todo', color: '#FF0000' },
@@ -7,12 +10,12 @@ const DUMMY_CATEGORIES = [
   { label: 'Side project', color: '#0000FF' },
 ]
 
-const NavBar = () => {
+const NavBar = (): JSX.Element => {
   // ROUTER
   const router = useRouter();
 
   // METHODS
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     const client = createClient();
     await client.auth.signOut();
     router.push('/');

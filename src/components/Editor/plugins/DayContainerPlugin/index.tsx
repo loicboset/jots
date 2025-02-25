@@ -1,4 +1,4 @@
-import '../CollapsiblePlugin/Collapsible.css';
+import { useEffect } from 'react';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $findMatchingParent, $insertFirst, mergeRegister } from '@lexical/utils';
@@ -15,7 +15,14 @@ import {
   RootNode,
   TextNode,
 } from 'lexical';
-import { useEffect } from 'react';
+
+import '../CollapsiblePlugin/Collapsible.css';
+
+import {
+  $createDayContentNode,
+} from '@/components/Editor/nodes/DayContentNode';
+import formatDate from '@/utils/datetime/formatDate';
+
 import {
   $createDayContainerNode,
   $isDayContainerNode,
@@ -24,11 +31,7 @@ import {
   $createDayTitleNode,
   $isDayTitleNode,
 } from '../../nodes/DayTitleNode';
-import {
-  $createDayContentNode,
-} from '@/components/Editor/nodes/DayContentNode';
 
-import formatDate from '@/utils/datetime/formatDate';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 
@@ -111,7 +114,7 @@ const DayContainerPlugin = (): null => {
       ),
     )
 
-    return () => {
+    return (): void => {
       removeTransform();
     }
   }, [editor]);

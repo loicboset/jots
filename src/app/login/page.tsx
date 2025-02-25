@@ -1,7 +1,10 @@
 'use client'
 
+import type { JSX } from 'react';
+
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+
 import { login } from "./actions";
 
 export type FormValues = {
@@ -9,7 +12,7 @@ export type FormValues = {
   password: string;
 }
 
-const Login = () => {
+const Login = (): JSX.Element => {
   // RHF
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 

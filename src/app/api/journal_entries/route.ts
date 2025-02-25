@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { CreateJournalEntry } from '@/types/payload/journal_entries';
 
-export async function GET(request: Request) {
+export async function GET(request: Request): Promise<Response> {
   const { searchParams } = new URL(request.url);
   const userID = searchParams.get('user_id');
 
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
   return new Response(JSON.stringify(journal_entries), { status: 200, headers });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<Response> {
   const supabase = await createClient();
 
   const req = await request.json();

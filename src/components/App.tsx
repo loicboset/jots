@@ -1,8 +1,10 @@
 'use client';
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import NavBar from "@/components/Navbar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import Editor from "./Editor";
 
 const queryClient = new QueryClient({
@@ -17,7 +19,7 @@ type Props = {
   userID: string;
 }
 
-const App = ({ userID }: Props) => {
+const App = ({ userID }: Props): React.ReactElement => {
   return (
     <QueryClientProvider client={queryClient}>
       <NavBar />
