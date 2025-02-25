@@ -1,10 +1,13 @@
-import { Category } from '@/types/api/categories';
-import { UpsertCategory } from '@/types/payload/categories';
-import { useMutation, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from '@tanstack/react-query';
 import axios from 'axios';
 
+import { Category } from '@/types/api/categories';
+import { UpsertCategory } from '@/types/payload/categories';
+
+
+
 // GET CATEGORIES
-const getCategories = async (userID: string) => {
+const getCategories = async (userID: string): Promise<Category[]> => {
   const { data } = await axios.get(`/api/categories?user_id=${userID}`);
   return data;
 };
@@ -14,12 +17,12 @@ const useCategories = (userID: string): UseQueryResult<Category[], Error> => {
 };
 
 // UPSERT CATEGORY
-const upsertCategory = async (body: UpsertCategory) => {
+const upsertCategory = async (body: UpsertCategory): Promise<Category> => {
   const { data } = await axios.put('/api/categories', body);
   return data;
 };
 
-const useUpsertCategory = () => {
+const useUpsertCategory = (): UseMutationResult<any, Error, UpsertCategory, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({

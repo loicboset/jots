@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import randomColor from '@/utils/color/randomColor';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import {
@@ -23,8 +22,8 @@ import {
   CollapsibleContentNode,
   $isCollapsibleContentNode
 } from '@/components/Editor/nodes/CollapsibleContentNode';
-
 import { useCategories, useUpsertCategory } from '@/services/categories';
+import randomColor from '@/utils/color/randomColor';
 
 import {
   CollapsibleContainerNode,
@@ -76,7 +75,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
       }
     });
 
-    return () => {
+    return (): void => {
       remove();
     };
   }, [categories, editor, isLoading, upsertCategory, userID]);

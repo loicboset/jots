@@ -148,7 +148,7 @@ export class CollapsibleContainerNode extends ElementNode {
     writable.__name = name;
   }
 
-  setColor(dom: HTMLElement | null, color: string) {
+  setColor(dom: HTMLElement | null, color: string): void {
     if (!dom) return;
     dom.style.borderColor = color;
   }

@@ -14,7 +14,6 @@ import {
 import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/CollapsibleContainerNode';
 import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
 import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
-
 import { useCategories } from '@/services/categories';
 
 type Props = {
