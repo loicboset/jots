@@ -20,19 +20,13 @@ import {
 
 import {
   CollapsibleContentNode,
-  $isCollapsibleContentNode
-} from '@/components/Editor/nodes/CollapsibleContentNode';
+  $isCollapsibleContentNode,
+} from '@/components/collections/Editor/nodes/CollapsibleContentNode';
 import { useCategories, useUpsertCategory } from '@/services/categories';
 import randomColor from '@/utils/color/randomColor';
 
-import {
-  CollapsibleContainerNode,
-  $isCollapsibleContainerNode
-} from '../../nodes/CollapsibleContainerNode';
-import {
-  CollapsibleTitleNode,
-  $isCollapsibleTitleNode
-} from '../../nodes/CollapsibleTitleNode';
+import { CollapsibleContainerNode, $isCollapsibleContainerNode } from '../../nodes/CollapsibleContainerNode';
+import { CollapsibleTitleNode, $isCollapsibleTitleNode } from '../../nodes/CollapsibleTitleNode';
 import './Collapsible.css';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
@@ -64,7 +58,6 @@ export default function CollapsiblePlugin({ userID }: Props): null {
       if (existingCategory) {
         editor.getEditorState().read(() => {
           const dom = editor.getElementByKey(parentNode.getKey());
-          console.log('- dom', dom);
           parentNode.setColor(dom, existingCategory.color);
         });
       } else {

@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useCategories } from "@/services/categories";
 
+import DeleteCategoryButton from "./parts/DeleteCategoryButton";
+
 type Props = {
   userID: string;
 };
@@ -22,12 +24,15 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
   };
 
   return (
-    <div className="bg-gray-600/30 flex flex-col justify-between text-lg border-r border-white/10 text-white p-8">
+    <div className={`
+      bg-gray-600/30 flex flex-col justify-between text-lg border-r border-white/10 text-white p-8 max-w-1/5
+    `}>
       <ul className="space-y-4">
         {categories.map((cat) => (
-          <li key={cat.name} className="flex items-center space-x-2">
+          <li key={cat.name} className="flex items-center space-x-2 relative group">
             <span style={{ backgroundColor: cat.color }} className="h-2 w-2 rounded-full" />
-            <span className="whitespace-nowrap text-ellipsis">#{cat.name}</span>
+            <span className="whitespace-nowrap overflow-hidden text-ellipsis">#{cat.name}</span>
+            <DeleteCategoryButton id={cat.id} />
           </li>
         ))}
       </ul>

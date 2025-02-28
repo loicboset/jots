@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *

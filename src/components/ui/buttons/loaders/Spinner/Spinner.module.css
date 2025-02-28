@@ -1,0 +1,14 @@
+@keyframes loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  align-items: center;
+  display: inline-flex;
+  color: transparent;
+  & svg {
+    animation: loading 500ms linear infinite;
+  }
+}

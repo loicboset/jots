@@ -20,7 +20,7 @@ import '../CollapsiblePlugin/Collapsible.css';
 
 import {
   $createDayContentNode,
-} from '@/components/Editor/nodes/DayContentNode';
+} from '@/components/collections/Editor/nodes/DayContentNode';
 import formatDate from '@/utils/datetime/formatDate';
 
 import {

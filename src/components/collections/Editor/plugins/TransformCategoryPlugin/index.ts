@@ -11,9 +11,9 @@ import {
   TextNode,
 } from 'lexical';
 
-import { $createCollapsibleContainerNode } from '@/components/Editor/nodes/CollapsibleContainerNode';
-import { $createCollapsibleContentNode } from '@/components/Editor/nodes/CollapsibleContentNode';
-import { $createCollapsibleTitleNode } from '@/components/Editor/nodes/CollapsibleTitleNode';
+import { $createCollapsibleContainerNode } from '@/components/collections/Editor/nodes/CollapsibleContainerNode';
+import { $createCollapsibleContentNode } from '@/components/collections/Editor/nodes/CollapsibleContentNode';
+import { $createCollapsibleTitleNode } from '@/components/collections/Editor/nodes/CollapsibleTitleNode';
 import { useCategories } from '@/services/categories';
 
 type Props = {
@@ -70,7 +70,7 @@ const TransformPlugin = ({ userID }: Props): null => {
         COMMAND_PRIORITY_LOW,
       ),
     );
-  }, [editor, isLoading]);
+  }, [categories, editor, isLoading]);
 
   return null;
 };

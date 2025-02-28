@@ -3,9 +3,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import NavBar from "@/components/Navbar";
+import Editor from "@/components/collections/Editor";
+import NavBar from "@/components/collections/NavBar";
 
-import Editor from "./Editor";
 
 const queryClient = new QueryClient({
   defaultOptions: {
