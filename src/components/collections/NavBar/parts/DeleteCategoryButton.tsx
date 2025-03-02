@@ -17,7 +17,7 @@ const DeleteCategoryButton = ({ id }: Props): React.ReactElement => {
   };
 
   return (
-    <div className="hidden group-hover:block absolute -right-6">
+    <div className="hidden group-hover:block absolute -right-7">
       <IconButton
         onClick={handleDelete}
         loading={status === 'pending'}
