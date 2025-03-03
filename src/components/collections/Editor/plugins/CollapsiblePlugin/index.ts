@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $findMatchingParent, mergeRegister } from '@lexical/utils';
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $findMatchingParent, mergeRegister } from "@lexical/utils";
 import {
   $createParagraphNode,
   $getSelection,
@@ -16,18 +16,18 @@ import {
   KEY_ARROW_RIGHT_COMMAND,
   KEY_ARROW_UP_COMMAND,
   LexicalNode,
-} from 'lexical';
+} from "lexical";
 
 import {
   CollapsibleContentNode,
   $isCollapsibleContentNode,
-} from '@/components/collections/Editor/nodes/CollapsibleContentNode';
-import { useCategories, useUpsertCategory } from '@/services/categories';
-import randomColor from '@/utils/color/randomColor';
+} from "@/components/collections/Editor/nodes/CollapsibleContentNode";
+import { useCategories, useUpsertCategory } from "@/services/categories";
+import randomColor from "@/utils/color/randomColor";
 
-import { CollapsibleContainerNode, $isCollapsibleContainerNode } from '../../nodes/CollapsibleContainerNode';
-import { CollapsibleTitleNode, $isCollapsibleTitleNode } from '../../nodes/CollapsibleTitleNode';
-import './Collapsible.css';
+import { CollapsibleContainerNode, $isCollapsibleContainerNode } from "../../nodes/CollapsibleContainerNode";
+import { CollapsibleTitleNode, $isCollapsibleTitleNode } from "../../nodes/CollapsibleTitleNode";
+import "./Collapsible.css";
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 export const FILTER_CATEGORY_COMMAND = createCommand<string>();
@@ -56,16 +56,16 @@ export default function CollapsiblePlugin({ userID }: Props): null {
           nodes.forEach((node) => {
             if ($isCollapsibleContainerNode(node)) {
               if (node.__name === categoryName) {
-                node.show();
+                node.setOpen(true);
               } else {
-                node.hide();
+                node.setOpen(false);
               }
             }
           });
         });
         return true;
       },
-      COMMAND_PRIORITY_LOW,
+      COMMAND_PRIORITY_LOW
     );
 
     return (): void => {
@@ -82,13 +82,13 @@ export default function CollapsiblePlugin({ userID }: Props): null {
           const nodes = editorState._nodeMap;
           nodes.forEach((node) => {
             if ($isCollapsibleContainerNode(node)) {
-              node.show();
+              node.setOpen(true);
             }
           });
         });
         return true;
       },
-      COMMAND_PRIORITY_LOW,
+      COMMAND_PRIORITY_LOW
     );
 
     return (): void => {
@@ -129,7 +129,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
     if (!editor.hasNodes([CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode])) {
       throw new Error(
         // eslint-disable-next-line max-len
-        'CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor',
+        "CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor"
       );
     }
 
@@ -232,15 +232,15 @@ export default function CollapsiblePlugin({ userID }: Props): null {
             return false;
           }
 
-          // const container = topLevelElement.getPreviousSibling<LexicalNode>();
-          // if (!$isCollapsibleContainerNode(container) || container.getOpen()) {
-          //   return false;
-          // }
+          const container = topLevelElement.getPreviousSibling<LexicalNode>();
+          if (!$isCollapsibleContainerNode(container) || container.getOpen()) {
+            return false;
+          }
 
-          // container.setOpen(true);
+          container.setOpen(true);
           return true;
         },
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_LOW
       ),
 
       // When collapsible is the last child pressing down/right arrow will insert paragraph
@@ -270,9 +270,9 @@ export default function CollapsiblePlugin({ userID }: Props): null {
             if ($isCollapsibleTitleNode(titleNode)) {
               const container = titleNode.getParent<ElementNode>();
               if (container && $isCollapsibleContainerNode(container)) {
-                // if (!container.getOpen()) {
-                //   container.toggleOpen();
-                // }
+                if (!container.getOpen()) {
+                  container.toggleOpen();
+                }
                 titleNode.getNextSibling()?.selectEnd();
                 return true;
               }
@@ -281,8 +281,8 @@ export default function CollapsiblePlugin({ userID }: Props): null {
 
           return false;
         },
-        COMMAND_PRIORITY_LOW,
-      ),
+        COMMAND_PRIORITY_LOW
+      )
     );
   }, [editor]);
 

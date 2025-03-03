@@ -22,7 +22,7 @@ const DeleteCategoryButton = ({ id }: Props): React.ReactElement => {
         onClick={handleDelete}
         loading={status === 'pending'}
       >
-        <TrashIcon className="h-4 text-red-500" />
+        <TrashIcon className="h-4 text-red-500 hover:text-red-700" />
       </IconButton>
     </div>
   );

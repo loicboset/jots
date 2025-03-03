@@ -51,14 +51,18 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
         {categories.map((cat) => (
           <li
             key={cat.name}
-            onClick={(): void => onSelectCategory(cat.name)}
             className={classNames(
-              'flex items-center space-x-2 relative group cursor-pointer hover:bg-gray-600/40 p-1 pl-2 rounded-md',
+              'flex items-center relative group',
               selectedCategory === cat.name && 'bg-gray-600/40'
             )}
           >
-            <span style={{ backgroundColor: cat.color }} className="h-2 w-2 rounded-full" />
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis">#{cat.name}</span>
+            <div
+              onClick={(): void => onSelectCategory(cat.name)}
+              className="flex items-center space-x-2 cursor-pointer hover:bg-gray-600/40 p-1 pl-2 rounded-md w-full"
+            >
+              <span style={{ backgroundColor: cat.color }} className="h-2 w-2 rounded-full" />
+              <span className="whitespace-nowrap overflow-hidden text-ellipsis select-none">#{cat.name}</span>
+            </div>
             <DeleteCategoryButton id={cat.id} />
           </li>
         ))}
