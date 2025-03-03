@@ -16,6 +16,7 @@ import {
   TextNode,
 } from 'lexical';
 
+import "./DayNode.css";
 import '../CollapsiblePlugin/Collapsible.css';
 
 import {

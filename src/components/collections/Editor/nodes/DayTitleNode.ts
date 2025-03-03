@@ -2,21 +2,23 @@ import {
   $createParagraphNode,
   DOMConversionMap,
   DOMConversionOutput,
+  EditorConfig,
   ElementNode,
+  LexicalEditor,
   LexicalNode,
   RangeSelection,
   SerializedElementNode,
-} from 'lexical';
+} from "lexical";
 
-import { $isDayContainerNode } from './DayContainerNode';
-import invariant from '../utils/invariant';
+import { $isDayContainerNode } from "./DayContainerNode";
+import invariant from "../utils/invariant";
 
 type SerializedDayTitleNode = SerializedElementNode;
 
 type DayTitleConversionDetails = {
-  conversion: () => DOMConversionOutput | null
-  priority: 0 | 1 | 2 | 3 | 4 | undefined
-}
+  conversion: () => DOMConversionOutput | null;
+  priority: 0 | 1 | 2 | 3 | 4 | undefined;
+};
 
 export function $convertSummaryElement(): DOMConversionOutput | null {
   const node = $createDayTitleNode();
@@ -27,15 +29,24 @@ export function $convertSummaryElement(): DOMConversionOutput | null {
 
 export class DayTitleNode extends ElementNode {
   static getType(): string {
-    return 'day-title';
+    return "day-title";
   }
 
   static clone(node: DayTitleNode): DayTitleNode {
     return new DayTitleNode(node.__key);
   }
 
-  createDOM(): HTMLElement {
-    const dom = document.createElement('div');
+  createDOM(config: EditorConfig, editor: LexicalEditor): HTMLElement {
+    const dom = document.createElement("div");
+    dom.classList.add("Day__title");
+
+    dom.addEventListener("click", () => {
+      editor.update(() => {
+        const collapsibleContainer = this.getLatest().getParentOrThrow();
+        invariant($isDayContainerNode(collapsibleContainer), "Expected parent node to be a CollapsibleContainerNode");
+        collapsibleContainer.toggleOpen();
+      });
+    });
     return dom;
   }
 
@@ -65,7 +76,7 @@ export class DayTitleNode extends ElementNode {
 
   static transform(): (node: LexicalNode) => void {
     return (node: LexicalNode) => {
-      invariant($isDayTitleNode(node), 'node is not a DayTitleNode');
+      invariant($isDayTitleNode(node), "node is not a DayTitleNode");
       if (node.isEmpty()) {
         node.remove();
       }
@@ -76,7 +87,7 @@ export class DayTitleNode extends ElementNode {
     const containerNode = this.getParentOrThrow();
 
     if (!$isDayContainerNode(containerNode)) {
-      throw new Error('DayTitleNode expects to be child of DayContainerNode');
+      throw new Error("DayTitleNode expects to be child of DayContainerNode");
     }
     const paragraph = $createParagraphNode();
     containerNode.insertAfter(paragraph, restoreSelection);
