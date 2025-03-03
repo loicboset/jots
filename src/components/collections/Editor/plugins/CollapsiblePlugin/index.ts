@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $findMatchingParent, mergeRegister } from '@lexical/utils';
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $findMatchingParent, mergeRegister } from "@lexical/utils";
 import {
   $createParagraphNode,
   $getSelection,
@@ -16,20 +16,22 @@ import {
   KEY_ARROW_RIGHT_COMMAND,
   KEY_ARROW_UP_COMMAND,
   LexicalNode,
-} from 'lexical';
+} from "lexical";
 
 import {
   CollapsibleContentNode,
   $isCollapsibleContentNode,
-} from '@/components/collections/Editor/nodes/CollapsibleContentNode';
-import { useCategories, useUpsertCategory } from '@/services/categories';
-import randomColor from '@/utils/color/randomColor';
+} from "@/components/collections/Editor/nodes/CollapsibleContentNode";
+import { useCategories, useUpsertCategory } from "@/services/categories";
+import randomColor from "@/utils/color/randomColor";
 
-import { CollapsibleContainerNode, $isCollapsibleContainerNode } from '../../nodes/CollapsibleContainerNode';
-import { CollapsibleTitleNode, $isCollapsibleTitleNode } from '../../nodes/CollapsibleTitleNode';
-import './Collapsible.css';
+import { CollapsibleContainerNode, $isCollapsibleContainerNode } from "../../nodes/CollapsibleContainerNode";
+import { CollapsibleTitleNode, $isCollapsibleTitleNode } from "../../nodes/CollapsibleTitleNode";
+import "./Collapsible.css";
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
+export const FILTER_CATEGORY_COMMAND = createCommand<string>();
+export const SHOW_ALL_CATEGORIES_COMMAND = createCommand<null>();
 
 type Props = {
   userID: string;
@@ -44,6 +46,56 @@ export default function CollapsiblePlugin({ userID }: Props): null {
   const [editor] = useLexicalComposerContext();
 
   // EFFECTS
+  useEffect(() => {
+    const remove = editor.registerCommand(
+      FILTER_CATEGORY_COMMAND,
+      (categoryName: string | null): boolean => {
+        editor.update((): void => {
+          const editorState = editor.getEditorState();
+          const nodes = editorState._nodeMap;
+          nodes.forEach((node) => {
+            if ($isCollapsibleContainerNode(node)) {
+              if (node.__name === categoryName) {
+                node.setOpen(true);
+              } else {
+                node.setOpen(false);
+              }
+            }
+          });
+        });
+        return true;
+      },
+      COMMAND_PRIORITY_LOW
+    );
+
+    return (): void => {
+      remove();
+    };
+  }, [editor]);
+
+  useEffect(() => {
+    const remove = editor.registerCommand(
+      SHOW_ALL_CATEGORIES_COMMAND,
+      (): boolean => {
+        editor.update((): void => {
+          const editorState = editor.getEditorState();
+          const nodes = editorState._nodeMap;
+          nodes.forEach((node) => {
+            if ($isCollapsibleContainerNode(node)) {
+              node.setOpen(true);
+            }
+          });
+        });
+        return true;
+      },
+      COMMAND_PRIORITY_LOW
+    );
+
+    return (): void => {
+      remove();
+    };
+  }, [editor]);
+
   useEffect(() => {
     if (isLoading) return;
 
@@ -77,7 +129,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
     if (!editor.hasNodes([CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode])) {
       throw new Error(
         // eslint-disable-next-line max-len
-        'CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor',
+        "CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor"
       );
     }
 
@@ -188,7 +240,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
           container.setOpen(true);
           return true;
         },
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_LOW
       ),
 
       // When collapsible is the last child pressing down/right arrow will insert paragraph
@@ -229,8 +281,8 @@ export default function CollapsiblePlugin({ userID }: Props): null {
 
           return false;
         },
-        COMMAND_PRIORITY_LOW,
-      ),
+        COMMAND_PRIORITY_LOW
+      )
     );
   }, [editor]);
 

@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Editor from "@/components/collections/Editor";
 import NavBar from "@/components/collections/NavBar";
 
+import AppWrapper from "./collections/AppWrapper";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,10 +24,12 @@ type Props = {
 const App = ({ userID }: Props): React.ReactElement => {
   return (
     <QueryClientProvider client={queryClient}>
-      <NavBar userID={userID} />
-      <Editor userID={userID} />
+      <AppWrapper userID={userID}>
+        <NavBar userID={userID} />
+        <Editor userID={userID} />
+      </AppWrapper>
       <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </QueryClientProvider >
   );
 };
 
