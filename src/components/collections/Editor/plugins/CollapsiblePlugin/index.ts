@@ -28,6 +28,8 @@ import randomColor from "@/utils/color/randomColor";
 import { CollapsibleContainerNode, $isCollapsibleContainerNode } from "../../nodes/CollapsibleContainerNode";
 import { CollapsibleTitleNode, $isCollapsibleTitleNode } from "../../nodes/CollapsibleTitleNode";
 import "./Collapsible.css";
+import { $isDayContainerNode, DayContainerNode } from "../../nodes/DayContainerNode";
+import { $isDayContentNode } from "../../nodes/DayContentNode";
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 export const FILTER_CATEGORY_COMMAND = createCommand<string>();
@@ -53,13 +55,38 @@ export default function CollapsiblePlugin({ userID }: Props): null {
         editor.update((): void => {
           const editorState = editor.getEditorState();
           const nodes = editorState._nodeMap;
+          const dayContainers = new Map<string, DayContainerNode>();
+
           nodes.forEach((node) => {
-            if ($isCollapsibleContainerNode(node)) {
-              if (node.__name === categoryName) {
-                node.setOpen(true);
-              } else {
-                node.setOpen(false);
+            if (!$isCollapsibleContainerNode(node)) return;
+            const contentNode = node.getParent();
+            const dayContainerNode = contentNode?.getParent();
+            if ($isDayContainerNode(dayContainerNode)) {
+              dayContainers.set(dayContainerNode.__date, dayContainerNode);
+            }
+
+            if (node.__name === categoryName) {
+              node.setOpen(true);
+            } else {
+              node.setOpen(false);
+            }
+          });
+
+          dayContainers.forEach((node) => {
+            const contentNode = node.getChildren().find((child) => $isDayContentNode(child));
+            if (!contentNode) return;
+
+            let shouldCollapseDay = true;
+            contentNode.getChildren().forEach((_node) => {
+              if (!$isCollapsibleContainerNode(_node)) return;
+              if (_node.__name === categoryName) {
+                shouldCollapseDay = false;
               }
+            });
+            if (shouldCollapseDay) {
+              node.setOpen(false);
+            } else {
+              node.setOpen(true);
             }
           });
         });
@@ -81,6 +108,12 @@ export default function CollapsiblePlugin({ userID }: Props): null {
           const editorState = editor.getEditorState();
           const nodes = editorState._nodeMap;
           nodes.forEach((node) => {
+            const contentNode = node.getParent();
+            const dayContainerNode = contentNode?.getParent();
+            if ($isDayContainerNode(dayContainerNode)) {
+              dayContainerNode.setOpen(true);
+            }
+
             if ($isCollapsibleContainerNode(node)) {
               node.setOpen(true);
             }
