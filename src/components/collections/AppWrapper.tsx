@@ -1,3 +1,4 @@
+import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
 import { useJournalEntries } from "@/services/journal_entries";
@@ -48,6 +49,8 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       DayContainerNode,
       DayTitleNode,
       DayContentNode,
+      CodeNode,
+      CodeHighlightNode
     ],
     onError,
   };
