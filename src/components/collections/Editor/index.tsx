@@ -6,15 +6,21 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
+import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
+import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
 import DayContainerPlugin from "./plugins/DayContainerPlugin";
 import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
+import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
+import TreeViewPlugin from "./plugins/TreeViewPlugin";
 
 type Props = {
   userID: string;
 }
 
 const Editor = ({ userID }: Props): React.ReactElement => {
+  // VARS
+  const showTreeView = process.env.NODE_ENV === "development";
 
   return (
     <div className="w-full focus:outline-none">
@@ -33,6 +39,11 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <DayContainerPlugin />
       <OnDayEntryChangePlugin userID={userID} />
       <CodeHighlightPlugin />
+      <ComponentPickerPlugin />
+      <ComponentPickerMenuPlugin />
+      <PromptNodePlugin />
+
+      {showTreeView && <TreeViewPlugin />}
     </div>
   )
 };

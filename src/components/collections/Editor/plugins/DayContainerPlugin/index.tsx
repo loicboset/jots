@@ -32,6 +32,7 @@ import {
   $createDayTitleNode,
   $isDayTitleNode,
 } from '../../nodes/DayTitleNode';
+import { $createPromptNode } from '../../nodes/PromptNode';
 
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
@@ -56,6 +57,8 @@ const DayContainerPlugin = (): null => {
         paragraph.append(new TextNode(`@${formatDate(new Date())}`));
 
         const contentParagraph = $createParagraphNode();
+        const promptNode = $createPromptNode();
+        contentParagraph.append(promptNode);
 
         $insertFirst(
           root,
@@ -65,7 +68,7 @@ const DayContainerPlugin = (): null => {
           ),
         );
 
-        contentParagraph.select();
+        promptNode.select();
       }
 
       children.forEach((child) => {

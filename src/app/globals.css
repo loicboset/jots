@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --color-background: var(--background);
@@ -39,4 +39,12 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.node-placeholder:has(br):not(:has(span))::before {
+  position: absolute;
+  content: attr(data-placeholder);
+  color: rgba(252, 252, 252, 0.4);
+  font-style: italic;
+  font-size: medium;
 }
