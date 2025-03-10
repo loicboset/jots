@@ -4,6 +4,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
+import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import DayContainerPlugin from "./plugins/DayContainerPlugin";
 import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
@@ -31,6 +32,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <TransformCategoryPlugin userID={userID} />
       <DayContainerPlugin />
       <OnDayEntryChangePlugin userID={userID} />
+      <CodeHighlightPlugin />
     </div>
   )
 };
