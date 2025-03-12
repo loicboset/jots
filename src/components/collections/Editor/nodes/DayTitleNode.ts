@@ -47,6 +47,7 @@ export class DayTitleNode extends ElementNode {
         collapsibleContainer.toggleOpen();
       });
     });
+
     return dom;
   }
 

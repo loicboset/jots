@@ -40,7 +40,6 @@ const OnDayEntryChangePlugin = ({ userID }: Props): null => {
   useEffect(() => {
     if (!debouncedNewEditorState) return;
 
-
     const state = JSON.parse(debouncedNewEditorState) as SerializedEditorState;
     const days = state.root.children;
     days.forEach((day) => {
