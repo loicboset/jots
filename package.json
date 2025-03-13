@@ -7,7 +7,7 @@
     "build": "npm run test && next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "@babel/preset-env": "^7.26.9",
