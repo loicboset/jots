@@ -1,6 +1,7 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import pluginJest from "eslint-plugin-jest";
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import { FlatCompat } from '@eslint/eslintrc';
@@ -66,6 +67,35 @@ const config = [
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
       'max-len': ['error', { code: 120, tabWidth: 2, ignoreComments: true }],
+    },
+  },
+  // Jest Configuration
+  {
+    files: ["**/__tests__/**/*.?(c|m)[jt]s?(x)", "**/*.test.?(c|m)[jt]s?(x)", "**/*.spec.?(c|m)[jt]s?(x)"],
+    plugins: {
+      jest: pluginJest,
+    },
+    languageOptions: {
+      globals: {
+        "describe": "readonly",
+        "test": "readonly",
+        "expect": "readonly",
+        "beforeEach": "readonly",
+        "afterEach": "readonly",
+        "beforeAll": "readonly",
+        "afterAll": "readonly",
+        "jest": "readonly",
+        "it": "readonly",
+        ...globals.browser,
+      },
+    },
+    rules: {
+      ...pluginJest.configs.recommended.rules,
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error",
     },
   },
 ];
