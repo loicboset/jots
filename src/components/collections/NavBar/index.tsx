@@ -4,10 +4,12 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 
+import Button from "@/components/ui/buttons/Button";
 import { createClient } from "@/lib/supabase/client";
 import { useCategories } from "@/services/categories";
 
 import DeleteCategoryButton from "./parts/DeleteCategoryButton";
+import VersionNumber from "./parts/VersionNumber";
 import { FILTER_CATEGORY_COMMAND, SHOW_ALL_CATEGORIES_COMMAND } from "../Editor/plugins/CollapsiblePlugin";
 
 type Props = {
@@ -68,7 +70,11 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
         ))}
       </ul>
 
-      <button onClick={handleLogout} className="text-left cursor-pointer">Logout</button>
+      <div className="flex flex-col space-y-4">
+        <Button onClick={handleLogout} color="white">Logout</Button>
+
+        <VersionNumber />
+      </div>
     </div>
   );
 };
