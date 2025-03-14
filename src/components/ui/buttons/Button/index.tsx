@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import classNames from "classnames";
 
 import styles from './Button.module.css';
-import Spinner from "../loaders/Spinner";
+import Spinner from "../../loaders/Spinner";
 
 
 type Props = {

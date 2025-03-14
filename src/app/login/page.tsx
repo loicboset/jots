@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 import Button from '@/components/ui/buttons/Button';
+import useAlert from '@/utils/hooks/useAlert';
 
 import { login } from "./actions";
 
@@ -18,16 +19,35 @@ const Login = (): JSX.Element => {
   // RHF
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>();
 
+  // HOOKS
+  const [alert, setAlert, clearAlert] = useAlert();
+
+  // METHODS
+  const handleLogin = async (data: FormValues): Promise<void> => {
+    clearAlert();
+
+    try {
+      await login(data);
+    } catch (error) {
+      setAlert({
+        message: (error as Error).message,
+        type: 'danger',
+      });
+    }
+  }
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">DevLog</h1>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Log in to your account</h2>
+          {alert && <div className="mt-4">{alert}</div>}
         </div>
 
+
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={(handleSubmit(login))} className="space-y-6">
+          <form onSubmit={(handleSubmit(handleLogin))} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
