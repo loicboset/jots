@@ -113,15 +113,8 @@ const LandingPage = (): JSX.Element => {
           </div>
           <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
             <div className="mx-auto max-w-3/4 shrink-0 lg:mx-0 lg:pt-8">
-              {/* <Image
-                alt="Your Company"
-                src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-11"
-                width={28}
-                height={28}
-              /> */}
               <div className="mt-24 sm:mt-32 lg:mt-16">
-                <a href="#" className="inline-flex space-x-6">
+                <Link href="/releases" className="inline-flex space-x-6">
                   <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
                     What&apos;s new
                   </span>
@@ -129,7 +122,7 @@ const LandingPage = (): JSX.Element => {
                     <span>Just shipped v0.1</span>
                     <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
                   </span>
-                </a>
+                </Link>
               </div>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
                 Master Your Development Journey with <span className='text-indigo-500'>DevLog</span>
