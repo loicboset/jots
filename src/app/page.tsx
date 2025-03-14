@@ -33,7 +33,7 @@ const footerNavigation = {
   social: [
     {
       name: 'GitHub',
-      href: '#',
+      href: 'https://github.com/loicboset/DevLogApp',
       icon: (): JSX.Element => (
         <svg fill="currentColor" viewBox="0 0 24 24" className='size-6'>
           <path
