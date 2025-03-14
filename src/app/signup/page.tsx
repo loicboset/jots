@@ -5,6 +5,9 @@ import type { JSX } from 'react';
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
+import Button from '@/components/ui/buttons/Button';
+import useAlert from '@/utils/hooks/useAlert';
+
 import { signup } from "./actions";
 
 export type FormValues = {
@@ -15,7 +18,25 @@ export type FormValues = {
 
 const Signup = (): JSX.Element => {
   // RHF
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>();
+  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<FormValues>();
+
+  // HOOKS
+  const [alert, setAlert, clearAlert] = useAlert();
+
+  // METHODS
+  const handleSignUp = async (data: FormValues): Promise<void> => {
+    clearAlert();
+
+    try {
+      await signup(data);
+    } catch (error) {
+      setAlert({
+        message: (error as Error).message,
+        type: 'danger',
+      });
+    }
+  }
+
 
   return (
     <>
@@ -23,10 +44,11 @@ const Signup = (): JSX.Element => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">DevLog</h1>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Create a new account</h2>
+          {alert && <div className="mt-4">{alert}</div>}
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={(handleSubmit(signup))} className="space-y-6">
+          <form onSubmit={(handleSubmit(handleSignUp))} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
@@ -105,16 +127,13 @@ const Signup = (): JSX.Element => {
             </div>
 
             <div>
-              <button
+              <Button
                 type="submit"
-                className={`
-                  flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white
-                  shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2
-                  focus-visible:outline-indigo-500
-                `}
+                className='w-full'
+                isLoading={isSubmitting}
               >
                 Sign up
-              </button>
+              </Button>
             </div>
           </form>
 
