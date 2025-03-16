@@ -74,9 +74,12 @@ const Releases = (): React.ReactElement => {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl">
             <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Our Releases</h2>
+            <p className="mt-2 mb-2 text-lg/8 text-gray-300">
+              We&apos;re working hard to make this app as useful for you as possible.
+              You can check what&apos;s new on this page , and you can even join our Discord to share ideas and participate to the project!
+            </p>
             <p className="mt-2 text-lg/8 text-gray-300">
-              We&apos;re working hard to make this app as useful as possible.
-              You see on this page what&apos;s new, and you can even join our Discord to share ideas and participate to the project!
+              We are in the process of building exciting new features to help you build knowledge and progress, some leveraging the newest AI technologies. So stay tuned!
             </p>
             <div className="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
               {releases.map((release) => (
