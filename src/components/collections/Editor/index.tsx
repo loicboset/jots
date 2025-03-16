@@ -9,6 +9,7 @@ import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
 import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
 import DayContainerPlugin from "./plugins/DayContainerPlugin";
+import DummyDataPlugin from "./plugins/DummyDataPlugin";
 import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
@@ -28,7 +29,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
         contentEditable={
           <div className="h-full">
             <div className="h-full w-full relative focus:outline-none">
-              <ContentEditable className="h-full overflow-y-scroll w-full text-lg focus:outline-none p-8" />
+              <ContentEditable className="h-full overflow-y-scroll w-full focus:outline-none p-8" />
             </div>
           </div>
         }
@@ -42,6 +43,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <ComponentPickerPlugin />
       <ComponentPickerMenuPlugin />
       <PromptNodePlugin />
+      <DummyDataPlugin userID={userID} />
 
       {showTreeView && <TreeViewPlugin />}
     </div>

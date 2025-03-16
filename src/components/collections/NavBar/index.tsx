@@ -47,7 +47,7 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
 
   return (
     <div className={`
-      bg-gray-600/30 flex flex-col justify-between text-lg border-r border-white/10 text-white p-8 max-w-1/5
+      bg-gray-600/30 flex flex-col justify-between border-r border-white/10 text-white p-8 max-w-1/5
     `}>
       <ul className="space-y-4">
         {categories.map((cat) => (
