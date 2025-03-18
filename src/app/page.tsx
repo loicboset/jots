@@ -119,16 +119,16 @@ const LandingPage = (): JSX.Element => {
                     What&apos;s new
                   </span>
                   <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                    <span>Just shipped v0.1</span>
+                    <span>Just shipped v2024.03.26</span>
                     <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
                   </span>
                 </Link>
               </div>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
-                Master Your Development Journey with <span className='text-indigo-500'>DevLog</span>
+                Accelerate Your Development Career with <span className='text-indigo-500'>DevLog</span>
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">
-                Track your progress, learn from your challenges and make continuous improvements to become a better, faster developer every day.
+                Unlock the benefits of journaling now. Track your progress, learn from your challenges and make continuous improvements to become a better, faster developer every day.
               </p>
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
@@ -229,7 +229,7 @@ const LandingPage = (): JSX.Element => {
               Boost your development process. Start using DevLog today.
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg/8 text-gray-300">
-              Track your progress, set goals, and reflect on your journey to continuously grow as a developer.
+              Track your progress, set goals, and reflect on your journey to stay ahead of the competition as a developer.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link

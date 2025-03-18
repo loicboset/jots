@@ -91,7 +91,7 @@ const Releases = (): React.ReactElement => {
                     <p
                       className="relative rounded-full bg-indigo-500 px-3 py-1.5 font-medium text-white"
                     >
-                      {release.version}
+                      v{release.version}
                     </p>
                   </div>
                   <div className="relative">
