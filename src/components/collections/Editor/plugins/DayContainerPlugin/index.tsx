@@ -11,7 +11,7 @@ import {
   createCommand,
   ElementNode,
   INSERT_PARAGRAPH_COMMAND,
-  KEY_BACKSPACE_COMMAND,
+  KEY_DOWN_COMMAND,
   RootNode,
   TextNode,
 } from 'lexical';
@@ -81,7 +81,7 @@ const DayContainerPlugin = (): null => {
 
     mergeRegister(
       editor.registerCommand(
-        KEY_BACKSPACE_COMMAND,
+        KEY_DOWN_COMMAND,
         (event) => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
