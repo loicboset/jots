@@ -26,11 +26,10 @@ const Login = (): JSX.Element => {
   const handleLogin = async (data: FormValues): Promise<void> => {
     clearAlert();
 
-    try {
-      await login(data);
-    } catch (error) {
+    const { message } = await login(data);
+    if (message) {
       setAlert({
-        message: (error as Error).message,
+        message,
         type: 'danger',
       });
     }

@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 
 import { FormValues } from "./page";
 
-export async function login(formData: FormValues): Promise<void> {
+export async function login(formData: FormValues): Promise<{ message: string }> {
   const supabase = await createClient();
 
   const data = {
@@ -21,7 +21,7 @@ export async function login(formData: FormValues): Promise<void> {
   } = await supabase.auth.signInWithPassword(data);
 
   if (error || !user) {
-    throw new Error(error?.message ?? "An error occurred. Please try again or contact support.");
+    return { message: error?.message ?? "An error occurred. Please try again or contact support." };
   }
 
   revalidatePath("/", "layout");
