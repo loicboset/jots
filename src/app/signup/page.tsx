@@ -27,11 +27,10 @@ const Signup = (): JSX.Element => {
   const handleSignUp = async (data: FormValues): Promise<void> => {
     clearAlert();
 
-    try {
-      await signup(data);
-    } catch (error) {
+    const { message } = await signup(data);
+    if (message) {
       setAlert({
-        message: (error as Error).message,
+        message,
         type: 'danger',
       });
     }
