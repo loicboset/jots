@@ -4,29 +4,54 @@ import type { JSX } from 'react';
 import {
   ChevronRightIcon,
 } from '@heroicons/react/20/solid'
-import { DocumentTextIcon, ArchiveBoxIcon, ChartBarIcon } from '@heroicons/react/24/outline'
+import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxArrowDownIcon, ArrowPathRoundedSquareIcon, BugAntIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
 const primaryFeatures = [
   {
-    name: 'Smart Journaling',
+    name: 'Because You Need a Rubber Duck',
     description:
-      'Easily tag your entries, track goals, and reflect on your coding journey. DevLog prompts you to think about key learnings, so you can improve faster.',
-    icon: DocumentTextIcon,
+      'Talk through your thoughts, debug your brain, and solve problems faster.',
+    icon: BeakerIcon
   },
   {
-    name: 'Measure and Reflect',
+    name: 'Because Your PR Needs a Backstory',
     description:
-      'DevLog helps you set meaningful goals, track achievements, and reflect on what you’ve learned to ensure continuous improvement.',
-    icon: ChartBarIcon,
+      'Track your thought process so future-you (and your team) knows why that refactor happened.',
+    icon: BookOpenIcon,
   },
   {
-    name: 'Track and Reflect',
+    name: 'Because You Actually Fixed It But Don’t Remember How',
     description:
-      'Document your progress, challenges, and insights as you grow as a developer. Keep a record of your journey to enhance learning and development.',
-    icon: ArchiveBoxIcon,
+      'Log your debugging steps so next time, you have a cheat sheet.',
+    icon: BugAntIcon,
   },
-]
+  {
+    name: 'Because You Want to See Your Growth',
+    description:
+      'Measure your progress, track achievements, and level up as a developer.',
+    icon: RocketLaunchIcon
+  },
+  {
+    name: 'Because You Keep Googling the Same Thing',
+    description:
+      'Save your learnings in one place, so you stop asking chatGPT about the same error.',
+    icon: ArrowPathRoundedSquareIcon
+  },
+  {
+    name: 'Because You’re Juggling Too Many Ideas',
+    description:
+      'A developer-friendly space to dump ideas, errors, solutions, and insights.',
+    icon: LightBulbIcon,
+  },
+  {
+    name: 'Because Your Brain is Full but Your Notebook is Empty',
+    description:
+      'Organize your thoughts, tag important notes, and keep your side projects on track.',
+    icon: ArchiveBoxArrowDownIcon
+  },
+];
+
 
 
 const footerNavigation = {
@@ -113,24 +138,22 @@ const LandingPage = (): JSX.Element => {
           </div>
           <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
             <div className="mx-auto max-w-3/4 shrink-0 lg:mx-0 lg:pt-8">
-              <div className="mt-24 sm:mt-32 lg:mt-16">
-                <Link href="/releases" className="inline-flex space-x-6">
-                  <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
-                    What&apos;s new
-                  </span>
-                  <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                    <span>Just shipped v2024.03.26</span>
-                    <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
-                  </span>
-                </Link>
-              </div>
+              <Link href="/releases" className="inline-flex space-x-6">
+                <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
+                  What&apos;s new
+                </span>
+                <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
+                  <span className='hidden md:inline'>Just shipped v2024.03.26</span>
+                  <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
+                </span>
+              </Link>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
-                Accelerate Your Development Career with <span className='text-indigo-500'>DevLog</span>
+                Level Up Your Dev Game 🚀
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">
-                Unlock the benefits of journaling now. Track your progress, learn from your challenges and make continuous improvements to become a better, faster developer every day.
+                Unlock the benefits of journaling now to become a better, faster developer every day.
               </p>
-              <div className="mt-10 flex items-center gap-x-6">
+              <div className="mt-10 flex flex-wrap space-y-2 items-center gap-x-6">
                 <Link
                   href="/signup"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
@@ -142,40 +165,25 @@ const LandingPage = (): JSX.Element => {
                 </p>
               </div>
             </div>
-            {/* <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:mt-0 lg:mr-0 lg:ml-10 lg:max-w-none lg:flex-none xl:ml-32">
-              <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-                <Image
-                  alt="App screenshot"
-                  src="https://tailwindui.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
-                  width={2432}
-                  height={1442}
-                  className="w-[76rem] rounded-md bg-white/5 ring-1 shadow-2xl ring-white/10"
-                />
-              </div>
-            </div> */}
           </div>
         </div>
 
         {/* Feature section */}
-        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+        <div className="mx-auto mt-32 max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base/7 font-semibold text-indigo-400">Progress as a developer</h2>
             <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance">
-              All-in-one tool to reflect on your daily journey
-            </p>
-            <p className="mt-6 text-lg/8 text-gray-300">
-              DevLog helps you record achievements, challenges, and insights to enhance your learning and professional growth. Stay organized, review your progress, and refine your development process.
+              Why Do Top Developers Keep a Journal,<span className='text-indigo-400'> and Why You Should Too?</span>
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
               {primaryFeatures.map((feature) => (
                 <div key={feature.name} className="flex flex-col">
-                  <dt className="text-base/7 font-semibold text-white">
-                    <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-indigo-500">
-                      <feature.icon aria-hidden="true" className="size-6 text-white" />
+                  <dt className="flex space-x-4 items-center mb-4">
+                    <div className="flex shrink-0 h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                      <feature.icon aria-hidden="true" className="h-6 w-6 text-white" />
                     </div>
-                    {feature.name}
+                    <span className='font-semibold text-white text-2xl'>{feature.name}</span>
                   </dt>
                   <dd className="mt-1 flex flex-auto flex-col text-base/7 text-gray-300">
                     <p className="flex-auto">{feature.description}</p>
@@ -187,7 +195,7 @@ const LandingPage = (): JSX.Element => {
         </div>
 
         {/* CTA section */}
-        <div className="relative isolate mt-32 px-6 py-32 sm:mt-56 sm:py-40 lg:px-8">
+        <div className="relative isolate mt-32 px-6 py-32 sm:py-40 lg:px-8">
           <svg
             aria-hidden="true"
             className="absolute inset-0 -z-10 size-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
@@ -226,17 +234,17 @@ const LandingPage = (): JSX.Element => {
           </div>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
-              Boost your development process. Start using DevLog today.
+              Just Give It a Shot
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg/8 text-gray-300">
-              Track your progress, set goals, and reflect on your journey to stay ahead of the competition as a developer.
+              We promise, it can only do you some good.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/signup"
-                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
               >
-                Get started now
+                Let&apos;s go!
               </Link>
             </div>
           </div>
