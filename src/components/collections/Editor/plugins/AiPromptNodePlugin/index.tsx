@@ -27,42 +27,40 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
   // HOOKS
   const [editor] = useLexicalComposerContext();
 
-  const findAiPromptNode = (node: any): AiPromptNode | null => {
-    if ($isAiPromptNode(node)) {
-      return node;
-    }
-
-    if (node.getChildren) {
-      for (const child of node.getChildren()) {
-        const found = findAiPromptNode(child);
-        if (found) return found;
-      }
-    }
-    return null;
-  }
-
 
   const { data: entries = [], isLoading } = useJournalEntries(userID);
 
   let paragraphContent = 'testing...'
   if (!isLoading) {
     paragraphContent = entries
-    .map(entry => JSON.parse(entry.content)?.children?.[1]?.children || []) // Safely access nested properties
-    .flat()
-    .slice(0, 30) // Limit to the first 30 objects to not overload the OpenAI tokens
-    .map(obj => (obj.type === 'paragraph' && obj.children?.length ? obj.children[0].text : ''))
-    .join(' ');
-    console.log('TEXT CONTENT!', paragraphContent)
+      .map(entry => JSON.parse(entry.content)?.children?.[1]?.children || []) // Safely access nested properties
+      .flat()
+      .slice(0, 30) // Limit to the first 30 objects to not overload the OpenAI tokens
+      .map(obj => (obj.type === 'paragraph' && obj.children?.length ? obj.children[0].text : ''))
+      .join(' ');
   }
 
   useEffect(() => {
+    const findAiPromptNode = (node: any): AiPromptNode | null => {
+      if ($isAiPromptNode(node)) {
+        return node;
+      }
+
+      if (node.getChildren) {
+        for (const child of node.getChildren()) {
+          const found = findAiPromptNode(child);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+
     // Register listener for new nodes
     return editor.registerMutationListener(AiPromptNode, (mutations) => {
       mutations.forEach(async (mutation, _nodeKey) => {
         if (mutation === "created") {
           try {
             const { prompt } = await getAiPrompt(paragraphContent)
-            console.log('PROMPT:', prompt)
 
             editor.update(() => {
               const root = $getRoot();
@@ -80,7 +78,7 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
         }
       });
     });
-  }, [editor]);
+  }, [editor, paragraphContent]);
 
   useEffect(() => {
     // replace the prompt node with its first child (e.g. when user types)
