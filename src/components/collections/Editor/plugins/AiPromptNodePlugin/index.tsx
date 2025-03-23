@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
@@ -18,6 +18,7 @@ import { getAiPrompt } from "@/services/ai_prompts";
 import { useJournalEntries } from "@/services/journal_entries";
 
 import { $isAiPromptNode, AiPromptNode } from "../../nodes/AiPromptNode";
+import { $isDayContainerNode } from "../../nodes/DayContainerNode";
 
 type Props = {
   userID: string;
@@ -27,19 +28,36 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
   // HOOKS
   const [editor] = useLexicalComposerContext();
 
-
+  // RQ
   const { data: entries = [], isLoading } = useJournalEntries(userID);
 
-  let paragraphContent = 'testing...'
+  // VARS
+  const textContent: string[] = useMemo(() => [], []);
+
   if (!isLoading) {
-    paragraphContent = entries
-      .map(entry => JSON.parse(entry.content)?.children?.[1]?.children || []) // Safely access nested properties
-      .flat()
-      .slice(0, 30) // Limit to the first 30 objects to not overload the OpenAI tokens
-      .map(obj => (obj.type === 'paragraph' && obj.children?.length ? obj.children[0].text : ''))
-      .join(' ');
+    const root = {
+      root: {
+        children: entries.map((entry) => JSON.parse(entry.content)),
+        direction: "ltr",
+        format: "",
+        indent: 0,
+        type: "root",
+        version: 1
+      }
+    }
+    const parsedEditorState = editor.parseEditorState(JSON.stringify(root));
+
+    parsedEditorState.read(() => {
+      parsedEditorState._nodeMap.forEach((node) => {
+        if ($isDayContainerNode(node)) {
+          const textNodes = node.getAllTextNodes();
+          textNodes.forEach((node) => textContent.push(node.getTextContent()));
+        }
+      })
+    })
   }
 
+  // EFFECTS
   useEffect(() => {
     const findAiPromptNode = (node: any): AiPromptNode | null => {
       if ($isAiPromptNode(node)) {
@@ -59,8 +77,17 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
     return editor.registerMutationListener(AiPromptNode, (mutations) => {
       mutations.forEach(async (mutation, _nodeKey) => {
         if (mutation === "created") {
+          const joinedEntries = textContent.join(' ');
+
           try {
-            const { prompt } = await getAiPrompt(paragraphContent)
+            let prompt = '';
+            if (textContent.length === 0) {
+              prompt = `You haven't written anything yet. Start writing to get AI suggestions.`;
+            } else {
+              console.log("CALLING AI")
+              const result = await getAiPrompt(joinedEntries)
+              prompt = result.prompt;
+            }
 
             editor.update(() => {
               const root = $getRoot();
@@ -77,8 +104,8 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
           }
         }
       });
-    });
-  }, [editor, paragraphContent]);
+    }, { skipInitialization: true });
+  }, [editor]);
 
   useEffect(() => {
     // replace the prompt node with its first child (e.g. when user types)
