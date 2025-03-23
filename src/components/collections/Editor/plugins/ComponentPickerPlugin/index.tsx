@@ -123,7 +123,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             if ($isRangeSelection(selection)) {
               $setBlocksType(selection, () => {
                 const paragraph = $createParagraphNode();
-                const prompt = $createAiPromptNode();
+                const prompt = $createAiPromptNode('Generating prompt with Ai, please wait ...');
                 paragraph.append(prompt);
                 return paragraph;
               });

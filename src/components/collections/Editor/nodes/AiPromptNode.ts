@@ -8,19 +8,21 @@ import {
   SerializedElementNode,
 } from "lexical";
 
-type SerializedAiPromptNode = SerializedElementNode;
+type SerializedAiPromptNode = SerializedElementNode & {
+  placeholder: string;
+};
 
 export class AiPromptNode extends ElementNode {
   __placeholder: string;
 
   constructor(placeholder: string, key?: NodeKey) {
-      super(key);
-      this.__placeholder = placeholder;
-    }
+    super(key);
+    this.__placeholder = placeholder;
+  }
 
-    static getType(): string {
-      return "ai-prompt";
-    }
+  static getType(): string {
+    return "ai-prompt";
+  }
 
   static clone(node: AiPromptNode): AiPromptNode {
     return new AiPromptNode(node.__placeholder, node.__key);
@@ -55,18 +57,18 @@ export class AiPromptNode extends ElementNode {
   }
 
   static importJSON(serializedNode: SerializedAiPromptNode): AiPromptNode {
-    return $createAiPromptNode().updateFromJSON(serializedNode);
+    return $createAiPromptNode(serializedNode.placeholder).updateFromJSON(serializedNode);
   }
 
-  updatePlaceholderFromJSON(serializedNode: { placeholder: string }): void {
-    const writable = this.getWritable(); // Ensure we can modify the node
-    writable.__placeholder = serializedNode.placeholder;
+  exportJSON(): SerializedAiPromptNode {
+    return {
+      ...super.exportJSON(),
+      placeholder: this.__placeholder,
+    };
   }
 }
 
-export function $createAiPromptNode(): AiPromptNode {
-  const prompt = "Generating prompt with Ai, please wait ...";
-
+export function $createAiPromptNode(prompt: string): AiPromptNode {
   return new AiPromptNode(prompt);
 }
 
