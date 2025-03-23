@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as React from 'react';
 
+import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
@@ -18,6 +19,7 @@ import {
 import * as ReactDOM from 'react-dom';
 
 import './ComponentPicker.css'
+import { $createAiPromptNode } from '../../nodes/AiPromptNode'
 import { $createPromptNode } from '../../nodes/PromptNode';
 
 class ComponentPickerOption extends MenuOption {
@@ -104,6 +106,24 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
               $setBlocksType(selection, () => {
                 const paragraph = $createParagraphNode();
                 const prompt = $createPromptNode();
+                paragraph.append(prompt);
+                return paragraph;
+              });
+            }
+          }),
+      }),
+      // TODO: only show this option if user has a min 5 day streak
+      // TODO: hide this behind a feature flag. Perhaps LaunchDarkly, they have a good free tier (Free for up to 3 users and 1000 monthly active users.)
+      new ComponentPickerOption('AI Prompt', {
+        icon: <SparklesIcon className="icon paragraph" />,
+        keywords: ['ai-prompt'],
+        onSelect: (): void =>
+          editor.update(() => {
+            const selection = $getSelection();
+            if ($isRangeSelection(selection)) {
+              $setBlocksType(selection, () => {
+                const paragraph = $createParagraphNode();
+                const prompt = $createAiPromptNode();
                 paragraph.append(prompt);
                 return paragraph;
               });

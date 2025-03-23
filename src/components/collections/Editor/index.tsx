@@ -4,6 +4,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
+import AiPromptNodePlugin from "./plugins/AiPromptNodePlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
@@ -35,6 +36,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
+      <AiPromptNodePlugin userID={userID} />
       <CollapsiblePlugin userID={userID} />
       <TransformCategoryPlugin userID={userID} />
       <DayContainerPlugin />

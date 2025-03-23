@@ -3,6 +3,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
 import { useJournalEntries } from "@/services/journal_entries";
 
+import { AiPromptNode } from "./Editor/nodes/AiPromptNode";
 import { CollapsibleContainerNode } from "./Editor/nodes/CollapsibleContainerNode";
 import { CollapsibleContentNode } from "./Editor/nodes/CollapsibleContentNode";
 import { CollapsibleTitleNode } from "./Editor/nodes/CollapsibleTitleNode";
@@ -53,6 +54,7 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       CodeNode,
       CodeHighlightNode,
       PromptNode,
+      AiPromptNode
     ],
     onError,
   };
