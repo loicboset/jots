@@ -13,7 +13,7 @@ const Releases = (): React.ReactElement => {
       const filePath = path.join(versionsDir, file);
       const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
       return { ...content, version: file.replace(".json", "") };
-    });
+    }).reverse();
 
   return (
     <div className="relative isolate">

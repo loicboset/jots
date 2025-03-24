@@ -105,7 +105,7 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
         }
       });
     }, { skipInitialization: true });
-  }, [editor]);
+  }, [editor, textContent]);
 
   useEffect(() => {
     // replace the prompt node with its first child (e.g. when user types)

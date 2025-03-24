@@ -14,6 +14,7 @@ import {
   $createParagraphNode,
   $getSelection,
   $isRangeSelection,
+  LexicalEditor,
   TextNode,
 } from 'lexical';
 import * as ReactDOM from 'react-dom';
@@ -86,52 +87,83 @@ const ComponentPickerMenuItem = ({
   );
 }
 
+const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
+  new ComponentPickerOption('Parapragh', {
+    icon: <i className="icon paragraph" />,
+    keywords: ['paragraph'],
+    onSelect: (): void =>
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType(selection, () => {
+            const paragraph = $createParagraphNode();
+            return paragraph;
+          });
+        }
+      }),
+  }),
+  new ComponentPickerOption('Prompt', {
+    icon: <i className="icon paragraph" />,
+    keywords: ['prompt'],
+    onSelect: (): void =>
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType(selection, () => {
+            const paragraph = $createParagraphNode();
+            const prompt = $createPromptNode();
+            paragraph.append(prompt);
+            return paragraph;
+          });
+        }
+      }),
+  }),
+  // TODO: only show this option if user has a min 5 day streak
+  // TODO: hide this behind a feature flag. Perhaps LaunchDarkly, they have a good free tier (Free for up to 3 users and 1000 monthly active users.)
+  new ComponentPickerOption('AI Prompt', {
+    icon: <SparklesIcon className="icon paragraph" />,
+    keywords: ['ai', 'prompt', 'aiprompt'],
+    onSelect: (): void =>
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType(selection, () => {
+            const paragraph = $createParagraphNode();
+            const prompt = $createAiPromptNode('Generating prompt with AI, please wait ...');
+            paragraph.append(prompt);
+            return paragraph;
+          });
+        }
+      }),
+  }),
+]
+
 export default function ComponentPickerMenuPlugin(): JSX.Element {
   const [editor] = useLexicalComposerContext();
-  const [, setQueryString] = useState<string | null>(null);
+  const [queryString, setQueryString] = useState<string | null>(null);
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
     minLength: 0,
   });
 
   const options = useMemo(() => {
+    const baseOptions = getBaseOptions(editor);
+
+    if (!queryString) {
+      return baseOptions;
+    }
+
+    const regex = new RegExp(queryString, 'i');
+
     return [
-      new ComponentPickerOption('Prompt', {
-        icon: <i className="icon paragraph" />,
-        keywords: ['prompt'],
-        onSelect: (): void =>
-          editor.update(() => {
-            const selection = $getSelection();
-            if ($isRangeSelection(selection)) {
-              $setBlocksType(selection, () => {
-                const paragraph = $createParagraphNode();
-                const prompt = $createPromptNode();
-                paragraph.append(prompt);
-                return paragraph;
-              });
-            }
-          }),
-      }),
-      // TODO: only show this option if user has a min 5 day streak
-      // TODO: hide this behind a feature flag. Perhaps LaunchDarkly, they have a good free tier (Free for up to 3 users and 1000 monthly active users.)
-      new ComponentPickerOption('AI Prompt', {
-        icon: <SparklesIcon className="icon paragraph" />,
-        keywords: ['ai-prompt'],
-        onSelect: (): void =>
-          editor.update(() => {
-            const selection = $getSelection();
-            if ($isRangeSelection(selection)) {
-              $setBlocksType(selection, () => {
-                const paragraph = $createParagraphNode();
-                const prompt = $createAiPromptNode('Generating prompt with Ai, please wait ...');
-                paragraph.append(prompt);
-                return paragraph;
-              });
-            }
-          }),
-      }),
-    ]
-  }, [editor]);
+      ...baseOptions.filter(
+        (option) =>
+          regex.test(option.title) ||
+          option.keywords.some((keyword) => regex.test(keyword)),
+      ),
+    ];
+
+  }, [editor, queryString]);
 
   const onSelectOption = useCallback(
     (
