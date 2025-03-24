@@ -2,6 +2,7 @@
 
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
 import AiPromptNodePlugin from "./plugins/AiPromptNodePlugin";
@@ -46,6 +47,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <ComponentPickerMenuPlugin />
       <PromptNodePlugin />
       <DummyDataPlugin userID={userID} />
+      <HistoryPlugin />
 
       {showTreeView && <TreeViewPlugin />}
     </div>
