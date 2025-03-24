@@ -42,7 +42,6 @@ body {
 }
 
 .node-placeholder:has(br):not(:has(span))::before {
-  position: absolute;
   content: attr(data-placeholder);
   color: rgba(252, 252, 252, 0.4);
   font-style: italic;
