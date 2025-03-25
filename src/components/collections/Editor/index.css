@@ -1,0 +1,8 @@
+.editor_link {
+  color: rgb(33, 111, 219);
+  text-decoration: none;
+}
+.editor_link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

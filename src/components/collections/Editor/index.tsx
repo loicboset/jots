@@ -1,11 +1,13 @@
 'use client';
 
+import { ClickableLinkPlugin } from '@lexical/react/LexicalClickableLinkPlugin';
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
 import AiPromptNodePlugin from "./plugins/AiPromptNodePlugin";
+import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
@@ -16,6 +18,7 @@ import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
 import TreeViewPlugin from "./plugins/TreeViewPlugin";
+import './index.css';
 
 type Props = {
   userID: string;
@@ -48,6 +51,8 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <PromptNodePlugin />
       <DummyDataPlugin userID={userID} />
       <HistoryPlugin />
+      <AutoLinkPlugin />
+      <ClickableLinkPlugin />
 
       {showTreeView && <TreeViewPlugin />}
     </div>
