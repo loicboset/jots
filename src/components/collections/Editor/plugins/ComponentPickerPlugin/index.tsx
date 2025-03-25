@@ -10,6 +10,7 @@ import {
   useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $setBlocksType } from '@lexical/selection';
+import { useFeatureFlag } from "configcat-react";
 import {
   $createParagraphNode,
   $getSelection,
@@ -103,9 +104,11 @@ const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
           });
         }
       }),
-  }),
-  // TODO: only show this option if user has a min 5 day streak
-  // TODO: hide this behind a feature flag. Perhaps LaunchDarkly, they have a good free tier (Free for up to 3 users and 1000 monthly active users.)
+  })
+]
+
+// TODO: only show this option if user has a min 5 day streak, add as condition below when streaks are live
+const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption[] => [
   new ComponentPickerOption('AI Prompt', {
     icon: <SparklesIcon className="icon paragraph" />,
     keywords: ['ai', 'prompt', 'aiprompt'],
@@ -121,10 +124,13 @@ const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
           });
         }
       }),
-  }),
+  })
 ]
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
+  // eslint-disable-next-line max-len
+  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading  } = useFeatureFlag("isaipromptenabled", false);
+
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
 
@@ -134,22 +140,26 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
   const options = useMemo(() => {
     const baseOptions = getBaseOptions(editor);
+    const aiPromptOption = getAiPromptOption(editor);
+
+    const allowedOptions =
+      (isaipromptenabledValue && !isaipromptenabledLoading) ? [...baseOptions, ...aiPromptOption] : baseOptions
 
     if (!queryString) {
-      return baseOptions;
+      return allowedOptions;
     }
 
     const regex = new RegExp(queryString, 'i');
 
     return [
-      ...baseOptions.filter(
+      ...allowedOptions.filter(
         (option) =>
           regex.test(option.title) ||
           option.keywords.some((keyword) => regex.test(keyword)),
       ),
     ];
 
-  }, [editor, queryString]);
+  }, [editor, queryString, isaipromptenabledValue, isaipromptenabledLoading]);
 
   const onSelectOption = useCallback(
     (
