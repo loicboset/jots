@@ -88,20 +88,6 @@ const ComponentPickerMenuItem = ({
 }
 
 const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
-  new ComponentPickerOption('Parapragh', {
-    icon: <i className="icon paragraph" />,
-    keywords: ['paragraph'],
-    onSelect: (): void =>
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          $setBlocksType(selection, () => {
-            const paragraph = $createParagraphNode();
-            return paragraph;
-          });
-        }
-      }),
-  }),
   new ComponentPickerOption('Prompt', {
     icon: <i className="icon paragraph" />,
     keywords: ['prompt'],
