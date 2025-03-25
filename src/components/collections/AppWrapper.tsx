@@ -1,4 +1,5 @@
 import { CodeHighlightNode, CodeNode } from "@lexical/code";
+import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
 import { useJournalEntries } from "@/services/journal_entries";
@@ -44,6 +45,9 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   const initialConfig = {
     editorState: entries.length > 0 ? JSON.stringify(root) : null,
     namespace: 'MyEditor',
+    theme: {
+      link: 'editor_link'
+    },
     nodes: [
       CollapsibleContainerNode,
       CollapsibleTitleNode,
@@ -54,7 +58,9 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       CodeNode,
       CodeHighlightNode,
       PromptNode,
-      AiPromptNode
+      AiPromptNode,
+      AutoLinkNode,
+      LinkNode,
     ],
     onError,
   };
