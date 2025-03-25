@@ -1,6 +1,9 @@
 import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from '@lexical/link';
+import { ListNode, ListItemNode } from '@lexical/list';
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 
 import { useJournalEntries } from "@/services/journal_entries";
 
@@ -46,7 +49,24 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
     editorState: entries.length > 0 ? JSON.stringify(root) : null,
     namespace: 'MyEditor',
     theme: {
-      link: 'editor_link'
+      link: 'editor_link',
+      list: {
+        checklist: 'editor_checklist',
+        listitem: 'editor_listItem',
+        listitemChecked: 'editor_listItemChecked',
+        listitemUnchecked: 'editor_listItemUnchecked',
+        nested: {
+          listitem: 'editor_nestedListItem',
+        },
+        olDepth: [
+          'editor_ol1',
+          'editor_ol2',
+          'editor_ol3',
+          'editor_ol4',
+          'editor_ol5',
+        ],
+        ul: 'editor_ul',
+      },
     },
     nodes: [
       CollapsibleContainerNode,
@@ -61,6 +81,11 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       AiPromptNode,
       AutoLinkNode,
       LinkNode,
+      HorizontalRuleNode,
+      HeadingNode,
+      QuoteNode,
+      ListNode,
+      ListItemNode
     ],
     onError,
   };

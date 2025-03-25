@@ -41,6 +41,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+ol {
+  list-style-type: decimal;
+}
+ul,
+menu {
+  list-style: disc;
+}
+
 .node-placeholder:has(br):not(:has(span))::before {
   content: attr(data-placeholder);
   color: rgba(252, 252, 252, 0.4);

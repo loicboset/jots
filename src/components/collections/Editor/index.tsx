@@ -1,10 +1,14 @@
 'use client';
 
+import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
 import { ClickableLinkPlugin } from '@lexical/react/LexicalClickableLinkPlugin';
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
+
 
 import AiPromptNodePlugin from "./plugins/AiPromptNodePlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
@@ -14,6 +18,7 @@ import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
 import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
 import DayContainerPlugin from "./plugins/DayContainerPlugin";
 import DummyDataPlugin from "./plugins/DummyDataPlugin";
+import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
@@ -53,6 +58,10 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <HistoryPlugin />
       <AutoLinkPlugin />
       <ClickableLinkPlugin />
+      <TabIndentationPlugin maxIndent={7} />
+      <MarkdownShortcutPlugin />
+      <ListPlugin />
+      <CheckListPlugin />
 
       {showTreeView && <TreeViewPlugin />}
     </div>
