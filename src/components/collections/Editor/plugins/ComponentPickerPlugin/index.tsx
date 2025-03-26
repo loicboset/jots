@@ -108,7 +108,7 @@ const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
 ]
 
 // TODO: only show this option if user has a min 5 day streak, add as condition below when streaks are live
-const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption[] => [
+const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption =>
   new ComponentPickerOption('AI Prompt', {
     icon: <SparklesIcon className="icon paragraph" />,
     keywords: ['ai', 'prompt', 'aiprompt'],
@@ -125,7 +125,6 @@ const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption[] => [
         }
       }),
   })
-]
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
   // eslint-disable-next-line max-len
@@ -142,8 +141,11 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
     const baseOptions = getBaseOptions(editor);
     const aiPromptOption = getAiPromptOption(editor);
 
-    const allowedOptions =
-      (isaipromptenabledValue && !isaipromptenabledLoading) ? [...baseOptions, ...aiPromptOption] : baseOptions
+    const allowedOptions = [...baseOptions];
+
+    if (isaipromptenabledValue && !isaipromptenabledLoading) {
+      allowedOptions.push(aiPromptOption)
+    }
 
     if (!queryString) {
       return allowedOptions;
