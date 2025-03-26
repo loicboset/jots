@@ -1,0 +1,35 @@
+.blog-post {
+  font-size: 18px;
+  line-height: 1.6;
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.blog-post hr {
+  visibility: hidden;
+}
+
+.blog-post p {
+  font-weight: 400;
+  color: #242424;
+  line-height: 32px;
+}
+
+.blog-post a {
+  color: #007bff; /* Blue color for links to stand out */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.blog-post a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+
+.blog-post blockquote {
+  border-left: 4px solid #ddd; /* Distinguish blockquotes with a border */
+  padding-left: 16px; /* Add padding inside the blockquote */
+  margin: 2em 0em; /* Add vertical spacing */
+  color: #555; /* Slightly lighter color for blockquote text */
+}
+
+.blog-post li p {
+  margin-bottom: 0; /* Remove bottom margin for paragraphs inside list items */
+}
