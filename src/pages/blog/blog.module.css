@@ -1,0 +1,67 @@
+.blog-post {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.blog-post hr {
+  visibility: hidden;
+}
+
+.blog-post p {
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.blog-post a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.blog-post a:hover {
+  text-decoration: underline;
+}
+
+.blog-post blockquote {
+  border-left: 4px solid #070707;
+  padding-left: 16px;
+  margin: 2em 0em;
+  color: #adabab;
+}
+
+.blog-post h2 {
+  padding-top: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-post h3 {
+  padding-top: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-post ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-post li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5rem;
+}
+
+.blog-post li p {
+  margin-bottom: 0;
+}
