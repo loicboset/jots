@@ -45,6 +45,8 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
     }
   }
 
+
+
   return (
     <div className={`
       bg-gray-600/30 flex flex-col justify-between border-r border-white/10 text-white p-8 max-w-1/5
@@ -71,6 +73,8 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
       </ul>
 
       <div className="flex flex-col space-y-4">
+        <Button onClick={(): void => router.push(`/${userID}/profile`)} color="white">Profile</Button>
+
         <Button onClick={handleLogout} color="white">Logout</Button>
 
         <VersionNumber />

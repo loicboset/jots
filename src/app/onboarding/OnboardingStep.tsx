@@ -1,41 +1,35 @@
 import { useState } from "react";
 
 import { redirect } from "next/navigation";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import Select from 'react-select';
+import { Controller, useForm } from "react-hook-form";
+import CreatableSelect from "react-select/creatable";
 
 import Button from "@/components/ui/buttons/Button";
-import { useUserContext } from "@/context/UserProvider";
 import { useUpsertUserSettings } from "@/services/user_settings";
+import { UpsertUserSettings } from "@/types/payload/user_settings";
 
 import steps from "./steps";
 
-type FormValues = {
-  role?: string;
-  experience?: number;
-  goal?: string;
-}
+type FormValues = Omit<UpsertUserSettings, 'user_id'>;
 
-const OnboardingStep = (): React.ReactElement => {
+type Props = {
+  userID: string;
+};
+
+const OnboardingStep = ({ userID }: Props): React.ReactElement => {
   // STATE
   const [step, setStep] = useState(1);
-
-  // CONTEXT
-  const { userID } = useUserContext();
-  console.log(' userID', userID);
 
   // RQ
   const { mutate: editUserSettings } = useUpsertUserSettings();
 
   // RHF
   const { register, control, getValues, handleSubmit } = useForm<FormValues>();
-  const [role] = useWatch({ control, name: ['role'] });
 
   // METHODS
   const handlePrevious = (): void => setStep(step - 1);
 
   const handleSkipAll = (): void => {
-    console.log('redirect to', `/${userID}`)
     redirect(`/${userID}`);
   }
 
@@ -69,30 +63,17 @@ const OnboardingStep = (): React.ReactElement => {
               name={stepData.input.name}
               control={control}
               render={({ field: { onChange, value } }): React.ReactElement => (
-                <Select
+                <CreatableSelect
+                  isClearable
                   className="text-black"
                   options={options}
                   value={options.find((option) => option.value === value)}
-                  onChange={(_symbol): void => onChange(_symbol?.value)}
+                  onChange={(option): void => onChange(option?.value)}
+                  placeholder="Select or type..."
                 />
               )}
             />
-            {role === 'Other' && (
-              <div>
-                <label htmlFor={stepData.input.name} className="block text-sm/6 font-medium text-white">
-                  Other
-                </label>
-                <input
-                  {...register(stepData.input.name)}
-                  type="text"
-                  className={`
-                    block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1
-                    -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2
-                    focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6
-                  `}
-                />
-              </div>
-            )}
+
           </div>
         ) : (
           <input

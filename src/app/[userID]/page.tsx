@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 
 import App from '@/components/App'
-import { UserContextProvider } from '@/context/UserProvider'
 import { createClient } from '@/lib/supabase/server'
 
 type Props = {
@@ -21,11 +20,9 @@ const UserAppRoot = async ({ params }: Props): Promise<React.ReactElement> => {
   }
 
   return (
-    <UserContextProvider user={{ userID }}>
-      <div className='flex h-screen'>
-        <App userID={data.user.id} />
-      </div>
-    </UserContextProvider>
+    <div className='flex h-screen'>
+      <App userID={data.user.id} />
+    </div>
   )
 }
 

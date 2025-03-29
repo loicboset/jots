@@ -2,24 +2,28 @@
 
 import { useContext, createContext, ReactNode } from 'react';
 
-type CurrentAuthenticatedUser = {
+export type CurrentAuthenticatedUser = {
   userID: string;
 };
 
 type Props = {
-  user: CurrentAuthenticatedUser;
+  value: {
+    user: CurrentAuthenticatedUser;
+    setUser: (user: CurrentAuthenticatedUser) => void;
+  };
+  user?: CurrentAuthenticatedUser;
   children: ReactNode;
 };
 
 // context
-const UserContext = createContext<CurrentAuthenticatedUser>({} as CurrentAuthenticatedUser);
+const UserContext = createContext<Props['value'] | undefined>(undefined);
 
-const UserContextProvider = ({ children, user }: Props): React.ReactElement => (
-  <UserContext.Provider value={user}>{children}</UserContext.Provider>
+const UserContextProvider = ({ children, value }: Props): React.ReactElement => (
+  <UserContext.Provider value={value}>{children}</UserContext.Provider>
 );
 
 // create a hook to use the global context
-const useUserContext = (): CurrentAuthenticatedUser => {
+const useUserContext = (): Props['value'] => {
   const globalUserState = useContext(UserContext);
 
   if (globalUserState === undefined) {

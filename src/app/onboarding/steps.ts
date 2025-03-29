@@ -1,3 +1,5 @@
+import { GOALSOPTIONS, ROLESOPTIONS } from "@/utils/constants";
+
 type Name = "role" | "experience" | "goal";
 
 type Step = {
@@ -13,20 +15,7 @@ const steps = new Map<number, Step>([
       input: {
         name: "role",
         type: "select",
-        options: [
-          "Frontend Developer",
-          "Backend Developer",
-          "Full-Stack Developer",
-          "Mobile Developer (iOS/Android)",
-          "DevOps Engineer",
-          "Site Reliability Engineer (SRE)",
-          "Data Engineer",
-          "AI/ML Engineer",
-          "Embedded Systems Developer",
-          "Game Developer",
-          "Security Engineer",
-          "Other",
-        ],
+        options: ROLESOPTIONS,
       },
     },
   ],
@@ -44,7 +33,7 @@ const steps = new Map<number, Step>([
       input: {
         name: "goal",
         type: "select",
-        options: ["Get a first job", "Get a new job", "Get a promotion", "Grow technical skills"],
+        options: GOALSOPTIONS,
       },
     },
   ],

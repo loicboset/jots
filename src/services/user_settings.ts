@@ -11,7 +11,7 @@ const getUserSettings = async (userID: string): Promise<UserSettings> => {
 };
 
 const useUserSettings = (userID: string): UseQueryResult<UserSettings, Error> => {
-  return useQuery({ queryKey: ["user_settings"], queryFn: () => getUserSettings(userID) });
+  return useQuery({ queryKey: ["user_settings", userID], queryFn: () => getUserSettings(userID) });
 };
 
 // UPSERT USER SETTINGS

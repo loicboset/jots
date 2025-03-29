@@ -7,7 +7,7 @@ export async function GET(request: Request): Promise<Response> {
 
   const supabase = await createClient();
 
-  const { data: settings = [] } = await supabase.from("user_settings").select("*").eq("user_id", userID);
+  const { data: settings } = await supabase.from("user_settings").select("*").eq("user_id", userID).single();
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -21,7 +21,10 @@ export async function PUT(request: Request): Promise<Response> {
   const req = await request.json();
   const { user_id, role, experience, goal } = req as UpsertUserSettings;
 
-  const { data } = await supabase.from("user_settings").upsert({ user_id, role, experience, goal }).select();
+  const { data } = await supabase
+    .from("user_settings")
+    .upsert({ user_id, role, experience, goal }, { onConflict: "user_id" })
+    .select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }
