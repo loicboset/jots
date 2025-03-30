@@ -36,7 +36,8 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1"
+    "remark-html": "^16.0.1",
+    "react-select": "^5.10.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
