@@ -30,6 +30,8 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
   const handlePrevious = (): void => setStep(step - 1);
 
   const handleSkipAll = (): void => {
+    const values = getValues()
+    editUserSettings({ user_id: userID, ...values })
     redirect(`/${userID}`);
   }
 
