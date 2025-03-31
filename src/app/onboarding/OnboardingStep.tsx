@@ -71,7 +71,7 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
                   options={options}
                   value={options.find((option) => option.value === value)}
                   onChange={(option): void => onChange(option?.value)}
-                  placeholder="Select or type..."
+                  placeholder="Select or type a new one..."
                 />
               )}
             />

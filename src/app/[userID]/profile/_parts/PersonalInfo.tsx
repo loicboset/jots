@@ -68,7 +68,7 @@ const PersonalInfo = (): React.ReactElement => {
                 options={rolesOptions}
                 value={value ? { label: value, value } : undefined}
                 onChange={(option): void => onChange(option?.value)}
-                placeholder="Select or type..."
+                placeholder="Select or type a new one..."
               />
             )}
           />
@@ -102,7 +102,7 @@ const PersonalInfo = (): React.ReactElement => {
                 options={goalOptions}
                 value={value ? { label: value, value } : undefined}
                 onChange={(option): void => onChange(option?.value)}
-                placeholder="Select or type..."
+                placeholder="Select or type a new one..."
               />
             )}
           />
