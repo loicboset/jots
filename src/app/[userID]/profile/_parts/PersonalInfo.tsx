@@ -76,7 +76,7 @@ const PersonalInfo = (): React.ReactElement => {
 
         <div className="sm:col-span-4">
           <label htmlFor="experience" className="block text-sm/6 font-medium text-white">
-            Experience
+            Experience (in years)
           </label>
           <div className="mt-2">
             <div className="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
