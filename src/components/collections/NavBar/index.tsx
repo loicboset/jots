@@ -1,32 +1,33 @@
 import { useState } from "react";
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import classNames from "classnames";
 import { useRouter } from "next/navigation";
+import { DayPicker, getDefaultClassNames, Modifiers } from "react-day-picker";
 
 import Button from "@/components/ui/buttons/Button";
+import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { createClient } from "@/lib/supabase/client";
-import { useCategories } from "@/services/categories";
 
-import DeleteCategoryButton from "./parts/DeleteCategoryButton";
-import VersionNumber from "./parts/VersionNumber";
-import { FILTER_CATEGORY_COMMAND, SHOW_ALL_CATEGORIES_COMMAND } from "../Editor/plugins/CollapsiblePlugin";
+
+import "react-day-picker/style.css";
+import "./index.css";
+
+
 
 type Props = {
   userID: string;
 };
 
+const bgColor = "rgb(40 40 40)";
+
 const NavBar = ({ userID }: Props): React.ReactElement => {
   // STATE
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Date>(new Date());
+
+  // CONTEXT
+  const { calendar, setCalendar } = useCalendarContext();
 
   // ROUTER
   const router = useRouter();
-
-  const [editor] = useLexicalComposerContext();
-
-  // RQ
-  const { data: categories = [] } = useCategories(userID);
 
   // METHODS
   const handleLogout = async (): Promise<void> => {
@@ -35,49 +36,45 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
     router.push('/');
   };
 
-  const onSelectCategory = (categoryName: string): void => {
-    if (categoryName === selectedCategory) {
-      editor.dispatchCommand(SHOW_ALL_CATEGORIES_COMMAND, null);
-      setSelectedCategory(null);
-    } else {
-      editor.dispatchCommand(FILTER_CATEGORY_COMMAND, categoryName);
-      setSelectedCategory(categoryName);
-    }
-  }
+  const handleSetSelected = (modifiers: Modifiers, selectedDate?: Date): void => {
+    if (modifiers.selected || !selectedDate) return;
+    setSelected(selectedDate)
 
+    const year = selectedDate.getFullYear()
+    const month = selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate();
 
+    const formattedDate = new Date(`${year}-${month}-${day}`)
+    setCalendar({ ...calendar, currentDate: formattedDate });
+  };
+
+  // VARS
+  const defaultClassNames = getDefaultClassNames();
 
   return (
-    <div className={`
-      bg-gray-600/30 flex flex-col justify-between border-r border-white/10 text-white p-8 max-w-1/5
-    `}>
-      <ul className="space-y-4">
-        {categories.map((cat) => (
-          <li
-            key={cat.name}
-            className={classNames(
-              'flex items-center relative group',
-              selectedCategory === cat.name && 'bg-gray-600/40'
-            )}
-          >
-            <div
-              onClick={(): void => onSelectCategory(cat.name)}
-              className="flex items-center space-x-2 cursor-pointer hover:bg-gray-600/40 p-1 pl-2 rounded-md w-full"
-            >
-              <span style={{ backgroundColor: cat.color }} className="h-2 w-2 rounded-full" />
-              <span className="whitespace-nowrap overflow-hidden text-ellipsis select-none">#{cat.name}</span>
-            </div>
-            <DeleteCategoryButton id={cat.id} />
-          </li>
-        ))}
-      </ul>
+    <div
+      className="p-4 m-4 rounded-2xl flex flex-col justify-between items-center"
+      style={{ backgroundColor: bgColor }}
+    >
+      <div className="rounded-2xl p-2">
+        <DayPicker
+          animate
+          mode="single"
+          selected={selected}
+          onSelect={(selectedDate, triggerDate, modifiers): void => handleSetSelected(modifiers, selectedDate)}
+          classNames={{
+            day: `${defaultClassNames.day} text-xs`,
+            weekdays: `${defaultClassNames.weekdays} text-xs`,
+            caption_label: `${defaultClassNames.caption_label} text-sm`,
+          }}
+        />
+      </div>
 
-      <div className="flex flex-col space-y-4">
+
+      <div className="flex justify-between w-full">
         <Button onClick={(): void => router.push(`/${userID}/profile`)} color="white">Profile</Button>
 
         <Button onClick={handleLogout} color="white">Logout</Button>
-
-        <VersionNumber />
       </div>
     </div>
   );

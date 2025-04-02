@@ -35,24 +35,16 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
   const textContent: string[] = useMemo(() => [], []);
 
   if (!isLoading) {
-    const root = {
-      root: {
-        children: entries.map((entry) => JSON.parse(entry.content)),
-        direction: "ltr",
-        format: "",
-        indent: 0,
-        type: "root",
-        version: 1
-      }
-    }
-    const parsedEditorState = editor.parseEditorState(JSON.stringify(root));
+    entries.forEach((entry) => {
+      const parsedEditorState = editor.parseEditorState(entry.content)
 
-    parsedEditorState.read(() => {
-      parsedEditorState._nodeMap.forEach((node) => {
-        if ($isDayContainerNode(node)) {
-          const textNodes = node.getAllTextNodes();
-          textNodes.forEach((node) => textContent.push(node.getTextContent()));
-        }
+      parsedEditorState.read(() => {
+        parsedEditorState._nodeMap.forEach((node) => {
+          if ($isDayContainerNode(node)) {
+            const textNodes = node.getAllTextNodes();
+            textNodes.forEach((node) => textContent.push(node.getTextContent()));
+          }
+        })
       })
     })
   }
@@ -84,7 +76,6 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
             if (textContent.length === 0) {
               prompt = `You haven't written anything yet. Start writing to get AI suggestions.`;
             } else {
-              console.log("CALLING AI")
               const result = await getAiPrompt(joinedEntries)
               prompt = result.prompt;
             }

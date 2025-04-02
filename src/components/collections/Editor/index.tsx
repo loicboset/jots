@@ -9,20 +9,20 @@ import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 
-
 import AiPromptNodePlugin from "./plugins/AiPromptNodePlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
 import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
-import DayContainerPlugin from "./plugins/DayContainerPlugin";
 import DummyDataPlugin from "./plugins/DummyDataPlugin";
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
-import OnDayEntryChangePlugin from "./plugins/OnDayEntryChangePlugin";
+import OnChangePlugin from './plugins/OnChangePlugin';
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
 import TreeViewPlugin from "./plugins/TreeViewPlugin";
+
+
 import './index.css';
 
 type Props = {
@@ -34,12 +34,12 @@ const Editor = ({ userID }: Props): React.ReactElement => {
   const showTreeView = process.env.NODE_ENV === "development";
 
   return (
-    <div className="w-full focus:outline-none">
+    <>
       <RichTextPlugin
         contentEditable={
           <div className="h-full">
             <div className="h-full w-full relative focus:outline-none">
-              <ContentEditable className="h-full overflow-y-scroll w-full focus:outline-none p-8" />
+              <ContentEditable className="h-full overflow-y-scroll w-full focus:outline-none" />
             </div>
           </div>
         }
@@ -48,8 +48,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <AiPromptNodePlugin userID={userID} />
       <CollapsiblePlugin userID={userID} />
       <TransformCategoryPlugin userID={userID} />
-      <DayContainerPlugin />
-      <OnDayEntryChangePlugin userID={userID} />
+      <OnChangePlugin />
       <CodeHighlightPlugin />
       <ComponentPickerPlugin />
       <ComponentPickerMenuPlugin />
@@ -64,7 +63,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <CheckListPlugin />
 
       {showTreeView && <TreeViewPlugin />}
-    </div>
+    </>
   )
 };
 

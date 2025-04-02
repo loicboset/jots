@@ -984,6 +984,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@date-fns/tz@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@date-fns/tz/-/tz-1.2.0.tgz#81cb3211693830babaf3b96aff51607e143030a6"
+  integrity sha512-LBrd7MiJZ9McsOgxqWX7AaxrDjcFVjWH/tIKJd7pnR7McaslGYOP1QmmiBXdJH/H/yLCT+rcQ7FaPBUxRGUtrg==
+
 "@emnapi/runtime@^1.2.0":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@emnapi/runtime/-/runtime-1.3.1.tgz#0fcaa575afc31f455fd33534c19381cfce6c6f60"
@@ -3285,6 +3290,16 @@ data-view-byte-offset@^1.0.1:
     call-bound "^1.0.2"
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
+
+date-fns-jalali@^4.1.0-0:
+  version "4.1.0-0"
+  resolved "https://registry.yarnpkg.com/date-fns-jalali/-/date-fns-jalali-4.1.0-0.tgz#9c7fb286004fab267a300d3e9f1ada9f10b4b6b0"
+  integrity sha512-hTIP/z+t+qKwBDcmmsnmjWTduxCg+5KfdqWQvb2X/8C9+knYY6epN/pfxdDuyVlSVeFz0sM5eEfwIUQ70U4ckg==
+
+date-fns@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-4.1.0.tgz#64b3d83fff5aa80438f5b1a633c2e83b8a1c2d14"
+  integrity sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==
 
 debug@4, debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@^4.3.7:
   version "4.4.0"
@@ -6090,6 +6105,15 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+react-day-picker@^9.6.4:
+  version "9.6.4"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-9.6.4.tgz#9f3b2a181076572f783ebe80f175e4ed12b33384"
+  integrity sha512-OekyAWfaypSFN5zms4CD6Bcas5R0KbWdARkWTyQ2phJHQOolDfpLwrN6Q+U3ifPGNmKLf9ngXuSz25NKHMkR6w==
+  dependencies:
+    "@date-fns/tz" "^1.2.0"
+    date-fns "^4.1.0"
+    date-fns-jalali "^4.1.0-0"
 
 react-dom@^19.0.0:
   version "19.0.0"
