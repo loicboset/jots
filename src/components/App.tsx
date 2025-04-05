@@ -1,9 +1,10 @@
 'use client';
 
 import Editor from "@/components/collections/Editor";
-import NavBar from "@/components/collections/NavBar";
+import { useCalendarContext } from "@/context/CalendarContextProvider";
 
 import AppWrapper from "./collections/AppWrapper";
+import NavBar from "./collections/NavBar";
 
 
 type Props = {
@@ -11,11 +12,19 @@ type Props = {
 }
 
 const App = ({ userID }: Props): React.ReactElement => {
+  // CONTEXT
+  const { calendar } = useCalendarContext();
+
   return (
-    <AppWrapper userID={userID}>
+    <>
       <NavBar userID={userID} />
-      <Editor userID={userID} />
-    </AppWrapper>
+      <div className="w-full focus:outline-none  p-8">
+        <p className="mb-8 font-medium text-lg">{calendar.currentDate.toDateString()}</p>
+        <AppWrapper userID={userID}>
+          <Editor userID={userID} />
+        </AppWrapper>
+      </div>
+    </>
   );
 };
 

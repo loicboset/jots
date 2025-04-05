@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 
+import { CalendarContextProvider, CalendarData } from "@/context/CalendarContextProvider";
 import { CurrentAuthenticatedUser, UserContextProvider } from "@/context/UserProvider";
 import { createClient } from "@/lib/supabase/client";
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): React.ReactElement => {
   // STATE
   const [user, setUser] = useState<CurrentAuthenticatedUser>();
+  const [calendar, setCalendar] = useState<CalendarData>({ currentDate: new Date() });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +31,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): Reac
 
   return (
     <UserContextProvider value={{ user, setUser }}>
-      {children}
+      <CalendarContextProvider value={{ calendar, setCalendar }}>
+        {children}
+      </CalendarContextProvider>
     </UserContextProvider>
   );
 }

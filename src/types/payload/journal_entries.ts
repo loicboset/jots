@@ -1,7 +1,9 @@
+import { SerializedEditorState } from "lexical";
+
 type CreateJournalEntry = {
   user_id: string;
-  date: string;
-  content: string;
+  content: SerializedEditorState;
+  date: Date;
 };
 
 export type { CreateJournalEntry };

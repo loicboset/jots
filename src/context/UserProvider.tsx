@@ -11,7 +11,6 @@ type Props = {
     user: CurrentAuthenticatedUser;
     setUser: (user: CurrentAuthenticatedUser) => void;
   };
-  user?: CurrentAuthenticatedUser;
   children: ReactNode;
 };
 

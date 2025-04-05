@@ -5,7 +5,8 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 
-import { useJournalEntries } from "@/services/journal_entries";
+import { useCalendarContext } from "@/context/CalendarContextProvider";
+import { useJournalEntry } from "@/services/journal_entries";
 
 import { AiPromptNode } from "./Editor/nodes/AiPromptNode";
 import { CollapsibleContainerNode } from "./Editor/nodes/CollapsibleContainerNode";
@@ -22,10 +23,13 @@ type Props = {
 };
 
 const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
-  // RQ
-  const { data: entries = [], isLoading } = useJournalEntries(userID);
+  // CONTEXT
+  const { calendar } = useCalendarContext();
 
-  if (isLoading) return <p className="p-8 text-lg">Loading...</p>
+  // RQ
+  const { data: entry, isLoading } = useJournalEntry(userID, calendar.currentDate);
+
+  if (isLoading) return <></>
 
 
   // METHODS
@@ -34,19 +38,8 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   }
 
   // VARS
-  const root = {
-    root: {
-      children: entries.map((entry) => JSON.parse(entry.content)),
-      direction: "ltr",
-      format: "",
-      indent: 0,
-      type: "root",
-      version: 1
-    }
-  }
-
   const initialConfig = {
-    editorState: entries.length > 0 ? JSON.stringify(root) : null,
+    editorState: entry?.content ? JSON.stringify(entry?.content) : undefined,
     namespace: 'MyEditor',
     theme: {
       link: 'editor_link',
@@ -99,3 +92,5 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
 };
 
 export default AppWrapper;
+
+
