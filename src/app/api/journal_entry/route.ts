@@ -13,7 +13,7 @@ export async function GET(request: Request): Promise<Response> {
     .from("journal_entries")
     .select("*")
     .eq("user_id", userID)
-    .eq("new_date", formattedDate)
+    .eq("date", formattedDate)
     .single();
 
   const headers = new Headers();
@@ -27,7 +27,7 @@ export async function PUT(request: Request): Promise<Response> {
 
   const req = await request.json();
   const { user_id, content, date } = req as CreateJournalEntry;
-  const { data } = await supabase.from("journal_entries").upsert({ user_id, content, date, new_date: date }).select();
+  const { data } = await supabase.from("journal_entries").upsert({ user_id, content, date }).select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }
