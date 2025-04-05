@@ -13,13 +13,11 @@ export async function GET(request: Request): Promise<Response> {
     .from("journal_entries")
     .select("*")
     .eq("user_id", userID)
-    .eq("date", formattedDate)
+    .eq("new_date", formattedDate)
     .single();
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
-
-  console.log("journal_entry", journal_entry);
 
   return new Response(JSON.stringify(journal_entry), { status: 200, headers });
 }
@@ -29,10 +27,7 @@ export async function PUT(request: Request): Promise<Response> {
 
   const req = await request.json();
   const { user_id, content, date } = req as CreateJournalEntry;
-  console.log("server date", date);
-  const { data, error } = await supabase.from("journal_entries").upsert({ user_id, content, date }).select();
-
-  console.log("ERROR", error);
+  const { data } = await supabase.from("journal_entries").upsert({ user_id, content, date, new_date: date }).select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }

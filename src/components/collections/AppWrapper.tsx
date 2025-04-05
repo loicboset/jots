@@ -29,11 +29,6 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   // RQ
   const { data: entry, isLoading } = useJournalEntry(userID, calendar.currentDate);
 
-  // console.group();
-  console.log('isLoading', isLoading);
-  // console.log('fetchStatus', fetchStatus);
-  // console.groupEnd();
-
   if (isLoading) return <></>
 
 
@@ -43,26 +38,6 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   }
 
   // VARS
-  // const root = {
-  //   root: {
-  //     children: [
-  //       {
-  //         detail: 0,
-  //         format: 0,
-  //         mode: 'normal',
-  //         style: '',
-  //         type: 'paragraph',
-  //         version: 1,
-  //       },
-  //     ],
-  //     direction: "ltr",
-  //     format: "",
-  //     indent: 0,
-  //     type: "root",
-  //     version: 1
-  //   }
-  // }
-
   const initialConfig = {
     editorState: entry?.content ? JSON.stringify(entry?.content) : undefined,
     namespace: 'MyEditor',
@@ -117,3 +92,5 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
 };
 
 export default AppWrapper;
+
+
