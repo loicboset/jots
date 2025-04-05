@@ -29,7 +29,7 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   // RQ
   const { data: entry, isLoading } = useJournalEntry(userID, calendar.currentDate);
 
-  if (isLoading) return <></>
+  if (isLoading) return <>Loading...</>
 
 
   // METHODS
