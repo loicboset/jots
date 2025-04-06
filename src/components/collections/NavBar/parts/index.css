@@ -6,3 +6,8 @@
   --rdp-day_button-height: 36px;
   --rdp-day_button-width: 36px;
 }
+
+.filled-day {
+  color: rgb(81, 192, 81);
+  font-weight: bolder;
+}

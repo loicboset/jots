@@ -5,4 +5,8 @@ type JournalEntry = {
   created_at: string;
 };
 
-export type { JournalEntry };
+type JournalEntryDate = {
+  date: string;
+};
+
+export type { JournalEntry, JournalEntryDate };
