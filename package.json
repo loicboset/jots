@@ -27,6 +27,7 @@
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
     "configcat-react": "^4.8.1",
+    "dayjs": "^1.11.13",
     "gray-matter": "^4.0.3",
     "jest-environment-jsdom": "^29.7.0",
     "lexical": "^0.27.1",

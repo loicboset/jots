@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
 import axios from "axios";
 
-import { JournalEntry } from "@/types/api/journal_entries";
+import { JournalEntry, JournalEntryDate } from "@/types/api/journal_entries";
 import { CreateJournalEntry } from "@/types/payload/journal_entries";
 
 // GET JOURNAL ENTRY
@@ -41,8 +41,22 @@ const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJ
     mutationFn: upsertJournalEntry,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
+      queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
     },
   });
 };
 
-export { useJournalEntry, useJournalEntries, useUpsertJournalEntry };
+// GET JOURNAL ENTRIES DATES
+const getJournalEntriesDates = async (userID: string, date: Date): Promise<JournalEntryDate[]> => {
+  const { data } = await axios.get(`/api/journal_entries/month/dates?user_id=${userID}&date=${date}`);
+  return data;
+};
+
+const useJournalEntriesDates = (userID: string, date: Date): UseQueryResult<JournalEntryDate[], Error> => {
+  return useQuery({
+    queryKey: ["journal_entries/month/dates", userID, date],
+    queryFn: () => getJournalEntriesDates(userID, date),
+  });
+};
+
+export { useJournalEntry, useJournalEntries, useUpsertJournalEntry, useJournalEntriesDates };
