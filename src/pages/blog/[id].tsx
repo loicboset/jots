@@ -28,7 +28,7 @@ const Post = ({ postData }: Props): React.ReactElement => {
               Blog <span aria-hidden="true">&rarr;</span>
             </Link>
             <Link href="/login" className="text-sm/6 font-semibold lg:block">
-                Log in
+              Log in
             </Link>
             <Link
               href="/signup"
@@ -41,7 +41,7 @@ const Post = ({ postData }: Props): React.ReactElement => {
         <div className="flex flex-col items-center justify-center mt-10">
           <div className="sm:w-3/4">
             <div>
-              <h1 className="justify-center mt-3 text-2xl font-semibold leading-6">
+              <h1 className="justify-center mt-3 text-4xl font-semibold text-gray-300 leading-14">
                 {postData.title}
               </h1>
             </div>
@@ -50,7 +50,7 @@ const Post = ({ postData }: Props): React.ReactElement => {
                 <div className="mb-10 border border-gray-100" />
                 <div
                   dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-                  className={styles["blog-post"]}
+                  className={styles["blog-post"] + ' text-gray-300'}
                 />
               </div>
             </div>
@@ -60,6 +60,7 @@ const Post = ({ postData }: Props): React.ReactElement => {
     </>
   );
 };
+
 export const getStaticProps = async (props: {
   params: { id: string };
 }): Promise<{ props: { postData: BlogPostData } }> => {
@@ -72,12 +73,14 @@ export const getStaticProps = async (props: {
     },
   };
 };
+
 export const getStaticPaths = async (): Promise<{
   paths: { params: { id: string } }[];
   fallback: boolean;
 }> => {
   const paths = [
     { params: { id: "benefits-of-dev-journaling" } },
+    { params: { id: "journaling-for-developers-a-simple-habit-for-big-results" } },
   ];
   return {
     paths,
