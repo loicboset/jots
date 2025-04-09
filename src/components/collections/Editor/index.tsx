@@ -17,6 +17,7 @@ import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
 import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
 import DummyDataPlugin from "./plugins/DummyDataPlugin";
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
+import MotivationBoosterNodePlugin from './plugins/MotivationBoosterNodePlugin';
 import OnChangePlugin from './plugins/OnChangePlugin';
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
@@ -61,6 +62,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <MarkdownShortcutPlugin />
       <ListPlugin />
       <CheckListPlugin />
+      <MotivationBoosterNodePlugin userID={userID} />
 
       {showTreeView && <TreeViewPlugin />}
     </>

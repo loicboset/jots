@@ -66,7 +66,7 @@ const config = [
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
-      'max-len': ['error', { code: 120, tabWidth: 2, ignoreComments: true }],
+      'max-len': ['error', { code: 160, tabWidth: 2, ignoreComments: true }],
     },
   },
   // Jest Configuration

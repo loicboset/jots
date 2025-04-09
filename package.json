@@ -17,6 +17,7 @@
     "@heroicons/react": "^2.2.0",
     "@lexical/code": "^0.27.1",
     "@lexical/react": "^0.27.1",
+    "@radix-ui/react-slider": "^1.2.3",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.48.1",
     "@tanstack/react-query": "^5.67.3",

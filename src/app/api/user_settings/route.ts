@@ -19,11 +19,11 @@ export async function PUT(request: Request): Promise<Response> {
   const supabase = await createClient();
 
   const req = await request.json();
-  const { user_id, role, experience, goal } = req as UpsertUserSettings;
+  const { user_id, role, experience, goal, mood_checks_enabled } = req as UpsertUserSettings;
 
   const { data } = await supabase
     .from("user_settings")
-    .upsert({ user_id, role, experience, goal }, { onConflict: "user_id" })
+    .upsert({ user_id, role, experience, goal, mood_checks_enabled }, { onConflict: "user_id" })
     .select();
 
   return new Response(JSON.stringify(data), { status: 200 });

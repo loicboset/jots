@@ -15,6 +15,7 @@ import { CollapsibleTitleNode } from "./Editor/nodes/CollapsibleTitleNode";
 import { DayContainerNode } from "./Editor/nodes/DayContainerNode";
 import { DayContentNode } from "./Editor/nodes/DayContentNode";
 import { DayTitleNode } from "./Editor/nodes/DayTitleNode";
+import { MotivationBoosterNode } from "./Editor/nodes/MotivationBoosterNode";
 import { PromptNode } from "./Editor/nodes/PromptNode";
 
 type Props = {
@@ -78,7 +79,8 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       HeadingNode,
       QuoteNode,
       ListNode,
-      ListItemNode
+      ListItemNode,
+      MotivationBoosterNode
     ],
     onError,
   };

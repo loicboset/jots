@@ -1,5 +1,12 @@
+'use client';
+
 /* eslint-disable max-len */
 import Link from "next/link";
+
+import Toggle from '@/components/ui/Toggle/index'
+import InfoTooltip from "@/components/ui/tooltips/InfoTooltip";
+import { useUserContext } from "@/context/UserProvider";
+import { useUpsertUserSettings, useUserSettings } from "@/services/user_settings";
 
 import PersonalInfo from "./_parts/PersonalInfo";
 
@@ -8,6 +15,19 @@ type Props = {
 }
 
 const Profile = ({ email }: Props): React.ReactElement => {
+  // CONTEXT
+  const { user } = useUserContext();
+
+  // RQ
+  const { data: settings } = useUserSettings(user?.userID);
+  const { mutate: editUserSettings } = useUpsertUserSettings();
+
+  const isMoodChecksEnabled = settings?.mood_checks_enabled ?? true;
+
+  const toggleMoodChecks = (): void => {
+    editUserSettings({ user_id: user.userID, mood_checks_enabled: !isMoodChecksEnabled });
+  };
+
   return (
     <div className="h-screen">
       <div className='flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900'>
@@ -54,6 +74,21 @@ const Profile = ({ email }: Props): React.ReactElement => {
 
             {/* PERSONAL INFO */}
             <PersonalInfo />
+          </div>
+          <hr className="border-gray-500 mb-6" />
+          <div>
+            <div className="text-base/7 font-semibold text-white mb-8">
+              Personalise your writing journey
+            </div>
+            <div className='flex justify-between max-w-2xl'>
+              <div className='flex'>
+                <span className="block text-sm/6 font-medium text-white">
+                  Enable daily mood checks
+                </span>
+                <InfoTooltip message='Enable daily mood checks. Toggle on to get personalied daily motivation boosters based on your mood levels to help with your writing!' />
+              </div>
+              <Toggle state={isMoodChecksEnabled} toggleSwitch={toggleMoodChecks} />
+            </div>
           </div>
         </div>
       </div>
