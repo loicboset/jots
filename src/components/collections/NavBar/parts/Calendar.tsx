@@ -45,6 +45,7 @@ const Calendar = (): JSX.Element => {
   return (
     <DayPicker
       animate
+      weekStartsOn={1}
       modifiers={{
         filled: filledDays
       }}
