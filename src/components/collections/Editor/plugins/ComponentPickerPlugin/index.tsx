@@ -128,7 +128,6 @@ const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption =>
 
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
-  // eslint-disable-next-line max-len
   const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag("isaipromptenabled", false);
 
   const [editor] = useLexicalComposerContext();

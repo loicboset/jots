@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { SerializedEditorState } from "lexical";
 
 import { useCalendarContext } from "@/context/CalendarContextProvider";
@@ -8,6 +10,7 @@ import { useUserContext } from "@/context/UserProvider";
 import { useUpsertJournalEntry } from "@/services/journal_entries";
 import useDebounce from "@/utils/hooks/useDebounce";
 
+dayjs.extend(utc);
 
 const OnChangePlugin = (): null => {
   // STATE
@@ -48,7 +51,7 @@ const OnChangePlugin = (): null => {
     upsertEntry({
       user_id: user.userID,
       content: debouncedNewEditorState,
-      date: calendar.currentDate,
+      date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
     })
 
     return (): void => {

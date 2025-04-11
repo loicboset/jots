@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/ui/buttons/Button";
+import MoodSlider from "@/components/ui/MoodSlider";
 import { createClient } from "@/lib/supabase/client";
 
 
@@ -32,11 +33,9 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
       <div className="rounded-2xl p-2">
         <Calendar />
       </div>
-
-
+      <MoodSlider />
       <div className="flex justify-between w-full">
         <Button onClick={(): void => router.push(`/${userID}/profile`)} color="white">Profile</Button>
-
         <Button onClick={handleLogout} color="white">Logout</Button>
       </div>
     </div>

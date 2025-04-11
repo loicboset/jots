@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import type { JSX } from 'react';
 import * as React from 'react';
 

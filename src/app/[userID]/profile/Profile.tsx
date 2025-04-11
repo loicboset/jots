@@ -1,13 +1,17 @@
+'use client';
+
 /* eslint-disable max-len */
 import Link from "next/link";
 
 import PersonalInfo from "./_parts/PersonalInfo";
+import SettingsToggles from "./_parts/SettingsToggles";
 
 type Props = {
   email: string;
 }
 
 const Profile = ({ email }: Props): React.ReactElement => {
+
   return (
     <div className="h-screen">
       <div className='flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900'>
@@ -55,6 +59,8 @@ const Profile = ({ email }: Props): React.ReactElement => {
             {/* PERSONAL INFO */}
             <PersonalInfo />
           </div>
+          <hr className="border-gray-500 mb-6" />
+            <SettingsToggles />
         </div>
       </div>
     </div>

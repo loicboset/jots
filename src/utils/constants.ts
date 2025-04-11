@@ -14,4 +14,43 @@ const ROLESOPTIONS = [
 
 const GOALSOPTIONS = ["Get a first job", "Get a new job", "Get a promotion", "Grow technical skills"];
 
-export { ROLESOPTIONS, GOALSOPTIONS };
+const POSITIVE_SCORE_MOTIVATION_BOOSTERS = [
+  "You're on a roll! Keep committing greatness. 🚀",
+  "Today's code could be tomorrow’s open-source masterpiece.",
+  "Your flow state is enviable—keep shipping magic! ✨",
+  "You’re coding like a senior dev on caffeine. 🔥",
+  "No merge conflicts with your motivation today!",
+  "You’ve leveled up today—Git history will remember this.",
+  "Debugger? You don’t need it when you’re this sharp.",
+  "You’re the hero we need in this legacy codebase.",
+  "Every keystroke today is a line of progress. 🧠💻",
+  "You’re writing code that even future you will thank you for."
+];
+
+const NEUTRAL_SCORE_MOTIVATION_BOOSTERS = [
+  "Every great feature starts with one small commit.",
+  "Not every day is peak productivity—and that’s okay.",
+  "Progress isn’t always linear—keep showing up.",
+  "Ship small, iterate often. You got this.",
+  "Remember: even clean code needs a messy draft first.",
+  "Think of today as writing tests for tomorrow’s success.",
+  "Some days you build features, others you build resilience.",
+  "Just checking in—your breakpoint isn’t a breakdown. 💡",
+  "A slow sprint is still forward motion. 🐢💨",
+  "Code today, conquer tomorrow."
+];
+
+const NEGATIVE_SCORE_MOTIVATION_BOOSTERS = [
+  "Even the best devs hit bugs—don’t let one day define you.",
+  "Take a breath. You’re not a failed build. Just need a restart.",
+  "Feeling stuck? Sometimes the best solution is a good break.",
+  "Impostor syndrome is a liar—you belong in this repo.",
+  "One bad day won’t undo all your great commits.",
+  "Your worth isn’t defined by one broken deploy.",
+  "It’s okay to not be 'productive'—rest is part of the sprint.",
+  "Remember: semicolons can be missing, but you're still complete.",
+  "The best devs know when to push and when to pause.",
+  "Treat yourself with the same grace you give your code reviews."
+];
+
+export { ROLESOPTIONS, GOALSOPTIONS, POSITIVE_SCORE_MOTIVATION_BOOSTERS, NEUTRAL_SCORE_MOTIVATION_BOOSTERS, NEGATIVE_SCORE_MOTIVATION_BOOSTERS };
