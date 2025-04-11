@@ -1,9 +1,9 @@
-type ToggleProps = {
+type Props = {
   state: boolean;
   toggleSwitch: () => void;
 }
 
-const Toggle = ({ state, toggleSwitch }: ToggleProps): React.ReactElement => {
+const Toggle = ({ state, toggleSwitch }: Props): React.ReactElement => {
   return (
     <div className="flex justify-center items-center space-x-2">
       <span className="text-sm font-medium">{state ? "On" : "Off"}</span>

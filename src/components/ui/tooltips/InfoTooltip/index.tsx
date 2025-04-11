@@ -2,7 +2,11 @@ import { useState } from 'react';
 
 import { InformationCircleIcon } from '@heroicons/react/24/solid';
 
-const InfoTooltip = ({ message }: { message: string }): React.ReactElement => {
+type Props = {
+  message: string
+}
+
+const InfoTooltip = ({ message }: Props): React.ReactElement => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
