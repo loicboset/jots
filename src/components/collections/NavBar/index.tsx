@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 
 import "react-day-picker/style.css";
 import Calendar from "./parts/Calendar";
+import WeeklyDigestButton from "./parts/WeeklyDigestButton";
 
 type Props = {
   userID: string;
@@ -33,9 +34,12 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
       <div className="rounded-2xl p-2">
         <Calendar />
       </div>
-      <MoodSlider />
+      <div className="flex flex-col items-center space-y-6 flex-1 mt-6">
+        <WeeklyDigestButton />
+        <MoodSlider />
+      </div>
       <div className="flex justify-between w-full">
-        <Button onClick={(): void => router.push(`/${userID}/profile`)} color="white">Profile</Button>
+        <Button href={`/${userID}/profile`} color="white">Profile</Button>
         <Button onClick={handleLogout} color="white">Logout</Button>
       </div>
     </div>
