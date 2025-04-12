@@ -38,10 +38,11 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
   const handleSave = (): void => {
     const values = getValues()
     editUserSettings({ user_id: userID, ...values })
-    setStep(step + 1);
 
     const isOnboardingOver = step >= steps.size;
     if (isOnboardingOver) redirect(`/${userID}`);
+
+    setStep(step + 1);
   }
 
   // VARS
@@ -93,8 +94,8 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
       <div className={`flex ${step > 1 ? "justify-between" : "justify-end"}`}>
         {step > 1 && <Button onClick={handlePrevious}>Previous</Button>}
         <div className="flex space-x-4">
-          <Button type="submit">{step < steps.size ? "Next" : "Complete"}</Button>
           <Button color="white" onClick={handleSkipAll}>Skip all</Button>
+          <Button type="submit">{step < steps.size ? "Next" : "Complete"}</Button>
         </div>
       </div>
     </form>

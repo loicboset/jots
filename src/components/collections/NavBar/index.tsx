@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 
+import MoodSlider from "@/components/collections/NavBar/parts/MoodSlider";
 import Button from "@/components/ui/buttons/Button";
-import MoodSlider from "@/components/ui/MoodSlider";
 import { createClient } from "@/lib/supabase/client";
 
 
