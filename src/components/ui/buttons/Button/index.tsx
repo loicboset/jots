@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
 import classNames from "classnames";
+import Link from "next/link";
 
 import styles from './Button.module.css';
 import Spinner from "../../loaders/Spinner";
@@ -13,16 +14,17 @@ type Props = {
   isLoading?: boolean;
   isDisabled?: boolean;
   color?: "white" | "indigo";
+  href?: string
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = (props: Props): React.ReactElement => {
   // PROPS
-  const { children, size = "md", className, isLoading, isDisabled, color = 'indigo', ...rest } = props;
+  const { children, size = "md", className, isLoading, isDisabled, color = 'indigo', href, ...rest } = props;
 
   // VARS
   const baseStyles = `
     relative font-semibold shadow-xs focus-visible:outline-2
-    cursor-pointer focus-visible:outline-offset-2
+    cursor-pointer focus-visible:outline-offset-2 text-center
   `;
 
   const sizes = {
@@ -50,6 +52,17 @@ const Button = (props: Props): React.ReactElement => {
   const loadingMarkup = (
     <Spinner size="small" className={styles.button__spinner} />
   );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={buttonStyle}
+      >
+        {children}
+      </Link>
+    )
+  }
 
   return (
     <button

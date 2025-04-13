@@ -1,6 +1,6 @@
 .rdp-root {
-  --rdp-accent-color: oklch(0.585 0.233 277.117); /* Change the accent color to indigo. */
-  --rdp-accent-background-color: #f0f0f0; /* Change the accent background color. */
+  --rdp-accent-color: oklch(0.585 0.233 277.117);
+  --rdp-accent-background-color: #f0f0f0;
   --rdp-day-height: 10px;
   --rdp-day-width: 10px;
   --rdp-day_button-height: 36px;

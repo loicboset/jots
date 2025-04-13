@@ -1,6 +1,7 @@
 'use client';
 
 /* eslint-disable max-len */
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import PersonalInfo from "./_parts/PersonalInfo";
@@ -22,7 +23,19 @@ const Profile = ({ email }: Props): React.ReactElement => {
 
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
-        {/* We've used 3xl here, but feel free to try other max-widths based on your needs */}
+        <div className="flex mb-4 relative justify-center">
+          <Link href="/" className="flex items-center gap-2 mb-4 absolute top-0 left-0 hover:text-gray-400 hover:font-medium">
+            <ArrowLeftIcon className="h-5 w-5" />
+            <span>back</span>
+          </Link>
+
+          <div className="text-center mb-4 max-w-1/2">
+            <h2 className="font-medium text-2xl mb-2">
+              Your Profile
+            </h2>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-4xl">
 
           <div className="space-y-12">
@@ -60,7 +73,7 @@ const Profile = ({ email }: Props): React.ReactElement => {
             <PersonalInfo />
           </div>
           <hr className="border-gray-500 mb-6" />
-            <SettingsToggles />
+          <SettingsToggles />
         </div>
       </div>
     </div>

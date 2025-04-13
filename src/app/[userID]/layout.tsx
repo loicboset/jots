@@ -6,12 +6,15 @@ import { CalendarContextProvider, CalendarData } from "@/context/CalendarContext
 import { CurrentAuthenticatedUser, UserContextProvider } from "@/context/UserProvider";
 import { createClient } from "@/lib/supabase/client";
 
+import CreatePeriodDigestPlugin from "./_parts/CreatePeriodDigestPlugin";
+
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): React.ReactElement => {
   // STATE
   const [user, setUser] = useState<CurrentAuthenticatedUser>();
   const [calendar, setCalendar] = useState<CalendarData>({ currentDate: new Date() });
   const [isLoading, setIsLoading] = useState(true);
 
+  // EFFECTS
   useEffect(() => {
     createClient().auth.getUser().then(({ data, error }) => {
       if (error) {
@@ -32,6 +35,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): Reac
   return (
     <UserContextProvider value={{ user, setUser }}>
       <CalendarContextProvider value={{ calendar, setCalendar }}>
+        <CreatePeriodDigestPlugin />
         {children}
       </CalendarContextProvider>
     </UserContextProvider>
