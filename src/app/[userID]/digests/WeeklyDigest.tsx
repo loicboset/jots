@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import dayjs from "dayjs";
 
 import { useDigestMarkAsRead } from "@/services/digests";
 import { Digest } from "@/types/api/digests";
@@ -37,6 +38,7 @@ const WeeklyDigest = ({ digest }: Props): React.ReactElement => {
 
   // VARS
   const showIsNew = digest.is_read === false;
+  const date = dayjs(digest.date).format("MMMM D, YYYY");
 
   return (
     <div
@@ -60,7 +62,7 @@ const WeeklyDigest = ({ digest }: Props): React.ReactElement => {
         ) : (
           <ChevronRightIcon className="h-5" />
         )}
-        <h2 className="text-lg font-medium leading-6 text-gray-50 group-hover:font-bold">Weekly Digest - March 31 to April 6</h2>
+        <h2 className="text-lg font-medium leading-6 text-gray-50 group-hover:font-bold">Weekly Digest of {date}</h2>
       </div>
 
       <div

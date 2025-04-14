@@ -13,7 +13,6 @@ const CreatePeriodDigestPlugin = (): null => {
 
   // EFFECTS
   useEffect(() => {
-    console.log('CreatePeriodDigestPlugin', { isLoading, data });
     if (isLoading || data) return;
 
     const isMonday = dayjs().day() === 1;
