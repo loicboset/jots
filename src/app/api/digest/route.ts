@@ -34,7 +34,6 @@ export async function POST(request: Request): Promise<Response> {
     .lt("date", date)
     .order("date", { ascending: false });
 
-  console.log(" last_week_entries", last_week_entries);
   if (last_week_entries && last_week_entries.length === 1) {
     return new Response("Not enough entries to generate digest", { status: 200 });
   }
@@ -50,6 +49,7 @@ export async function POST(request: Request): Promise<Response> {
 
   const entries = [];
   if (week_before_entries) entries.push(...week_before_entries);
+  if (last_week_entries) entries.push(...last_week_entries);
 
   const formattedEntries: { date: string; content: string }[] = [];
 
