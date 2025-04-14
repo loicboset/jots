@@ -81,6 +81,7 @@ export const getStaticPaths = async (): Promise<{
   const paths = [
     { params: { id: "benefits-of-dev-journaling" } },
     { params: { id: "journaling-for-developers-a-simple-habit-for-big-results" } },
+    { params: { id: "learnings-as-a-software-engineer" } },
   ];
   return {
     paths,
