@@ -27,7 +27,11 @@ export async function PUT(request: Request): Promise<Response> {
 
   const req = await request.json();
   const { user_id, content, date } = req as CreateJournalEntry;
-  const { data } = await supabase.from("journal_entries").upsert({ user_id, content, date }).select();
+  const { data, error } = await supabase.from("journal_entries").upsert({ user_id, content, date }).select();
+
+  if (error) {
+    return new Response("Error creating journal entry", { status: 500 });
+  }
 
   return new Response(JSON.stringify(data), { status: 200 });
 }

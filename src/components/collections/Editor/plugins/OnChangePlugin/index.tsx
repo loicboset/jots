@@ -7,8 +7,10 @@ import { SerializedEditorState } from "lexical";
 
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useUserContext } from "@/context/UserProvider";
-import { useUpsertJournalEntry } from "@/services/journal_entries";
+import { useDeleteJournalEntry, useJournalEntry, useUpsertJournalEntry } from "@/services/journal_entries";
 import useDebounce from "@/utils/hooks/useDebounce";
+
+import isLexicalStateEmpty from "../../utils/isLexicalStateEmpty";
 
 dayjs.extend(utc);
 
@@ -22,6 +24,8 @@ const OnChangePlugin = (): null => {
 
   // RQ
   const { mutate: upsertEntry } = useUpsertJournalEntry()
+  const { mutate: deleteEntry } = useDeleteJournalEntry()
+  const { data: entry } = useJournalEntry(user.userID, calendar.currentDate);
 
   // HOOKS
   const [editor] = useLexicalComposerContext();
@@ -46,7 +50,7 @@ const OnChangePlugin = (): null => {
 
 
   useEffect(() => {
-    if (!debouncedNewEditorState) return;
+    if (!debouncedNewEditorState || isLexicalStateEmpty(debouncedNewEditorState)) return;
 
     upsertEntry({
       user_id: user.userID,
@@ -59,6 +63,19 @@ const OnChangePlugin = (): null => {
     }
 
   }, [calendar.currentDate, debouncedNewEditorState, upsertEntry, user.userID])
+
+  useEffect(() => {
+    if (!debouncedNewEditorState) return;
+
+    if (isLexicalStateEmpty(debouncedNewEditorState) && entry?.id) {
+      deleteEntry(entry.id);
+      return;
+    }
+
+    return (): void => {
+      setNewEditorState(null);
+    }
+  }, [debouncedNewEditorState, deleteEntry, entry?.id]);
 
   return null;
 };

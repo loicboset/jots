@@ -46,6 +46,24 @@ const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJ
   });
 };
 
+// DELETE JOURNAL ENTRY
+const deleteJournalEntry = async (id: number): Promise<JournalEntry> => {
+  const { data } = await axios.delete(`/api/journal_entry/${id}`);
+  return data;
+};
+
+const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number, unknown> => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteJournalEntry,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
+      queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
+    },
+  });
+};
+
 // GET JOURNAL ENTRIES DATES
 const getJournalEntriesDates = async (userID: string, date: Date): Promise<JournalEntryDate[]> => {
   const { data } = await axios.get(`/api/journal_entries/month/dates?user_id=${userID}&date=${date}`);
@@ -59,4 +77,4 @@ const useJournalEntriesDates = (userID: string, date: Date): UseQueryResult<Jour
   });
 };
 
-export { useJournalEntry, useJournalEntries, useUpsertJournalEntry, useJournalEntriesDates };
+export { useJournalEntry, useJournalEntries, useUpsertJournalEntry, useJournalEntriesDates, useDeleteJournalEntry };
