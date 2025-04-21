@@ -12,13 +12,9 @@ import { $createCollapsibleTitleNode } from "../../nodes/CollapsibleTitleNode";
 import { $isDayContainerNode } from "../../nodes/DayContainerNode";
 import { $isPromptNode } from "../../nodes/PromptNode";
 
-type Props = {
-  userID: string;
-};
-
-const DummyDataPlugin = ({ userID }: Props): null => {
+const DummyDataPlugin = (): null => {
   // RQ
-  const { data: entries = [], isLoading } = useJournalEntries(userID);
+  const { data: entries = [], isLoading } = useJournalEntries();
 
   // HOOKS
   const [editor] = useLexicalComposerContext();

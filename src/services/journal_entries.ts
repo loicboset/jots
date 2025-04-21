@@ -4,6 +4,10 @@ import axios from "axios";
 import { JournalEntry, JournalEntryDate } from "@/types/api/journal_entries";
 import { CreateJournalEntry } from "@/types/payload/journal_entries";
 
+type UseJournalEntriesParams = {
+  limit?: number;
+};
+
 // GET JOURNAL ENTRY
 const getJournalEntry = async (userID: string, date: Date): Promise<JournalEntry> => {
   const { data } = await axios.get(`/api/journal_entry?user_id=${userID}&date=${date}`);
@@ -19,13 +23,16 @@ const useJournalEntry = (userID: string, date: Date): UseQueryResult<JournalEntr
 };
 
 // GET JOURNAL ENTRIES
-const getJournalEntries = async (userID: string): Promise<JournalEntry[]> => {
-  const { data } = await axios.get(`/api/journal_entries?user_id=${userID}`);
+const getJournalEntries = async (params?: UseJournalEntriesParams): Promise<JournalEntry[]> => {
+  let url = `/api/journal_entries`;
+  if (params?.limit) url += `?limit=${params.limit}`;
+
+  const { data } = await axios.get(url);
   return data;
 };
 
-const useJournalEntries = (userID: string): UseQueryResult<JournalEntry[], Error> => {
-  return useQuery({ queryKey: ["journal_entries"], queryFn: () => getJournalEntries(userID) });
+const useJournalEntries = (params?: UseJournalEntriesParams): UseQueryResult<JournalEntry[], Error> => {
+  return useQuery({ queryKey: ["journal_entries"], queryFn: () => getJournalEntries(params) });
 };
 
 // UPSERT JOURNAL ENTRY

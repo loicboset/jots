@@ -12,24 +12,21 @@ import {
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
   KEY_ENTER_COMMAND,
+  $isElementNode,
 } from "lexical";
 
 import { getAiPrompt } from "@/services/ai_prompts";
 import { useJournalEntries } from "@/services/journal_entries";
 
 import { $isAiPromptNode, AiPromptNode } from "../../nodes/AiPromptNode";
-import { $isDayContainerNode } from "../../nodes/DayContainerNode";
 
-type Props = {
-  userID: string;
-};
 
-const AiPromptNodePlugin = ({ userID }: Props): null => {
+const AiPromptNodePlugin = (): null => {
   // HOOKS
   const [editor] = useLexicalComposerContext();
 
   // RQ
-  const { data: entries = [], isLoading } = useJournalEntries(userID);
+  const { data: entries = [], isLoading } = useJournalEntries({ limit: 10 });
 
   // VARS
   const textContent: string[] = useMemo(() => [], []);
@@ -37,10 +34,9 @@ const AiPromptNodePlugin = ({ userID }: Props): null => {
   if (!isLoading) {
     entries.forEach((entry) => {
       const parsedEditorState = editor.parseEditorState(entry.content)
-
       parsedEditorState.read(() => {
         parsedEditorState._nodeMap.forEach((node) => {
-          if ($isDayContainerNode(node)) {
+          if ($isElementNode(node)) {
             const textNodes = node.getAllTextNodes();
             textNodes.forEach((node) => textContent.push(node.getTextContent()));
           }

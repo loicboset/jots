@@ -46,7 +46,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <AiPromptNodePlugin userID={userID} />
+      <AiPromptNodePlugin />
       <CollapsiblePlugin userID={userID} />
       <TransformCategoryPlugin userID={userID} />
       <OnChangePlugin />
@@ -54,7 +54,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <ComponentPickerPlugin />
       <ComponentPickerMenuPlugin />
       <PromptNodePlugin />
-      <DummyDataPlugin userID={userID} />
+      <DummyDataPlugin />
       <HistoryPlugin />
       <AutoLinkPlugin />
       <ClickableLinkPlugin />
