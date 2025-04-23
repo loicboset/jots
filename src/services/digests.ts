@@ -24,14 +24,14 @@ const useDigestsUnreadCount = (): UseQueryResult<number, AxiosError> => {
   return useQuery({ queryKey: ["digests/unread_count"], queryFn: () => getUnreadCount() });
 };
 
-// GET DIGESTS UNREAD COUNT
-const getDigestByDate = async (date: string): Promise<Digest> => {
-  const { data } = await axios.get(`/api/digest/date?date=${date}`);
+// GET LATEST DIGEST DATE
+const getLatestDigestDate = async (): Promise<string> => {
+  const { data } = await axios.get(`/api/digest/latest_date`);
   return data;
 };
 
-const useGetDigestByDate = (date: string, enabled: boolean): UseQueryResult<Digest, AxiosError> => {
-  return useQuery({ queryKey: ["digest/date", date], queryFn: () => getDigestByDate(date), enabled });
+const useGetLatestDigestDate = (): UseQueryResult<string, AxiosError> => {
+  return useQuery({ queryKey: ["latest_digest_date"], queryFn: () => getLatestDigestDate() });
 };
 
 // CREATE DIGEST
@@ -70,4 +70,4 @@ const useDigestMarkAsRead = (): UseMutationResult<AxiosResponse, AxiosError, num
   });
 };
 
-export { useDigests, useCreateDigest, useDigestsUnreadCount, useDigestMarkAsRead, useGetDigestByDate };
+export { useDigests, useCreateDigest, useDigestsUnreadCount, useDigestMarkAsRead, useGetLatestDigestDate };

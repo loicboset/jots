@@ -4,23 +4,24 @@ import { useEffect } from "react";
 
 import dayjs from "dayjs";
 
-import { useCreateDigest, useGetDigestByDate } from "@/services/digests";
+import { useCreateDigest, useGetLatestDigestDate } from "@/services/digests";
 
 const CreatePeriodDigestPlugin = (): null => {
   // RQ
   const { mutate: createDigest } = useCreateDigest();
-  const { data, isLoading } = useGetDigestByDate(dayjs().format("YYYY-MM-DD"), dayjs().day() === 1);
+  const { data: date, isLoading } = useGetLatestDigestDate();
 
   // EFFECTS
   useEffect(() => {
-    if (isLoading || data) return;
+    if (isLoading) return;
 
-    const isMonday = dayjs().day() === 1;
+    const shouldCreateDigest = date ? dayjs(date).isBefore(dayjs().startOf("week")) : true;
+
     const formattedDate = dayjs().format("YYYY-MM-DD");
 
-    if (isMonday) createDigest({ date: formattedDate });
+    if (shouldCreateDigest) createDigest({ date: formattedDate });
 
-  }, [createDigest, isLoading, data]);
+  }, [createDigest, date, isLoading]);
 
   return null;
 };
