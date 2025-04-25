@@ -29,20 +29,16 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
 
   return (
     <div
-      className="p-4 m-4 rounded-2xl flex flex-col justify-between items-center"
+      className="p-4 m-4 rounded-2xl flex flex-col"
       style={{ backgroundColor: bgColor }}
     >
       <div className="rounded-2xl p-2">
         <Calendar />
       </div>
-      <div className="flex flex-col items-center space-y-6 flex-1 mt-6">
+      <div className="flex h-full flex-col gap-6 mt-6 items-center">
         <WeeklyDigestButton />
-      </div>
-      <div className="flex-1 mt-6">
-        <MotivationBooster />
-      </div>
-      <div className="flex-1 mt-6">
         <MoodSlider />
+        <MotivationBooster />
       </div>
       <div className="flex justify-between w-full">
         <Button href={`/${userID}/profile`} color="white">Profile</Button>

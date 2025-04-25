@@ -5,7 +5,7 @@ import { useMoodChecks } from "@/services/mood_checks";
 import { useUserSettings } from "@/services/user_settings";
 import { POSITIVE_SCORE_MOTIVATION_BOOSTERS, NEUTRAL_SCORE_MOTIVATION_BOOSTERS, NEGATIVE_SCORE_MOTIVATION_BOOSTERS } from "@/utils/constants"
 
-const MotivationBooster = (): React.ReactElement => {
+const MotivationBooster = (): React.ReactElement | null => {
 
   // STATE
   const [motivationBoosterContent, setMotivationBoosterContent] = useState("");
@@ -49,14 +49,12 @@ const MotivationBooster = (): React.ReactElement => {
     }
   }, [isMoodChecksEnabled, isMinMoodChecksSaved, moodChecks]);
 
+  if (!motivationBoosterContent) return null;
+
   return (
-    <div>
-      {motivationBoosterContent && (
-        <div className={`my-4 p-4 ${colorClass} border-l-4 text-yellow-900 rounded shadow max-w-2xl mx-auto`}>
-          <p className="font-bold text-sm mb-1">🌟 Motivation Booster</p>
-          <p className="italic text-sm">{motivationBoosterContent}</p>
-        </div>
-      )}
+    <div className={`my-4 p-4 ${colorClass} border-l-4 text-yellow-900 rounded shadow max-w-2xl mx-auto`}>
+      <p className="font-bold text-sm mb-1">🌟 Motivation Booster</p>
+      <p className="italic text-sm">{motivationBoosterContent}</p>
     </div>
   );
 }
