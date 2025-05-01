@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 import "react-day-picker/style.css";
 import Calendar from "./parts/Calendar";
 import WeeklyDigestButton from "./parts/WeeklyDigestButton";
+import WeeklyStreak from "./parts/WeeklyStreak";
 
 type Props = {
   userID: string;
@@ -29,13 +30,14 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
 
   return (
     <div
-      className="p-4 m-4 rounded-2xl flex flex-col"
+      className="p-4 m-4 rounded-2xl flex flex-col overflow-scroll"
       style={{ backgroundColor: bgColor }}
     >
-      <div className="rounded-2xl p-2">
+      <div className="rounded-2xl p-2 mx-auto">
         <Calendar />
       </div>
       <div className="flex h-full flex-col gap-6 mt-6 items-center">
+        <WeeklyStreak />
         <WeeklyDigestButton />
         <MoodSlider />
         <MotivationBooster />

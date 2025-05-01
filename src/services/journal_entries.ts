@@ -49,6 +49,7 @@ const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJ
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
+      queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
     },
   });
 };
@@ -67,6 +68,7 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
+      queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
     },
   });
 };
@@ -84,4 +86,21 @@ const useJournalEntriesDates = (userID: string, date: Date): UseQueryResult<Jour
   });
 };
 
-export { useJournalEntry, useJournalEntries, useUpsertJournalEntry, useJournalEntriesDates, useDeleteJournalEntry };
+// GET WEEK STREAK COUNT
+const getWeekStreakCount = async (): Promise<number> => {
+  const { data } = await axios.get("/api/journal_entries/week_streak_count");
+  return data;
+};
+
+const useGetWeekStreakCount = (): UseQueryResult<number, Error> => {
+  return useQuery({ queryKey: ["week_streak_count"], queryFn: () => getWeekStreakCount() });
+};
+
+export {
+  useJournalEntry,
+  useJournalEntries,
+  useUpsertJournalEntry,
+  useJournalEntriesDates,
+  useDeleteJournalEntry,
+  useGetWeekStreakCount,
+};
