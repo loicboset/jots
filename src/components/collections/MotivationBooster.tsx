@@ -9,7 +9,6 @@ const MotivationBooster = (): React.ReactElement | null => {
 
   // STATE
   const [motivationBoosterContent, setMotivationBoosterContent] = useState("");
-  const [colorClass, setColorClass] = useState("bg-yellow-100 border-yellow-500");
 
   // METHODS
   const getMotivationBooster = (moodScore: number): string => {
@@ -38,25 +37,17 @@ const MotivationBooster = (): React.ReactElement | null => {
       const totalMoodScore = moodChecks.slice(0, 3).reduce((sum, item) => sum + item.score, 0);
       const content = `${getMotivationBooster(totalMoodScore)}`;
       setMotivationBoosterContent(content);
-
-      if (totalMoodScore > 10) {
-        setColorClass("bg-green-100 border-green-500");
-      } else if (totalMoodScore >= 8) {
-        setColorClass("bg-yellow-100 border-yellow-500");
-      } else {
-        setColorClass("bg-blue-100 border-blue-500");
-      }
     }
   }, [isMoodChecksEnabled, isMinMoodChecksSaved, moodChecks]);
 
   if (!motivationBoosterContent) return null;
 
   return (
-    <div className={`my-4 p-4 ${colorClass} border-l-4 text-yellow-900 rounded shadow max-w-2xl mx-auto`}>
-      <p className="font-bold text-sm mb-1">🌟 Motivation Booster</p>
-      <p className="italic text-sm">{motivationBoosterContent}</p>
-    </div>
-  );
+    <p className="italic text-sm">
+      <span className="font-bold">🌟 Motivation Booster: </span>
+      {motivationBoosterContent}
+    </p>
+  )
 }
 
 export default MotivationBooster;

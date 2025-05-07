@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation";
 
 import MoodSlider from "@/components/collections/NavBar/parts/MoodSlider";
-import MotivationBooster from "@/components/collections/NavBar/parts/MotivationBooster";
 import Button from "@/components/ui/buttons/Button";
 import { createClient } from "@/lib/supabase/client";
 
@@ -30,7 +29,7 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
 
   return (
     <div
-      className="p-4 m-4 rounded-2xl flex flex-col overflow-scroll"
+      className="p-4 m-4 rounded-2xl flex flex-col"
       style={{ backgroundColor: bgColor }}
     >
       <div className="rounded-2xl p-2 mx-auto">
@@ -40,7 +39,6 @@ const NavBar = ({ userID }: Props): React.ReactElement => {
         <WeeklyStreak />
         <WeeklyDigestButton />
         <MoodSlider />
-        <MotivationBooster />
       </div>
       <div className="flex justify-between w-full">
         <Button href={`/${userID}/profile`} color="white">Profile</Button>
