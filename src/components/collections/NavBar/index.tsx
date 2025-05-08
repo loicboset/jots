@@ -1,50 +1,47 @@
-import { useRouter } from "next/navigation";
+'use client';
 
-import MoodSlider from "@/components/collections/NavBar/parts/MoodSlider";
-import Button from "@/components/ui/buttons/Button";
-import { createClient } from "@/lib/supabase/client";
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 
+import NavbarContent from './parts/NavbarContent';
 
 import "react-day-picker/style.css";
-import Calendar from "./parts/Calendar";
-import WeeklyDigestButton from "./parts/WeeklyDigestButton";
-import WeeklyStreak from "./parts/WeeklyStreak";
 
 type Props = {
-  userID: string;
+  sidebarOpen: boolean;
+  handleSetSidebarOpen: (open: boolean) => void;
 };
 
 const bgColor = "rgb(40 40 40)";
 
-const NavBar = ({ userID }: Props): React.ReactElement => {
-  // ROUTER
-  const router = useRouter();
-
-  // METHODS
-  const handleLogout = async (): Promise<void> => {
-    const client = createClient();
-    await client.auth.signOut();
-    router.push('/');
-  };
-
+const NavBar = ({ sidebarOpen, handleSetSidebarOpen }: Props): React.ReactElement => {
   return (
-    <div
-      className="p-4 m-4 rounded-2xl flex flex-col"
-      style={{ backgroundColor: bgColor }}
-    >
-      <div className="rounded-2xl p-2 mx-auto">
-        <Calendar />
+    <>
+      <div className="md:hidden">
+        <Dialog open={sidebarOpen} onClose={handleSetSidebarOpen} className="relative z-50 lg:hidden">
+          <DialogBackdrop
+            transition
+            className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-closed:opacity-0"
+          />
+
+          <div className="fixed inset-0 flex">
+            <DialogPanel
+              transition
+              className="relative mr-16 flex w-full max-w-[350px] flex-1 transform transition duration-300 ease-in-out data-closed:-translate-x-full"
+            >
+              <div className="flex h-screen flex-col gap-y-5 overflow-y-auto px-4 pb-4" style={{ backgroundColor: bgColor }}>
+                <NavbarContent handleSetSidebarOpen={handleSetSidebarOpen} />
+              </div>
+            </DialogPanel>
+          </div>
+        </Dialog>
       </div>
-      <div className="flex h-full flex-col gap-6 mt-6 items-center">
-        <WeeklyStreak />
-        <WeeklyDigestButton />
-        <MoodSlider />
+      <div
+        className="hidden p-4 m-4 rounded-2xl md:flex flex-col"
+        style={{ backgroundColor: bgColor }}
+      >
+        <NavbarContent />
       </div>
-      <div className="flex justify-between w-full">
-        <Button href={`/${userID}/profile`} color="white">Profile</Button>
-        <Button onClick={handleLogout} color="white">Logout</Button>
-      </div>
-    </div>
+    </>
   );
 };
 
