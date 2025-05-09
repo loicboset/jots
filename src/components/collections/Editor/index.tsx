@@ -20,7 +20,7 @@ import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import OnChangePlugin from './plugins/OnChangePlugin';
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
-import TreeViewPlugin from "./plugins/TreeViewPlugin";
+// import TreeViewPlugin from "./plugins/TreeViewPlugin";
 
 
 import './index.css';
@@ -30,9 +30,6 @@ type Props = {
 }
 
 const Editor = ({ userID }: Props): React.ReactElement => {
-  // VARS
-  const showTreeView = process.env.NODE_ENV === "development";
-
   return (
     <>
       <RichTextPlugin
@@ -62,7 +59,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <ListPlugin />
       <CheckListPlugin />
 
-      {showTreeView && <TreeViewPlugin />}
+      {/* <TreeViewPlugin /> */}
     </>
   )
 };
