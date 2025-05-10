@@ -1,0 +1,3 @@
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(99%) sepia(1%) saturate(193%) hue-rotate(169deg) brightness(99%) contrast(98%);
+}

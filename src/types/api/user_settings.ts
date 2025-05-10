@@ -3,7 +3,8 @@ type UserSettings = {
   role?: string;
   experience?: number;
   goal?: string;
-  mood_checks_enabled: boolean
+  mood_checks_enabled: boolean;
+  is_push_notifications_active: boolean;
 };
 
 export type { UserSettings };

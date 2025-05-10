@@ -1,26 +1,26 @@
+/* eslint-disable max-len */
+'use client'
+
+import { Switch } from '@headlessui/react'
+
 type Props = {
-  state: boolean;
-  toggleSwitch: () => void;
+  enabled: boolean
+  onChange: (enabled: boolean) => void
 }
 
-const Toggle = ({ state, toggleSwitch }: Props): React.ReactElement => {
+const Toggle = ({ enabled, onChange }: Props): React.ReactElement => {
   return (
-    <div className="flex justify-center items-center space-x-2">
-      <span className="text-sm font-medium">{state ? "On" : "Off"}</span>
-      <div
-        onClick={toggleSwitch}
-        className={`relative inline-flex items-center cursor-pointer w-12 h-6 rounded-full transition-all duration-300 ease-in-out ${
-          state ? "bg-blue-500" : "bg-gray-300"
-        }`}
-      >
-        <span
-          className={`inline-block w-6 h-6 rounded-full bg-white transition-all duration-300 ease-in-out transform ${
-            state ? "translate-x-6" : "translate-x-0"
-          }`}
-        />
-      </div>
-    </div>
-  );
+    <Switch
+      checked={enabled}
+      onChange={onChange}
+      className="group relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:outline-hidden data-checked:bg-indigo-600"
+    >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out group-data-checked:translate-x-5"
+      />
+    </Switch>
+  )
 }
 
-export default Toggle
+export default Toggle;

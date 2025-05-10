@@ -19,7 +19,7 @@ const PersonalInfo = (): React.ReactElement => {
   const { user } = useUserContext();
 
   // RQ
-  const { data: settings } = useUserSettings(user?.userID);
+  const { data: settings } = useUserSettings();
   const { mutate: editUserSettings } = useUpsertUserSettings();
 
   // RHF
@@ -44,7 +44,7 @@ const PersonalInfo = (): React.ReactElement => {
 
   return (
     <form
-      className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3"
+      className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 md:pb-6 md:grid-cols-3"
       onSubmit={handleSubmit(handleSave)}
     >
       <div>
@@ -108,7 +108,7 @@ const PersonalInfo = (): React.ReactElement => {
           />
         </div>
       </div>
-      <div className="sm:col-span-4">
+      <div className="sm:col-span-4 flex justify-end">
         <Button type="submit">Edit</Button>
       </div>
     </form>

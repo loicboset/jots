@@ -5,13 +5,13 @@ import { UserSettings } from "@/types/api/user_settings";
 import { UpsertUserSettings } from "@/types/payload/user_settings";
 
 // GET USER SETTINGS
-const getUserSettings = async (userID: string): Promise<UserSettings> => {
-  const { data } = await axios.get(`/api/user_settings?user_id=${userID}`);
+const getUserSettings = async (): Promise<UserSettings> => {
+  const { data } = await axios.get(`/api/user_settings`);
   return data;
 };
 
-const useUserSettings = (userID: string): UseQueryResult<UserSettings, Error> => {
-  return useQuery({ queryKey: ["user_settings", userID], queryFn: () => getUserSettings(userID) });
+const useUserSettings = (): UseQueryResult<UserSettings, Error> => {
+  return useQuery({ queryKey: ["user_settings"], queryFn: () => getUserSettings() });
 };
 
 // UPSERT USER SETTINGS
@@ -31,4 +31,23 @@ const useUpsertUserSettings = (): UseMutationResult<void, Error, UpsertUserSetti
   });
 };
 
-export { useUserSettings, useUpsertUserSettings };
+// TOGGLE PUSH NOTIFICATIONS
+const togglePushNotification = async (isActive: boolean): Promise<void> => {
+  const { data } = await axios.patch("/api/user_settings/toggle_push_notifications", {
+    is_push_notifications_active: isActive,
+  });
+  return data;
+};
+
+const useTogglePushNotification = (): UseMutationResult<void, Error, boolean, unknown> => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: togglePushNotification,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user_settings"] });
+    },
+  });
+};
+
+export { useUserSettings, useUpsertUserSettings, useTogglePushNotification };

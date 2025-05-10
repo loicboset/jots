@@ -25,7 +25,7 @@ const MotivationBooster = (): React.ReactElement | null => {
   const { user } = useUserContext();
 
   // RQ
-  const { data: userSettings } = useUserSettings(user?.userID);
+  const { data: userSettings } = useUserSettings();
   const { data: moodChecks } = useMoodChecks(user?.userID);
 
   // VARS

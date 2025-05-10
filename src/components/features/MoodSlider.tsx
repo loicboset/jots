@@ -28,7 +28,7 @@ const MoodSlider = (): React.ReactElement => {
   const { user } = useUserContext();
 
   // RQ
-  const { data: settings } = useUserSettings(user?.userID);
+  const { data: settings } = useUserSettings();
   const { data: moodCheck } = useMoodCheck(user?.userID);
   const { mutate: upsertMoodCheck } = useUpsertMoodCheck();
 
@@ -43,20 +43,20 @@ const MoodSlider = (): React.ReactElement => {
   return (
     <div className="flex flex-col items-center space-y-2">
       {isMoodCheckSubmitted ? (
-          <span
-            className="text-sm font-medium text-white/60"
-            title="Your daily mood check was submitted. This score will help tailor motivation boosters/messages for your daily writing habit."
-          >
-            Daily Mood Check: {moodLabels[moodCheck[0].score - 1]} (submitted)
-          </span>
-        ) : (
-          <span
-            className="text-sm font-medium"
-            title="Select your mood from 1 (low) to 5 (high). This score will help tailor motivation boosters/messages for your daily writing habit. You can toggle this off at any time from your profile settings."
-          >
-            Daily Mood Check: {moodLabels[mood - 1]}
-          </span>
-        )
+        <span
+          className="text-sm font-medium text-white/60"
+          title="Your daily mood check was submitted. This score will help tailor motivation boosters/messages for your daily writing habit."
+        >
+          Daily Mood Check: {moodLabels[moodCheck[0].score - 1]} (submitted)
+        </span>
+      ) : (
+        <span
+          className="text-sm font-medium"
+          title="Select your mood from 1 (low) to 5 (high). This score will help tailor motivation boosters/messages for your daily writing habit. You can toggle this off at any time from your profile settings."
+        >
+          Daily Mood Check: {moodLabels[mood - 1]}
+        </span>
+      )
       }
       {!isMoodCheckSubmitted && (
         <Fragment>
@@ -69,7 +69,7 @@ const MoodSlider = (): React.ReactElement => {
             onValueChange={(val) => handleMoodChange(val[0])}
           >
             <Slider.Track className="bg-gray-300 rounded-full h-1 w-full hover:bg-gray-400 hover:cursor-pointer">
-            <Slider.Range className="bg-black h-1 rounded-full" />
+              <Slider.Range className="bg-black h-1 rounded-full" />
             </Slider.Track>
             <Slider.Thumb className="w-6 h-6 bg-black rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-gray-600 transition-transform transform hover:scale-110 hover:cursor-pointer" />
           </Slider.Root>
