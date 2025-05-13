@@ -8,8 +8,8 @@ const systemContent = `
   Act like a career coach. Be assertive.
   Dont talk like an AI, but like a human.
   Give advice based on the journal entries.
-  You first goal is to help the user grow and progress in their career.
-  Be very specific and provide actionable tips. Be motivating as well.
+  You first goal is to help the user grow.
+  Provide very actionable tips. Be specific. Be motivating as well.
   Break down the text into small paragraphs.
   It should be effortless to read — short, clear, and very useful.
   No titles, no bullet points, no lists. Use short paragraphs. Keep it under 220 words.
@@ -34,7 +34,7 @@ const generateDigest = async ({ entries, settings }: Params): Promise<string | n
   let userContent = "";
 
   userContent += ` *** `;
-  userContent += ` The user has the following entries (JSON format, entry per date): `;
+  userContent += ` The user has the following journal entries (JSON format, entry per date): `;
   userContent += JSON.stringify(entries);
 
   if (settings) {
