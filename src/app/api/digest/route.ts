@@ -25,7 +25,6 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const sevenDaysAgo = dayjs(date).subtract(7, "day").format("YYYY-MM-DD");
-  const twoWeeksAgo = dayjs(date).subtract(14, "day").format("YYYY-MM-DD");
 
   const { data: last_week_entries = [] } = await supabase
     .from("journal_entries")
@@ -38,22 +37,11 @@ export async function POST(request: Request): Promise<Response> {
     return new Response("Not enough entries to generate digest", { status: 200 });
   }
 
-  const { data: week_before_entries = [] } = await supabase
-    .from("journal_entries")
-    .select("date, content")
-    .gte("date", twoWeeksAgo)
-    .lt("date", sevenDaysAgo)
-    .order("date", { ascending: false });
-
   const { data: settings } = await supabase.from("user_settings").select("role, experience, goal").single();
-
-  const entries = [];
-  if (week_before_entries) entries.push(...week_before_entries);
-  if (last_week_entries) entries.push(...last_week_entries);
 
   const formattedEntries: { date: string; content: string }[] = [];
 
-  entries?.map((entry) => {
+  last_week_entries?.map((entry) => {
     const text: string[] = extractText(entry.content.root.children);
     const content = text.join(" // ");
     formattedEntries.push({ date: entry.date, content });

@@ -4,8 +4,6 @@ import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 
 import NavbarContent from './parts/NavbarContent';
 
-import "react-day-picker/style.css";
-
 type Props = {
   sidebarOpen: boolean;
   handleSetSidebarOpen: (open: boolean) => void;

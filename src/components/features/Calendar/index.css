@@ -1,3 +1,8 @@
+.filled-day {
+  color: rgb(81, 192, 81);
+  font-weight: bolder;
+}
+
 .rdp-root {
   --rdp-accent-color: oklch(0.585 0.233 277.117);
   --rdp-accent-background-color: #f0f0f0;
@@ -5,9 +10,4 @@
   --rdp-day-width: 10px;
   --rdp-day_button-height: 36px;
   --rdp-day_button-width: 36px;
-}
-
-.filled-day {
-  color: rgb(81, 192, 81);
-  font-weight: bolder;
 }

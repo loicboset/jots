@@ -7,6 +7,7 @@ import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useUserContext } from "@/context/UserProvider";
 import { useJournalEntriesDates } from "@/services/journal_entries";
 
+import "react-day-picker/style.css";
 import './index.css';
 
 const Calendar = (): JSX.Element => {
