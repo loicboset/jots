@@ -4,14 +4,16 @@ import type { JSX } from 'react';
 import {
   ChevronRightIcon,
 } from '@heroicons/react/20/solid'
-import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxArrowDownIcon, ArrowPathRoundedSquareIcon, BugAntIcon } from '@heroicons/react/24/outline'
+import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxArrowDownIcon, ArrowPathRoundedSquareIcon, BugAntIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+
+import EmailSignupForm from '@/components/EmailSignUpForm';
 
 const primaryFeatures = [
   {
     name: 'Because You Need a Rubber Duck',
     description:
-      'Talk through your thoughts, debug your brain, and solve problems faster.',
+      'Talk through your thoughts, debug your brain, and solve problems faster with the help of AI.',
     icon: BeakerIcon
   },
   {
@@ -49,6 +51,12 @@ const primaryFeatures = [
     description:
       'Organize your thoughts, tag important notes, and keep your side projects on track.',
     icon: ArchiveBoxArrowDownIcon
+  },
+  {
+    name: 'Because You Want That Next Promotion Or Job',
+    description:
+      'Showcase your achievements to support your promotion case or upcoming job interview.',
+    icon: TrophyIcon
   },
 ];
 
@@ -146,7 +154,7 @@ const LandingPage = (): JSX.Element => {
                   What&apos;s new
                 </span>
                 <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                  <span className='hidden md:inline'>Just shipped v2024.04.11</span>
+                  <span className='hidden md:inline'>Just shipped v2025.04.16</span>
                   <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
                 </span>
               </Link>
@@ -227,9 +235,12 @@ const LandingPage = (): JSX.Element => {
             <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
               Just Give It a Shot
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg/8 text-gray-300">
+            <p className="mx-auto mt-6 mb-6 max-w-xl text-lg/8 text-gray-300">
               We promise, it can only do you some good.
             </p>
+            <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
+              Discover all our latest AI features with early access.
+            </span>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/signup"
@@ -237,6 +248,9 @@ const LandingPage = (): JSX.Element => {
               >
                 Let&apos;s go!
               </Link>
+            </div>
+            <div className="mt-20">
+              <EmailSignupForm />
             </div>
           </div>
         </div>

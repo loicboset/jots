@@ -3,8 +3,10 @@
 import { useState } from "react";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import Script from 'next/script';
 
 import Editor from "@/components/collections/Editor";
+import BugReportButton from "@/components/ui/buttons/BugReportButton";
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 
 import AppWrapper from "./collections/AppWrapper";
@@ -42,6 +44,11 @@ const App = ({ userID }: Props): React.ReactElement => {
           <Editor userID={userID} />
         </AppWrapper>
       </div>
+      <Script
+        src="https://tally.so/widgets/embed.js"
+        strategy="lazyOnload"
+      />
+      <BugReportButton />
     </>
   );
 };
