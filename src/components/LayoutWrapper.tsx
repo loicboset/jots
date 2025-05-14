@@ -5,6 +5,7 @@ import { JSX } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from "configcat-react";
+import { ErrorBoundary } from 'react-error-boundary';
 
 import queryClient from "@/lib/tanstackQuery/client";
 
@@ -18,12 +19,14 @@ const LayoutWrapper = ({ children }: Props): JSX.Element => {
   const logger = createConsoleLogger(LogLevel.Info);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ConfigCatProvider sdkKey={process.env.NEXT_PUBLIC_CONFIGCAT_SDK_KEY!} options={{ logger }}>
-        {children}
-      </ConfigCatProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ErrorBoundary fallback={<div>Something went wrong.</div>}>
+      <QueryClientProvider client={queryClient}>
+        <ConfigCatProvider sdkKey={process.env.NEXT_PUBLIC_CONFIGCAT_SDK_KEY!} options={{ logger }}>
+          {children}
+        </ConfigCatProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
