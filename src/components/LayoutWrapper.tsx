@@ -6,7 +6,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ConfigCatProvider, createConsoleLogger, LogLevel } from "configcat-react";
 
+import { PostHogProvider } from '@/app/providers'
 import queryClient from "@/lib/tanstackQuery/client";
+
 
 
 type Props = {
@@ -20,7 +22,9 @@ const LayoutWrapper = ({ children }: Props): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigCatProvider sdkKey={process.env.NEXT_PUBLIC_CONFIGCAT_SDK_KEY!} options={{ logger }}>
-        {children}
+        <PostHogProvider>
+          {children}
+        </PostHogProvider>
       </ConfigCatProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
