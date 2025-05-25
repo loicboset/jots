@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Script from 'next/script';
@@ -8,13 +8,19 @@ import Script from 'next/script';
 import Editor from "@/components/collections/Editor";
 import BugReportButton from "@/components/ui/buttons/BugReportButton";
 import { useCalendarContext } from "@/context/CalendarContextProvider";
+import { PushNotificationsPlugin } from "@/packages";
 
 import AppWrapper from "./collections/AppWrapper";
 import MotivationBooster from "./collections/MotivationBooster";
 import NavBar from "./collections/NavBar";
+import ScreenSizeRenderer from "./ui/wrappers/ScreenSizeRenderer";
 
 type Props = {
   userID: string;
+}
+
+type ExtendedNavigator = Navigator & {
+  standalone?: boolean;
 }
 
 const App = ({ userID }: Props): React.ReactElement => {
@@ -26,9 +32,38 @@ const App = ({ userID }: Props): React.ReactElement => {
 
   const handleSetSidebarOpen = (open: boolean): void => setSidebarOpen(open);
 
+  useEffect(() => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      registerServiceWorker()
+    }
+  }, [])
+
+  const registerServiceWorker = async (): Promise<void> => {
+    await navigator.serviceWorker.register('./sw.js', {
+      scope: '/',
+      updateViaCache: 'none',
+    })
+  }
+
+
+  // VARS
+  let displayMode = "browser";
+  const mqStandAlone = "(display-mode: standalone)";
+  if (
+    (window.navigator as ExtendedNavigator)?.standalone ||
+    window.matchMedia(mqStandAlone).matches
+  ) {
+    displayMode = "standalone";
+  }
+
   return (
     <>
       <NavBar sidebarOpen={sidebarOpen} handleSetSidebarOpen={handleSetSidebarOpen} />
+      {displayMode === "standalone" && (
+        <ScreenSizeRenderer maxWidth="md">
+          <PushNotificationsPlugin />
+        </ScreenSizeRenderer>
+      )}
       <div className="w-full focus:outline-none flex flex-col p-8 pb-12">
         <div className="mb-8 pb-2 border-b border-gray-500">
           <div className="flex items-center space-x-2 mb-2">

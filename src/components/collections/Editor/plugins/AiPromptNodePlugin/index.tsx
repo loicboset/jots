@@ -63,7 +63,7 @@ const AiPromptNodePlugin = (): null => {
 
     // Register listener for new nodes
     return editor.registerMutationListener(AiPromptNode, (mutations) => {
-      mutations.forEach(async (mutation, _nodeKey) => {
+      mutations.forEach(async (mutation) => {
         if (mutation === "created") {
           const joinedEntries = textContent.join(' ');
 

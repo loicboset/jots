@@ -1,13 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { UpsertUserSettings } from "@/types/payload/user_settings";
 
-export async function GET(request: Request): Promise<Response> {
-  const { searchParams } = new URL(request.url);
-  const userID = searchParams.get("user_id");
-
+export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
-  const { data: settings } = await supabase.from("user_settings").select("*").eq("user_id", userID).single();
+  const { data: settings } = await supabase.from("user_settings").select("*").single();
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");

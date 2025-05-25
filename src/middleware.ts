@@ -4,8 +4,13 @@ import { createClient } from '@/lib/supabase/server';
 
 import { updateSession } from './lib/supabase/middleware';
 
+const excludedPaths = [
+  "/api/push",
+];
 
-export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
+export async function middleware(request: NextRequest): Promise<NextResponse<unknown> | undefined> {
+  if (excludedPaths.includes(request.nextUrl.pathname)) return;
+
   const response = await updateSession(request);
 
   // Get user session
