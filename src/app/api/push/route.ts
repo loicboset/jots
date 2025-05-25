@@ -14,7 +14,7 @@ import { UserPushSubscription } from "@/types/api/push_subscriptions";
     const { subscription } = request.body as any;
 
     const payload = JSON.stringify({
-      title: "DevLog",
+      title: "Jots",
       body: "A new reminder is available!",
       redirectLink: "/",
     });

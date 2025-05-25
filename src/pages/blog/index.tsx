@@ -12,7 +12,7 @@ const Blog = ({ posts }: Props): React.ReactElement => (
   <div className="mx-6 mt-4">
     <div className="flex justify-between">
       <Link href="/">
-        <h1 className='text-3xl text-indigo-500'>DevLog</h1>
+        <h1 className='text-3xl text-indigo-500'>Jots</h1>
       </Link>
       <div className='flex space-x-4 items-center'>
         <Link href="/login" className="text-sm/6 font-semibold lg:block">

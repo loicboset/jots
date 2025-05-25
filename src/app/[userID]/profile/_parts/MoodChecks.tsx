@@ -28,7 +28,7 @@ const MoodChecks = (): React.ReactElement => {
         <span className="block text-sm/6 font-medium text-white">
           Daily mood checks
         </span>
-        <InfoTooltip message='Toggle on to get personalied daily motivation boosters based on your mood levels to help with your writing!' />
+        <InfoTooltip message='Toggle on to get personalised daily motivation boosters based on your mood levels to help with your writing!' />
       </div>
       <Toggle enabled={isMoodChecksEnabled} onChange={handleToggleMoodChecks} />
     </div>

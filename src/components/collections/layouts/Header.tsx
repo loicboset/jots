@@ -9,7 +9,7 @@ const Header = (): React.ReactElement => {
     <>
       <header className='flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900'>
         <Link href="/">
-          <h1 className='text-5xl text-indigo-500'>DevLog</h1>
+          <h1 className='text-5xl text-indigo-500'>Jots</h1>
         </Link>
         <div className='flex space-x-4 items-center'>
           <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">

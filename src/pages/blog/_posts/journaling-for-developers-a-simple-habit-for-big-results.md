@@ -47,9 +47,9 @@ There are plenty of tools available to help you journal, from simple text files 
 
 Plain text or Markdown files are perfect for quick, no-fuss journaling, while tools like Notion or Obsidian offer more structure, however they might feel overwhelming or distracting.
 
-After experimenting with these tools, we found they didn’t meet our long-term needs. That’s why we created **DevLog**. We aim to make journaling as effortless and efficient as possible, with a clean interface, a flexible editor and features tailored for levering all this data.
+After experimenting with these tools, we found they didn’t meet our long-term needs. That’s why we created **Jots**. We aim to make journaling as effortless and efficient as possible, with a clean interface, a flexible editor and features tailored for levering all this data.
 
-We’re constantly building features that ensure your journal entries don’t get lost in the past — with DevLog, your data is actively leveraged over time, helping you gain insights and track your growth, with AI making it easier to reflect on and act upon what you’ve written.
+We’re constantly building features that ensure your journal entries don’t get lost in the past — with Jots, your data is actively leveraged over time, helping you gain insights and track your growth, with AI making it easier to reflect on and act upon what you’ve written.
 
 ## Integrating Journaling into Your Workflow
 
@@ -73,4 +73,4 @@ A few sentences that highlight what you learned or a quick reflection on the day
 
 Journaling is a simple yet powerful tool that can help you grow as a developer. By reflecting on your work, tracking your progress, and clearing your mind, you’ll improve both your technical and soft skills. It’s not about writing long entries; it’s about making journaling a consistent habit that supports your development process.
 
-Start small, stick to it, and you’ll begin to see the benefits. After a few weeks of journaling, you could notice patterns in your growth, clearer thinking, and better decision-making. So why not give it a try? And if you're looking for a tool that’s built for developers and by developers, **DevLog** is here to help you get started.
+Start small, stick to it, and you’ll begin to see the benefits. After a few weeks of journaling, you could notice patterns in your growth, clearer thinking, and better decision-making. So why not give it a try? And if you're looking for a tool that’s built for developers and by developers, **Jots** is here to help you get started.

@@ -12,7 +12,7 @@ const jetBrainsMono = JetBrains_Mono({
 
 
 export const metadata: Metadata = {
-  title: "DevLog",
+  title: "Jots",
   description: "Level up your development skills every day",
 };
 

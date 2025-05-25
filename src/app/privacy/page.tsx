@@ -12,7 +12,7 @@ const Privacy = (): React.ReactElement => {
             <div className="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
               <div className="space-y-6 text-gray-300">
                 <h3 className="text-2xl font-semibold text-white">1. Introduction</h3>
-                <p>Welcome to <strong>DevLog</strong>. Your privacy is important to us. This policy explains what data we collect, how we use it, and your rights.</p>
+                <p>Welcome to <strong>Jots</strong>. Your privacy is important to us. This policy explains what data we collect, how we use it, and your rights.</p>
 
                 <h3 className="text-2xl font-semibold text-white">2. Data We Collect</h3>
                 <ul className="list-disc list-inside space-y-2">
@@ -24,7 +24,7 @@ const Privacy = (): React.ReactElement => {
                 <h3 className="text-2xl font-semibold text-white">3. How We Use Your Data</h3>
                 <ul className="list-disc list-inside space-y-2">
                   <li>Store and sync your journal entries.</li>
-                  <li>Improve DevLog’s functionality and user experience.</li>
+                  <li>Improve Jot’s functionality and user experience.</li>
                   <li>Maintain security and prevent abuse.</li>
                 </ul>
 
