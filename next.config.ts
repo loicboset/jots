@@ -2,7 +2,9 @@ import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  sentry: {
+    hideSourceMaps: true,
+  },
 };
 
 /* eslint-disable @typescript-eslint/no-require-imports */
@@ -15,7 +17,11 @@ const withPWA = require("next-pwa")({
   customWorkerDir: "worker",
   maximumFileSizeToCacheInBytes: 8000000,
   runtimeCaching,
-  buildExcludes: [/app-build-manifest.json$/, /dynamic-css-manifest.json$/],
+  buildExcludes: [
+    /app-build-manifest.json$/,
+    /dynamic-css-manifest.json$/,
+    /\.map$/, // Exclude source maps from precaching
+  ],
 });
 
 export default withSentryConfig(withPWA(nextConfig), {
