@@ -39,7 +39,7 @@ const DummyDataPlugin = (): null => {
 
         // Welcome!
         const welcome = $createParagraphNode();
-        welcome.append(new TextNode('Welcome to DevLog! 🎉'),)
+        welcome.append(new TextNode('Welcome to Jots! 🎉'),)
         spacingParagraph.insertAfter(welcome)
         const sub = $createParagraphNode()
         sub.append(new TextNode('You’re taking your first step toward building a powerful habit—journaling your dev journey. This practice will help you gain clarity, track progress, and reflect on your growth.'));

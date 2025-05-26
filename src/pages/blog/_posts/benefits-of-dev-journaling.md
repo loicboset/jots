@@ -51,4 +51,4 @@ Keeping a developer journal is a powerful practice that can significantly enhanc
 
 For developers looking to level up their careers, adopting a developer journal and integrating AI into the process is a game-changer. It’s not just about documenting your work—it’s about creating a dynamic, intelligent system that supports and accelerates your growth. Start journaling today and discover how AI can help you unlock your full potential as a developer.
 
-If you’re curious about getting started with a developer journal, give DevLog a try. We are striving to build as many useful features, leveraging AI, for you to build the best developer journal for your specific needs. Happy journaling!
+If you’re curious about getting started with a developer journal, give Jots a try. We are striving to build as many useful features, leveraging AI, for you to build the best developer journal for your specific needs. Happy journaling!

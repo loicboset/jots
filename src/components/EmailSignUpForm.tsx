@@ -9,7 +9,7 @@ const EmailSignupForm = (): JSX.Element => {
       className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-md space-y-4"
     >
       <h2 className="text-xl font-semibold text-gray-800">Stay in the loop</h2>
-      <p className="text-gray-600 text-sm">Get updates on our latest features, dev tips and news. And also excluive perks.</p>
+      <p className="text-gray-600 text-sm">Get updates on our latest features, dev tips and news. And also exclusive perks through early access.</p>
       <input
         type="email"
         name="email_address"

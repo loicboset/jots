@@ -2,7 +2,7 @@
 import type { JSX } from 'react';
 
 import {
-  ChevronRightIcon,
+  ChevronRightIcon
 } from '@heroicons/react/20/solid'
 import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxArrowDownIcon, ArrowPathRoundedSquareIcon, BugAntIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -159,10 +159,13 @@ const LandingPage = (): JSX.Element => {
                 </span>
               </Link>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
-                Level Up Your Dev Game 🚀
+                Level Up Your Dev Game With Jots 🚀
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">
-                Unlock the benefits of journaling now to become a better, faster developer every day.
+                Unlock the benefits of journaling to become a better, faster developer every day.
+              </p>
+              <p className="mt-8 text-lg font-medium text-pretty text-orange-300 sm:text-xl/8">
+                We are releasing the app for early adopters to help shape the future of Jots. Join our beta phase now for exclusive free access to all our features, feedback loops, and community.
               </p>
               <div className="mt-10 flex flex-wrap space-y-2 items-center gap-x-6">
                 <Link
@@ -233,7 +236,7 @@ const LandingPage = (): JSX.Element => {
           </svg>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
-              Just Give It a Shot
+              Give Jots a Shot
             </h2>
             <p className="mx-auto mt-6 mb-6 max-w-xl text-lg/8 text-gray-300">
               We promise, it can only do you some good.

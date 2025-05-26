@@ -3,7 +3,7 @@ title: 'Learnings as a software engineer'
 date: 'April 14, 2025'
 ---
 
-In this article, I Julien, one of the engineers behind DevLog will share some key learnings from years of building features as a software engineer at my daily job.
+In this article, I Julien, one of the engineers behind Jots will share some key learnings from years of building features as a software engineer at my daily job.
 
 ---
 
@@ -45,4 +45,4 @@ Last but not least, don’t forget to have fun while learning! Working on a big 
 
 These consolidated learnings are a result of me regularly taking notes on what works well for me during feature development, so I can keep track and reflect. Putting these learnings down in writing has helped me consolidate them over time.
 
-If you’re curious about getting started with a developer journal, give DevLog a try. We are striving to build as many useful features, leveraging AI, for you to build the best developer journal for your specific needs. Happy journaling!
+If you’re curious about getting started with a developer journal, give Jots a try. We are striving to build as many useful features, leveraging AI, for you to build the best developer journal for your specific needs. Happy journaling!
