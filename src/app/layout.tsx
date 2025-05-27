@@ -13,7 +13,7 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Jots",
-  description: "Level up your development skills every day",
+  description: "Level up your engineering skills. Every day.",
 };
 
 export default function RootLayout({
