@@ -6,7 +6,7 @@ const EmailSignupForm = (): JSX.Element => {
       action="https://app.convertkit.com/forms/8040752/subscriptions"
       method="POST"
       target="_blank"
-      className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-md space-y-4"
+      className="max-w-md mx-auto bg-gray-100 p-6 rounded-2xl shadow-md space-y-4"
     >
       <h2 className="text-xl font-semibold text-gray-800">Stay in the loop</h2>
       <p className="text-gray-600 text-sm">Get updates on our latest features, dev tips and news. And also exclusive perks through early access.</p>
@@ -19,7 +19,7 @@ const EmailSignupForm = (): JSX.Element => {
       />
       <button
         type="submit"
-        className="w-full bg-blue-600 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+        className="w-full bg-blue-600 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer text-white"
       >
         Subscribe
       </button>

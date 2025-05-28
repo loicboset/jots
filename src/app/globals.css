@@ -24,21 +24,15 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #171717;
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: rgb(26, 26, 26);
-    --foreground: #ededed;
-  }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  color: white;
 }
 
 ol {
