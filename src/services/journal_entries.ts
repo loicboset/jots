@@ -74,15 +74,16 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
 };
 
 // GET JOURNAL ENTRIES DATES
-const getJournalEntriesDates = async (userID: string, date: Date): Promise<JournalEntryDate[]> => {
+const getJournalEntriesDates = async (userID: string, date?: Date): Promise<JournalEntryDate[]> => {
   const { data } = await axios.get(`/api/journal_entries/month/dates?user_id=${userID}&date=${date}`);
   return data;
 };
 
-const useJournalEntriesDates = (userID: string, date: Date): UseQueryResult<JournalEntryDate[], Error> => {
+const useJournalEntriesDates = (userID: string, date?: Date): UseQueryResult<JournalEntryDate[], Error> => {
   return useQuery({
     queryKey: ["journal_entries/month/dates", userID, date],
     queryFn: () => getJournalEntriesDates(userID, date),
+    enabled: !!date,
   });
 };
 

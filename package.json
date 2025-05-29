@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --experimental-https",
+    "dev": "next dev --turbopack",
     "build": "npm run test && next build",
     "start": "next start",
     "lint": "next lint",
@@ -48,7 +48,8 @@
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
     "ua-parser-js": "^2.0.3",
-    "web-push": "^3.6.7"
+    "web-push": "^3.6.7",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
