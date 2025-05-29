@@ -1,7 +1,7 @@
 import { JSX, useEffect } from "react";
 
 import dayjs from "dayjs";
-import { Modifiers, getDefaultClassNames, DayPicker } from "react-day-picker";
+import { getDefaultClassNames, DayPicker } from "react-day-picker";
 
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useUserContext } from "@/context/UserProvider";
@@ -21,19 +21,18 @@ const Calendar = (): JSX.Element => {
   const { user: { userID } } = useUserContext();
 
   // RQ
-  const { data: entries = [] } = useJournalEntriesDates(userID, selectedDate);
+  const { data: entries = [] } = useJournalEntriesDates(userID, dayjs(selectedDate).startOf("month").format("YYYY-MM-DD"));
 
   // EFFECTS
   useEffect(() => {
     if (!selectedDate) {
-      console.log('No selected date, setting to today');
       setSelectedDate(new Date());
     }
   }, [selectedDate, setSelectedDate]);
 
   // METHODS
-  const handleSetSelected = (modifiers: Modifiers, selectedDate?: Date): void => {
-    if (modifiers.selected || !selectedDate) return;
+  const handleSetSelected = (selectedDate?: Date): void => {
+    if (!selectedDate) return;
     setSelectedDate(selectedDate)
 
     const year = selectedDate.getFullYear()
@@ -61,7 +60,8 @@ const Calendar = (): JSX.Element => {
       }}
       mode="single"
       selected={selectedDate}
-      onSelect={(selectedDate, triggerDate, modifiers): void => handleSetSelected(modifiers, selectedDate)}
+      onSelect={handleSetSelected}
+      onMonthChange={handleSetSelected}
       classNames={{
         day: `${defaultClassNames.day} text-xs`,
         weekdays: `${defaultClassNames.weekdays} text-xs`,

@@ -5,10 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: Request): Promise<Response> {
   const { searchParams } = new URL(request.url);
   const userID = searchParams.get("user_id");
-  const date = searchParams.get("date");
+  const from = searchParams.get("from");
 
-  const from = dayjs(date).startOf("month").format("YYYY-MM-DD");
-  const to = dayjs(date).endOf("month").format("YYYY-MM-DD");
+  const to = dayjs(from).endOf("month").format("YYYY-MM-DD");
 
   const supabase = await createClient();
 
