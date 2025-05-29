@@ -1,4 +1,3 @@
-Jots
 Jots is an open-source, developer-focused journaling tool designed to help you track your progress, set meaningful goals, and reflect on your growth as a developer. Whether you're aiming for a promotion, improving your coding skills, or simply documenting your daily development journey, Jots makes it easy to stay organized and focused.
 
 Features
