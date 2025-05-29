@@ -15,7 +15,7 @@ self.addEventListener("push", (event) => {
 
   const notificationOptions: NotificationOptions = {
     body: data.body,
-    icon: "/logo.png",
+    icon: "/logo/logo_512.png",
     data: {
       url: urlToOpen,
     },
