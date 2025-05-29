@@ -33,7 +33,6 @@ const Calendar = (): JSX.Element => {
 
   // METHODS
   const handleSetSelected = (modifiers: Modifiers, selectedDate?: Date): void => {
-    console.log('handleSetSelected')
     if (modifiers.selected || !selectedDate) return;
     setSelectedDate(selectedDate)
 
@@ -41,7 +40,7 @@ const Calendar = (): JSX.Element => {
     const month = selectedDate.getMonth() + 1;
     const day = selectedDate.getDate();
 
-    const formattedDate = new Date(`${year}-${month}-${day}`)
+    const formattedDate = new Date(year, month - 1, day);
     setCalendar({ ...calendar, currentDate: formattedDate });
   };
 
