@@ -8,6 +8,7 @@ import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxAr
 import Link from 'next/link'
 
 import EmailSignupForm from '@/components/EmailSignUpForm';
+import Icon from '@/components/ui/Icon';
 
 const primaryFeatures = [
   {
@@ -97,19 +98,24 @@ const LandingPage = (): JSX.Element => {
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
           {/* Header */}
-          <header className='flex justify-end space-x-4 p-4 items-center'>
-            <Link href="/blog" className="text-sm/6 mr-8 font-semibold text-white lg:block">
-              Blog
-            </Link>
-            <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign up
-            </Link>
+          <header className='flex justify-between items-center p-4 relative'>
+            <div>
+              <Icon src={'logo2.svg'} className='text-indigo-600 w-40 h-40 -top-10 -left-4 md:w-60 md:-top-16 md:-left-8 lg:w-72 lg:h-72 lg:-top-18 lg:-left-8 absolute' />
+            </div>
+            <div className='flex justify-end space-x-4 items-center'>
+              <Link href="/blog" className="text-sm/6 mr-8 font-semibold text-white lg:block">
+                Blog
+              </Link>
+              <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign up
+              </Link>
+            </div>
           </header>
           <svg
             aria-hidden="true"

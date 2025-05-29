@@ -45,6 +45,7 @@
     "react-hook-form": "^7.54.2",
     "react-responsive": "^10.0.1",
     "react-select": "^5.10.1",
+    "react-svg": "^16.3.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
     "ua-parser-js": "^2.0.3",
