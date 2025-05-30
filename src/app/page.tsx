@@ -197,7 +197,7 @@ const LandingPage = (): JSX.Element => {
         </div>
 
         {/* Feature section */}
-        <div className="mx-auto mt-32 max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto mt-2 max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance">
               Why Do Top Developers Keep a Journal,<span className='text-indigo-400'> and Why You Should Too?</span>
@@ -222,8 +222,51 @@ const LandingPage = (): JSX.Element => {
           </div>
         </div>
 
+        {/* Demo section */}
+        <div className="mx-auto mt-24 max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto mb-12 max-w-2xl lg:text-center">
+            <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance">
+              See Jots in<span className='text-indigo-400'> action</span>
+            </p>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              style={{
+                position: 'relative',
+                paddingBottom: '56.25%',
+                width: '80%',
+                maxWidth: '800px',
+                height: 0,
+                border: '4px solid black',
+                borderRadius: '8px',
+                overflow: 'hidden',
+              }}
+            >
+              <iframe
+                src="https://www.loom.com/embed/591f4740ecaa4de0a4903bcc30030ac5?sid=f22a9e2d-d155-4f99-af11-0620aff09100"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: '0',
+                }}
+                allowFullScreen
+                title="Jots demo video"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* CTA section */}
-        <div className="relative isolate mt-32 px-6 py-32 sm:py-40 lg:px-8">
+        <div className="relative isolate mt-2 px-6 py-32 sm:py-40 lg:px-8">
           <svg
             aria-hidden="true"
             className="absolute inset-0 -z-10 size-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
