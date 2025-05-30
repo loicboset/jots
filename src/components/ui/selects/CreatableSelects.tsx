@@ -24,6 +24,10 @@ const CreatableSelect = ({ options, onChange, value, placeholder, ...rest }: Pro
           ...baseStyles,
           backgroundColor: 'black',
         }),
+        input: (baseStyles) => ({
+          ...baseStyles,
+          color: 'white',
+        }),
         singleValue: (baseStyles) => ({
           ...baseStyles,
           color: 'white',

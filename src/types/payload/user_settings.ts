@@ -3,7 +3,12 @@ type UpsertUserSettings = {
   role?: string;
   experience?: number;
   goal?: string;
+  timezone?: string;
   mood_checks_enabled: boolean;
 };
 
-export type { UpsertUserSettings };
+type EditUserTimezone = {
+  timezone: string;
+};
+
+export type { UpsertUserSettings, EditUserTimezone };

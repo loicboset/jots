@@ -5,7 +5,7 @@ import matter from "gray-matter";
 
 import { BlogPostListElement } from "../../types/blog/blog_post_data";
 
-const postsDirectory = path.join(process.cwd(), "src/pages/blog/_posts");
+const postsDirectory = path.join(process.cwd(), "src/app/blog/_posts");
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const stripMarkdown = (file: any): string => {

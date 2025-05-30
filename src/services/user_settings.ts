@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResul
 import axios from "axios";
 
 import { UserSettings } from "@/types/api/user_settings";
-import { UpsertUserSettings } from "@/types/payload/user_settings";
+import { UpsertUserSettings, EditUserTimezone } from "@/types/payload/user_settings";
 
 // GET USER SETTINGS
 const getUserSettings = async (): Promise<UserSettings> => {
@@ -31,6 +31,23 @@ const useUpsertUserSettings = (): UseMutationResult<void, Error, UpsertUserSetti
   });
 };
 
+// UPDATE USER TIMEZONE
+const editTimezone = async (body: EditUserTimezone): Promise<void> => {
+  const { data } = await axios.put("/api/user_settings/timezone", body);
+  return data;
+};
+
+const useEditTimezone = (): UseMutationResult<void, Error, EditUserTimezone, unknown> => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editTimezone,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user_settings"] });
+    },
+  });
+};
+
 // TOGGLE PUSH NOTIFICATIONS
 const togglePushNotification = async (isActive: boolean): Promise<void> => {
   const { data } = await axios.patch("/api/user_settings/toggle_push_notifications", {
@@ -50,4 +67,4 @@ const useTogglePushNotification = (): UseMutationResult<void, Error, boolean, un
   });
 };
 
-export { useUserSettings, useUpsertUserSettings, useTogglePushNotification };
+export { useUserSettings, useUpsertUserSettings, useTogglePushNotification, useEditTimezone };

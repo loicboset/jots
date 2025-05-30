@@ -2,6 +2,7 @@
 import Head from "next/head";
 import Link from "next/link";
 
+
 import Spinner from "@/components/ui/loaders/Spinner";
 
 import styles from "./blog.module.css";
