@@ -106,7 +106,7 @@ const LandingPage = (): JSX.Element => {
               <Link href="/roadmap" className="text-sm/6 mr-8 font-semibold text-white lg:block">
                 Roadmap
               </Link>
-              <Link href="/blog" className="text-sm/6 mr-8 font-semibold text-white lg:block">
+              <Link href="/blog" className="text-sm/6 mr-8 hidden sm:block font-semibold text-white lg:block">
                 Blog
               </Link>
               <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">
