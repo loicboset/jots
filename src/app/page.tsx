@@ -103,6 +103,9 @@ const LandingPage = (): JSX.Element => {
               <Icon src={'logo.svg'} className='text-indigo-600 w-40 h-40 -top-10 -left-4 md:w-60 md:-top-16 md:-left-8 lg:w-72 lg:h-72 lg:-top-18 lg:-left-8 absolute' />
             </div>
             <div className='flex justify-end space-x-4 items-center'>
+              <Link href="/roadmap" className="text-sm/6 mr-8 font-semibold text-white lg:block">
+                Roadmap
+              </Link>
               <Link href="/blog" className="text-sm/6 mr-8 font-semibold text-white lg:block">
                 Blog
               </Link>
@@ -166,7 +169,7 @@ const LandingPage = (): JSX.Element => {
                   </span>
                 </Link>
                 <a href="https://www.producthunt.com/products/jots?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-jots" target="_blank" rel="noreferrer">
-                  <Image src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=971956&theme=light&t=1748608214707" alt="Jots - Unlock&#0032;the&#0032;benefits&#0032;of&#0032;journaling&#0032;to&#0032;become&#0032;a&#0032;better&#0032;dev&#0046; | Product Hunt" style={{ width: '250px;', height: '54px;' }} width="250" height="54" />
+                  <Image src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=971956&theme=light&t=1748608214707" alt="Jots - Unlock&#0032;the&#0032;benefits&#0032;of&#0032;journaling&#0032;to&#0032;become&#0032;a&#0032;better&#0032;dev&#0046; | Product Hunt" style={{ width: '250px', height: '54px' }} width="250" height="54" />
                 </a>
               </div>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
