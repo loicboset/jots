@@ -27,7 +27,7 @@ export async function PUT(request: Request): Promise<Response> {
   }
 
   const req = await request.json();
-  const { days, time } = req as UpsertUserPushNotif;
+  const { days, time, timezone } = req as UpsertUserPushNotif;
 
   // 1. convert days and time to cron expression
   const cron_expression = toCron(days, time);
@@ -44,14 +44,14 @@ export async function PUT(request: Request): Promise<Response> {
   if (existingCronJob?.cronjob_id) {
     // 2.1 update the existing cron job
     cronJobID = existingCronJob.cronjob_id;
-    const { data, status } = await easyCron.update(cronJobID, cron_expression);
+    const { data, status } = await easyCron.update(cronJobID, cron_expression, timezone);
     if (![200, 201].includes(status) || !data?.cron_job_id) {
       throw new Error(`Failed to update cron job: ${data?.message}`);
     }
   } else {
     // 2.2 create a new cron job
     const url = `${process.env.ENV_URL}/api/push_notifications/send?user_id=${user.id}`;
-    const { data, status } = await easyCron.add(url, cron_expression);
+    const { data, status } = await easyCron.add(url, cron_expression, timezone);
 
     if (![200, 201].includes(status) || !data?.cron_job_id) {
       throw new Error(`Failed to create cron job: ${data?.message}`);

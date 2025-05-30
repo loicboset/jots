@@ -3,6 +3,7 @@
 import './index.css';
 
 import { useUpsertUserPushNotification, useUserPushNotifications } from '@/services/user_push_notifications';
+import { useUserSettings } from '@/services/user_settings';
 import useToast from '@/utils/hooks/useToast';
 
 const weekDays = [
@@ -28,6 +29,7 @@ const getDaysFromCron = (cron: string): string[] => {
 
 const WeeklyPlanner = (): React.ReactElement => {
   // RQ
+  const { data: userSettings } = useUserSettings();
   const { data: pushNotifications = [] } = useUserPushNotifications();
   const { mutate: upsertPushNotif, isPending } = useUpsertUserPushNotification();
 
@@ -59,12 +61,14 @@ const WeeklyPlanner = (): React.ReactElement => {
       return;
     };
 
-    upsertPushNotif({ days: selectedDays, time });
+    const timezone = userSettings?.timezone || 'UTC/UTC';
+    upsertPushNotif({ days: selectedDays, time, timezone });
   };
 
   const handleTimeChange = (time: string): void => {
     clearToast();
-    upsertPushNotif({ days, time });
+    const timezone = userSettings?.timezone || 'UTC/UTC';
+    upsertPushNotif({ days, time, timezone });
   }
 
   return (

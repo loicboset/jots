@@ -7,6 +7,7 @@ import CreatableSelect from "react-select/creatable";
 import Button from "@/components/ui/buttons/Button";
 import { useUpsertUserSettings } from "@/services/user_settings";
 import { UpsertUserSettings } from "@/types/payload/user_settings";
+import validateTimezone from "@/utils/validateTimezone";
 
 import steps from "./steps";
 
@@ -31,13 +32,17 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
 
   const handleSkipAll = (): void => {
     const values = getValues()
-    editUserSettings({ user_id: userID, ...values })
+    const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const timezone = validateTimezone(detectedTimezone);
+    editUserSettings({ user_id: userID, ...values, timezone })
     redirect(`/${userID}`);
   }
 
   const handleSave = (): void => {
     const values = getValues()
-    editUserSettings({ user_id: userID, ...values })
+    const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const timezone = validateTimezone(detectedTimezone);
+    editUserSettings({ user_id: userID, ...values, timezone })
 
     const isOnboardingOver = step >= steps.size;
     if (isOnboardingOver) redirect(`/${userID}`);

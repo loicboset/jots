@@ -8558,6 +8558,14 @@ react-svg@^16.3.0:
     "@types/prop-types" "^15.7.14"
     prop-types "^15.8.1"
 
+react-timezone-select@^3.2.8:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/react-timezone-select/-/react-timezone-select-3.2.8.tgz#6d247f18cfd401df1af8d240b2d3b277331240be"
+  integrity sha512-efEIVmYAHtm+oS+YlE/9DbieMka1Lop0v1LsW1TdLq0yCBnnAzROKDUY09CICY8TCijZlo0fk+wHZZkV5NpVNw==
+  dependencies:
+    spacetime "^7.6.0"
+    timezone-soft "^1.5.2"
+
 react-transition-group@^4.3.0:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
@@ -9148,6 +9156,11 @@ space-separated-tokens@^2.0.0:
   resolved "https://registry.yarnpkg.com/space-separated-tokens/-/space-separated-tokens-2.0.2.tgz#1ecd9d2350a3844572c3f4a312bceb018348859f"
   integrity sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==
 
+spacetime@^7.6.0:
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/spacetime/-/spacetime-7.10.0.tgz#f3bc406bd65127a66924b206d5c8b52bcca5b063"
+  integrity sha512-tanJSLq0/+Qvq1bmK0Nh2Ppk0lFOkGwpes29/64E6hyK4kn5d6LPt65Eidm2Xaf3gLvmG8KaXh8LmeymPlw0Aw==
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -9418,6 +9431,11 @@ test-exclude@^6.0.0:
     "@istanbuljs/schema" "^0.1.2"
     glob "^7.1.4"
     minimatch "^3.0.4"
+
+timezone-soft@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/timezone-soft/-/timezone-soft-1.5.2.tgz#1d7f20b2ffb43e80edd2a7bf45572ccae144c7e7"
+  integrity sha512-BUr+CfBfeWXJwFAuEzPO9uF+v6sy3pL5SKLkDg4vdEhsyXgbBnpFoBCW8oEKSNTqNq9YHbVOjNb31xE7WyGmrA==
 
 tinyglobby@^0.2.10:
   version "0.2.10"
