@@ -5,6 +5,7 @@ import {
   ChevronRightIcon
 } from '@heroicons/react/20/solid'
 import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxArrowDownIcon, ArrowPathRoundedSquareIcon, BugAntIcon, TrophyIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image';
 import Link from 'next/link'
 
 import EmailSignupForm from '@/components/EmailSignUpForm';
@@ -94,7 +95,6 @@ const LandingPage = (): JSX.Element => {
   return (
     <div className="bg-gray-900">
       <main>
-
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
           {/* Header */}
@@ -155,15 +155,20 @@ const LandingPage = (): JSX.Element => {
           </div>
           <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
             <div className="mx-auto max-w-3/4 shrink-0 lg:mx-0 lg:pt-8">
-              <Link href="/releases" className="inline-flex space-x-6">
-                <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
-                  What&apos;s new
-                </span>
-                <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                  <span className='hidden md:inline'>Just shipped v2025.04.16</span>
-                  <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
-                </span>
-              </Link>
+              <div className='flex justify-between items-center flex-wrap space-y-4'>
+                <Link href="/releases" className="inline-flex space-x-6">
+                  <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
+                    What&apos;s new
+                  </span>
+                  <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
+                    <span className='hidden md:inline'>Just shipped v2025.04.16</span>
+                    <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
+                  </span>
+                </Link>
+                <a href="https://www.producthunt.com/products/jots?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-jots" target="_blank" rel="noreferrer">
+                  <Image src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=971956&theme=light&t=1748608214707" alt="Jots - Unlock&#0032;the&#0032;benefits&#0032;of&#0032;journaling&#0032;to&#0032;become&#0032;a&#0032;better&#0032;dev&#0046; | Product Hunt" style={{ width: '250px;', height: '54px;' }} width="250" height="54" />
+                </a>
+              </div>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
                 Level Up Your Dev Game With Jots 🚀
               </h1>
