@@ -296,7 +296,7 @@ const LandingPage = (): JSX.Element => {
               Give Jots a Shot
             </h2>
             <p className="mx-auto mt-6 mb-6 max-w-xl text-lg/8 text-gray-300">
-              We promise, it can only do you some good.
+              We promise, it can only do you good.
             </p>
             <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
               Discover all our latest AI features with early access.
