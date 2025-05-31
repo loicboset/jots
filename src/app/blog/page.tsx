@@ -1,5 +1,7 @@
-/* eslint-disable max-len */
+
 import Link from "next/link";
+
+import Header from "@/components/collections/layouts/Header";
 
 import { BlogPostListElement } from "../../types/blog/blog_post_data";
 import getSortedPostsData from "../../utils/getSortedPostsData/getSortedPostsData";
@@ -8,24 +10,8 @@ const Blog = async (): Promise<React.ReactElement> => {
   const posts: BlogPostListElement[] = getSortedPostsData();
 
   return (
-    <div className="mx-6 mt-4">
-      <div className="flex justify-between">
-        <Link href="/">
-          <h1 className='text-5xl text-indigo-500'>Jots</h1>
-        </Link>
-        <div className='flex space-x-4 items-center'>
-          <Link href="/login" className="text-sm/6 font-semibold lg:block">
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Sign up
-          </Link>
-        </div>
-      </div>
-
+    <div>
+      <Header />
       <div className="py-24">
         <div className="px-6 mx-auto max-w-7xl lg:px-8">
           <div className="max-w-2xl mx-auto">

@@ -1,8 +1,6 @@
-// app/blog/[id]/page.tsx
-
 import { Metadata } from "next";
-import Link from "next/link";
 
+import Header from "@/components/collections/layouts/Header";
 import Spinner from "@/components/ui/loaders/Spinner";
 import getPostData from "@/utils/getPostData/getPostData";
 
@@ -33,29 +31,8 @@ const PostPage = async ({ params }: Props): Promise<React.ReactElement> => {
   if (!postData) return <Spinner size="small" />;
 
   return (
-    <div className="mx-6 mt-4">
-      <div className="flex justify-between">
-        <Link href="/">
-          <h1 className="text-5xl text-indigo-500">Jots</h1>
-        </Link>
-        <div className="flex space-x-4 items-center">
-          <Link href="/blog" className="text-sm/6 mr-8 font-semibold lg:block">
-            Blog <span aria-hidden="true">&rarr;</span>
-          </Link>
-          <Link href="/login" className="text-sm/6 font-semibold lg:block">
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="
-              rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs
-              hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
-            "
-          >
-            Sign up
-          </Link>
-        </div>
-      </div>
+    <div>
+      <Header />
       <div className="flex flex-col items-center justify-center mt-10">
         <div className="sm:w-3/4">
           <h1 className="justify-center mt-3 text-4xl font-semibold text-gray-300 leading-14">

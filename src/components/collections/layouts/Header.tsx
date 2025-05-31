@@ -2,16 +2,24 @@
 
 import Link from 'next/link'
 
+import Icon from '@/components/ui/Icon';
+
 // This header is user on static pages like /releases and /privacy
 
 const Header = (): React.ReactElement => {
   return (
     <>
-      <header className='flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900'>
+      <header className='flex justify-between items-center p-4 relative'>
         <Link href="/">
-          <h1 className='text-5xl text-indigo-500'>Jots</h1>
+          <Icon src={'logo.svg'} className='text-indigo-600 w-40 h-40 -top-10 -left-4 md:w-60 md:-top-16 md:-left-8 lg:w-72 lg:h-72 lg:-top-18 lg:-left-8 absolute' />
         </Link>
-        <div className='flex space-x-4 items-center'>
+        <div className='flex justify-end space-x-4 items-center'>
+          <Link href="/roadmap" className="text-sm/6 mr-8 font-semibold text-white lg:block">
+            Roadmap
+          </Link>
+          <Link href="/blog" className="text-sm/6 mr-8 hidden sm:block font-semibold text-white lg:block">
+            Blog
+          </Link>
           <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">
             Log in
           </Link>
