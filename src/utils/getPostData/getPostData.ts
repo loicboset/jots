@@ -7,7 +7,7 @@ import html from "remark-html";
 
 import { BlogPostData } from "../../types/blog/blog_post_data";
 
-const postsDirectory = path.join(process.cwd(), "src/pages/blog/_posts");
+const postsDirectory = path.join(process.cwd(), "src/app/blog/_posts");
 
 const getPostData = async (id: string): Promise<BlogPostData> => {
   const fileNames = fs.readdirSync(postsDirectory);
