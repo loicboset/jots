@@ -17,7 +17,7 @@ const Releases = async (): Promise<React.ReactElement> => {
           <div className="mx-auto max-w-2xl">
             <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Our Roadmap</h2>
             <p className="mt-2 mb-2 text-lg/8 text-gray-300">
-              We’re dedicated to making this app your ultimate journaling tool for growth and learning. Here, you can see what new features are coming and how we’re improving the experience just for everyone.
+              We are dedicated to making Jots your ultimate journaling destination for growth and learning. Below, you can explore the features we are currently working on.
             </p>
             <p className="mt-2 text-lg/8 text-gray-300">
               If you have ideas or suggestions, we’d love to hear from you! Join our
