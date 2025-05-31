@@ -106,7 +106,7 @@ const LandingPage = (): JSX.Element => {
                     What&apos;s new
                   </span>
                   <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                    <span className='hidden md:inline'>Just shipped v2025.04.16</span>
+                    <span className='hidden md:inline'>Just shipped v2025.05.25</span>
                     <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
                   </span>
                 </Link>
