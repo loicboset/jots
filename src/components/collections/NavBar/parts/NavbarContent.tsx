@@ -47,7 +47,7 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
         <WeeklyDigestButton />
         <MoodSlider />
       </div>
-      <div className="mb-2">
+      <div className="mb-2 mt-4">
         <Link href={'https://discord.gg/YQP4wwbyfg'} target="_blank" className="flex">
           <p className="text-sm pr-2">Join our Discord!</p>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="size-8" viewBox="0 0 24 24">
