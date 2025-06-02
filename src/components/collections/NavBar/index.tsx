@@ -34,7 +34,7 @@ const NavBar = ({ sidebarOpen, handleSetSidebarOpen }: Props): React.ReactElemen
         </Dialog>
       </div>
       <div
-        className="hidden p-4 m-4 rounded-2xl md:flex flex-col overflow-y-scroll"
+        className="hidden p-4 m-4 rounded-2xl md:flex flex-col"
         style={{ backgroundColor: bgColor }}
       >
         <NavbarContent />
