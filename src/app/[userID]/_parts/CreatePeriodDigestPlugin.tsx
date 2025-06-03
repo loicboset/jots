@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 
 import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
+dayjs.extend(isoWeek);
 
 import { useCreateDigest, useGetLatestDigestDate } from "@/services/digests";
 
@@ -15,7 +17,7 @@ const CreatePeriodDigestPlugin = (): null => {
   useEffect(() => {
     if (isLoading) return;
 
-    const shouldCreateDigest = date ? dayjs(date).isBefore(dayjs().startOf("week")) : true;
+    const shouldCreateDigest = date ? dayjs(date).isBefore(dayjs().startOf("isoWeek")) : true;
 
     const formattedDate = dayjs().format("YYYY-MM-DD");
 
