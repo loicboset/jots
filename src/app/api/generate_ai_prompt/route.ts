@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 
+import aiUsageLogger from "@/lib/logger/aiUsageLogger";
 import { createClient } from "@/lib/supabase/server";
 
 const openai = new OpenAI({
@@ -47,6 +48,14 @@ export async function POST(request: Request): Promise<Response> {
           content: paragraphContent,
         },
       ],
+    });
+
+    await aiUsageLogger({
+      userID: user.id,
+      type: "AI_PROMPT",
+      model: "gpt-4o-mini",
+      inputTokens: completion.usage?.prompt_tokens ?? 0,
+      outputTokens: completion.usage?.completion_tokens ?? 0,
     });
 
     const messageContent = completion.choices[0].message.content;

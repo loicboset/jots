@@ -1,5 +1,7 @@
 import OpenAI from "openai";
 
+import aiUsageLogger from "@/lib/logger/aiUsageLogger";
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -28,9 +30,10 @@ type Params = {
     experience: string;
     goal: string;
   } | null;
+  userID: string;
 };
 
-const generateDigest = async ({ entries, settings }: Params): Promise<string | null> => {
+const generateDigest = async ({ entries, settings, userID }: Params): Promise<string | null> => {
   let userContent = "";
 
   userContent += ` *** `;
@@ -58,6 +61,14 @@ const generateDigest = async ({ entries, settings }: Params): Promise<string | n
           content: userContent,
         },
       ],
+    });
+
+    await aiUsageLogger({
+      userID,
+      type: "WEEKLY_DIGEST",
+      model: "gpt-4o",
+      inputTokens: completion.usage?.prompt_tokens ?? 0,
+      outputTokens: completion.usage?.completion_tokens ?? 0,
     });
 
     const messageContent = completion.choices[0].message.content;
