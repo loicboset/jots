@@ -8,11 +8,8 @@ import {
   $isRangeSelection,
   COMMAND_PRIORITY_LOW,
   DELETE_CHARACTER_COMMAND,
-  KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_LEFT_COMMAND,
   KEY_ARROW_RIGHT_COMMAND,
-  KEY_ARROW_UP_COMMAND,
-  KEY_ENTER_COMMAND,
 } from "lexical";
 
 import { $isPromptNode, PromptNode } from "../../nodes/PromptNode";
@@ -87,10 +84,6 @@ const PromptNodePlugin = (): null => {
         () => replacePromptNode(),
         COMMAND_PRIORITY_LOW
       ),
-
-      editor.registerCommand(KEY_ARROW_DOWN_COMMAND, replacePromptNode, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ARROW_UP_COMMAND, replacePromptNode, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ENTER_COMMAND, replacePromptNode, COMMAND_PRIORITY_LOW),
 
       editor.registerCommand(KEY_ARROW_RIGHT_COMMAND, nextPrompt, COMMAND_PRIORITY_LOW),
       editor.registerCommand(KEY_ARROW_LEFT_COMMAND, previousPrompt, COMMAND_PRIORITY_LOW),

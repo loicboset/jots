@@ -9,9 +9,6 @@ import {
   $isRangeSelection,
   COMMAND_PRIORITY_LOW,
   DELETE_CHARACTER_COMMAND,
-  KEY_ARROW_DOWN_COMMAND,
-  KEY_ARROW_UP_COMMAND,
-  KEY_ENTER_COMMAND,
   $isElementNode,
 } from "lexical";
 
@@ -125,10 +122,6 @@ const AiPromptNodePlugin = (): null => {
         () => replaceAiPromptNode(),
         COMMAND_PRIORITY_LOW
       ),
-
-      editor.registerCommand(KEY_ARROW_DOWN_COMMAND, replaceAiPromptNode, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ARROW_UP_COMMAND, replaceAiPromptNode, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ENTER_COMMAND, replaceAiPromptNode, COMMAND_PRIORITY_LOW),
     )
   }, [editor])
 
