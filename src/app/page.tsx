@@ -110,8 +110,8 @@ const LandingPage = (): JSX.Element => {
                     <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
                   </span>
                 </Link>
-                <a href="https://www.producthunt.com/products/jots?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-jots" target="_blank" rel="noreferrer">
-                  <Image src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=971956&theme=light&t=1748608214707" alt="Jots - Unlock&#0032;the&#0032;benefits&#0032;of&#0032;journaling&#0032;to&#0032;become&#0032;a&#0032;better&#0032;dev&#0046; | Product Hunt" style={{ width: '250px', height: '54px' }} width="250" height="54" />
+                <a href="https://www.producthunt.com/products/jots?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_source=badge-jots" target="_blank" rel="noreferrer">
+                  <Image src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=971956&theme=light&period=daily&t=1749019438938" alt="Jots - Unlock&#0032;the&#0032;benefits&#0032;of&#0032;journaling&#0032;to&#0032;become&#0032;a&#0032;better&#0032;dev&#0046; | Product Hunt" style={{ width: '250px', height: '54px' }} width="250" height="54" />
                 </a>
               </div>
               <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
