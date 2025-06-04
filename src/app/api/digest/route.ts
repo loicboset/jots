@@ -47,7 +47,7 @@ export async function POST(request: Request): Promise<Response> {
     formattedEntries.push({ date: entry.date, content });
   });
 
-  const digest = await generateDigest({ entries: formattedEntries, settings });
+  const digest = await generateDigest({ entries: formattedEntries, settings, userID: data.user.id });
 
   if (!digest) {
     return new Response("Error generating digest", { status: 500 });
