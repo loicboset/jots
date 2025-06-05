@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import Features from "./_parts/Features";
+import Insights from "./_parts/Insights";
 import PersonalInfo from "./_parts/PersonalInfo";
 
 type Props = {
@@ -47,7 +48,6 @@ const Profile = ({ email }: Props): React.ReactElement => {
                   This is your account information.
                 </p>
               </div>
-
               <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
                 <div className="sm:col-span-4">
                   <label htmlFor="email" className="block text-sm/6 font-medium text-white">
@@ -77,6 +77,10 @@ const Profile = ({ email }: Props): React.ReactElement => {
 
             {/* FEATURES */}
             <Features />
+            <hr className="border-gray-500 mb-6" />
+
+            {/* INSIGHTS */}
+            <Insights />
           </div>
         </div>
       </div>

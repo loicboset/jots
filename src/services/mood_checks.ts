@@ -18,13 +18,15 @@ const useMoodCheck = (userID: string): UseQueryResult<MoodCheck, Error> => {
 };
 
 // GET MOOD_CHECKS
-const getMoodChecks = async (userID: string): Promise<MoodCheck[]> => {
-  const { data } = await axios.get(`/api/mood_checks?user_id=${userID}`);
+const getMoodChecks = async (userID: string, limit?: number): Promise<MoodCheck[]> => {
+  const queryParams = new URLSearchParams({ user_id: userID });
+  if (limit) queryParams.append('limit', limit.toString());
+  const { data } = await axios.get(`/api/mood_checks?${queryParams.toString()}`);
   return data;
 };
 
-const useMoodChecks = (userID: string): UseQueryResult<MoodCheck[], Error> => {
-  return useQuery({ queryKey: ["mood_checks"], queryFn: () => getMoodChecks(userID) });
+const useMoodChecks = (userID: string, limit?: number): UseQueryResult<MoodCheck[], Error> => {
+  return useQuery({ queryKey: ["mood_checks"], queryFn: () => getMoodChecks(userID, limit) });
 };
 
 // UPSERT MOOD_CHECK
