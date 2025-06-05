@@ -33,7 +33,7 @@ export async function POST(request: Request): Promise<Response> {
     .lt("date", date)
     .order("date", { ascending: false });
 
-  if (last_week_entries && last_week_entries.length === 1) {
+  if (last_week_entries && last_week_entries.length < 2) {
     return new Response("Not enough entries to generate digest", { status: 200 });
   }
 
