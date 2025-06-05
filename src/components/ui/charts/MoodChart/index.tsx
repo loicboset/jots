@@ -2,9 +2,10 @@ import { JSX } from 'react';
 
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-import InfoTooltip from '../../tooltips/InfoTooltip';
 import Spinner from "@/components/ui/loaders/Spinner";
 import { MoodCheck } from '@/types/api/mood_checks';
+
+import InfoTooltip from '../../tooltips/InfoTooltip';
 
 type MoodChartProps = {
   data: MoodCheck[] | undefined;
