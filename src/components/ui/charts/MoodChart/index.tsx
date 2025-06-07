@@ -17,6 +17,7 @@ const formatToShortDate = (dateStr: string): string => {
     weekday: 'short', // Mon, Tue, etc.
     month: 'short',   // Jan, Feb, etc.
     day: '2-digit',   // 01, 02, etc.
+    timeZone: 'UTC',
   });
 };
 
