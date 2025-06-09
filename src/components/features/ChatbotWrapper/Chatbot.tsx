@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
 import OpenAI from "openai";
+import Markdown from 'react-markdown'
 
 import Button from "@/components/ui/buttons/Button";
 import { useChatbot } from "@/services/chatbot";
+
+import "./Chatbot.css"
 
 const Chatbot = (): React.ReactElement => {
   // STATE
@@ -73,12 +76,12 @@ const Chatbot = (): React.ReactElement => {
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${msg.role === 'user'
+              className={`markdown p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${msg.role === 'user'
                 ? 'bg-indigo-500'
                 : 'bg-gray-500'
                 }`}
             >
-              {msg.content as string}
+              <Markdown>{msg.content as string}</Markdown>
             </div>
           </div>
         ))}
