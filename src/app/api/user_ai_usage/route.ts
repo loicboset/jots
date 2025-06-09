@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 
 import getUserID from "../_utils/getUserID";
 
-const MUTLIPLIER = 100_000;
+const MUTLIPLIER = 10_000;
 
 export async function GET(request: Request): Promise<Response> {
   const { searchParams } = new URL(request.url);
@@ -12,7 +12,12 @@ export async function GET(request: Request): Promise<Response> {
   if (!userID) return new Response("Unauthorized", { status: 401 });
 
   const supabase = await createClient();
-  const { data: usage } = await supabase.from("user_ai_usage").select("cost").eq("user_id", userID).eq("date", date);
+  const { data: usage } = await supabase
+    .from("user_ai_usage")
+    .select("cost")
+    .eq("user_id", userID)
+    .eq("date", date)
+    .neq("type", "WEEKLY_DIGEST");
 
   const currentCost = usage?.reduce((prev, curr) => prev + curr.cost, 0) || 0;
   const usedTokens = Math.min(Math.floor(currentCost * MUTLIPLIER), 100);

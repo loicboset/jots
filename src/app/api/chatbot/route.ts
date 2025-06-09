@@ -6,7 +6,6 @@ import getUserID from "../_utils/getUserID";
 import getChat from "./_utils/getChat";
 import getJournalEntries from "./_utils/getJournalEntries";
 import saveChat from "./_utils/saveChat";
-// import { createClient } from "@/lib/supabase/server";
 
 type ChatbotRequest = {
   userMessage: string;
