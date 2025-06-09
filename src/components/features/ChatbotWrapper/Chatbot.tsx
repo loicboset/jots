@@ -1,12 +1,17 @@
 import { useState } from "react";
 
 import Button from "@/components/ui/buttons/Button";
+import { useChatbot } from "@/services/chatbot";
 
 const Chatbot = (): React.ReactElement => {
   // STATE
   const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // RQ
+  const { data: chatbot, isLoading: isLoadingChatbot } = useChatbot();
+  console.log(' chatbot', chatbot);
 
   // METHODS
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -20,7 +25,7 @@ const Chatbot = (): React.ReactElement => {
 
     const res = await fetch("/api/chatbot", {
       method: "POST",
-      body: JSON.stringify({ userMessage }),
+      body: JSON.stringify({ userMessage, threadID: chatbot?.threadID, assistantID: chatbot?.assistantID }),
       headers: { "Content-Type": "application/json" },
     });
 
@@ -46,7 +51,7 @@ const Chatbot = (): React.ReactElement => {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 w-80 bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
+    <div className="fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
       <div className="bg-indigo-600 border-b border-gray-200 text-white text-lg font-semibold p-4 rounded-t-xl">
         Career Coach
       </div>
@@ -81,11 +86,11 @@ const Chatbot = (): React.ReactElement => {
           placeholder="Ask anything..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          disabled={isLoading}
+          disabled={isLoading || isLoadingChatbot}
         />
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || isLoadingChatbot}
         >
           {isLoading ? "Sending..." : "Send"}
         </Button>
