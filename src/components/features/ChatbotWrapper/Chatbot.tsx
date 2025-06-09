@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
 import OpenAI from "openai";
 import Markdown from 'react-markdown'
 
 import Button from "@/components/ui/buttons/Button";
 import { useChatbot } from "@/services/chatbot";
+import { useUserAiUsage } from "@/services/user_ai_usage";
+import { MAX_AI_TOKENS } from "@/utils/constants";
 
 import "./Chatbot.css"
 
@@ -15,7 +19,9 @@ const Chatbot = (): React.ReactElement => {
   const [isLoading, setIsLoading] = useState(false);
 
   // RQ
+  const queryClient = useQueryClient();
   const { data: chatbot, isLoading: isLoadingChatbot } = useChatbot();
+  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format("YYYY-MM-DD"));
 
   useEffect(() => {
     if (isLoadingChatbot) return;
@@ -58,8 +64,13 @@ const Chatbot = (): React.ReactElement => {
       });
     }
 
+    queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
     setIsLoading(false);
   };
+
+  // VARS
+  const isAiUsageExceeded = usedTokens >= MAX_AI_TOKENS;
+  const isDisabled = isLoading || isLoadingChatbot || isAiUsageExceeded;
 
   return (
     <div className="fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
@@ -97,11 +108,11 @@ const Chatbot = (): React.ReactElement => {
           placeholder="Ask anything..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          disabled={isLoading || isLoadingChatbot}
+          disabled={isDisabled}
         />
         <Button
           type="submit"
-          disabled={isLoading || isLoadingChatbot}
+          isDisabled={isDisabled}
         >
           {isLoading ? "Sending..." : "Send"}
         </Button>

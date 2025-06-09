@@ -1,22 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 
-function extractTextFromLexicalJSON(node: any): string {
-  console.log(" node", node);
-  if (!node) return "";
-
-  if (node.text) return node.text;
-
-  if (Array.isArray(node.children)) {
-    return node.children.map(extractTextFromLexicalJSON).join(" ");
-  }
-
-  return "";
-}
-
-function lexicalToPlainText(editorState: any): string {
-  console.log(" editorState", editorState);
-  return extractTextFromLexicalJSON(editorState.root).trim();
-}
+import lexicalToPlainText from "../../_utils/lexicalToPlainText";
 
 const getJournalEntries = async (userID: string): Promise<string> => {
   const supabase = await createClient();

@@ -1,8 +1,11 @@
-/* Loading */
 .button--loading {
   color: transparent;
   pointer-events: none;
   opacity: 0.75;
+}
+
+.button--disabled {
+  @apply pointer-events-none opacity-75;
 }
 
 .button__spinner {
