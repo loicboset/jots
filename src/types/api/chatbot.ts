@@ -1,6 +1,8 @@
+import OpenAI from "openai";
+
 type Chatbot = {
-  threadID: string;
-  assistantID: string;
+  messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
+  chatID: string;
 };
 
 export type { Chatbot };

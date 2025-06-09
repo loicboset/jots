@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import OpenAI from "openai";
 
 import Button from "@/components/ui/buttons/Button";
 import { useChatbot } from "@/services/chatbot";
 
 const Chatbot = (): React.ReactElement => {
   // STATE
-  const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
+  const [messages, setMessages] = useState<OpenAI.Chat.Completions.ChatCompletionMessageParam[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   // RQ
   const { data: chatbot, isLoading: isLoadingChatbot } = useChatbot();
-  console.log(' chatbot', chatbot);
+
+  useEffect(() => {
+    if (isLoadingChatbot) return;
+    if (messages.length === 0 && chatbot) {
+      setMessages(chatbot.messages)
+    }
+  }, [chatbot, isLoadingChatbot, messages]);
 
   // METHODS
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -19,13 +27,13 @@ const Chatbot = (): React.ReactElement => {
     if (!input.trim()) return;
 
     const userMessage = input.trim();
-    setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
+    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setInput("");
     setIsLoading(true);
 
     const res = await fetch("/api/chatbot", {
       method: "POST",
-      body: JSON.stringify({ userMessage, threadID: chatbot?.threadID, assistantID: chatbot?.assistantID }),
+      body: JSON.stringify({ userMessage, chatID: chatbot?.chatID }),
       headers: { "Content-Type": "application/json" },
     });
 
@@ -40,10 +48,10 @@ const Chatbot = (): React.ReactElement => {
       botReply += chunk;
       setMessages((prev) => {
         const last = prev[prev.length - 1];
-        if (last?.from === "bot") {
-          return [...prev.slice(0, -1), { from: "bot", text: botReply }];
+        if (last?.role === "assistant") {
+          return [...prev.slice(0, -1), { role: "assistant", content: botReply }];
         }
-        return [...prev, { from: "bot", text: chunk }];
+        return [...prev, { role: "assistant", content: chunk }];
       });
     }
 
@@ -62,15 +70,15 @@ const Chatbot = (): React.ReactElement => {
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${msg.from === 'user'
+              className={`p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${msg.role === 'user'
                 ? 'bg-indigo-500'
                 : 'bg-gray-500'
                 }`}
             >
-              {msg.text}
+              {msg.content as string}
             </div>
           </div>
         ))}

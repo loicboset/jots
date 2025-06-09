@@ -55,6 +55,7 @@ export async function POST(request: Request): Promise<Response> {
       type: "AI_PROMPT",
       model: "gpt-4o-mini",
       inputTokens: completion.usage?.prompt_tokens ?? 0,
+      inputCachedTokens: completion.usage?.prompt_tokens_details?.cached_tokens ?? 0,
       outputTokens: completion.usage?.completion_tokens ?? 0,
     });
 

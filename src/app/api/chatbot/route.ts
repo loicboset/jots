@@ -1,18 +1,20 @@
 import OpenAI from "openai";
 
+import aiUsageLogger from "@/lib/logger/aiUsageLogger";
+
 import getUserID from "../_utils/getUserID";
-import createAndStoreAssistant from "./_utils/createAndStoreAssistant";
-import createAndStoreThread from "./_utils/createAndStoreThread";
-import uploadJournalEntriesToVectorStore from "./_utils/uploadJournalEntriesToVectorStore";
-import { createClient } from "@/lib/supabase/server";
+import getChat from "./_utils/getChat";
+import getJournalEntries from "./_utils/getJournalEntries";
+import saveChat from "./_utils/saveChat";
+// import { createClient } from "@/lib/supabase/server";
 
 type ChatbotRequest = {
   userMessage: string;
-  threadID?: string;
-  assistantID?: string;
 };
 
 const openai = new OpenAI();
+
+const MODEL = "gpt-4o-mini";
 
 export async function GET(): Promise<Response> {
   const userID = await getUserID();
@@ -20,23 +22,17 @@ export async function GET(): Promise<Response> {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const supabase = await createClient();
-
-  const { data: threadRow } = await supabase.from("user_threads").select("thread_id").eq("user_id", userID).single();
-
-  const { data: assistantRow } = await supabase
-    .from("assistants")
-    .select("assistant_id")
-    .eq("user_id", userID)
-    .single();
+  const { messages, chatID } = await getChat(userID);
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
+  const conversation = messages.filter((msg) => msg.role === "user" || msg.role === "assistant");
+
   return new Response(
     JSON.stringify({
-      threadID: threadRow?.thread_id || null,
-      assistantID: assistantRow?.assistant_id || null,
+      messages: conversation,
+      chatID,
     }),
     { status: 200, headers }
   );
@@ -47,48 +43,72 @@ export async function POST(request: Request): Promise<Response> {
   const { userMessage } = req as ChatbotRequest;
 
   const userID = await getUserID();
-  if (!userID) {
-    return new Response("Unauthorized", { status: 401 });
+  if (!userID) return new Response("Unauthorized", { status: 401 });
+
+  let chatID = req?.chatID || null;
+  const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [];
+
+  if (chatID) {
+    const { messages: previousMessages } = await getChat(userID);
+    messages.push(...previousMessages, { role: "user", content: userMessage });
+  } else {
+    const journalEntries = await getJournalEntries(userID);
+    messages.push(
+      {
+        role: "system",
+        content: `
+          You are a software engineering career coach - this is your strict boundary.
+          Use my journal entries to provide relevant answers.
+          Keep answers under 200 words.
+        `,
+      },
+      {
+        role: "system",
+        content: `Here are my journal entries:\n\n${journalEntries}`,
+      },
+      { role: "user", content: userMessage }
+    );
   }
 
-  const threadID = req?.threadID || (await createAndStoreThread(userID));
-  const assistantID = req?.assistantID || (await createAndStoreAssistant(userID));
-  console.log(" threadID", threadID);
-  console.log(" assistantID", assistantID);
-
-  const vectoreStoreID = await uploadJournalEntriesToVectorStore(userID);
-  console.log(" vectoreStoreID", vectoreStoreID);
-
-  await openai.beta.assistants.update(assistantID, {
-    tool_resources: { file_search: { vector_store_ids: [vectoreStoreID] } },
-  });
-
-  await openai.beta.threads.messages.create(threadID, {
-    role: "user",
-    content: userMessage,
+  const stream = await openai.chat.completions.create({
+    model: MODEL,
+    messages,
+    stream: true,
+    stream_options: { include_usage: true },
   });
 
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();
   const encoder = new TextEncoder();
 
-  console.log("running thread");
-  openai.beta.threads.runs
-    .stream(threadID, { assistant_id: assistantID })
-    .on("textDelta", (delta) => {
-      console.log("  sending...");
-      writer.write(encoder.encode(delta.value));
-    })
-    .on("end", () => {
-      writer.close();
-    })
-    .on("error", (err) => {
-      console.log(" err", err);
-      writer.write(encoder.encode("[Error occurred]\n"));
-      writer.close();
-    });
+  let fullResponse = "";
 
-  console.log("sending streaming response");
+  (async (): Promise<void> => {
+    for await (const chunk of stream) {
+      if (!chatID) chatID = chunk.id;
+
+      if (chunk?.usage) {
+        await aiUsageLogger({
+          userID,
+          type: "CHATBOT",
+          model: MODEL,
+          inputTokens: chunk.usage?.prompt_tokens ?? 0,
+          inputCachedTokens: chunk.usage?.prompt_tokens_details?.cached_tokens ?? 0,
+          outputTokens: chunk.usage?.completion_tokens ?? 0,
+        });
+      } else {
+        const content = chunk.choices[0]?.delta?.content || "";
+        fullResponse += content;
+        await writer.write(encoder.encode(content));
+      }
+    }
+    console.log("chatID:", chatID);
+    console.log("Full response:", fullResponse);
+    messages.push({ role: "assistant", content: fullResponse });
+    if (chatID) await saveChat(userID, chatID, messages);
+    writer.close();
+  })();
+
   return new Response(readable, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",

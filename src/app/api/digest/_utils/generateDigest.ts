@@ -68,6 +68,7 @@ const generateDigest = async ({ entries, settings, userID }: Params): Promise<st
       type: "WEEKLY_DIGEST",
       model: "gpt-4o",
       inputTokens: completion.usage?.prompt_tokens ?? 0,
+      inputCachedTokens: completion.usage?.prompt_tokens_details?.cached_tokens ?? 0,
       outputTokens: completion.usage?.completion_tokens ?? 0,
     });
 
