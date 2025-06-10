@@ -13,7 +13,6 @@ const getChat = async (userID: string): Promise<Response> => {
   const { data, error } = await supabase.from("chats").select("chat_id, messages").eq("user_id", userID).maybeSingle();
 
   if (error) {
-    console.log("-> error", error);
     throw new Error(`Failed to fetch chat data: ${error.message}`);
   }
 

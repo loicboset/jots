@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import OpenAI from "openai";
@@ -65,6 +66,7 @@ const Chatbot = (): React.ReactElement => {
     }
 
     queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
+    queryClient.invalidateQueries({ queryKey: ['chatbot'] });
     setIsLoading(false);
   };
 
@@ -72,10 +74,17 @@ const Chatbot = (): React.ReactElement => {
   const isAiUsageExceeded = usedTokens >= MAX_AI_TOKENS;
   const isDisabled = isLoading || isLoadingChatbot || isAiUsageExceeded;
 
+  const tooltip = `
+    We are experimenting with this chatbot!
+
+    You can play around with it, but kindly note that the conversations you have with it might not be retained when we move on to a future version.
+  `;
+
+
   return (
     <div className="fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
       <div className="bg-indigo-600 border-b border-gray-200 text-white text-lg font-semibold p-4 rounded-t-xl">
-        Career Coach
+        Coach Chatbot (experimental <QuestionMarkCircleIcon className="ml-1 w-5 text-white inline" title={tooltip} />)
       </div>
 
       <div

@@ -7,6 +7,7 @@ type UsageType = "AI_PROMPT" | "WEEKLY_DIGEST" | "CHATBOT";
 const MODELS_COST = {
   "gpt-4o": { input: 2.5 / 1_000_000, cached: 1.25 / 1_000_000, output: 10 / 1_000_000 },
   "gpt-4o-mini": { input: 0.15 / 1_000_000, cached: 0.075 / 1_000_000, output: 0.6 / 1_000_000 },
+  "gpt-4.1-mini": { input: 0.4 / 1_000_000, cached: 0.1 / 1_000_000, output: 1.6 / 1_000_000 },
 };
 
 type AiLogData = {

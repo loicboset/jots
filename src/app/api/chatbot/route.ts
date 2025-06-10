@@ -14,6 +14,7 @@ type ChatbotRequest = {
 const openai = new OpenAI();
 
 const MODEL = "gpt-4o-mini";
+// const MODEL = "gpt-4.1-mini";
 
 export async function GET(): Promise<Response> {
   const userID = await getUserID();
