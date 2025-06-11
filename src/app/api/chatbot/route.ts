@@ -102,8 +102,6 @@ export async function POST(request: Request): Promise<Response> {
         await writer.write(encoder.encode(content));
       }
     }
-    console.log("chatID:", chatID);
-    console.log("Full response:", fullResponse);
     messages.push({ role: "assistant", content: fullResponse });
     if (chatID) await saveChat(userID, chatID, messages);
     writer.close();

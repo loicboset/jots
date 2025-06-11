@@ -84,7 +84,7 @@ const Chatbot = (): React.ReactElement => {
   return (
     <div className="fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
       <div className="bg-indigo-600 border-b border-gray-200 text-white text-lg font-semibold p-4 rounded-t-xl">
-        Coach Chatbot (experimental <QuestionMarkCircleIcon className="ml-1 w-5 text-white inline" title={tooltip} />)
+        Career Coach Chatbot (experimental <QuestionMarkCircleIcon className="ml-1 w-5 text-white inline" title={tooltip} />)
       </div>
 
       <div
