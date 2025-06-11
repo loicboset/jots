@@ -44,7 +44,7 @@ const MoodSlider = (): React.ReactElement => {
     <div className="flex flex-col items-center space-y-2">
       {isMoodCheckSubmitted ? (
         <span
-          className="text-sm font-medium text-white/60"
+          className="text-sm font-medium"
           title="Your daily mood check was submitted. This score will help tailor motivation boosters/messages for your daily writing habit."
         >
           Daily Mood Check: {moodLabels[moodCheck[0].score - 1]} (submitted)

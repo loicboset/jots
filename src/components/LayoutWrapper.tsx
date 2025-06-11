@@ -28,7 +28,7 @@ const LayoutWrapper = ({ children }: Props): JSX.Element => {
             {children}
           </PostHogProvider>
         </ConfigCatProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" />
       </QueryClientProvider>
     </ErrorBoundary>
   );

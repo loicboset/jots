@@ -11,6 +11,7 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $setBlocksType } from '@lexical/selection';
 import { useFeatureFlag } from "configcat-react";
+import dayjs from 'dayjs';
 import {
   $createParagraphNode,
   $getSelection,
@@ -21,6 +22,9 @@ import {
 import * as ReactDOM from 'react-dom';
 
 import './ComponentPicker.css'
+import { useUserAiUsage } from '@/services/user_ai_usage';
+import { MAX_AI_TOKENS } from '@/utils/constants';
+
 import { $createAiPromptNode } from '../../nodes/AiPromptNode'
 import { $createPromptNode } from '../../nodes/PromptNode';
 
@@ -108,12 +112,16 @@ const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
 ]
 
 // TODO: only show this option if user has a min 5 day streak, add as condition below when streaks are live
-const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption =>
+const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): ComponentPickerOption =>
   new ComponentPickerOption('AI Prompt', {
     icon: <SparklesIcon className="icon paragraph" />,
     keywords: ['ai', 'prompt', 'aiprompt'],
     onSelect: (): void =>
       editor.update(() => {
+        if (isAiUsageExceeded) {
+          alert('You have exceeded your AI usage for today. Please try again tomorrow.');
+          return;
+        }
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
           $setBlocksType(selection, () => {
@@ -128,10 +136,18 @@ const getAiPromptOption = (editor: LexicalEditor): ComponentPickerOption =>
 
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
-  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag("isaipromptenabled", false);
-
-  const [editor] = useLexicalComposerContext();
+  // STATE
   const [queryString, setQueryString] = useState<string | null>(null);
+
+  // RQ
+  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format("YYYY-MM-DD"));
+
+  // HOOKS
+  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag("isaipromptenabled", false);
+  const [editor] = useLexicalComposerContext();
+
+  // VARS
+  const isAiUsageExceeded = usedTokens >= MAX_AI_TOKENS;
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
     minLength: 0,
@@ -139,7 +155,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
   const options = useMemo(() => {
     const baseOptions = getBaseOptions(editor);
-    const aiPromptOption = getAiPromptOption(editor);
+    const aiPromptOption = getAiPromptOption(editor, isAiUsageExceeded);
 
     const allowedOptions = [...baseOptions];
 
@@ -161,7 +177,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       ),
     ];
 
-  }, [editor, queryString, isaipromptenabledValue, isaipromptenabledLoading]);
+  }, [editor, isAiUsageExceeded, isaipromptenabledValue, isaipromptenabledLoading, queryString]);
 
   const onSelectOption = useCallback(
     (

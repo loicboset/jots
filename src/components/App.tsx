@@ -6,13 +6,14 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import Script from 'next/script';
 
 import Editor from "@/components/collections/Editor";
-import BugReportButton from "@/components/ui/buttons/BugReportButton";
+import BugReportButton from "@/components/features/BugReportButton";
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { PushNotificationsPlugin } from "@/packages";
 
 import AppWrapper from "./collections/AppWrapper";
 import MotivationBooster from "./collections/MotivationBooster";
 import NavBar from "./collections/NavBar";
+import ChatbotWrapper from "./features/ChatbotWrapper";
 import ScreenSizeRenderer from "./ui/wrappers/ScreenSizeRenderer";
 
 type Props = {
@@ -84,6 +85,7 @@ const App = ({ userID }: Props): React.ReactElement => {
         strategy="lazyOnload"
       />
       <BugReportButton />
+      <ChatbotWrapper />
     </>
   );
 };

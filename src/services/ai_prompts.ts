@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { AiPromptResponse } from '@/types/api/ai_prompts';
-
-export const getAiPrompt = async (body: string): Promise<AiPromptResponse> => {
-  const { data } = await axios.post("/api/generate_ai_prompt", body, {
+const generateAiPrompt = async (): Promise<{ prompt: string }> => {
+  const { data } = await axios.post("/api/generate_ai_prompt", {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
   return data;
 };
+
+export { generateAiPrompt };

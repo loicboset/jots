@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   $getRoot,
   $createTextNode,
@@ -12,7 +13,7 @@ import {
   $isElementNode,
 } from "lexical";
 
-import { getAiPrompt } from "@/services/ai_prompts";
+import { generateAiPrompt } from "@/services/ai_prompts";
 import { useJournalEntries } from "@/services/journal_entries";
 
 import { $isAiPromptNode, AiPromptNode } from "../../nodes/AiPromptNode";
@@ -23,7 +24,9 @@ const AiPromptNodePlugin = (): null => {
   const [editor] = useLexicalComposerContext();
 
   // RQ
+  const queryClient = useQueryClient();
   const { data: entries = [], isLoading } = useJournalEntries({ limit: 10 });
+
 
   // VARS
   const textContent: string[] = useMemo(() => [], []);
@@ -62,14 +65,13 @@ const AiPromptNodePlugin = (): null => {
     return editor.registerMutationListener(AiPromptNode, (mutations) => {
       mutations.forEach(async (mutation) => {
         if (mutation === "created") {
-          const joinedEntries = textContent.join(' ');
-
           try {
             let prompt = '';
             if (textContent.length === 0) {
               prompt = `You haven't written anything yet. Start writing to get AI suggestions.`;
             } else {
-              const result = await getAiPrompt(joinedEntries)
+              const result = await generateAiPrompt();
+              queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
               prompt = result.prompt;
             }
 
@@ -89,7 +91,7 @@ const AiPromptNodePlugin = (): null => {
         }
       });
     }, { skipInitialization: true });
-  }, [editor, textContent]);
+  }, [editor, queryClient, textContent]);
 
   useEffect(() => {
     // replace the prompt node with its first child (e.g. when user types)

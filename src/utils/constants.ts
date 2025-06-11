@@ -24,7 +24,7 @@ const POSITIVE_SCORE_MOTIVATION_BOOSTERS = [
   "Debugger? You don’t need it when you’re this sharp.",
   "You’re the hero we need in this legacy codebase.",
   "Every keystroke today is a line of progress. 🧠💻",
-  "You’re writing code that even future you will thank you for."
+  "You’re writing code that even future you will thank you for.",
 ];
 
 const NEUTRAL_SCORE_MOTIVATION_BOOSTERS = [
@@ -37,7 +37,7 @@ const NEUTRAL_SCORE_MOTIVATION_BOOSTERS = [
   "Some days you build features, others you build resilience.",
   "Just checking in—your breakpoint isn’t a breakdown. 💡",
   "A slow sprint is still forward motion. 🐢💨",
-  "Code today, conquer tomorrow."
+  "Code today, conquer tomorrow.",
 ];
 
 const NEGATIVE_SCORE_MOTIVATION_BOOSTERS = [
@@ -50,7 +50,7 @@ const NEGATIVE_SCORE_MOTIVATION_BOOSTERS = [
   "It’s okay to not be 'productive'—rest is part of the sprint.",
   "Remember: semicolons can be missing, but you're still complete.",
   "The best devs know when to push and when to pause.",
-  "Treat yourself with the same grace you give your code reviews."
+  "Treat yourself with the same grace you give your code reviews.",
 ];
 
 /* ********** BREAKPOINTS ********** */
@@ -63,4 +63,14 @@ const BREAKPOINTS = {
   xs: 0,
 };
 
-export { BREAKPOINTS, ROLESOPTIONS, GOALSOPTIONS, POSITIVE_SCORE_MOTIVATION_BOOSTERS, NEUTRAL_SCORE_MOTIVATION_BOOSTERS, NEGATIVE_SCORE_MOTIVATION_BOOSTERS };
+const MAX_AI_TOKENS = 100;
+
+export {
+  BREAKPOINTS,
+  MAX_AI_TOKENS,
+  ROLESOPTIONS,
+  GOALSOPTIONS,
+  POSITIVE_SCORE_MOTIVATION_BOOSTERS,
+  NEUTRAL_SCORE_MOTIVATION_BOOSTERS,
+  NEGATIVE_SCORE_MOTIVATION_BOOSTERS,
+};
