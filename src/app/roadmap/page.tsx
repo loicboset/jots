@@ -52,7 +52,7 @@ const Releases = async (): Promise<React.ReactElement> => {
                               </Link>
                             </div>
                             <div className="text-right text-sm whitespace-nowrap text-gray-300">
-                              <span>{issue.content.state}</span>
+                              <span>{issue.content.state === 'CLOSED' ? 'DONE 🥳' : issue.content.state}</span>
                             </div>
                           </div>
                         </div>
