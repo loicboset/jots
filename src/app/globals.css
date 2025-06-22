@@ -43,11 +43,19 @@ menu {
   list-style: disc;
 }
 
-.node-placeholder:has(br):not(:has(span))::before {
+p:has(br):not(:has(span))::before {
   content: attr(data-placeholder);
   color: rgba(252, 252, 252, 0.4);
   font-style: italic;
   font-size: medium;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+p {
+  position: relative; /* Required for absolute positioning */
 }
 
 .overflow-auto,

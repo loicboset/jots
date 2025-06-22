@@ -22,7 +22,9 @@ import {
 import * as ReactDOM from 'react-dom';
 
 import './ComponentPicker.css'
+import { useUserContext } from '@/context/UserProvider';
 import { useUserAiUsage } from '@/services/user_ai_usage';
+import usePromptsLibraryStore from '@/stores/usePromptsLibraryStore';
 import { MAX_AI_TOKENS } from '@/utils/constants';
 
 import { $createAiPromptNode } from '../../nodes/AiPromptNode'
@@ -108,7 +110,7 @@ const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
           });
         }
       }),
-  })
+  }),
 ]
 
 // TODO: only show this option if user has a min 5 day streak, add as condition below when streaks are live
@@ -136,8 +138,15 @@ const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): C
 
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
+  // CONTEXT
+  const { user } = useUserContext();
+
   // STATE
   const [queryString, setQueryString] = useState<string | null>(null);
+
+  // STORE
+  const toggle = usePromptsLibraryStore((state) => state.toggle);
+  const setSelection = usePromptsLibraryStore((state) => state.setSelection);
 
   // RQ
   const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format("YYYY-MM-DD"));
@@ -155,6 +164,21 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
   const options = useMemo(() => {
     const baseOptions = getBaseOptions(editor);
+
+    if (['be7fb9ac-457e-40cf-a5eb-1b268422a239', '207a52f2-4d6c-4aca-b30b-3b588625a959'].includes(user.userID)) {
+      baseOptions.push(new ComponentPickerOption('Prompts', {
+        icon: <i className="icon paragraph" />,
+        keywords: ['prompts'],
+        onSelect: (): void => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            setSelection(selection);
+            toggle()
+          }
+        },
+      }),)
+    }
+
     const aiPromptOption = getAiPromptOption(editor, isAiUsageExceeded);
 
     const allowedOptions = [...baseOptions];

@@ -51,23 +51,14 @@ const Modal = (props: Props): React.ReactElement => {
           onClose={toggle}
         >
           <div className="flex items-end justify-center px-4 pt-4 pb-20 text-center md:min-h-screen sm:block sm:p-0">
-            <TransitionChild
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <DialogBackdrop
-                onClick={toggle}
-                className={classNames(
-                  "fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75",
-                  !overlayCanClose && "pointer-events-none",
-                )}
-              />
-            </TransitionChild>
+
+            <DialogBackdrop
+              onClick={toggle}
+              className={classNames(
+                "fixed inset-0 bg-gray-500 opacity-75",
+                !overlayCanClose && "pointer-events-none",
+              )}
+            />
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
@@ -84,7 +75,7 @@ const Modal = (props: Props): React.ReactElement => {
             >
               <div
                 className={classNames(
-                  "relative inline-block px-4 pt-5 pb-4 text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:w-full sm:p-6",
+                  "relative inline-block px-4 pt-5 pb-4 text-left align-bottom transition-all transform bg-gray-900 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:w-full sm:p-6",
                   modalSize[size],
                   !isOverflowing && "overflow-hidden",
                 )}

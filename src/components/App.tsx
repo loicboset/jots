@@ -14,6 +14,7 @@ import AppWrapper from "./collections/AppWrapper";
 import MotivationBooster from "./collections/MotivationBooster";
 import NavBar from "./collections/NavBar";
 import ChatbotWrapper from "./features/ChatbotWrapper";
+import PromptsLibraryModal from "./features/PromptsLibraryModal";
 import ScreenSizeRenderer from "./ui/wrappers/ScreenSizeRenderer";
 
 type Props = {
@@ -78,6 +79,7 @@ const App = ({ userID }: Props): React.ReactElement => {
         </div>
         <AppWrapper userID={userID}>
           <Editor userID={userID} />
+          <PromptsLibraryModal />
         </AppWrapper>
       </div>
       <Script

@@ -17,6 +17,8 @@ import { DayContentNode } from "./Editor/nodes/DayContentNode";
 import { DayTitleNode } from "./Editor/nodes/DayTitleNode";
 import { MotivationBoosterNode } from "./Editor/nodes/MotivationBoosterNode";
 import { PromptNode } from "./Editor/nodes/PromptNode";
+import { SkilledPromptNode } from "./Editor/nodes/SkilledPromptNode";
+import { SkilledPromptWrapperNode } from "./Editor/nodes/SkilledPromptWrapperNode";
 
 type Props = {
   children: React.ReactNode;
@@ -80,7 +82,9 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       QuoteNode,
       ListNode,
       ListItemNode,
-      MotivationBoosterNode
+      MotivationBoosterNode,
+      SkilledPromptWrapperNode,
+      SkilledPromptNode,
     ],
     onError,
   };

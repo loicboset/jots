@@ -19,6 +19,7 @@ import DummyDataPlugin from "./plugins/DummyDataPlugin";
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import OnChangePlugin from './plugins/OnChangePlugin';
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
+import SkilledPromptNodePlugin from './plugins/SkilledPromptNodePlugin';
 import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
 // import TreeViewPlugin from "./plugins/TreeViewPlugin";
 
@@ -58,6 +59,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <MarkdownShortcutPlugin />
       <ListPlugin />
       <CheckListPlugin />
+      <SkilledPromptNodePlugin />
 
       {/* <TreeViewPlugin /> */}
     </>
