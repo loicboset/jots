@@ -36,7 +36,7 @@ const Toast = ({ type = 'success', message, close, show }: ToastProps): React.Re
       break;
     case 'success':
       icon = <CheckCircleIcon className="w-6 h-6 text-green-400" aria-hidden="true" />;
-      title = 'Operation successful!';
+      title = 'Success!';
       break;
     default:
       break;

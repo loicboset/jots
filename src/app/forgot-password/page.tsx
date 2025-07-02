@@ -7,32 +7,28 @@ import { useForm } from "react-hook-form";
 
 import Header from '@/components/collections/layouts/Header';
 import Button from '@/components/ui/buttons/Button';
-import useAlert from '@/utils/hooks/useAlert';
+import useToast from '@/utils/hooks/useToast';
 
-import { login } from "./actions";
+import { sendResetPasswordLink } from "./actions";
 
 export type FormValues = {
   email: string;
-  password: string;
 }
 
-const Login = (): JSX.Element => {
+const ForgotPassword = (): JSX.Element => {
   // RHF
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>();
 
   // HOOKS
-  const [alert, setAlert, clearAlert] = useAlert();
+  const [alert, setAlert, clearAlert] = useToast();
 
   // METHODS
-  const handleLogin = async (data: FormValues): Promise<void> => {
+  const handleForgotPassword = async (data: FormValues): Promise<void> => {
     clearAlert();
 
-    const { message } = await login(data);
+    const { message, type } = await sendResetPasswordLink(data.email);
     if (message) {
-      setAlert({
-        message,
-        type: 'danger',
-      });
+      setAlert({ message, type });
     }
   }
 
@@ -44,13 +40,13 @@ const Login = (): JSX.Element => {
           <Link href="/">
             <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">Jots</h1>
           </Link>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Log in to your account</h2>
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Forgot Password?</h2>
           {alert && <div className="mt-4">{alert}</div>}
         </div>
 
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={(handleSubmit(handleLogin))} className="space-y-6">
+          <form onSubmit={(handleSubmit(handleForgotPassword))} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
@@ -77,38 +73,6 @@ const Login = (): JSX.Element => {
               </div>
             </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-white">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <Link href="/forgot-password" className="font-semibold text-indigo-400 hover:text-indigo-300">
-                    Forgot password?
-                  </Link>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  {...register('password', {
-                    required: "Password is required",
-                    minLength: {
-                      value: 8,
-                      message: "Password must be at least 8 characters long"
-                    }
-                  })}
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  className={`
-                    block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1
-                    outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2
-                    focus:outline-indigo-500 sm:text-sm/6
-                  `}
-                />
-                {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-              </div>
-            </div>
 
             <div>
               <Button
@@ -116,7 +80,7 @@ const Login = (): JSX.Element => {
                 className='w-full'
                 isLoading={isSubmitting}
               >
-                Log in
+                Send a reset link
               </Button>
             </div>
           </form>
@@ -133,4 +97,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
