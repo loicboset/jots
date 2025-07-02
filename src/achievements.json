@@ -98,5 +98,15 @@
       "type": "mood_scores",
       "value": 15
     }
+  },
+  {
+    "id": "skill_seeker",
+    "name": "Skill seeker",
+    "description": "Your skill set is improving. Keep it up!",
+    "hidden": true,
+    "condition": {
+      "type": "skills",
+      "value": 10
+    }
   }
 ]
