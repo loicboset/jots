@@ -49,3 +49,12 @@ menu {
   font-style: italic;
   font-size: medium;
 }
+
+.overflow-auto,
+.overflow-scroll,
+.overflow-x-auto,
+.overflow-x-scroll,
+.overflow-y-auto,
+.overflow-y-scroll {
+  scrollbar-color: gray transparent;
+}

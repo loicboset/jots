@@ -34,9 +34,9 @@ const Editor = ({ userID }: Props): React.ReactElement => {
     <>
       <RichTextPlugin
         contentEditable={
-          <div className="flex-1 overflow-scroll">
+          <div className="flex-1 overflow-y-auto">
             <div className="h-full w-full relative focus:outline-none">
-              <ContentEditable className="h-full overflow-y-scroll w-full focus:outline-none" />
+              <ContentEditable className="h-full w-full focus:outline-none" />
             </div>
           </div>
         }
