@@ -1,0 +1,11 @@
+@reference "tailwindcss";
+
+/* color */
+.button--indigo {
+  @apply text-indigo-300 hover:text-indigo-400;
+}
+
+/* disabled */
+.button--disabled {
+  @apply pointer-events-none opacity-75;
+}
