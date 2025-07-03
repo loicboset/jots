@@ -4,7 +4,7 @@ import { UpsertMoodCheck } from "@/types/payload/mood_checks";
 export async function GET(request: Request): Promise<Response> {
   const { searchParams } = new URL(request.url);
   const userID = searchParams.get("user_id");
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   const supabase = await createClient();
 
@@ -12,8 +12,9 @@ export async function GET(request: Request): Promise<Response> {
     .from("mood_checks")
     .select("*")
     .eq("user_id", userID)
-    .filter('created_at', 'gte', `${today}T00:00:00`)
-    .filter('created_at', 'lt', `${today}T23:59:59`);
+    .filter("created_at", "gte", `${today}T00:00:00`)
+    .filter("created_at", "lt", `${today}T23:59:59`)
+    .single();
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
