@@ -165,7 +165,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   const options = useMemo(() => {
     const baseOptions = getBaseOptions(editor);
 
-    if (['be7fb9ac-457e-40cf-a5eb-1b268422a239', '207a52f2-4d6c-4aca-b30b-3b588625a959'].includes(user.userID)) {
+    if (['be7fb9ac-457e-40cf-a5eb-1b268422a239', '58cde6c7-8f2f-407a-95ff-401a3ead72ec'].includes(user.userID)) {
       baseOptions.push(new ComponentPickerOption('Prompts', {
         icon: <i className="icon paragraph" />,
         keywords: ['prompts'],
