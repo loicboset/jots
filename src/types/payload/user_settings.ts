@@ -5,6 +5,7 @@ type UpsertUserSettings = {
   goal?: string;
   timezone?: string;
   mood_checks_enabled: boolean;
+  career_coach_mode?: string | null;
 };
 
 type EditUserTimezone = {

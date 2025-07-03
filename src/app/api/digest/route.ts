@@ -37,7 +37,10 @@ export async function POST(request: Request): Promise<Response> {
     return new Response("Not enough entries to generate digest", { status: 200 });
   }
 
-  const { data: settings } = await supabase.from("user_settings").select("role, experience, goal").single();
+  const { data: settings } = await supabase
+    .from("user_settings")
+    .select("role, experience, goal, career_coach_mode")
+    .single();
 
   const formattedEntries: { date: string; content: string }[] = [];
 

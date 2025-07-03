@@ -6,6 +6,7 @@ type UserSettings = {
   timezone?: string;
   mood_checks_enabled: boolean;
   is_push_notifications_active: boolean;
+  career_coach_mode: string | null;
 };
 
 export type { UserSettings };
