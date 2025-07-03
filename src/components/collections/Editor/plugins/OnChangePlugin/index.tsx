@@ -5,9 +5,11 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { SerializedEditorState } from "lexical";
 
+import { useAchievements } from "@/context/AchievementsProvider";
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useUserContext } from "@/context/UserProvider";
-import { useDeleteJournalEntry, useJournalEntry, useUpsertJournalEntry } from "@/services/journal_entries";
+import { useDeleteJournalEntry, useGetWeekStreakCount, useJournalEntries, useJournalEntry, useUpsertJournalEntry } from "@/services/journal_entries";
+import { checkAchievements } from "@/utils/checkAchievements.ts/checkAchievements";
 import useDebounce from "@/utils/hooks/useDebounce";
 
 import isLexicalStateEmpty from "../../utils/isLexicalStateEmpty";
@@ -21,11 +23,14 @@ const OnChangePlugin = (): null => {
   // CONTEXT
   const { user } = useUserContext();
   const { calendar } = useCalendarContext();
+  const { unlockAchievement } = useAchievements();
 
   // RQ
   const { mutate: upsertEntry } = useUpsertJournalEntry()
   const { mutate: deleteEntry } = useDeleteJournalEntry()
   const { data: entry } = useJournalEntry(user.userID, calendar.currentDate);
+  const { data: entries = [] } = useJournalEntries();
+  const { data: streak = 0 } = useGetWeekStreakCount();
 
   // HOOKS
   const [editor] = useLexicalComposerContext();
@@ -58,10 +63,13 @@ const OnChangePlugin = (): null => {
       date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
     })
 
+    checkAchievements({stats: {totalEntries: entries.length, streak, day: dayjs.utc(calendar.currentDate).format('dddd')}, unlock:  unlockAchievement})
+
     return (): void => {
       setNewEditorState(null);
     }
-
+  // avoid infinite loop
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendar.currentDate, debouncedNewEditorState, upsertEntry, user.userID])
 
   useEffect(() => {

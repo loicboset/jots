@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+import { Toaster } from 'react-hot-toast';
+
+import ConfettiAnimation from "@/components/ui/Confetti";
+import { AchievementsProvider } from "@/context/AchievementsProvider";
 import { CalendarContextProvider, CalendarData } from "@/context/CalendarContextProvider";
 import { CurrentAuthenticatedUser, UserContextProvider } from "@/context/UserProvider";
 import { createClient } from "@/lib/supabase/client";
@@ -34,10 +38,14 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): Reac
 
   return (
     <UserContextProvider value={{ user, setUser }}>
-      <CalendarContextProvider value={{ calendar, setCalendar }}>
-        <CreatePeriodDigestPlugin />
-        {children}
-      </CalendarContextProvider>
+      <AchievementsProvider>
+        <ConfettiAnimation />
+        <Toaster position="top-left" />
+        <CalendarContextProvider value={{ calendar, setCalendar }}>
+          <CreatePeriodDigestPlugin />
+          {children}
+        </CalendarContextProvider>
+      </AchievementsProvider>
     </UserContextProvider>
   );
 }

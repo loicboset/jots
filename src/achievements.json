@@ -1,0 +1,112 @@
+[
+  {
+    "id": "first_entry",
+    "name": "Hello, World!",
+    "description": "You wrote your first journal entry!",
+    "hidden": false,
+    "condition": {
+      "type": "entries_count",
+      "value": 1
+    }
+  },
+  {
+    "id": "50_entries",
+    "name": "Commit Connoisseur",
+    "description": "50 entries strong — still compiling greatness!",
+    "hidden": false,
+    "condition": {
+      "type": "entries_count",
+      "value": 50
+    }
+  },
+  {
+    "id": "100_entries",
+    "name": "Infinite Loop of Wisdom",
+    "description": "100 entries - keeping track like a pro dev!",
+    "hidden": false,
+    "condition": {
+      "type": "entries_count",
+      "value": 100
+    }
+  },
+  {
+    "id": "streak_2",
+    "name": "Weekly Committer",
+    "description": "You wrote 2 weeks in a row!",
+    "hidden": false,
+    "condition": {
+      "type": "streak",
+      "value": 2
+    }
+  },
+  {
+    "id": "streak_3",
+    "name": "Console.log Champion",
+    "description": "You wrote 3 weeks in a row!",
+    "hidden": false,
+    "condition": {
+      "type": "streak",
+      "value": 3
+    }
+  },
+  {
+    "id": "streak_4",
+    "name": "Code Marathoner",
+    "description": "You wrote 4 weeks in a row!",
+    "hidden": false,
+    "condition": {
+      "type": "streak",
+      "value": 4
+    }
+  },
+  {
+    "id": "code_chill",
+    "name": "Code & Chill",
+    "description": "You wrote on a weekend!",
+    "hidden": false,
+    "condition": {
+      "type": "day",
+      "value": ["Saturday", "Sunday"]
+    }
+  },
+  {
+    "id": "rubber_duck",
+    "name": "Rubber Duck",
+    "description": "Keep squashing those bugs!",
+    "hidden": true,
+    "condition": {
+      "type": "word_mention",
+      "value": ["bug", "fix"]
+    }
+  },
+  {
+    "id": "hackathoner",
+    "name": "Hackathoner",
+    "description": "You hacked the day away by writing multiple entries!",
+    "hidden": true,
+    "condition": {
+      "type": "entries_count_per_day",
+      "value": 2
+    }
+  },
+  {
+    "id": "happy_coder",
+    "name": "Happy coder",
+    "description": "Your mood has been high over the last few days!",
+    "hidden": true,
+    "condition": {
+      "type": "mood_scores",
+      "value": 15
+    }
+  },
+  {
+    "id": "skill_seeker",
+    "name": "Skill seeker",
+    "description": "Your skill set is improving. Keep it up!",
+    "hidden": true,
+    "condition": {
+      "type": "skills",
+      "value": 10
+    }
+  }
+]
