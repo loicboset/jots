@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 import { useUserAchievements, useUpsertUserAchievement } from "@/services/user_achievements";
 import { UserAchievement } from "@/types/api/user_achievements";
 
-import { useUserContext } from "./UserProvider";
-
 type AchievementContextType = {
   unlocked: UserAchievement[];
   unlockAchievement: (id: string, name: string) => void;
@@ -19,11 +17,8 @@ const AchievementSound = new Howl({ src: ['/sounds/achievement.mp3'], volume: 0.
 const AchievementsContext = createContext<AchievementContextType | null>(null);
 
 export const AchievementsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  // CONTEXT
-  const { user } = useUserContext();
-
   // RQ
-  const { data: unlocked } = useUserAchievements(user?.userID);
+  const { data: unlocked } = useUserAchievements();
   const { mutate: upsertUserAchievement } = useUpsertUserAchievement();
 
   const [confetti, setConfetti] = useState(false);
@@ -33,7 +28,7 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
     if (!unlocked.some(row => row.achievement_id === id)) {
       AchievementSound.play();
 
-      upsertUserAchievement({ user_id: user.userID, achievement_id: id });
+      upsertUserAchievement({ achievement_id: id });
 
       toast.success(`Achievement Unlocked: ${name}`, {
         duration: 8000,

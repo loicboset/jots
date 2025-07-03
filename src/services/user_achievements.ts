@@ -5,14 +5,13 @@ import { UserAchievement } from "@/types/api/user_achievements";
 import { UpsertUserAchievement } from "@/types/payload/user_achievements";
 
 // GET USER_ACHIEVEMENTS
-const getUserAchievements = async (userID: string): Promise<UserAchievement[]> => {
-  const queryParams = new URLSearchParams({ user_id: userID });
-  const { data } = await axios.get(`/api/user_achievements?${queryParams.toString()}`);
+const getUserAchievements = async (): Promise<UserAchievement[]> => {
+  const { data } = await axios.get("/api/user_achievements");
   return data;
 };
 
-const useUserAchievements = (userID: string): UseQueryResult<UserAchievement[], Error> => {
-  return useQuery({ queryKey: ["user_achievements"], queryFn: () => getUserAchievements(userID) });
+const useUserAchievements = (): UseQueryResult<UserAchievement[], Error> => {
+  return useQuery({ queryKey: ["user_achievements"], queryFn: () => getUserAchievements() });
 };
 
 // UPSERT USER_ACHIEVEMENT

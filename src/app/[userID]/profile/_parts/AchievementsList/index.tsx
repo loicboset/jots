@@ -1,6 +1,5 @@
+import achievements from '@/achievements.json';
 import { useAchievements } from '@/context/AchievementsProvider';
-
-import achievements from '../../../../../achievements.json';
 
 const AchievementsList = (): React.ReactElement => {
   const { unlocked } = useAchievements();

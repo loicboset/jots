@@ -1,4 +1,4 @@
-import achievements from '../../achievements.json';
+import achievements from '@/achievements.json';
 
 type Stats = {
   totalEntries: number;
