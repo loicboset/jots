@@ -25,11 +25,12 @@ const MoodSlider = (): React.ReactElement => {
   // RQ
   const { data: settings } = useUserSettings();
   const { data: moodCheck, isLoading } = useMoodCheck(user?.userID);
-  const { mutate: upsertMoodCheck, isPending } = useUpsertMoodCheck();
+  const { mutate: upsertMoodCheck, status } = useUpsertMoodCheck();
 
   // VARS
   const isMoodChecksEnabled = settings?.mood_checks_enabled ?? true;
   const currentMood = moodCheck && moodLabels.find((mood) => mood.score === moodCheck.score)?.icon;
+  const isDisabled = ['pending', 'success'].includes(status);
 
   if (!isMoodChecksEnabled) return <div></div>;
 
@@ -64,7 +65,7 @@ const MoodSlider = (): React.ReactElement => {
               key={mood.score}
               className="flex justify-between text-sm"
               onClick={() => onSubmitMoodCheck(mood.score)}
-              disabled={isPending}
+              disabled={isDisabled}
             >
               {mood.icon}
             </IconButton>
