@@ -6,12 +6,13 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const systemContent = `
-  Act like a career coach. Be assertive.
-  Dont talk like an AI, but like a human.
-  Give advice based on the journal entries.
-  You first goal is to help the user grow.
-  Provide very actionable tips. Be specific. Be motivating as well.
+const MODEL = "gpt-4.1";
+
+const baseSystemContent = `
+  You are my software engineering career coach.
+  Give advice based on my journal entries.
+  Your goal is to help me improve. I need you to provide me guidance for the week ahead based on my journal entries. Be specific and actionable.
+
   Break down the text into small paragraphs.
   It should be effortless to read — short, clear, and very useful.
   No titles, no bullet points, no lists. Use short paragraphs. Keep it under 220 words.
@@ -29,11 +30,22 @@ type Params = {
     role: string;
     experience: string;
     goal: string;
+    career_coach_mode: string | null;
   } | null;
   userID: string;
 };
 
 const generateDigest = async ({ entries, settings, userID }: Params): Promise<string | null> => {
+  let systemContent = "";
+
+  if (settings?.career_coach_mode) {
+    systemContent +=
+      `You are ${settings.career_coach_mode}. Make sure the user recognize who you are, without being explicit (dont say your name). ` +
+      baseSystemContent;
+  } else {
+    systemContent += `Don't talk like a AI, talk like a human. ` + baseSystemContent;
+  }
+
   let userContent = "";
 
   userContent += ` *** `;
@@ -50,7 +62,7 @@ const generateDigest = async ({ entries, settings, userID }: Params): Promise<st
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: MODEL,
       messages: [
         {
           role: "system",
@@ -66,16 +78,21 @@ const generateDigest = async ({ entries, settings, userID }: Params): Promise<st
     await aiUsageLogger({
       userID,
       type: "WEEKLY_DIGEST",
-      model: "gpt-4o",
+      model: MODEL,
       inputTokens: completion.usage?.prompt_tokens ?? 0,
       inputCachedTokens: completion.usage?.prompt_tokens_details?.cached_tokens ?? 0,
       outputTokens: completion.usage?.completion_tokens ?? 0,
     });
 
-    const messageContent = completion.choices[0].message.content;
+    let messageContent = completion.choices[0].message.content;
 
     if (!messageContent) {
       throw new Error("No content returned from OpenAI");
+    }
+
+    if (settings?.career_coach_mode) {
+      // add coach name at the end
+      messageContent += `\n\n- ${settings.career_coach_mode}`;
     }
 
     return messageContent;

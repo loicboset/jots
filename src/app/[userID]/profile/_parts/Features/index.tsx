@@ -1,5 +1,6 @@
-import MoodChecks from "../MoodChecks";
-import PushNotification from "../PushNotifications";
+import CareerCoach from "./_parts/CareerCoach";
+import MoodChecks from "./_parts/MoodChecks";
+import PushNotification from "./_parts/PushNotifications";
 
 const Features = (): React.ReactElement => {
   return (
@@ -12,6 +13,9 @@ const Features = (): React.ReactElement => {
       </div>
 
       <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+        <div className="sm:col-span-4">
+          <CareerCoach />
+        </div>
         <div className="sm:col-span-4">
           <MoodChecks />
         </div>
