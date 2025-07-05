@@ -20,7 +20,7 @@ const UserAppRoot = async ({ params }: Props): Promise<React.ReactElement> => {
   }
 
   return (
-    <div className='flex h-screen'>
+    <div className='flex h-dvh'>
       <App userID={data.user.id} />
     </div>
   )

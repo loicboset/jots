@@ -12,7 +12,7 @@ const Digests = (): React.ReactElement => {
   const { data: digests = [] } = useDigests();
 
   return (
-    <div className="h-screen">
+    <div className="h-dvh">
       <div className='flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900'>
         <Link href="/">
           <h1 className='text-3xl text-indigo-500'>Jots</h1>
