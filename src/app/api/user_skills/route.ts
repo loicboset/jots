@@ -6,7 +6,7 @@ import getUserID from "../_utils/getUserID";
 export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
-  const { data } = await supabase.from("user_skills").select("skill, score");
+  const { data } = await supabase.from("user_skills").select("skill, score").gt("score", 0);
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");

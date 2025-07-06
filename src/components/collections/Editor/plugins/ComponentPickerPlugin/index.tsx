@@ -22,13 +22,11 @@ import {
 import * as ReactDOM from 'react-dom';
 
 import './ComponentPicker.css'
-import { useUserContext } from '@/context/UserProvider';
 import { useUserAiUsage } from '@/services/user_ai_usage';
 import usePromptsLibraryStore from '@/stores/usePromptsLibraryStore';
 import { MAX_AI_TOKENS } from '@/utils/constants';
 
 import { $createAiPromptNode } from '../../nodes/AiPromptNode'
-import { $createPromptNode } from '../../nodes/PromptNode';
 
 class ComponentPickerOption extends MenuOption {
   // What shows up in the editor
@@ -94,25 +92,6 @@ const ComponentPickerMenuItem = ({
   );
 }
 
-const getBaseOptions = (editor: LexicalEditor): ComponentPickerOption[] => [
-  new ComponentPickerOption('Prompt', {
-    icon: <i className="icon paragraph" />,
-    keywords: ['prompt'],
-    onSelect: (): void =>
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          $setBlocksType(selection, () => {
-            const paragraph = $createParagraphNode();
-            const prompt = $createPromptNode();
-            paragraph.append(prompt);
-            return paragraph;
-          });
-        }
-      }),
-  }),
-]
-
 // TODO: only show this option if user has a min 5 day streak, add as condition below when streaks are live
 const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): ComponentPickerOption =>
   new ComponentPickerOption('AI Prompt', {
@@ -138,9 +117,6 @@ const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): C
 
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
-  // CONTEXT
-  const { user } = useUserContext();
-
   // STATE
   const [queryString, setQueryString] = useState<string | null>(null);
 
@@ -163,21 +139,19 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   });
 
   const options = useMemo(() => {
-    const baseOptions = getBaseOptions(editor);
+    const baseOptions = [];
 
-    if (['be7fb9ac-457e-40cf-a5eb-1b268422a239', '58cde6c7-8f2f-407a-95ff-401a3ead72ec'].includes(user.userID)) {
-      baseOptions.push(new ComponentPickerOption('Prompts', {
-        icon: <i className="icon paragraph" />,
-        keywords: ['prompts'],
-        onSelect: (): void => {
-          const selection = $getSelection();
-          if ($isRangeSelection(selection)) {
-            setSelection(selection);
-            toggle()
-          }
-        },
-      }),)
-    }
+    baseOptions.push(new ComponentPickerOption('Prompts', {
+      icon: <i className="icon paragraph" />,
+      keywords: ['prompts'],
+      onSelect: (): void => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          setSelection(selection);
+          toggle()
+        }
+      },
+    }))
 
     const aiPromptOption = getAiPromptOption(editor, isAiUsageExceeded);
 
