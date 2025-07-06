@@ -29,6 +29,7 @@ const CareerCoach = (): React.ReactElement => {
     { value: 'Yoda', label: 'Yoda' },
     { value: 'Gandalf', label: 'Gandalf' },
     { value: 'Dumbledore', label: 'Dumbledore' },
+    { value: 'Prof. McGonagall', label: 'Prof. McGonagall' },
   ];
 
   const currentValue = options.find((option) => option.value === settings?.career_coach_mode) || options[0];
