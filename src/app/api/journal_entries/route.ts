@@ -7,16 +7,16 @@ export async function GET(request: Request): Promise<Response> {
 
   const supabase = await createClient();
 
-  const query = supabase.from("journal_entries").select("*").order("created_at", { ascending: false });
+  const query = supabase.from("journal_entries").select("*", { count: "exact" }).order("created_at", { ascending: false });
 
   if (limit) query.limit(parseInt(limit));
 
-  const { data: journal_entries } = await query;
+  const { data: journal_entries, count } = await query;
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  return new Response(JSON.stringify(journal_entries), { status: 200, headers });
+  return new Response(JSON.stringify({journal_entries, total_count: count}), { status: 200, headers });
 }
 
 export async function PUT(request: Request): Promise<Response> {

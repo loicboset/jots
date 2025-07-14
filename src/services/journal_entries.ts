@@ -8,6 +8,11 @@ type UseJournalEntriesParams = {
   limit?: number;
 };
 
+type UseJournalEntriesResponse = {
+  journal_entries: JournalEntry[];
+  total_count: number;
+}
+
 // GET JOURNAL ENTRY
 const getJournalEntry = async (userID: string, date: Date): Promise<JournalEntry> => {
   const { data } = await axios.get(`/api/journal_entry?user_id=${userID}&date=${date}`);
@@ -23,15 +28,15 @@ const useJournalEntry = (userID: string, date: Date): UseQueryResult<JournalEntr
 };
 
 // GET JOURNAL ENTRIES
-const getJournalEntries = async (params?: UseJournalEntriesParams): Promise<JournalEntry[]> => {
+const getJournalEntries = async (params?: UseJournalEntriesParams): Promise<UseJournalEntriesResponse> => {
   let url = `/api/journal_entries`;
   if (params?.limit) url += `?limit=${params.limit}`;
 
-  const { data } = await axios.get(url);
+  const { data } = await axios.get<UseJournalEntriesResponse>(url);
   return data;
 };
 
-const useJournalEntries = (params?: UseJournalEntriesParams): UseQueryResult<JournalEntry[], Error> => {
+const useJournalEntries = (params?: UseJournalEntriesParams): UseQueryResult<UseJournalEntriesResponse, Error> => {
   return useQuery({ queryKey: ["journal_entries"], queryFn: () => getJournalEntries(params) });
 };
 
@@ -48,6 +53,7 @@ const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJ
     mutationFn: upsertJournalEntry,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
+      queryClient.invalidateQueries({ queryKey: ["journal_entries"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
       queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
     },
@@ -67,6 +73,7 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
     mutationFn: deleteJournalEntry,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
+      queryClient.invalidateQueries({ queryKey: ["journal_entries"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
       queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
     },
