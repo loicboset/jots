@@ -25,8 +25,8 @@ const AiPromptNodePlugin = (): null => {
 
   // RQ
   const queryClient = useQueryClient();
-  const { data: entries = [], isLoading } = useJournalEntries({ limit: 10 });
-
+  const { data, isLoading } = useJournalEntries({ limit: 10 });
+  const entries = data?.journal_entries ?? [];
 
   // VARS
   const textContent: string[] = useMemo(() => [], []);

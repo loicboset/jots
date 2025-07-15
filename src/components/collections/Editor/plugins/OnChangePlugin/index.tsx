@@ -29,8 +29,10 @@ const OnChangePlugin = (): null => {
   const { mutate: upsertEntry } = useUpsertJournalEntry()
   const { mutate: deleteEntry } = useDeleteJournalEntry()
   const { data: entry } = useJournalEntry(user.userID, calendar.currentDate);
-  const { data: entries = [] } = useJournalEntries();
+  const { data: entries } = useJournalEntries({ limit: 10 });
   const { data: streak = 0 } = useGetWeekStreakCount();
+
+  const journalEntriesTotalCount = entries?.total_count ?? 0;
 
   // HOOKS
   const [editor] = useLexicalComposerContext();
@@ -62,8 +64,8 @@ const OnChangePlugin = (): null => {
       content: debouncedNewEditorState,
       date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
     })
-
-    checkAchievements({stats: {totalEntries: entries.length, streak, day: dayjs.utc(calendar.currentDate).format('dddd')}, unlock:  unlockAchievement})
+    /* eslint-disable max-len */
+    checkAchievements({stats: {totalEntries: journalEntriesTotalCount, streak, day: dayjs.utc(calendar.currentDate).format('dddd')}, unlock:  unlockAchievement})
 
     return (): void => {
       setNewEditorState(null);

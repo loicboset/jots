@@ -14,7 +14,8 @@ import { $isPromptNode } from "../../nodes/PromptNode";
 
 const DummyDataPlugin = (): null => {
   // RQ
-  const { data: entries = [], isLoading } = useJournalEntries();
+  const { data, isLoading } = useJournalEntries({ limit: 10 });
+  const entries = data?.journal_entries ?? [];
 
   // HOOKS
   const [editor] = useLexicalComposerContext();
