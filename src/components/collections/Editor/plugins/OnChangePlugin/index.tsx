@@ -9,7 +9,9 @@ import { useAchievements } from "@/context/AchievementsProvider";
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useUserContext } from "@/context/UserProvider";
 import { useDeleteJournalEntry, useGetWeekStreakCount, useJournalEntries, useJournalEntry, useUpsertJournalEntry } from "@/services/journal_entries";
-import { checkAchievements } from "@/utils/checkAchievements.ts/checkAchievements";
+import { useGetWeekEntries } from "@/services/journal_entries";
+import { checkAchievements } from "@/utils/checkAchievements/checkAchievements";
+import { countUncheckedListItems } from "@/utils/countUncheckedListItems/countUncheckedListItems";
 import useDebounce from "@/utils/hooks/useDebounce";
 
 import isLexicalStateEmpty from "../../utils/isLexicalStateEmpty";
@@ -31,6 +33,8 @@ const OnChangePlugin = (): null => {
   const { data: entry } = useJournalEntry(user.userID, calendar.currentDate);
   const { data: entries } = useJournalEntries({ limit: 10 });
   const { data: streak = 0 } = useGetWeekStreakCount();
+  const { data: weekEntries } = useGetWeekEntries()
+  const unchecked = countUncheckedListItems(weekEntries) ?? 0;
 
   const journalEntriesTotalCount = entries?.total_count ?? 0;
 
@@ -65,7 +69,7 @@ const OnChangePlugin = (): null => {
       date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
     })
     /* eslint-disable max-len */
-    checkAchievements({stats: {totalEntries: journalEntriesTotalCount, streak, day: dayjs.utc(calendar.currentDate).format('dddd')}, unlock:  unlockAchievement})
+    checkAchievements({stats: {totalEntries: journalEntriesTotalCount, streak, day: dayjs.utc(calendar.currentDate).format('dddd'), tasks: unchecked}, unlock:  unlockAchievement})
 
     return (): void => {
       setNewEditorState(null);

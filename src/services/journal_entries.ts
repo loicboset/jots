@@ -56,6 +56,7 @@ const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJ
       queryClient.invalidateQueries({ queryKey: ["journal_entries"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
       queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
+      queryClient.invalidateQueries({ queryKey: ["week_entries"] });
     },
   });
 };
@@ -76,6 +77,7 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
       queryClient.invalidateQueries({ queryKey: ["journal_entries"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
       queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
+      queryClient.invalidateQueries({ queryKey: ["week_entries"] });
     },
   });
 };
@@ -104,6 +106,16 @@ const useGetWeekStreakCount = (): UseQueryResult<number, Error> => {
   return useQuery({ queryKey: ["week_streak_count"], queryFn: () => getWeekStreakCount() });
 };
 
+// GET WEEK ENTRIES
+const getWeekEntries = async (): Promise<JournalEntry[]> => {
+  const { data } = await axios.get("/api/journal_entries/week_entries");
+  return data;
+};
+
+const useGetWeekEntries = (): UseQueryResult<JournalEntry[], Error> => {
+  return useQuery({ queryKey: ["week_entries"], queryFn: () => getWeekEntries() });
+};
+
 export {
   useJournalEntry,
   useJournalEntries,
@@ -111,4 +123,5 @@ export {
   useJournalEntriesDates,
   useDeleteJournalEntry,
   useGetWeekStreakCount,
+  useGetWeekEntries,
 };

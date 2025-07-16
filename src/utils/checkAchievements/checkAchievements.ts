@@ -4,6 +4,7 @@ type Stats = {
   totalEntries: number;
   streak: number;
   day: string
+  tasks: number;
 };
 
 type UnlockFunction = (id: string, name: string) => void;
@@ -26,6 +27,10 @@ export const checkAchievements = ({ stats, unlock }: CheckAchievementsProps): vo
     }
 
     if (Array.isArray(condition.value) && condition.type === 'day' && condition.value.includes(stats.day)) {
+      unlock(achievement.id, achievement.name);
+    }
+
+    if (typeof(condition.value) === 'number' && condition.type === 'task' && stats.tasks >= condition.value) {
       unlock(achievement.id, achievement.name);
     }
 
