@@ -70,6 +70,16 @@
     }
   },
   {
+    "id": "task_master",
+    "name": "Task master",
+    "description": "Strive to complete those tasks!",
+    "hidden": false,
+    "condition": {
+      "type": "task",
+      "value": 1
+    }
+  },
+  {
     "id": "rubber_duck",
     "name": "Rubber Duck",
     "description": "Keep squashing those bugs!",
