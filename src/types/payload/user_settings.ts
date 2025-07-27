@@ -4,7 +4,8 @@ type UpsertUserSettings = {
   experience?: number;
   goal?: string;
   timezone?: string;
-  mood_checks_enabled: boolean;
+  mood_checks_enabled?: boolean;
+  daily_prompt_enabled?: boolean;
   career_coach_mode?: string | null;
 };
 

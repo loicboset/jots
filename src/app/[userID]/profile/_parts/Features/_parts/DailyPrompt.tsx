@@ -6,7 +6,7 @@ import InfoTooltip from "@/components/ui/tooltips/InfoTooltip";
 import { useUserContext } from "@/context/UserProvider";
 import { useUpsertUserSettings, useUserSettings } from "@/services/user_settings";
 
-const MoodChecks = (): React.ReactElement => {
+const DailyPrompt = (): React.ReactElement => {
   // CONTEXT
   const { user } = useUserContext();
 
@@ -16,23 +16,23 @@ const MoodChecks = (): React.ReactElement => {
 
   // METHODS
   const handleToggleMoodChecks = (): void => {
-    editUserSettings({ user_id: user.userID, mood_checks_enabled: !isMoodChecksEnabled });
+    editUserSettings({ user_id: user.userID, daily_prompt_enabled: !isDailyPromptEnabled });
   };
 
   // VARS
-  const isMoodChecksEnabled = settings?.mood_checks_enabled ?? true;
+  const isDailyPromptEnabled = settings?.daily_prompt_enabled ?? true;
 
   return (
     <div className='flex justify-between max-w-2xl'>
       <div className='flex'>
         <span className="block text-sm/6 font-medium text-white">
-          Daily Mood Checks
+          Random Daily Prompt
         </span>
-        <InfoTooltip message='Toggle on to get personalised daily motivation boosters based on your mood levels to help with your writing!' />
+        <InfoTooltip message='Toggle on to get a random daily prompt.' />
       </div>
-      <Toggle enabled={isMoodChecksEnabled} onChange={handleToggleMoodChecks} />
+      <Toggle enabled={isDailyPromptEnabled} onChange={handleToggleMoodChecks} />
     </div>
   );
 };
 
-export default MoodChecks;
+export default DailyPrompt;
