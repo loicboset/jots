@@ -15,6 +15,7 @@ import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
 import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
 import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
+import DailyAutoPromptPlugin from './plugins/DailyAutoPromptPlugin';
 import DummyDataPlugin from "./plugins/DummyDataPlugin";
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import OnChangePlugin from './plugins/OnChangePlugin';
@@ -60,6 +61,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <ListPlugin />
       <CheckListPlugin />
       <SkilledPromptNodePlugin />
+      <DailyAutoPromptPlugin />
 
       {/* <TreeViewPlugin /> */}
     </>

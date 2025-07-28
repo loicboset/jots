@@ -1,4 +1,5 @@
 import CareerCoach from "./_parts/CareerCoach";
+import DailyPrompt from "./_parts/DailyPrompt";
 import MoodChecks from "./_parts/MoodChecks";
 import PushNotification from "./_parts/PushNotifications";
 
@@ -18,6 +19,9 @@ const Features = (): React.ReactElement => {
         </div>
         <div className="sm:col-span-4">
           <MoodChecks />
+        </div>
+        <div className="sm:col-span-4">
+          <DailyPrompt />
         </div>
         <div className="sm:col-span-4">
           <PushNotification />
