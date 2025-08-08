@@ -8,7 +8,7 @@ const ExtensionToken = (): React.ReactElement => {
   return (
     <div className="grid grid-cols-1 gap-4">
       <div>
-        <h2 className="text-base/7 font-semibold text-white">Achievements</h2>
+        <h2 className="text-base/7 font-semibold text-white">VSCode extension</h2>
         <p className="mt-1 text-sm/6 text-gray-400">
           Generate your API Token for your VSCode extension.
         </p>
