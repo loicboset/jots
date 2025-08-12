@@ -23,7 +23,8 @@ export async function GET(request: Request): Promise<Response> {
 }
 
 export async function PUT(request: Request): Promise<Response> {
-  const supabase = await createClient();
+  const authHeader = request.headers.get('Authorization');
+  const supabase = await createClient(authHeader);
 
   const req = await request.json();
   const { user_id, content, date } = req as CreateJournalEntry;
