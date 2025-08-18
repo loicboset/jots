@@ -57,6 +57,7 @@ const generateDigest = async ({ entries, settings, userID }: Params): Promise<st
     if (settings.role) userContent += ` The user's role is ${settings.role}.`;
     if (settings.experience) userContent += ` The user's experience is ${settings.experience}.`;
     if (settings.goal) userContent += ` The user's goal is ${settings.goal}.`;
+    if (settings.goal === "Learn AI skills") userContent += 'Provide latest trends and resources to help the user get up to speed with AI topics.';
   }
   userContent += ` *** `;
 

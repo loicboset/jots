@@ -80,6 +80,36 @@
     }
   },
   {
+    "id": "ai_skills_seeker",
+    "name": "AI skill seeker",
+    "description": "Your AI skills are improving. Keep it up!",
+    "hidden": false,
+    "condition": {
+      "type": "ai_skills",
+      "value": 5
+    }
+  },
+  {
+    "id": "ai_skills_builder",
+    "name": "AI skill builder",
+    "description": "Your AI skills keep increasing. The momentum is strong!",
+    "hidden": false,
+    "condition": {
+      "type": "ai_skills",
+      "value": 10
+    }
+  },
+  {
+    "id": "ai_skills_master",
+    "name": "AI skill master",
+    "description": "You are mastering your AI skills. Impressive!",
+    "hidden": false,
+    "condition": {
+      "type": "ai_skills",
+      "value": 15
+    }
+  },
+  {
     "id": "rubber_duck",
     "name": "Rubber Duck",
     "description": "Keep squashing those bugs!",
@@ -107,16 +137,6 @@
     "condition": {
       "type": "mood_scores",
       "value": 15
-    }
-  },
-  {
-    "id": "skill_seeker",
-    "name": "Skill seeker",
-    "description": "Your skill set is improving. Keep it up!",
-    "hidden": true,
-    "condition": {
-      "type": "skills",
-      "value": 10
     }
   }
 ]

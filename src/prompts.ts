@@ -1,4 +1,16 @@
 export const prompts = [
+  // AI
+  { "text": "What new AI concept or term did you learn today?", "skill": "AI" },
+  { "text": "Describe a recent task you automated using AI — what tools or models did you use?", "skill": "AI" },
+  { "text": "What was the most surprising or unexpected result you’ve seen from an AI tool?", "skill": "AI" },
+  { "text": "How did you improve an AI-generated output by giving better prompts?", "skill": "AI" },
+  { "text": "What’s one ethical consideration you thought about while using AI today?", "skill": "AI" },
+  { "text": "Describe a real-world problem you think AI could help solve in your work or personal life.", "skill": "AI" },
+  { "text": "What new AI tool or feature did you experiment with today, and what did you learn?", "skill": "AI" },
+  { "text": "What’s one limitation of the AI tools you’ve used recently, and how did you work around it?", "skill": "AI" },
+  { "text": "How did you integrate AI into your workflow today to save time or improve quality?", "skill": "AI" },
+  { "text": "If you could train your own AI model, what task would you want it to perform and why?", "skill": "AI" },
+
   // Code Quality
   { text: "What habits could help me write cleaner, more maintainable code?", skill: "Code Quality" },
   { text: "How can I improve naming conventions in my code?", skill: "Code Quality" },

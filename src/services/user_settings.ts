@@ -67,4 +67,4 @@ const useTogglePushNotification = (): UseMutationResult<void, Error, boolean, un
   });
 };
 
-export { useUserSettings, useUpsertUserSettings, useTogglePushNotification, useEditTimezone };
+export { useUserSettings, useUpsertUserSettings, useTogglePushNotification, useEditTimezone, getUserSettings };
