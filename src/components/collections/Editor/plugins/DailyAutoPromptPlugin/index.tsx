@@ -53,7 +53,8 @@ const DailyAutoPromptPlugin = (): null => {
 
         let randomPrompt = { text: "", skill: "" }
         if (userSettings.goal === "Learn AI skills") {
-          randomPrompt = prompts.filter(item => item.skill === "AI")[Math.floor(Math.random() * prompts.length)];
+          const aiPrompts = prompts.filter(item => item.skill === "AI")
+          randomPrompt = aiPrompts[Math.floor(Math.random() * aiPrompts.length)];
         } else {
           randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
         }
