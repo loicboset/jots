@@ -6,7 +6,6 @@ import getUserID from "../_utils/getUserID";
 import getChat from "./_utils/getChat";
 import getJournalEntries from "./_utils/getJournalEntries";
 import saveChat from "./_utils/saveChat";
-import { getUserSettings } from '../../../services/user_settings'
 
 type ChatbotRequest = {
   userMessage: string;
@@ -49,8 +48,6 @@ export async function POST(request: Request): Promise<Response> {
   let chatID = req?.chatID || null;
   const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [];
 
-  const { goal } = await getUserSettings();
-
   if (chatID) {
     const { messages: previousMessages } = await getChat(userID);
     messages.push(...previousMessages, { role: "user", content: userMessage });
@@ -63,9 +60,6 @@ export async function POST(request: Request): Promise<Response> {
           You are a software engineering career coach - this is your strict boundary.
           Use my journal entries to provide relevant answers.
           Keep answers under 200 words.
-          ${(goal === 'Learn AI skills') &&
-            'Your focus is on AI, reference the most popular and trending topics in the AI field to help the user improve their AI skills.'
-          }
         `,
       },
       {
