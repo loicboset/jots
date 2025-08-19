@@ -51,7 +51,13 @@ const DailyAutoPromptPlugin = (): null => {
       if (hasOnlyEmptyParagraph) {
         root.clear(); // Remove default empty paragraph
 
-        const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        let randomPrompt = { text: "", skill: "" }
+        if (userSettings.goal === "Learn AI skills") {
+          const aiPrompts = prompts.filter(item => item.skill === "AI")
+          randomPrompt = aiPrompts[Math.floor(Math.random() * aiPrompts.length)];
+        } else {
+          randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        }
         const wrapper = $createSkilledPromptWrapperNode(randomPrompt.text, randomPrompt.skill);
         const paragraph = $createSkilledPromptNode();
         wrapper.append(paragraph);

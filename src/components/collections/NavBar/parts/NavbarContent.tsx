@@ -13,6 +13,7 @@ import Button from "@/components/ui/buttons/Button";
 import { useUserContext } from "@/context/UserProvider";
 import { createClient } from "@/lib/supabase/client";
 
+import AiPathIndicator from "./AiPathIndicator"
 import WeeklyDigestButton from "./WeeklyDigestButton";
 
 type Props = {
@@ -50,6 +51,7 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
         <WeeklyDigestButton />
         <MoodSlider />
         <AiUsage />
+        <AiPathIndicator />
       </div>
       <div className="mb-2 mt-4">
         <Link href={'https://discord.gg/YQP4wwbyfg'} target="_blank" className="flex">

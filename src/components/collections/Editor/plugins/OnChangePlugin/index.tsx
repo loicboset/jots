@@ -10,6 +10,7 @@ import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useUserContext } from "@/context/UserProvider";
 import { useDeleteJournalEntry, useGetWeekStreakCount, useJournalEntries, useJournalEntry, useUpsertJournalEntry } from "@/services/journal_entries";
 import { useGetWeekEntries } from "@/services/journal_entries";
+import { useUserSkills } from '@/services/user_skills';
 import { checkAchievements } from "@/utils/checkAchievements/checkAchievements";
 import { countUncheckedListItems } from "@/utils/countUncheckedListItems/countUncheckedListItems";
 import useDebounce from "@/utils/hooks/useDebounce";
@@ -35,8 +36,10 @@ const OnChangePlugin = (): null => {
   const { data: streak = 0 } = useGetWeekStreakCount();
   const { data: weekEntries } = useGetWeekEntries()
   const unchecked = countUncheckedListItems(weekEntries) ?? 0;
+  const { data: skills = [] } = useUserSkills();
 
   const journalEntriesTotalCount = entries?.total_count ?? 0;
+  const totalAiSkills = skills.filter(el => el.skill === "AI").reduce((sum, el) => sum + el.score, 0);
 
   // HOOKS
   const [editor] = useLexicalComposerContext();
@@ -69,7 +72,7 @@ const OnChangePlugin = (): null => {
       date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
     })
     /* eslint-disable max-len */
-    checkAchievements({stats: {totalEntries: journalEntriesTotalCount, streak, day: dayjs.utc(calendar.currentDate).format('dddd'), tasks: unchecked}, unlock:  unlockAchievement})
+    checkAchievements({stats: {totalEntries: journalEntriesTotalCount, streak, day: dayjs.utc(calendar.currentDate).format('dddd'), tasks: unchecked, aiSkills: totalAiSkills}, unlock:  unlockAchievement})
 
     return (): void => {
       setNewEditorState(null);

@@ -36,6 +36,7 @@ export async function POST(): Promise<Response> {
       if (settings.role) content += ` The user's role is ${settings.role}.`;
       if (settings.experience) content += ` The user's experience is ${settings.experience}.`;
       if (settings.goal) content += ` The user's goal is ${settings.goal}.`;
+      if (settings.goal === "Learn AI skills") content +=  'Provide latest trends and resources to help the user get up to speed with AI topics.';
       content += ` *** `;
     }
 

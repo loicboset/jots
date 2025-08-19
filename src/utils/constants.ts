@@ -12,7 +12,7 @@ const ROLESOPTIONS = [
   "Security Engineer",
 ];
 
-const GOALSOPTIONS = ["Get a first job", "Get a new job", "Get a promotion", "Grow technical skills"];
+const GOALSOPTIONS = ["Learn AI skills", "Get a first job", "Get a new job", "Get a promotion", "Grow technical skills"];
 
 const POSITIVE_SCORE_MOTIVATION_BOOSTERS = [
   "You're on a roll! Keep committing greatness. 🚀",
