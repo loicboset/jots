@@ -5,9 +5,11 @@ import { useState, useCallback, useEffect, type JSX } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_LOW, $insertNodes } from "lexical";
 
-import { $createGitHubChipNode } from "../../nodes/GitHubChipNode";
 import GitHubContextPopup from "@/components/features/GithubContextPopup";
 import { GitHubPR } from "@/types/github";
+
+import { $createGitHubChipNode } from "../../nodes/GitHubChipNode";
+
 
 // Command triggered from ComponentPickerPlugin
 export const FETCH_GITHUB_CONTEXT_COMMAND = createCommand("FETCH_GITHUB_CONTEXT_COMMAND");
