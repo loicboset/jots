@@ -15,6 +15,7 @@ import { CollapsibleTitleNode } from "./Editor/nodes/CollapsibleTitleNode";
 import { DayContainerNode } from "./Editor/nodes/DayContainerNode";
 import { DayContentNode } from "./Editor/nodes/DayContentNode";
 import { DayTitleNode } from "./Editor/nodes/DayTitleNode";
+import { GitHubChipNode } from "./Editor/nodes/GitHubChipNode";
 import { MotivationBoosterNode } from "./Editor/nodes/MotivationBoosterNode";
 import { PromptNode } from "./Editor/nodes/PromptNode";
 import { SkilledPromptNode } from "./Editor/nodes/SkilledPromptNode";
@@ -85,6 +86,7 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
       MotivationBoosterNode,
       SkilledPromptWrapperNode,
       SkilledPromptNode,
+      GitHubChipNode,
     ],
     onError,
   };

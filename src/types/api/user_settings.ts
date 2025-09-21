@@ -8,6 +8,7 @@ type UserSettings = {
   daily_prompt_enabled: boolean;
   is_push_notifications_active: boolean;
   career_coach_mode: string | null;
+  github_token_encrypted: string | null;
 };
 
 export type { UserSettings };

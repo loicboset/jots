@@ -85,6 +85,7 @@ export type Database = {
           role: string | null
           updated_at: string | null
           user_id: string
+          github_token_encrypted: string | null;
         }
         Insert: {
           created_at?: string
@@ -95,6 +96,7 @@ export type Database = {
           role?: string | null
           updated_at?: string | null
           user_id: string
+          github_token_encrypted?: string | null;
         }
         Update: {
           created_at?: string
@@ -105,6 +107,7 @@ export type Database = {
           role?: string | null
           updated_at?: string | null
           user_id?: string
+          github_token_encrypted?: string | null;
         }
         Relationships: []
       }

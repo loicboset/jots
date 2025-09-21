@@ -17,6 +17,7 @@ import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
 import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
 import DailyAutoPromptPlugin from './plugins/DailyAutoPromptPlugin';
 import DummyDataPlugin from "./plugins/DummyDataPlugin";
+import GitHubNodePlugin from "./plugins/GitHubNodePlugin";
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import OnChangePlugin from './plugins/OnChangePlugin';
 import PromptNodePlugin from "./plugins/PromptNodePlugin";
@@ -62,6 +63,7 @@ const Editor = ({ userID }: Props): React.ReactElement => {
       <CheckListPlugin />
       <SkilledPromptNodePlugin />
       <DailyAutoPromptPlugin />
+      <GitHubNodePlugin />
 
       {/* <TreeViewPlugin /> */}
     </>
