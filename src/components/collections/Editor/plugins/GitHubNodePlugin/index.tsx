@@ -50,9 +50,10 @@ const GitHubNodePlugin = (): JSX.Element | null => {
       id: commit.oid,
       title: commit.messageHeadline,
       url: commit.url,
-      label: pr.repository.nameWithOwner, // repo name
-      prTitle: pr.title,                  // needed for grouping
-      prNumber: pr.number,                // needed for grouping
+      label: pr.repository.nameWithOwner,
+      prTitle: pr.title,
+      prNumber: pr.number,
+      description: pr.bodyText,
     }))
   );
 

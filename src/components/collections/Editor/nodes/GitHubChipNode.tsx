@@ -7,15 +7,17 @@ export type SerializedGitHubChipNode = SerializedLexicalNode & {
   url: string;
   title: string;
   label: string;
+  description?: string;
 };
 
 type GitHubChipProps = {
   url: string;
   title: string;
   label: string;
+  description?: string;
 };
 
-export const GitHubChip = ({ url, title, label }: GitHubChipProps): JSX.Element => {
+export const GitHubChip = ({ url, title, label, description }: GitHubChipProps): JSX.Element => {
   return (
     <a
       href={url}
@@ -54,9 +56,12 @@ export const GitHubChip = ({ url, title, label }: GitHubChipProps): JSX.Element 
               8.013 0 0016 8c0-4.42-3.58-8-8-8z"
         />
       </svg>
-      <div className="flex flex-col truncate">
+      <div className="flex flex-col min-w-0">
         <span className="font-semibold truncate">{label}</span>
-        <span className="text-xs text-gray-500 truncate">{title}</span>
+        <span className="font-medium text-gray-900 truncate">{title}</span>
+        {description && (
+          <span className="text-xs text-gray-600 line-clamp-2">{description}</span>
+        )}
       </div>
     </a>
 
@@ -67,20 +72,22 @@ export class GitHubChipNode extends DecoratorNode<React.ReactNode> {
   __url: string;
   __title: string;
   __label: string;
+  __description?: string;
 
   static getType(): string {
     return "github-chip";
   }
 
   static clone(node: GitHubChipNode): GitHubChipNode {
-    return new GitHubChipNode(node.__url, node.__title, node.__label, node.__key);
+    return new GitHubChipNode(node.__url, node.__title, node.__label, node.__description, node.__key);
   }
 
-  constructor(url: string, title: string, label: string, key?: string) {
+  constructor(url: string, title: string, label: string, description?: string, key?: string) {
     super(key);
     this.__url = url;
     this.__title = title;
     this.__label = label;
+    this.__description = description;
   }
 
   createDOM(): HTMLElement {
@@ -96,7 +103,7 @@ export class GitHubChipNode extends DecoratorNode<React.ReactNode> {
   // This is where the React component is rendered
   decorate(): React.ReactNode {
     return (
-      <GitHubChip url={this.__url} title={this.__title} label={this.__label} />
+      <GitHubChip url={this.__url} title={this.__title} label={this.__label} description={this.__description} />
     );
   }
 
@@ -108,6 +115,7 @@ export class GitHubChipNode extends DecoratorNode<React.ReactNode> {
       url: this.__url,
       title: this.__title,
       label: this.__label,
+      description: this.__description
     };
   }
 
@@ -115,7 +123,8 @@ export class GitHubChipNode extends DecoratorNode<React.ReactNode> {
     return new GitHubChipNode(
       serializedNode.url,
       serializedNode.title,
-      serializedNode.label
+      serializedNode.label,
+      serializedNode.description
     );
   }
 }
@@ -125,12 +134,14 @@ export function $createGitHubChipNode({
   url,
   title,
   label,
+  description,
 }: {
   url: string;
   title: string;
   label: string;
+  description?:string;
 }): GitHubChipNode {
-  return new GitHubChipNode(url, title, label);
+  return new GitHubChipNode(url, title, label, description);
 }
 
 export function $isGitHubChipNode(node: LexicalNode | null | undefined): node is GitHubChipNode {

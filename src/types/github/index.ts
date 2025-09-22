@@ -25,6 +25,7 @@ export type GitHubPR = {
   number: number;
   title: string;
   url: string;
+  bodyText: string;
   repository: { nameWithOwner: string };
   commits: { nodes: { commit: GitHubCommit }[] };
 };

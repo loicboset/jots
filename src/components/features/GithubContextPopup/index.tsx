@@ -9,11 +9,12 @@ type CommitItem = {
   label: string; // repo name
   prNumber: number;
   prTitle: string;
+  description?: string;
 };
 
 type Props = {
   contextData: CommitItem[];
-  onConfirm: (selected: { url: string; title: string; label: string }[]) => void;
+  onConfirm: (selected: { url: string; title: string; label: string, description?: string }[]) => void;
   onCancel: () => void;
 };
 
@@ -101,6 +102,7 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
                     <div>
                       <p className="font-semibold text-gray-800">{commits[0].prTitle}</p>
                       <p className="text-sm text-gray-500">{commits[0].label} — PR #{commits[0].prNumber}</p>
+                      <p className="text-xs text-gray-500 mt-1 line-clamp-2">{commits[0].description}</p>
                     </div>
                     <button
                       type="button"

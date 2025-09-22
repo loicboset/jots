@@ -24,6 +24,7 @@ export async function GET(): Promise<Response> {
             number
             title
             url
+            bodyText
             updatedAt
             repository { nameWithOwner }
             commits(last: 4) {
