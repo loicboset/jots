@@ -4,63 +4,61 @@ import type { JSX } from 'react';
 import {
   ChevronRightIcon
 } from '@heroicons/react/20/solid'
-import { BeakerIcon, BookOpenIcon, RocketLaunchIcon, LightBulbIcon, ArchiveBoxArrowDownIcon, ArrowPathRoundedSquareIcon, BugAntIcon, TrophyIcon } from '@heroicons/react/24/outline'
+import { BeakerIcon, RocketLaunchIcon, LightBulbIcon, ArrowPathRoundedSquareIcon, CpuChipIcon, BellAlertIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import Link from 'next/link'
 
 import Header from '@/components/collections/layouts/Header';
 import EmailSignupForm from '@/components/EmailSignUpForm';
 
-const primaryFeatures = [
+const explanation = [
   {
-    name: 'Because You Need a Rubber Duck',
+    name: 'Proven Method to Boost Performance',
     description:
-      'Talk through your thoughts, debug your brain, and solve problems faster with the help of AI.',
-    icon: BeakerIcon
-  },
-  {
-    name: 'Because Your PR Needs a Backstory',
-    description:
-      'Track your thought process so future-you (and your team) knows why that refactor happened.',
-    icon: BookOpenIcon,
-  },
-  {
-    name: 'Because You Actually Fixed It But Don’t Remember How',
-    description:
-      'Log your debugging steps so next time, you have a cheat sheet.',
-    icon: BugAntIcon,
-  },
-  {
-    name: 'Because You Want to See Your Growth',
-    description:
-      'Measure your progress, track achievements, and level up as a developer.',
-    icon: RocketLaunchIcon
-  },
-  {
-    name: 'Because You Keep Googling the Same Thing',
-    description:
-      'Save your learnings in one place, so you stop asking chatGPT about the same error.',
-    icon: ArrowPathRoundedSquareIcon
-  },
-  {
-    name: 'Because You’re Juggling Too Many Ideas',
-    description:
-      'A developer-friendly space to dump ideas, errors, solutions, and insights.',
+      'Slow Thinking uses reflection techniques grounded in cognitive science to help you improve focus, problem-solving, and decision-making as a developer.',
     icon: LightBulbIcon,
   },
   {
-    name: 'Because Your Brain is Full but Your Notebook is Empty',
+    name: 'The Counterintuitive Edge',
     description:
-      'Organize your thoughts, tag important notes, and keep your side projects on track.',
-    icon: ArchiveBoxArrowDownIcon
+      'Most people try to improve by doing more. Research shows that pausing to reflect leads to faster learning and better decisions — giving you an edge over those who don’t.',
+    icon: ArrowPathRoundedSquareIcon
   },
   {
-    name: 'Because You Want That Next Promotion Or Job',
+    name: 'Backed by Research',
     description:
-      'Showcase your achievements to support your promotion case or upcoming job interview.',
-    icon: TrophyIcon
+      'Built on studies in behavioral psychology and performance science, Jots helps you train the mental systems behind consistent growth.',
+    icon: BeakerIcon
+  }
+];
+
+const primaryFeatures = [
+  {
+    name: 'Tools for Deep Growth',
+    description:
+      'Jot down insights, lessons, and breakthroughs in a distraction-free editor designed for developers. Turn everyday work into learning material.',
+    icon: LightBulbIcon,
+  },
+  {
+    name: 'See Your Progress',
+    description:
+      'Track your mood, achievements, and reflections over time. Watch your thinking — and your performance — evolve week by week.',
+    icon: RocketLaunchIcon,
+  },
+  {
+    name: 'AI That Helps You Think',
+    description:
+      'Use reflection prompts, AI summaries, and your personal “career coach” chat to get feedback, patterns, and direction — instantly.',
+    icon: CpuChipIcon,
+  },
+  {
+    name: 'Built for Busy Developers',
+    description:
+      '15 minutes a day is all it takes. Jots fits naturally into your workflow with prompts, digests, and gentle nudges to keep you improving.',
+    icon: BellAlertIcon,
   },
 ];
+
 
 
 
@@ -99,7 +97,7 @@ const LandingPage = (): JSX.Element => {
         <div className="relative isolate overflow-hidden">
           <Header />
           <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
-            <div className="mx-auto max-w-3/4 shrink-0 lg:mx-0 lg:pt-8">
+            <div className="mx-auto max-w-3/4 shrink-0 lg:mx-0 lg:pt-4">
               <div className='flex justify-between items-center flex-wrap space-y-4'>
                 <Link href="/releases" className="inline-flex space-x-6">
                   <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-indigo-500/20 ring-inset">
@@ -114,35 +112,55 @@ const LandingPage = (): JSX.Element => {
                   <Image src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=971956&theme=light&period=weekly&topic_id=46&t=1749590789894" alt="Jots - Unlock&#0032;the&#0032;benefits&#0032;of&#0032;journaling&#0032;to&#0032;become&#0032;a&#0032;better&#0032;dev&#0046; | Product Hunt" style={{ width: "250px", height: "54px" }} width="250" height="54" />
                 </a>
               </div>
-              <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl">
-                Level Up Your Dev Game With Jots 🚀
+              <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-white sm:text-7xl leading-snug">
+                Gain a Competitive Edge in just 15 Minutes a Day
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">
-                Unlock the benefits of journaling to become a better, faster developer every day.
-              </p>
-              <p className="mt-8 text-lg font-medium text-pretty text-orange-300 sm:text-xl/8">
-                We are releasing the app for early adopters to help shape the future of Jots. Join our beta phase now for exclusive free access to all our features, feedback loops, and community.
+                Backed by research, Jots helps you unlock Slow Thinking skills to become a better, smarter developer and outperform your peers.
               </p>
               <div className="mt-10 flex flex-wrap space-y-2 items-center gap-x-6">
                 <Link
                   href="/signup"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                  Start a new habit now
+                  Start now
                 </Link>
-                <p className="text-sm/6 font-semibold text-white">
-                  It’s free, healthy and open source.
-                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Feature section */}
+        {/* Explanation section */}
         <div className="mx-auto mt-2 max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance">
-              Why Do Top Developers Keep a Journal,<span className='text-indigo-400'> and Why You Should Too?</span>
+              Make Slow Thinking Part of Your <span className='text-indigo-400'>Growth Stack</span>
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+              {explanation.map((feature) => (
+                <div key={feature.name} className="flex flex-col">
+                  <dt className="flex space-x-4 items-center mb-4">
+                    <div className="flex shrink-0 h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                      <feature.icon aria-hidden="true" className="h-6 w-6 text-white" />
+                    </div>
+                    <span className='font-semibold text-white text-2xl'>{feature.name}</span>
+                  </dt>
+                  <dd className="mt-1 flex flex-auto flex-col text-base/7 text-gray-300">
+                    <p className="flex-auto">{feature.description}</p>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+
+        {/* Feature section */}
+        <div className="mx-auto mt-24 max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance">
+              Build a <span className='text-indigo-400'> Sharper Mind</span>, One Thought at a Time
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
