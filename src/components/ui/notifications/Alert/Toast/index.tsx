@@ -1,42 +1,64 @@
 /* eslint-disable max-len */
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition } from "@headlessui/react";
 import {
   ExclamationTriangleIcon,
   CheckCircleIcon,
   XCircleIcon,
   InformationCircleIcon,
-} from '@heroicons/react/24/outline';
-import { XMarkIcon } from '@heroicons/react/24/solid';
+} from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export type ToastProps = {
-  type?: 'warning' | 'danger' | 'info' | 'success' | string;
+  type?: "warning" | "danger" | "info" | "success" | string;
   message?: string | React.ReactElement;
   close: () => void;
   show: boolean;
 };
 
-const Toast = ({ type = 'success', message, close, show }: ToastProps): React.ReactElement => {
+const Toast = ({
+  type = "success",
+  message,
+  close,
+  show,
+}: ToastProps): React.ReactElement => {
   // VARS
   let icon, title;
 
   switch (type) {
-    case 'warning':
-      icon = <ExclamationTriangleIcon className="w-6 h-6 text-yellow-400" aria-hidden="true" />;
-      title = 'Pay attention';
+    case "warning":
+      icon = (
+        <ExclamationTriangleIcon
+          className="w-6 h-6 text-yellow-400"
+          aria-hidden="true"
+        />
+      );
+      title = "Pay attention";
       break;
-    case 'danger':
-      icon = <XCircleIcon className="w-6 h-6 text-red-400" aria-hidden="true" />;
-      title = 'Something went wrong!';
+    case "danger":
+      icon = (
+        <XCircleIcon className="w-6 h-6 text-red-400" aria-hidden="true" />
+      );
+      title = "Something went wrong!";
       break;
-    case 'info':
-      icon = <InformationCircleIcon className="w-6 h-6 text-blue-400" aria-hidden="true" />;
-      title = 'FYI';
+    case "info":
+      icon = (
+        <InformationCircleIcon
+          className="w-6 h-6 text-blue-400"
+          aria-hidden="true"
+        />
+      );
+      title = "FYI";
       break;
-    case 'success':
-      icon = <CheckCircleIcon className="w-6 h-6 text-green-400" aria-hidden="true" />;
-      title = 'Success!';
+    case "success":
+      icon = (
+        <CheckCircleIcon
+          className="w-6 h-6 text-green-400"
+          aria-hidden="true"
+        />
+      );
+      title = "Success!";
       break;
     default:
       break;
@@ -69,7 +91,9 @@ const Toast = ({ type = 'success', message, close, show }: ToastProps): React.Re
 
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">{title}</p>
-                    <div className="mt-1 text-sm text-gray-500 break-words">{message}</div>
+                    <div className="mt-1 text-sm text-gray-500 break-words">
+                      {message}
+                    </div>
                   </div>
 
                   <div className="flex flex-shrink-0 ml-4">

@@ -36,7 +36,10 @@ export async function GET(): Promise<Response> {
     }
 
     const [year, w] = weekPointer.split("-") as [string, string];
-    const followingWeek = dayjs().set("y", Number(year)).isoWeek(Number(w)).add(1, "week");
+    const followingWeek = dayjs()
+      .set("y", Number(year))
+      .isoWeek(Number(w))
+      .add(1, "week");
     const followingW = followingWeek.isoWeek();
     const followingY = followingWeek.year();
 

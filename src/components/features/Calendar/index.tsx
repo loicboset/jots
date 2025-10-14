@@ -9,7 +9,7 @@ import { useJournalEntriesDates } from "@/services/journal_entries";
 import useCalendarStore from "@/stores/useCalendarStore";
 
 import "react-day-picker/style.css";
-import './index.css';
+import "./index.css";
 
 const Calendar = (): JSX.Element => {
   // STORE
@@ -18,10 +18,15 @@ const Calendar = (): JSX.Element => {
 
   // CONTEXT
   const { calendar, setCalendar } = useCalendarContext();
-  const { user: { userID } } = useUserContext();
+  const {
+    user: { userID },
+  } = useUserContext();
 
   // RQ
-  const { data: entries = [] } = useJournalEntriesDates(userID, dayjs(selectedDate).startOf("month").format("YYYY-MM-DD"));
+  const { data: entries = [] } = useJournalEntriesDates(
+    userID,
+    dayjs(selectedDate).startOf("month").format("YYYY-MM-DD"),
+  );
 
   // EFFECTS
   useEffect(() => {
@@ -33,9 +38,9 @@ const Calendar = (): JSX.Element => {
   // METHODS
   const handleSetSelected = (selectedDate?: Date): void => {
     if (!selectedDate) return;
-    setSelectedDate(selectedDate)
+    setSelectedDate(selectedDate);
 
-    const year = selectedDate.getFullYear()
+    const year = selectedDate.getFullYear();
     const month = selectedDate.getMonth() + 1;
     const day = selectedDate.getDate();
 
@@ -53,10 +58,10 @@ const Calendar = (): JSX.Element => {
       weekStartsOn={1}
       showOutsideDays
       modifiers={{
-        filled: filledDays
+        filled: filledDays,
       }}
       modifiersClassNames={{
-        filled: "filled-day"
+        filled: "filled-day",
       }}
       mode="single"
       selected={selectedDate}

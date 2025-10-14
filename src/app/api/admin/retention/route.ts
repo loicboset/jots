@@ -5,7 +5,7 @@ import getUserEmail from "../../_utils/getUserEmail";
 export async function GET(): Promise<Response> {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_KEY! // service key, bypasses RLS
+    process.env.SUPABASE_SERVICE_KEY!, // service key, bypasses RLS
   );
 
   const allowedUsers = ["loic.boset@gmail.com", "j.zouzou@icloud.com"];
@@ -43,7 +43,10 @@ export async function GET(): Promise<Response> {
 
     if (created < users[userId].first) users[userId].first = created;
 
-    const dayOffset = Math.floor((created.getTime() - users[userId].first.getTime()) / (1000 * 60 * 60 * 24));
+    const dayOffset = Math.floor(
+      (created.getTime() - users[userId].first.getTime()) /
+        (1000 * 60 * 60 * 24),
+    );
     if (!users[userId].days.includes(dayOffset)) {
       users[userId].days.push(dayOffset);
     }
@@ -55,7 +58,9 @@ export async function GET(): Promise<Response> {
 
   // Step 3: calculate retention at each checkpoint
   checkpoints.forEach((d) => {
-    const retained = Object.values(users).filter((u) => u.days.some((day) => day >= d)).length;
+    const retained = Object.values(users).filter((u) =>
+      u.days.some((day) => day >= d),
+    ).length;
     retention[d] = totalUsers > 0 ? retained / totalUsers : 0;
   });
 

@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
-import Toast, { ToastProps } from '@/components/ui/notifications/Alert/Toast';
-
+import Toast, { ToastProps } from "@/components/ui/notifications/Alert/Toast";
 
 export type SetToastProps = {
-  type?: ToastProps['type'];
-  message: ToastProps['message'];
+  type?: ToastProps["type"];
+  message: ToastProps["message"];
   timeOut?: number;
 };
 
@@ -44,7 +43,9 @@ const useToast = (): UseToastReturn => {
     }
   }, [toastProps?.timeOut, show]);
 
-  const toast = toastProps && <Toast {...toastProps} close={clearToast} show={show} />;
+  const toast = toastProps && (
+    <Toast {...toastProps} close={clearToast} show={show} />
+  );
 
   return [toast, setToast, clearToast];
 };

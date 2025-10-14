@@ -6,7 +6,10 @@ import getUserID from "../_utils/getUserID";
 export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
-  const { data } = await supabase.from("user_skills").select("skill, score").gt("score", 0);
+  const { data } = await supabase
+    .from("user_skills")
+    .select("skill, score")
+    .gt("score", 0);
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -25,12 +28,19 @@ export async function PUT(request: Request): Promise<Response> {
   const req = await request.json();
   const { skill, delta } = req as EditUserSkills;
 
-  const { data } = await supabase.from("user_skills").select("score").eq("user_id", userID).eq("skill", skill);
+  const { data } = await supabase
+    .from("user_skills")
+    .select("score")
+    .eq("user_id", userID)
+    .eq("skill", skill);
 
   if (!data || data.length === 0) {
-    const { error: insertError } = await supabase
-      .from("user_skills")
-      .insert({ user_id: userID, skill, score: delta || 0, updated_at: new Date() });
+    const { error: insertError } = await supabase.from("user_skills").insert({
+      user_id: userID,
+      skill,
+      score: delta || 0,
+      updated_at: new Date(),
+    });
 
     if (insertError) {
       return new Response(insertError.message, { status: 500 });

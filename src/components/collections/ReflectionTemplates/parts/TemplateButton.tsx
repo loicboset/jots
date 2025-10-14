@@ -6,20 +6,22 @@ type Props = {
   handleSetTemplate: (template: Template) => void;
 };
 
-const TemplateButton = ({ index, template, handleSetTemplate }: Props): React.ReactElement => {
-  return (
-    <div
-      key={template.label}
-      onClick={(): void => handleSetTemplate(template)}
-      className={`
+const TemplateButton = ({
+  index,
+  template,
+  handleSetTemplate,
+}: Props): React.ReactElement => (
+  <div
+    key={template.label}
+    onClick={(): void => handleSetTemplate(template)}
+    className={`
         border border-gray-300 rounded-xl p-4 hover:bg-gray-700 cursor-pointer
         max-w-max
-        ${index % 2 === 0 ? 'justify-self-start' : 'justify-self-end'}
+        ${index % 2 === 0 ? "justify-self-start" : "justify-self-end"}
       `}
-    >
-      <p className="text-md font-medium">{template.label}</p>
-    </div>
-  );
-};
+  >
+    <p className="text-md font-medium">{template.label}</p>
+  </div>
+);
 
 export default TemplateButton;

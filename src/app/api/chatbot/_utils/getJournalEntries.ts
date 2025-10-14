@@ -11,7 +11,6 @@ const getJournalEntries = async (userID: string): Promise<string> => {
   if (error) throw new Error(`Failed to fetch journal entries: ${error}`);
 
   const result = entries.map((e) => `Journal entry of ${e.date}:\n${lexicalToPlainText(e.content)}`).join("\n\n");
-  console.log(" result", result);
   return result;
 };
 

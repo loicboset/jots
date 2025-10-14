@@ -1,6 +1,6 @@
 import { useUserPushSubscriptions } from "@/services/push_subscriptions";
 
-import { ActivatePushNotification } from "./ActivatePushNotification"
+import { ActivatePushNotification } from "./ActivatePushNotification";
 import UserTimezone from "./UserTimezone";
 import WeeklyPlanner from "./WeeklyPlanner";
 
@@ -20,9 +20,8 @@ const PushNotification = (): React.ReactElement => {
           <UserTimezone />
         </>
       )}
-
     </div>
-  )
-}
+  );
+};
 
 export default PushNotification;

@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { JournalEntry, JournalEntryDate } from "@/types/api/journal_entries";
@@ -11,24 +17,33 @@ type UseJournalEntriesParams = {
 type UseJournalEntriesResponse = {
   journal_entries: JournalEntry[];
   total_count: number;
-}
+};
 
 // GET JOURNAL ENTRY
-const getJournalEntry = async (userID: string, date: Date): Promise<JournalEntry> => {
-  const { data } = await axios.get(`/api/journal_entry?user_id=${userID}&date=${date}`);
+const getJournalEntry = async (
+  userID: string,
+  date: Date,
+): Promise<JournalEntry> => {
+  const { data } = await axios.get(
+    `/api/journal_entry?user_id=${userID}&date=${date}`,
+  );
   return data;
 };
 
-const useJournalEntry = (userID: string, date: Date): UseQueryResult<JournalEntry, Error> => {
-  return useQuery({
+const useJournalEntry = (
+  userID: string,
+  date: Date,
+): UseQueryResult<JournalEntry, Error> =>
+  useQuery({
     queryKey: ["journal_entry", date],
     queryFn: () => getJournalEntry(userID, date),
     gcTime: 0,
   });
-};
 
 // GET JOURNAL ENTRIES
-const getJournalEntries = async (params?: UseJournalEntriesParams): Promise<UseJournalEntriesResponse> => {
+const getJournalEntries = async (
+  params?: UseJournalEntriesParams,
+): Promise<UseJournalEntriesResponse> => {
   let url = `/api/journal_entries`;
   if (params?.limit) url += `?limit=${params.limit}`;
 
@@ -36,17 +51,28 @@ const getJournalEntries = async (params?: UseJournalEntriesParams): Promise<UseJ
   return data;
 };
 
-const useJournalEntries = (params?: UseJournalEntriesParams): UseQueryResult<UseJournalEntriesResponse, Error> => {
-  return useQuery({ queryKey: ["journal_entries"], queryFn: () => getJournalEntries(params) });
-};
+const useJournalEntries = (
+  params?: UseJournalEntriesParams,
+): UseQueryResult<UseJournalEntriesResponse, Error> =>
+  useQuery({
+    queryKey: ["journal_entries"],
+    queryFn: () => getJournalEntries(params),
+  });
 
 // UPSERT JOURNAL ENTRY
-const upsertJournalEntry = async (body: CreateJournalEntry): Promise<JournalEntry> => {
+const upsertJournalEntry = async (
+  body: CreateJournalEntry,
+): Promise<JournalEntry> => {
   const { data } = await axios.put("/api/journal_entry", body);
   return data;
 };
 
-const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJournalEntry, unknown> => {
+const useUpsertJournalEntry = (): UseMutationResult<
+  JournalEntry,
+  Error,
+  CreateJournalEntry,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -54,7 +80,9 @@ const useUpsertJournalEntry = (): UseMutationResult<JournalEntry, Error, CreateJ
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries"] });
-      queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
+      queryClient.invalidateQueries({
+        queryKey: ["journal_entries/month/dates"],
+      });
       queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
       queryClient.invalidateQueries({ queryKey: ["week_entries"] });
     },
@@ -67,7 +95,12 @@ const deleteJournalEntry = async (id: number): Promise<JournalEntry> => {
   return data;
 };
 
-const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number, unknown> => {
+const useDeleteJournalEntry = (): UseMutationResult<
+  JournalEntry,
+  Error,
+  number,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -75,7 +108,9 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["journal_entry"] });
       queryClient.invalidateQueries({ queryKey: ["journal_entries"] });
-      queryClient.invalidateQueries({ queryKey: ["journal_entries/month/dates"] });
+      queryClient.invalidateQueries({
+        queryKey: ["journal_entries/month/dates"],
+      });
       queryClient.invalidateQueries({ queryKey: ["week_streak_count"] });
       queryClient.invalidateQueries({ queryKey: ["week_entries"] });
     },
@@ -83,18 +118,25 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
 };
 
 // GET JOURNAL ENTRIES DATES
-const getJournalEntriesDates = async (userID: string, from?: string): Promise<JournalEntryDate[]> => {
-  const { data } = await axios.get(`/api/journal_entries/month/dates?user_id=${userID}&from=${from}`);
+const getJournalEntriesDates = async (
+  userID: string,
+  from?: string,
+): Promise<JournalEntryDate[]> => {
+  const { data } = await axios.get(
+    `/api/journal_entries/month/dates?user_id=${userID}&from=${from}`,
+  );
   return data;
 };
 
-const useJournalEntriesDates = (userID: string, from?: string): UseQueryResult<JournalEntryDate[], Error> => {
-  return useQuery({
+const useJournalEntriesDates = (
+  userID: string,
+  from?: string,
+): UseQueryResult<JournalEntryDate[], Error> =>
+  useQuery({
     queryKey: ["journal_entries/month/dates", userID, from],
     queryFn: () => getJournalEntriesDates(userID, from),
     enabled: !!from,
   });
-};
 
 // GET WEEK STREAK COUNT
 const getWeekStreakCount = async (): Promise<number> => {
@@ -102,9 +144,11 @@ const getWeekStreakCount = async (): Promise<number> => {
   return data;
 };
 
-const useGetWeekStreakCount = (): UseQueryResult<number, Error> => {
-  return useQuery({ queryKey: ["week_streak_count"], queryFn: () => getWeekStreakCount() });
-};
+const useGetWeekStreakCount = (): UseQueryResult<number, Error> =>
+  useQuery({
+    queryKey: ["week_streak_count"],
+    queryFn: () => getWeekStreakCount(),
+  });
 
 // GET WEEK ENTRIES
 const getWeekEntries = async (): Promise<JournalEntry[]> => {
@@ -112,9 +156,8 @@ const getWeekEntries = async (): Promise<JournalEntry[]> => {
   return data;
 };
 
-const useGetWeekEntries = (): UseQueryResult<JournalEntry[], Error> => {
-  return useQuery({ queryKey: ["week_entries"], queryFn: () => getWeekEntries() });
-};
+const useGetWeekEntries = (): UseQueryResult<JournalEntry[], Error> =>
+  useQuery({ queryKey: ["week_entries"], queryFn: () => getWeekEntries() });
 
 export {
   useJournalEntry,

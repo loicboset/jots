@@ -43,7 +43,10 @@ export class DayTitleNode extends ElementNode {
     dom.addEventListener("click", () => {
       editor.update(() => {
         const collapsibleContainer = this.getLatest().getParentOrThrow();
-        invariant($isDayContainerNode(collapsibleContainer), "Expected parent node to be a CollapsibleContainerNode");
+        invariant(
+          $isDayContainerNode(collapsibleContainer),
+          "Expected parent node to be a CollapsibleContainerNode",
+        );
         collapsibleContainer.toggleOpen();
       });
     });
@@ -57,12 +60,10 @@ export class DayTitleNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      summary: (): DayTitleConversionDetails => {
-        return {
-          conversion: $convertSummaryElement,
-          priority: 1,
-        };
-      },
+      summary: (): DayTitleConversionDetails => ({
+        conversion: $convertSummaryElement,
+        priority: 1,
+      }),
     };
   }
 
@@ -108,6 +109,8 @@ export function $createDayTitleNode(): DayTitleNode {
   return new DayTitleNode();
 }
 
-export function $isDayTitleNode(node: LexicalNode | null | undefined): node is DayTitleNode {
+export function $isDayTitleNode(
+  node: LexicalNode | null | undefined,
+): node is DayTitleNode {
   return node instanceof DayTitleNode;
 }

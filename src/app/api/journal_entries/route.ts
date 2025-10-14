@@ -7,7 +7,10 @@ export async function GET(request: Request): Promise<Response> {
 
   const supabase = await createClient();
 
-  const query = supabase.from("journal_entries").select("*", { count: "exact" }).order("created_at", { ascending: false });
+  const query = supabase
+    .from("journal_entries")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false });
 
   if (limit) query.limit(parseInt(limit));
 
@@ -16,7 +19,10 @@ export async function GET(request: Request): Promise<Response> {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  return new Response(JSON.stringify({journal_entries, total_count: count}), { status: 200, headers });
+  return new Response(JSON.stringify({ journal_entries, total_count: count }), {
+    status: 200,
+    headers,
+  });
 }
 
 export async function PUT(request: Request): Promise<Response> {
@@ -25,7 +31,10 @@ export async function PUT(request: Request): Promise<Response> {
   const req = await request.json();
   const { user_id, content, date } = req as CreateJournalEntry;
 
-  const { data } = await supabase.from("journal_entries").upsert({ user_id, content, date }).select();
+  const { data } = await supabase
+    .from("journal_entries")
+    .upsert({ user_id, content, date })
+    .select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }

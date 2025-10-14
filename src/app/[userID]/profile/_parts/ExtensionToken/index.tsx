@@ -1,5 +1,4 @@
-
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 const ExtensionToken = (): React.ReactElement => {
   // ROUTER
@@ -35,16 +34,16 @@ const ExtensionToken = (): React.ReactElement => {
             cursor: 'pointer',
             fontSize: '16px',
             fontWeight: '600',
-            transition: 'background-color 0.3s ease'
+            transition: 'background-color 0.3s ease',
           }}
-          onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#005f99')}
-          onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#007acc')}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#005f99')}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#007acc')}
         >
           Generate Token
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ExtensionToken;

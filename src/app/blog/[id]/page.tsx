@@ -7,8 +7,8 @@ import getPostData from "@/utils/getPostData/getPostData";
 import styles from "./blog.module.css";
 
 type Props = {
-  params: Promise<{ id: string }>
-}
+  params: Promise<{ id: string }>;
+};
 
 export function generateStaticParams(): { id: string }[] {
   return [
@@ -19,13 +19,13 @@ export function generateStaticParams(): { id: string }[] {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params
+  const { id } = await params;
   const postData = await getPostData(id);
   return { title: postData?.title || "Post" };
 }
 
 const PostPage = async ({ params }: Props): Promise<React.ReactElement> => {
-  const { id } = await params
+  const { id } = await params;
   const postData = await getPostData(id);
 
   if (!postData) return <Spinner size="small" />;
@@ -51,6 +51,6 @@ const PostPage = async ({ params }: Props): Promise<React.ReactElement> => {
       </div>
     </div>
   );
-}
+};
 
 export default PostPage;

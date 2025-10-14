@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-import Alert, { AlertProps } from '@/components/ui/notifications/Alert';
+import Alert, { AlertProps } from "@/components/ui/notifications/Alert";
 
 type UseAlertReturn = [
   alert: React.ReactElement | null | undefined,
@@ -15,7 +15,9 @@ type UseAlertReturn = [
  */
 
 const useAlert = (initialAlertProps?: AlertProps): UseAlertReturn => {
-  const [alertProps, setAlertProps] = useState<AlertProps | null>(initialAlertProps ?? null);
+  const [alertProps, setAlertProps] = useState<AlertProps | null>(
+    initialAlertProps ?? null,
+  );
 
   const setAlert = useCallback((newAlertProps: AlertProps) => {
     setAlertProps(newAlertProps);

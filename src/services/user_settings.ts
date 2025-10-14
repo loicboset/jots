@@ -1,8 +1,17 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { UserSettings } from "@/types/api/user_settings";
-import { UpsertUserSettings, EditUserTimezone } from "@/types/payload/user_settings";
+import {
+  UpsertUserSettings,
+  EditUserTimezone,
+} from "@/types/payload/user_settings";
 
 // GET USER SETTINGS
 const getUserSettings = async (): Promise<UserSettings> => {
@@ -10,9 +19,8 @@ const getUserSettings = async (): Promise<UserSettings> => {
   return data;
 };
 
-const useUserSettings = (): UseQueryResult<UserSettings, Error> => {
-  return useQuery({ queryKey: ["user_settings"], queryFn: () => getUserSettings() });
-};
+const useUserSettings = (): UseQueryResult<UserSettings, Error> =>
+  useQuery({ queryKey: ["user_settings"], queryFn: () => getUserSettings() });
 
 // UPSERT USER SETTINGS
 const upsertUserSettings = async (body: UpsertUserSettings): Promise<void> => {
@@ -20,7 +28,12 @@ const upsertUserSettings = async (body: UpsertUserSettings): Promise<void> => {
   return data;
 };
 
-const useUpsertUserSettings = (): UseMutationResult<void, Error, UpsertUserSettings, unknown> => {
+const useUpsertUserSettings = (): UseMutationResult<
+  void,
+  Error,
+  UpsertUserSettings,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -37,7 +50,12 @@ const editTimezone = async (body: EditUserTimezone): Promise<void> => {
   return data;
 };
 
-const useEditTimezone = (): UseMutationResult<void, Error, EditUserTimezone, unknown> => {
+const useEditTimezone = (): UseMutationResult<
+  void,
+  Error,
+  EditUserTimezone,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -50,13 +68,21 @@ const useEditTimezone = (): UseMutationResult<void, Error, EditUserTimezone, unk
 
 // TOGGLE PUSH NOTIFICATIONS
 const togglePushNotification = async (isActive: boolean): Promise<void> => {
-  const { data } = await axios.patch("/api/user_settings/toggle_push_notifications", {
-    is_push_notifications_active: isActive,
-  });
+  const { data } = await axios.patch(
+    "/api/user_settings/toggle_push_notifications",
+    {
+      is_push_notifications_active: isActive,
+    },
+  );
   return data;
 };
 
-const useTogglePushNotification = (): UseMutationResult<void, Error, boolean, unknown> => {
+const useTogglePushNotification = (): UseMutationResult<
+  void,
+  Error,
+  boolean,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -67,4 +93,9 @@ const useTogglePushNotification = (): UseMutationResult<void, Error, boolean, un
   });
 };
 
-export { useUserSettings, useUpsertUserSettings, useTogglePushNotification, useEditTimezone };
+export {
+  useUserSettings,
+  useUpsertUserSettings,
+  useTogglePushNotification,
+  useEditTimezone,
+};

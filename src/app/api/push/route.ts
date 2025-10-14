@@ -2,7 +2,7 @@ import webPush from "web-push";
 
 import { UserPushSubscription } from "@/types/api/push_subscriptions";
 
- export async function POST(request: Request): Promise<Response> {
+export async function POST(request: Request): Promise<Response> {
   webPush.setVapidDetails(
     process.env.ENV_URL as string,
     process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string,
@@ -20,7 +20,7 @@ import { UserPushSubscription } from "@/types/api/push_subscriptions";
     });
 
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append("Content-Type", "application/json");
 
     const { endpoint, auth, p256dh } = subscription as UserPushSubscription;
 
@@ -37,9 +37,11 @@ import { UserPushSubscription } from "@/types/api/push_subscriptions";
       );
       return new Response("success", { status: 200, headers });
     } catch (error) {
-      return Response.json(`Error sending notification: ${error}`, { status: 500 });
+      return Response.json(`Error sending notification: ${error}`, {
+        status: 500,
+      });
     }
   } else {
     return Response.json("Method not allowed", { status: 405 });
   }
- }
+}

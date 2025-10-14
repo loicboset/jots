@@ -19,7 +19,9 @@ export async function GET(request: Request): Promise<Response | undefined> {
       .eq("user_id", userID);
     if (error) {
       console.log(" error", error);
-      return new Response(`Error fetching push subscriptions: ${error}`, { status: 500 });
+      return new Response(`Error fetching push subscriptions: ${error}`, {
+        status: 500,
+      });
     }
     if (!push_subscriptions || push_subscriptions.length === 0) {
       return new Response("No push subscriptions found", { status: 500 });
@@ -35,11 +37,13 @@ export async function GET(request: Request): Promise<Response | undefined> {
               p256dh: subscription.p256dh,
             },
           },
-        })
-      )
+        }),
+      ),
     );
 
-    return new Response("Push notifications sent successfully", { status: 200 });
+    return new Response("Push notifications sent successfully", {
+      status: 200,
+    });
   } catch (error) {
     console.log(" error", error);
     return new Response("Error sending push notifications", { status: 500 });

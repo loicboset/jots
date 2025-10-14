@@ -18,7 +18,11 @@ export async function POST(request: Request): Promise<Response> {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const { data: existingDigest } = await supabase.from("digests").select("id").eq("date", date).single();
+  const { data: existingDigest } = await supabase
+    .from("digests")
+    .select("id")
+    .eq("date", date)
+    .single();
 
   if (existingDigest) {
     return new Response("Digest already exists", { status: 409 });
@@ -34,7 +38,9 @@ export async function POST(request: Request): Promise<Response> {
     .order("date", { ascending: false });
 
   if (last_week_entries && last_week_entries.length < 2) {
-    return new Response("Not enough entries to generate digest", { status: 200 });
+    return new Response("Not enough entries to generate digest", {
+      status: 200,
+    });
   }
 
   const { data: settings } = await supabase
@@ -50,13 +56,19 @@ export async function POST(request: Request): Promise<Response> {
     formattedEntries.push({ date: entry.date, content });
   });
 
-  const digest = await generateDigest({ entries: formattedEntries, settings, userID: data.user.id });
+  const digest = await generateDigest({
+    entries: formattedEntries,
+    settings,
+    userID: data.user.id,
+  });
 
   if (!digest) {
     return new Response("Error generating digest", { status: 500 });
   }
 
-  await supabase.from("digests").insert({ date, content: digest, type: "week", user_id: data.user.id });
+  await supabase
+    .from("digests")
+    .insert({ date, content: digest, type: "week", user_id: data.user.id });
 
   return new Response();
 }

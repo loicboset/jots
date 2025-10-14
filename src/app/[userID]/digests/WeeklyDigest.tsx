@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /* eslint-disable max-len */
 import { useRef, useState } from "react";
@@ -12,7 +12,7 @@ import { Digest } from "@/types/api/digests";
 
 type Props = {
   digest: Digest;
-}
+};
 
 const WeeklyDigest = ({ digest }: Props): React.ReactElement => {
   // STATE
@@ -45,7 +45,7 @@ const WeeklyDigest = ({ digest }: Props): React.ReactElement => {
       onClick={showMore ? undefined : toggleShowMore}
       className={classNames(
         "rounded-lg bg-gray-800 border-2 border-gray-500 relative",
-        showMore === false && 'cursor-pointer',
+        showMore === false && "cursor-pointer",
       )}
     >
       {showIsNew && (
@@ -62,18 +62,25 @@ const WeeklyDigest = ({ digest }: Props): React.ReactElement => {
         ) : (
           <ChevronRightIcon className="h-5" />
         )}
-        <h2 className="text-lg font-medium leading-6 text-gray-50 group-hover:font-bold">Weekly Digest of {date}</h2>
+        <h2 className="text-lg font-medium leading-6 text-gray-50 group-hover:font-bold">
+          Weekly Digest of {date}
+        </h2>
       </div>
 
       <div
         style={{ height }}
         className="transition-all duration-300 ease-in-out overflow-hidden"
       >
-        <div ref={contentRef} className="px-4 py-6 text-gray-100 whitespace-pre-line overflow-scroll">
+        <div
+          ref={contentRef}
+          className="px-4 py-6 text-gray-100 whitespace-pre-line overflow-scroll"
+        >
           {digest.content}
         </div>
       </div>
-      {!showMore && <div className="absolute bottom-0 bg-linear-to-b from-gray-800/0 to-gray-800 w-full h-20" />}
+      {!showMore && (
+        <div className="absolute bottom-0 bg-linear-to-b from-gray-800/0 to-gray-800 w-full h-20" />
+      )}
     </div>
   );
 };

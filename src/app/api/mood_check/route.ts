@@ -27,7 +27,10 @@ export async function PUT(request: Request): Promise<Response> {
 
   const req = await request.json();
   const { user_id, score } = req as UpsertMoodCheck;
-  const { data } = await supabase.from("mood_checks").upsert({ user_id, score }).select();
+  const { data } = await supabase
+    .from("mood_checks")
+    .upsert({ user_id, score })
+    .select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }

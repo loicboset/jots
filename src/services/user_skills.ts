@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { UserSkill } from "@/types/api/user_skills";
@@ -10,9 +16,8 @@ const getUserSkills = async (): Promise<UserSkill[]> => {
   return data;
 };
 
-const useUserSkills = (): UseQueryResult<UserSkill[], Error> => {
-  return useQuery({ queryKey: ["user_skills"], queryFn: () => getUserSkills() });
-};
+const useUserSkills = (): UseQueryResult<UserSkill[], Error> =>
+  useQuery({ queryKey: ["user_skills"], queryFn: () => getUserSkills() });
 
 // UPSERT USER SKILLS
 const editUserSkills = async (body: EditUserSkills): Promise<void> => {
@@ -20,7 +25,12 @@ const editUserSkills = async (body: EditUserSkills): Promise<void> => {
   return data;
 };
 
-const useEditUserSkills = (): UseMutationResult<void, Error, EditUserSkills, unknown> => {
+const useEditUserSkills = (): UseMutationResult<
+  void,
+  Error,
+  EditUserSkills,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({

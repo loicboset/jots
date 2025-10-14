@@ -28,7 +28,9 @@ type ContainerConversionDetails = {
   priority: 0 | 1 | 2 | 3 | 4 | undefined;
 };
 
-export function $convertDetailsElement(domNode: HTMLDetailsElement): DOMConversionOutput | null {
+export function $convertDetailsElement(
+  domNode: HTMLDetailsElement,
+): DOMConversionOutput | null {
   const isOpen = domNode.open !== undefined ? domNode.open : true;
   const name = domNode.name;
   const color = domNode.getAttribute("color") || "";
@@ -55,7 +57,12 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   static clone(node: CollapsibleContainerNode): CollapsibleContainerNode {
-    return new CollapsibleContainerNode(node.__open, node.__name, node.__color, node.__key);
+    return new CollapsibleContainerNode(
+      node.__open,
+      node.__name,
+      node.__color,
+      node.__key,
+    );
   }
 
   createDOM(): HTMLElement {
@@ -75,7 +82,10 @@ export class CollapsibleContainerNode extends ElementNode {
       // details is not well supported in Chrome #5582
       if (IS_CHROME) {
         const contentDom = dom.children[1];
-        invariant(isHTMLElement(contentDom), "Expected contentDom to be an HTMLElement");
+        invariant(
+          isHTMLElement(contentDom),
+          "Expected contentDom to be an HTMLElement",
+        );
         if (currentOpen) {
           dom.setAttribute("open", "");
           contentDom.hidden = false;
@@ -93,18 +103,20 @@ export class CollapsibleContainerNode extends ElementNode {
 
   static importDOM(): DOMConversionMap<HTMLDetailsElement> | null {
     return {
-      details: (): ContainerConversionDetails => {
-        return {
-          conversion: $convertDetailsElement,
-          priority: 1,
-        };
-      },
+      details: (): ContainerConversionDetails => ({
+        conversion: $convertDetailsElement,
+        priority: 1,
+      }),
     };
   }
 
-  static importJSON(serializedNode: SerializedCollapsibleContainerNode): CollapsibleContainerNode {
+  static importJSON(
+    serializedNode: SerializedCollapsibleContainerNode,
+  ): CollapsibleContainerNode {
     const { name, color } = serializedNode;
-    return $createCollapsibleContainerNode(true, name, color).updateFromJSON(serializedNode);
+    return $createCollapsibleContainerNode(true, name, color).updateFromJSON(
+      serializedNode,
+    );
   }
 
   exportDOM(): DOMExportOutput {
@@ -152,11 +164,13 @@ export class CollapsibleContainerNode extends ElementNode {
 export function $createCollapsibleContainerNode(
   isOpen: boolean,
   name: string,
-  color: string
+  color: string,
 ): CollapsibleContainerNode {
   return new CollapsibleContainerNode(isOpen, name, color);
 }
 
-export function $isCollapsibleContainerNode(node: LexicalNode | null | undefined): node is CollapsibleContainerNode {
+export function $isCollapsibleContainerNode(
+  node: LexicalNode | null | undefined,
+): node is CollapsibleContainerNode {
   return node instanceof CollapsibleContainerNode;
 }

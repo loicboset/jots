@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import  { type JSX, type RefObject, useRef } from 'react';
+import { type JSX, type RefObject, useRef } from "react";
 
-import { DraggableBlockPlugin_EXPERIMENTAL } from '@lexical/react/LexicalDraggableBlockPlugin';
+import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 
-import './index.css';
+import "./index.css";
 
-const DRAGGABLE_BLOCK_MENU_CLASSNAME = 'draggable-block-menu';
+const DRAGGABLE_BLOCK_MENU_CLASSNAME = "draggable-block-menu";
 
 function isOnMenu(element: HTMLElement): boolean {
   return !!element.closest(`.${DRAGGABLE_BLOCK_MENU_CLASSNAME}`);

@@ -5,14 +5,14 @@ import {
   ElementNode,
   LexicalNode,
   SerializedElementNode,
-} from 'lexical';
+} from "lexical";
 
 type SerializedDayContentNode = SerializedElementNode;
 
 type DayContentConversionDetails = {
-  conversion: (domNode: HTMLElement) => DOMConversionOutput | null
-  priority: 0 | 1 | 2 | 3 | 4 | undefined
-}
+  conversion: (domNode: HTMLElement) => DOMConversionOutput | null;
+  priority: 0 | 1 | 2 | 3 | 4 | undefined;
+};
 
 export function $convertDayContentElement(): DOMConversionOutput | null {
   const node = $createDayContentNode();
@@ -23,7 +23,7 @@ export function $convertDayContentElement(): DOMConversionOutput | null {
 
 export class DayContentNode extends ElementNode {
   static getType(): string {
-    return 'day-content';
+    return "day-content";
   }
 
   static clone(node: DayContentNode): DayContentNode {
@@ -31,7 +31,7 @@ export class DayContentNode extends ElementNode {
   }
 
   createDOM(): HTMLElement {
-    const dom = document.createElement('div');
+    const dom = document.createElement("div");
     return dom;
   }
 
@@ -41,8 +41,8 @@ export class DayContentNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      div: (domNode: HTMLElement): DayContentConversionDetails | null  => {
-        if (!domNode.hasAttribute('data-lexical-collapsible-content')) {
+      div: (domNode: HTMLElement): DayContentConversionDetails | null => {
+        if (!domNode.hasAttribute("data-lexical-collapsible-content")) {
           return null;
         }
         return {
@@ -54,7 +54,7 @@ export class DayContentNode extends ElementNode {
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement('div');
+    const element = document.createElement("div");
     return { element };
   }
 
@@ -71,6 +71,8 @@ export function $createDayContentNode(): DayContentNode {
   return new DayContentNode();
 }
 
-export function $isDayContentNode(node: LexicalNode | null | undefined): node is DayContentNode {
+export function $isDayContentNode(
+  node: LexicalNode | null | undefined,
+): node is DayContentNode {
   return node instanceof DayContentNode;
 }

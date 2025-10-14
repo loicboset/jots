@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { UserAchievement } from "@/types/api/user_achievements";
@@ -10,17 +16,26 @@ const getUserAchievements = async (): Promise<UserAchievement[]> => {
   return data;
 };
 
-const useUserAchievements = (): UseQueryResult<UserAchievement[], Error> => {
-  return useQuery({ queryKey: ["user_achievements"], queryFn: () => getUserAchievements() });
-};
+const useUserAchievements = (): UseQueryResult<UserAchievement[], Error> =>
+  useQuery({
+    queryKey: ["user_achievements"],
+    queryFn: () => getUserAchievements(),
+  });
 
 // UPSERT USER_ACHIEVEMENT
-const upsertUserAchievement = async (body: UpsertUserAchievement): Promise<UserAchievement> => {
+const upsertUserAchievement = async (
+  body: UpsertUserAchievement,
+): Promise<UserAchievement> => {
   const { data } = await axios.put("/api/user_achievement", body);
   return data;
 };
 
-const useUpsertUserAchievement = (): UseMutationResult<UserAchievement, Error, UpsertUserAchievement, unknown> => {
+const useUpsertUserAchievement = (): UseMutationResult<
+  UserAchievement,
+  Error,
+  UpsertUserAchievement,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({

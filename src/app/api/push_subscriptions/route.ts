@@ -18,7 +18,8 @@ export async function PUT(request: Request): Promise<Response> {
 
   const req = await request.json();
 
-  const { user_id, endpoint, auth, p256dh, browser, os } = req as UpsertPushSubscriptionPayload;
+  const { user_id, endpoint, auth, p256dh, browser, os } =
+    req as UpsertPushSubscriptionPayload;
   const { data, error } = await supabase
     .from("push_subscriptions")
     .upsert({ user_id, endpoint, auth, p256dh, browser, os })

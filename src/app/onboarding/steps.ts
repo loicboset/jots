@@ -11,7 +11,8 @@ const steps = new Map<number, Step>([
   [
     1,
     {
-      title: "What best describe your current role (or the one you want to get)?",
+      title:
+        "What best describe your current role (or the one you want to get)?",
       input: {
         name: "role",
         type: "select",

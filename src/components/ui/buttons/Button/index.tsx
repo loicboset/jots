@@ -3,9 +3,8 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 
-import styles from './Button.module.css';
+import styles from "./Button.module.css";
 import Spinner from "../../loaders/Spinner";
-
 
 type Props = {
   children: ReactNode;
@@ -14,12 +13,21 @@ type Props = {
   isLoading?: boolean;
   isDisabled?: boolean;
   color?: "white" | "indigo";
-  href?: string
+  href?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = (props: Props): React.ReactElement => {
   // PROPS
-  const { children, size = "md", className, isLoading, isDisabled, color = 'indigo', href, ...rest } = props;
+  const {
+    children,
+    size = "md",
+    className,
+    isLoading,
+    isDisabled,
+    color = "indigo",
+    href,
+    ...rest
+  } = props;
 
   // VARS
   const baseStyles = `
@@ -36,15 +44,17 @@ const Button = (props: Props): React.ReactElement => {
   };
 
   const colors = {
-    white: "text-black bg-white hover:bg-gray-400 focus-visible:outline-gray-500",
-    indigo: "text-white bg-indigo-500 hover:bg-indigo-400 focus-visible:outline-indigo-500",
-  }
+    white:
+      "text-black bg-white hover:bg-gray-400 focus-visible:outline-gray-500",
+    indigo:
+      "text-white bg-indigo-500 hover:bg-indigo-400 focus-visible:outline-indigo-500",
+  };
 
   const buttonStyle = classNames(
     baseStyles,
     sizes[size],
-    isDisabled && styles['button--disabled'],
-    isLoading && styles['button--loading'],
+    isDisabled && styles["button--disabled"],
+    isLoading && styles["button--loading"],
     colors[color],
     className,
   );
@@ -55,13 +65,10 @@ const Button = (props: Props): React.ReactElement => {
 
   if (href) {
     return (
-      <Link
-        href={href}
-        className={buttonStyle}
-      >
+      <Link href={href} className={buttonStyle}>
         {children}
       </Link>
-    )
+    );
   }
 
   return (
@@ -75,6 +82,6 @@ const Button = (props: Props): React.ReactElement => {
       {isLoading && loadingMarkup}
     </button>
   );
-}
+};
 
 export default Button;

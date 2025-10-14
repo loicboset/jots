@@ -3,7 +3,7 @@ import webPush from "web-push";
 webPush.setVapidDetails(
   process.env.ENV_URL as string,
   process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string,
-  process.env.VAPID_PRIVATE_KEY as string
+  process.env.VAPID_PRIVATE_KEY as string,
 );
 
 type Args = {

@@ -1,11 +1,13 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JournalEntry } from "@/types/api/journal_entries";
 
 type ContentNode = {
   root: any;
 };
 
-export const countUncheckedListItems = (data: JournalEntry[] | undefined): number | undefined => {
+export const countUncheckedListItems = (
+  data: JournalEntry[] | undefined,
+): number | undefined => {
   if (!data) return undefined;
 
   let count = 0;
@@ -23,7 +25,8 @@ export const countUncheckedListItems = (data: JournalEntry[] | undefined): numbe
   };
 
   // Type guard to check if content is an object with root
-  const isContentNode = (content: unknown): content is ContentNode => typeof content === "object" && content !== null && "root" in content;
+  const isContentNode = (content: unknown): content is ContentNode =>
+    typeof content === "object" && content !== null && "root" in content;
 
   data.forEach((entry) => {
     const content = entry.content;
@@ -34,5 +37,3 @@ export const countUncheckedListItems = (data: JournalEntry[] | undefined): numbe
 
   return count;
 };
-
-

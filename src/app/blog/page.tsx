@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 
 import Header from "@/components/collections/layouts/Header";
@@ -23,11 +22,12 @@ const Blog = async (): Promise<React.ReactElement> => {
             </p>
             <div className="pt-10 mt-10 space-y-16 border-t border-gray-200 sm:mt-16 sm:pt-16">
               {posts.map((post) => (
-                <article key={post.id} className="flex flex-col items-start justify-between max-w-xl">
+                <article
+                  key={post.id}
+                  className="flex flex-col items-start justify-between max-w-xl"
+                >
                   <div className="flex items-center text-xs gap-x-4">
-                    <time dateTime={post.date}>
-                      {post.date}
-                    </time>
+                    <time dateTime={post.date}>{post.date}</time>
                   </div>
                   <div className="relative group">
                     <h3 className="mt-3 text-lg font-semibold leading-6 group-hover:text-gray-300">
@@ -47,9 +47,7 @@ const Blog = async (): Promise<React.ReactElement> => {
         </div>
       </div>
     </div>
-  )
+  );
 };
-
-
 
 export default Blog;

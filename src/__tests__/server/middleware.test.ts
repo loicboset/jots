@@ -1,14 +1,14 @@
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
-import { updateSession } from '../../lib/supabase/middleware';
-import { middleware } from '../../middleware';
+import { updateSession } from "../../lib/supabase/middleware";
+import { middleware } from "../../middleware";
 
 // Mock the dependencies
-jest.mock('@/lib/supabase/server', () => ({
+jest.mock("@/lib/supabase/server", () => ({
   createClient: jest.fn(),
 }));
 
-jest.mock('../../lib/supabase/middleware', () => ({
+jest.mock("../../lib/supabase/middleware", () => ({
   updateSession: jest.fn(),
 }));
 
@@ -25,14 +25,14 @@ class MockNextRequest {
 }
 
 // Mock NextResponse
-jest.mock('next/server', () => ({
+jest.mock("next/server", () => ({
   NextResponse: {
     redirect: jest.fn((url: URL) => ({ status: 302, url })),
     json: jest.fn(() => ({ status: 200, body: {} })),
   },
 }));
 
-describe('Middleware', () => {
+describe("Middleware", () => {
   let mockGetUser: jest.Mock;
 
   beforeEach(() => {
@@ -45,23 +45,23 @@ describe('Middleware', () => {
     (updateSession as jest.Mock).mockResolvedValue({ status: 200, body: {} });
   });
 
-  it('should redirect to user dynamic homepage if user is authenticated', async () => {
-    const mockUser = { id: 'user-id' };
+  it("should redirect to user dynamic homepage if user is authenticated", async () => {
+    const mockUser = { id: "user-id" };
     mockGetUser.mockResolvedValue({ data: { user: mockUser } });
 
-    const request = new MockNextRequest('https://example.com/');
+    const request = new MockNextRequest("https://example.com/");
     const response = await middleware(request);
 
     expect(createClient).toHaveBeenCalled();
     expect(mockGetUser).toHaveBeenCalled();
     expect(response.status).toBe(302); // Expect redirect
-    expect(response.url.toString()).toBe('https://example.com/user-id');
+    expect(response.url.toString()).toBe("https://example.com/user-id");
   });
 
-  it('should call updateSession if no user is authenticated', async () => {
+  it("should call updateSession if no user is authenticated", async () => {
     mockGetUser.mockResolvedValue({ data: { user: null } });
 
-    const request = new MockNextRequest('https://example.com/');
+    const request = new MockNextRequest("https://example.com/");
     const response = await middleware(request);
 
     expect(updateSession).toHaveBeenCalledWith(request);
@@ -69,11 +69,11 @@ describe('Middleware', () => {
     expect(response.body).toEqual({});
   });
 
-  it('should not redirect if user is not on the root path', async () => {
-    const mockUser = { id: 'user-id' };
+  it("should not redirect if user is not on the root path", async () => {
+    const mockUser = { id: "user-id" };
     mockGetUser.mockResolvedValue({ data: { user: mockUser } });
 
-    const request = new MockNextRequest('https://example.com/other-path');
+    const request = new MockNextRequest("https://example.com/other-path");
     const response = await middleware(request);
 
     expect(createClient).toHaveBeenCalled();

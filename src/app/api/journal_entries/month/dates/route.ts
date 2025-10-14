@@ -21,5 +21,8 @@ export async function GET(request: Request): Promise<Response> {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  return new Response(JSON.stringify(journal_entries || []), { status: 200, headers });
+  return new Response(JSON.stringify(journal_entries || []), {
+    status: 200,
+    headers,
+  });
 }

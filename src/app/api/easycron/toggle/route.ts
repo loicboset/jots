@@ -16,6 +16,8 @@ export async function PATCH(request: Request): Promise<Response> {
 
     return new Response("success", { status: 200 });
   } catch (error) {
-    return Response.json(`Error sending notification: ${error}`, { status: 500 });
+    return Response.json(`Error sending notification: ${error}`, {
+      status: 500,
+    });
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function extractTextFromLexicalJSON(node: any): string {
   if (!node) return "";
 

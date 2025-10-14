@@ -12,7 +12,10 @@ import { UAParser } from "ua-parser-js";
 
 import { useUserContext } from "@/context/UserProvider";
 import subscribePushNotification from "@/packages/PushNotifications/utils/subscribePushNotification";
-import { useUserPushSubscriptions, useUpsertPushSubscription } from "@/services/push_subscriptions";
+import {
+  useUserPushSubscriptions,
+  useUpsertPushSubscription,
+} from "@/services/push_subscriptions";
 import { UserPushSubscription } from "@/types/api/push_subscriptions";
 import sendTestNotifications from "@/worker/utils/sendTestNotification";
 
@@ -21,7 +24,9 @@ type ReturnUseSWManager = {
   pushSubscription: PushSubscription | null;
   subscribeDevice: () => Promise<void>;
   isSubscribing: boolean;
-  sendTestNotifications: (subscriptions: UserPushSubscription[]) => Promise<void>;
+  sendTestNotifications: (
+    subscriptions: UserPushSubscription[],
+  ) => Promise<void>;
 };
 
 const usePushNotificationsManager = (): ReturnUseSWManager => {
@@ -30,11 +35,13 @@ const usePushNotificationsManager = (): ReturnUseSWManager => {
 
   // STATE
   const [swState, setSwState] = useState<ServiceWorkerState | null>(null);
-  const [pushSubscription, setPushSubscription] = useState<PushSubscription | null>(null);
+  const [pushSubscription, setPushSubscription] =
+    useState<PushSubscription | null>(null);
 
   // RQ
   const { data: userSubscriptions = [] } = useUserPushSubscriptions();
-  const { mutate: createUserSubscription, isPending: isSubscribing } = useUpsertPushSubscription();
+  const { mutate: createUserSubscription, isPending: isSubscribing } =
+    useUpsertPushSubscription();
 
   // METHODS
   const subscribeDevice = useCallback(async (): Promise<void> => {
@@ -82,7 +89,8 @@ const usePushNotificationsManager = (): ReturnUseSWManager => {
           if (sw.waiting) setSwState("installed");
           if (sw.installing) {
             sw.installing.onstatechange = (event): void => {
-              if (event.target) setSwState((event.target as ServiceWorker).state);
+              if (event.target)
+                setSwState((event.target as ServiceWorker).state);
             };
             setSwState("installing");
           }

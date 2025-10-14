@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useContext, createContext, ReactNode } from 'react';
+import { useContext, createContext, ReactNode } from "react";
 
 export type CalendarData = {
   currentDate: Date;
@@ -15,18 +15,21 @@ type Props = {
 };
 
 // context
-const CalendarContext = createContext<Props['value'] | undefined>(undefined);
+const CalendarContext = createContext<Props["value"] | undefined>(undefined);
 
-const CalendarContextProvider = ({ children, value }: Props): React.ReactElement => (
+const CalendarContextProvider = ({
+  children,
+  value,
+}: Props): React.ReactElement => (
   <CalendarContext.Provider value={value}>{children}</CalendarContext.Provider>
 );
 
 // create a hook to use the global context
-const useCalendarContext = (): Props['value'] => {
+const useCalendarContext = (): Props["value"] => {
   const globalUserState = useContext(CalendarContext);
 
   if (globalUserState === undefined) {
-    throw new Error('Context must be used within a Provider');
+    throw new Error("Context must be used within a Provider");
   }
 
   return globalUserState;

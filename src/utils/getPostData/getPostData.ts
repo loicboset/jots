@@ -28,7 +28,9 @@ const getPostData = async (id: string): Promise<BlogPostData> => {
   const matterResult = matter(fileContents, { excerpt: true });
 
   // Use remark to convert markdown into HTML string
-  const processedContent = await remark().use(html).process(matterResult.content);
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
   return {

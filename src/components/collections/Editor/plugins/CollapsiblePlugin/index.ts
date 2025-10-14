@@ -161,6 +161,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
   useEffect(() => {
     if (!editor.hasNodes([CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode])) {
       throw new Error(
+        // eslint-disable-next-line max-len
         "CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor"
       );
     }

@@ -14,10 +14,12 @@ const subscribePushNotification = async (): Promise<PushSubscription> => {
     applicationServerKey: getVapidKey(),
   };
 
-  const subscription = await registration.pushManager.subscribe(subscriptionOptions).catch((error) => {
-    console.error("Error subscribing to push notifications:", error);
-    throw new Error("Failed to subscribe to push notifications");
-  });
+  const subscription = await registration.pushManager
+    .subscribe(subscriptionOptions)
+    .catch((error) => {
+      console.error("Error subscribing to push notifications:", error);
+      throw new Error("Failed to subscribe to push notifications");
+    });
   return subscription;
 };
 

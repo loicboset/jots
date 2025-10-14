@@ -7,8 +7,10 @@ const getUserAiUsage = async (date: string): Promise<number> => {
   return data;
 };
 
-const useUserAiUsage = (date: string): UseQueryResult<number, Error> => {
-  return useQuery({ queryKey: ["user_ai_usage"], queryFn: () => getUserAiUsage(date) });
-};
+const useUserAiUsage = (date: string): UseQueryResult<number, Error> =>
+  useQuery({
+    queryKey: ["user_ai_usage"],
+    queryFn: () => getUserAiUsage(date),
+  });
 
 export { useUserAiUsage };

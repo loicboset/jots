@@ -1,4 +1,9 @@
-import { ElementNode, LexicalNode, NodeKey, SerializedElementNode } from "lexical";
+import {
+  ElementNode,
+  LexicalNode,
+  NodeKey,
+  SerializedElementNode,
+} from "lexical";
 
 type SerializedPromptNode = SerializedElementNode;
 
@@ -38,6 +43,8 @@ export function $createSkilledPromptNode(): SkilledPromptNode {
   return new SkilledPromptNode();
 }
 
-export function $isSkilledPromptNode(node: LexicalNode | null | undefined): node is SkilledPromptNode {
+export function $isSkilledPromptNode(
+  node: LexicalNode | null | undefined,
+): node is SkilledPromptNode {
   return node instanceof SkilledPromptNode;
 }

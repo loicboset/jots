@@ -9,12 +9,11 @@ const getChatbot = async (): Promise<Chatbot> => {
   return data;
 };
 
-const useChatbot = (): UseQueryResult<Chatbot, Error> => {
-  return useQuery({
+const useChatbot = (): UseQueryResult<Chatbot, Error> =>
+  useQuery({
     queryKey: ["chatbot"],
     queryFn: () => getChatbot(),
     gcTime: 0,
   });
-};
 
 export { useChatbot };

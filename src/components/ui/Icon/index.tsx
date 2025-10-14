@@ -1,14 +1,14 @@
-import { memo } from 'react';
+import { memo } from "react";
 
-import ClientSideIcon from './ClientSideIcon';
+import ClientSideIcon from "./ClientSideIcon";
 
 type Props = {
   src: string;
   className?: string;
 };
 
-const Wrapper = (props: Props): React.ReactElement => {
-  return <ClientSideIcon {...props} />;
-};
+const Wrapper = (props: Props): React.ReactElement => (
+  <ClientSideIcon {...props} />
+);
 
 export default memo(Wrapper);

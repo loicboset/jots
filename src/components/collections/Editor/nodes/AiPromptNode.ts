@@ -44,7 +44,10 @@ export class AiPromptNode extends ElementNode {
     return false;
   }
 
-  insertNewAfter(rangeSelection: RangeSelection, restoreSelection: boolean): ParagraphNode {
+  insertNewAfter(
+    rangeSelection: RangeSelection,
+    restoreSelection: boolean,
+  ): ParagraphNode {
     const newElement = $createParagraphNode();
     newElement.setTextFormat(rangeSelection.format);
     newElement.setTextStyle(rangeSelection.style);
@@ -57,7 +60,9 @@ export class AiPromptNode extends ElementNode {
   }
 
   static importJSON(serializedNode: SerializedAiPromptNode): AiPromptNode {
-    return $createAiPromptNode(serializedNode.placeholder).updateFromJSON(serializedNode);
+    return $createAiPromptNode(serializedNode.placeholder).updateFromJSON(
+      serializedNode,
+    );
   }
 
   exportJSON(): SerializedAiPromptNode {
@@ -72,6 +77,8 @@ export function $createAiPromptNode(prompt: string): AiPromptNode {
   return new AiPromptNode(prompt);
 }
 
-export function $isAiPromptNode(node: LexicalNode | null | undefined): node is AiPromptNode {
+export function $isAiPromptNode(
+  node: LexicalNode | null | undefined,
+): node is AiPromptNode {
   return node instanceof AiPromptNode;
 }

@@ -59,7 +59,7 @@ const PromptNodePlugin = (): null => {
       }
 
       return false;
-    }
+    };
 
     const previousPrompt = (event: KeyboardEvent): boolean => {
       const selection = $getSelection();
@@ -76,21 +76,29 @@ const PromptNodePlugin = (): null => {
       }
 
       return false;
-    }
+    };
 
     return mergeRegister(
       editor.registerCommand(
         DELETE_CHARACTER_COMMAND,
         () => replacePromptNode(),
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
 
-      editor.registerCommand(KEY_ARROW_RIGHT_COMMAND, nextPrompt, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ARROW_LEFT_COMMAND, previousPrompt, COMMAND_PRIORITY_LOW),
-    )
-  }, [editor])
+      editor.registerCommand(
+        KEY_ARROW_RIGHT_COMMAND,
+        nextPrompt,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        KEY_ARROW_LEFT_COMMAND,
+        previousPrompt,
+        COMMAND_PRIORITY_LOW,
+      ),
+    );
+  }, [editor]);
 
   return null;
-}
+};
 
 export default PromptNodePlugin;

@@ -14,9 +14,8 @@ const getChurn = async (): Promise<Churn> => {
   return data;
 };
 
-const useChurn = (): UseQueryResult<Churn, AxiosError> => {
-  return useQuery({ queryKey: ["admin/churn"], queryFn: () => getChurn() });
-};
+const useChurn = (): UseQueryResult<Churn, AxiosError> =>
+  useQuery({ queryKey: ["admin/churn"], queryFn: () => getChurn() });
 
 type Retention = {
   totalUsers: number;
@@ -29,8 +28,7 @@ const getRetention = async (): Promise<Retention> => {
   return data;
 };
 
-const useRetention = (): UseQueryResult<Retention, AxiosError> => {
-  return useQuery({ queryKey: ["admin/retention"], queryFn: () => getRetention() });
-};
+const useRetention = (): UseQueryResult<Retention, AxiosError> =>
+  useQuery({ queryKey: ["admin/retention"], queryFn: () => getRetention() });
 
 export { useChurn, useRetention };

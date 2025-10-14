@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { Category } from "@/types/api/categories";
@@ -10,9 +16,8 @@ const getCategories = async (userID: string): Promise<Category[]> => {
   return data;
 };
 
-const useCategories = (userID: string): UseQueryResult<Category[], Error> => {
-  return useQuery({ queryKey: ["categories"], queryFn: () => getCategories(userID) });
-};
+const useCategories = (userID: string): UseQueryResult<Category[], Error> =>
+  useQuery({ queryKey: ["categories"], queryFn: () => getCategories(userID) });
 
 // UPSERT CATEGORY
 const upsertCategory = async (body: UpsertCategory): Promise<void> => {
@@ -20,7 +25,12 @@ const upsertCategory = async (body: UpsertCategory): Promise<void> => {
   return data;
 };
 
-const useUpsertCategory = (): UseMutationResult<void, Error, UpsertCategory, unknown> => {
+const useUpsertCategory = (): UseMutationResult<
+  void,
+  Error,
+  UpsertCategory,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -37,7 +47,12 @@ const deleteCategory = async (id: number): Promise<void> => {
   return data;
 };
 
-const useDeleteCategory = (): UseMutationResult<void, Error, number, unknown> => {
+const useDeleteCategory = (): UseMutationResult<
+  void,
+  Error,
+  number,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({

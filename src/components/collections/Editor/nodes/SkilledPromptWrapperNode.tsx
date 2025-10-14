@@ -37,22 +37,22 @@ export class SkilledPromptWrapperNode extends ElementNode {
   createDOM(): HTMLElement {
     const wrapper = document.createElement("div");
     wrapper.className = "skilled-prompt-node border rounded flex flex-col my-2";
-    wrapper.dataset['skill'] = this.__skill;
+    wrapper.dataset["skill"] = this.__skill;
 
     const header = document.createElement("div");
-    header.className = "header flex justify-between items-center border-b p-2 select-none";
+    header.className =
+      "header flex justify-between items-center border-b p-2 select-none";
 
-    const prompt = document.createElement('span');
-    prompt.className = 'font-medium'
+    const prompt = document.createElement("span");
+    prompt.className = "font-medium";
     prompt.textContent = this.__text;
 
-    const skill = document.createElement('span');
+    const skill = document.createElement("span");
     skill.className = "text-gray-100 text-xs";
     skill.textContent = `+1 ${this.__skill}`;
 
     header.appendChild(prompt);
     header.appendChild(skill);
-
 
     const content = document.createElement("div");
     content.className = "content-container";
@@ -68,7 +68,7 @@ export class SkilledPromptWrapperNode extends ElementNode {
     let hasText = false;
     children.forEach((child) => {
       if ($isSkilledPromptNode(child)) {
-        hasText = child.getTextContent().trim() !== '';
+        hasText = child.getTextContent().trim() !== "";
       }
     });
 
@@ -89,16 +89,25 @@ export class SkilledPromptWrapperNode extends ElementNode {
     };
   }
 
-  static importJSON(serializedNode: SerializedSkilledPromptNode): SkilledPromptWrapperNode {
-    return new SkilledPromptWrapperNode(serializedNode.text, serializedNode.skill);
+  static importJSON(
+    serializedNode: SerializedSkilledPromptNode,
+  ): SkilledPromptWrapperNode {
+    return new SkilledPromptWrapperNode(
+      serializedNode.text,
+      serializedNode.skill,
+    );
   }
 }
 
-export function $createSkilledPromptWrapperNode(text: string, skill: string): SkilledPromptWrapperNode {
+export function $createSkilledPromptWrapperNode(
+  text: string,
+  skill: string,
+): SkilledPromptWrapperNode {
   return new SkilledPromptWrapperNode(text, skill);
 }
 
-export function $isSkilledPromptWrapperNode(node: LexicalNode | null | undefined): node is SkilledPromptWrapperNode {
+export function $isSkilledPromptWrapperNode(
+  node: LexicalNode | null | undefined,
+): node is SkilledPromptWrapperNode {
   return node instanceof SkilledPromptWrapperNode;
 }
-

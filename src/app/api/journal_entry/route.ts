@@ -23,12 +23,15 @@ export async function GET(request: Request): Promise<Response> {
 }
 
 export async function PUT(request: Request): Promise<Response> {
-  const authHeader = request.headers.get('Authorization');
+  const authHeader = request.headers.get("Authorization");
   const supabase = await createClient(authHeader);
 
   const req = await request.json();
   const { user_id, content, date } = req as CreateJournalEntry;
-  const { data, error } = await supabase.from("journal_entries").upsert({ user_id, content, date }).select();
+  const { data, error } = await supabase
+    .from("journal_entries")
+    .upsert({ user_id, content, date })
+    .select();
 
   if (error) {
     return new Response("Error creating journal entry", { status: 500 });

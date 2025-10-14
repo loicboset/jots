@@ -48,7 +48,10 @@ export class DayContainerNode extends ElementNode {
     if (prevNode.__open !== currentOpen) {
       // details is not well supported in Chrome #5582
       const contentDom = dom.children[1];
-      invariant(isHTMLElement(contentDom), "Expected contentDom to be an HTMLElement");
+      invariant(
+        isHTMLElement(contentDom),
+        "Expected contentDom to be an HTMLElement",
+      );
       if (currentOpen) {
         dom.setAttribute("open", "");
         contentDom.hidden = false;
@@ -61,8 +64,12 @@ export class DayContainerNode extends ElementNode {
     return false;
   }
 
-  static importJSON(serializedNode: SerializedDayContainerNode): DayContainerNode {
-    return $createDayContainerNode(true, serializedNode.date).updateFromJSON(serializedNode);
+  static importJSON(
+    serializedNode: SerializedDayContainerNode,
+  ): DayContainerNode {
+    return $createDayContainerNode(true, serializedNode.date).updateFromJSON(
+      serializedNode,
+    );
   }
 
   exportDOM(): DOMExportOutput {
@@ -96,10 +103,15 @@ export class DayContainerNode extends ElementNode {
   }
 }
 
-export function $createDayContainerNode(isOpen: boolean, date: string): DayContainerNode {
+export function $createDayContainerNode(
+  isOpen: boolean,
+  date: string,
+): DayContainerNode {
   return new DayContainerNode(isOpen, date);
 }
 
-export function $isDayContainerNode(node: LexicalNode | null | undefined): node is DayContainerNode {
+export function $isDayContainerNode(
+  node: LexicalNode | null | undefined,
+): node is DayContainerNode {
   return node instanceof DayContainerNode;
 }

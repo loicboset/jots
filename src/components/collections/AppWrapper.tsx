@@ -1,9 +1,9 @@
 import { CodeHighlightNode, CodeNode } from "@lexical/code";
-import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { ListNode, ListItemNode } from '@lexical/list';
+import { AutoLinkNode, LinkNode } from "@lexical/link";
+import { ListNode, ListItemNode } from "@lexical/list";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
+import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 
 import { useCalendarContext } from "@/context/CalendarContextProvider";
 import { useJournalEntry } from "@/services/journal_entries";
@@ -30,38 +30,40 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   const { calendar } = useCalendarContext();
 
   // RQ
-  const { data: entry, isLoading } = useJournalEntry(userID, calendar.currentDate);
+  const { data: entry, isLoading } = useJournalEntry(
+    userID,
+    calendar.currentDate,
+  );
 
-  if (isLoading) return <>Loading...</>
-
+  if (isLoading) return <>Loading...</>;
 
   // METHODS
   const onError = (error: Error): void => {
     console.error(error);
-  }
+  };
 
   // VARS
   const initialConfig = {
     editorState: entry?.content ? JSON.stringify(entry?.content) : undefined,
-    namespace: 'MyEditor',
+    namespace: "MyEditor",
     theme: {
-      link: 'editor_link',
+      link: "editor_link",
       list: {
-        checklist: 'editor_checklist',
-        listitem: 'editor_listItem',
-        listitemChecked: 'editor_listItemChecked',
-        listitemUnchecked: 'editor_listItemUnchecked',
+        checklist: "editor_checklist",
+        listitem: "editor_listItem",
+        listitemChecked: "editor_listItemChecked",
+        listitemUnchecked: "editor_listItemUnchecked",
         nested: {
-          listitem: 'editor_nestedListItem',
+          listitem: "editor_nestedListItem",
         },
         olDepth: [
-          'editor_ol1',
-          'editor_ol2',
-          'editor_ol3',
-          'editor_ol4',
-          'editor_ol5',
+          "editor_ol1",
+          "editor_ol2",
+          "editor_ol3",
+          "editor_ol4",
+          "editor_ol5",
         ],
-        ul: 'editor_ul',
+        ul: "editor_ul",
       },
     },
     nodes: [
@@ -90,13 +92,8 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   };
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      {children}
-    </LexicalComposer >
-
+    <LexicalComposer initialConfig={initialConfig}>{children}</LexicalComposer>
   );
 };
 
 export default AppWrapper;
-
-

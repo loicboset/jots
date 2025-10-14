@@ -2,7 +2,10 @@ import { createClient } from "@/lib/supabase/server";
 
 import lexicalToPlainText from "../../_utils/lexicalToPlainText";
 
-const getJournalEntries = async (userID: string, limit: number): Promise<string | null> => {
+const getJournalEntries = async (
+  userID: string,
+  limit: number,
+): Promise<string | null> => {
   const supabase = await createClient();
 
   const { data: entries = [] } = await supabase
@@ -14,7 +17,9 @@ const getJournalEntries = async (userID: string, limit: number): Promise<string 
 
   if (!entries || entries.length === 0) return null;
 
-  const result = entries.map((e) => `\n${lexicalToPlainText(e.content)}`).join("\n\n");
+  const result = entries
+    .map((e) => `\n${lexicalToPlainText(e.content)}`)
+    .join("\n\n");
 
   return result;
 };

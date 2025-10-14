@@ -1,12 +1,10 @@
-
 import { Cpu } from "lucide-react";
 
 import { useUserSettings } from "@/services/user_settings";
 
-
 const AiPathIndicator = (): React.ReactElement => {
   // HOOKS
-  const { data: settings } = useUserSettings()
+  const { data: settings } = useUserSettings();
 
   if (settings?.goal === "Learn AI skills") {
     return (
@@ -17,9 +15,9 @@ const AiPathIndicator = (): React.ReactElement => {
         </div>
         <span className="text-sm font-medium">AI learning path active</span>
       </div>
-    )
+    );
   }
-  return <></>
+  return <></>;
 };
 
 export default AiPathIndicator;

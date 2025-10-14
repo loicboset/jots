@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { MoodCheck } from "@/types/api/mood_checks";
@@ -10,24 +16,33 @@ const getMoodCheck = async (userID: string): Promise<MoodCheck> => {
   return data;
 };
 
-const useMoodCheck = (userID: string): UseQueryResult<MoodCheck, Error> => {
-  return useQuery({
+const useMoodCheck = (userID: string): UseQueryResult<MoodCheck, Error> =>
+  useQuery({
     queryKey: ["mood_check"],
     queryFn: () => getMoodCheck(userID),
   });
-};
 
 // GET MOOD_CHECKS
-const getMoodChecks = async (userID: string, limit?: number): Promise<MoodCheck[]> => {
+const getMoodChecks = async (
+  userID: string,
+  limit?: number,
+): Promise<MoodCheck[]> => {
   const queryParams = new URLSearchParams({ user_id: userID });
-  if (limit) queryParams.append('limit', limit.toString());
-  const { data } = await axios.get(`/api/mood_checks?${queryParams.toString()}`);
+  if (limit) queryParams.append("limit", limit.toString());
+  const { data } = await axios.get(
+    `/api/mood_checks?${queryParams.toString()}`,
+  );
   return data;
 };
 
-const useMoodChecks = (userID: string, limit?: number): UseQueryResult<MoodCheck[], Error> => {
-  return useQuery({ queryKey: ["mood_checks"], queryFn: () => getMoodChecks(userID, limit) });
-};
+const useMoodChecks = (
+  userID: string,
+  limit?: number,
+): UseQueryResult<MoodCheck[], Error> =>
+  useQuery({
+    queryKey: ["mood_checks"],
+    queryFn: () => getMoodChecks(userID, limit),
+  });
 
 // UPSERT MOOD_CHECK
 const upsertMoodCheck = async (body: UpsertMoodCheck): Promise<MoodCheck> => {
@@ -35,7 +50,12 @@ const upsertMoodCheck = async (body: UpsertMoodCheck): Promise<MoodCheck> => {
   return data;
 };
 
-const useUpsertMoodCheck = (): UseMutationResult<MoodCheck, Error, UpsertMoodCheck, unknown> => {
+const useUpsertMoodCheck = (): UseMutationResult<
+  MoodCheck,
+  Error,
+  UpsertMoodCheck,
+  unknown
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({

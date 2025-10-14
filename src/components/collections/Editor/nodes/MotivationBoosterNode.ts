@@ -44,7 +44,10 @@ export class MotivationBoosterNode extends ElementNode {
     return false;
   }
 
-  insertNewAfter(rangeSelection: RangeSelection, restoreSelection: boolean): ParagraphNode {
+  insertNewAfter(
+    rangeSelection: RangeSelection,
+    restoreSelection: boolean,
+  ): ParagraphNode {
     const newElement = $createParagraphNode();
     newElement.setTextFormat(rangeSelection.format);
     newElement.setTextStyle(rangeSelection.style);
@@ -56,8 +59,12 @@ export class MotivationBoosterNode extends ElementNode {
     return newElement;
   }
 
-  static importJSON(serializedNode: SerializedMotivationBoosterNode): MotivationBoosterNode {
-    return $createMotivationBoosterNode(serializedNode.placeholder).updateFromJSON(serializedNode);
+  static importJSON(
+    serializedNode: SerializedMotivationBoosterNode,
+  ): MotivationBoosterNode {
+    return $createMotivationBoosterNode(
+      serializedNode.placeholder,
+    ).updateFromJSON(serializedNode);
   }
 
   exportJSON(): SerializedMotivationBoosterNode {
@@ -68,10 +75,14 @@ export class MotivationBoosterNode extends ElementNode {
   }
 }
 
-export function $createMotivationBoosterNode(placeholder: string): MotivationBoosterNode {
+export function $createMotivationBoosterNode(
+  placeholder: string,
+): MotivationBoosterNode {
   return new MotivationBoosterNode(placeholder);
-};
+}
 
-export function $isMotivationBoosterNode(node: LexicalNode | null | undefined): node is MotivationBoosterNode {
+export function $isMotivationBoosterNode(
+  node: LexicalNode | null | undefined,
+): node is MotivationBoosterNode {
   return node instanceof MotivationBoosterNode;
-};
+}

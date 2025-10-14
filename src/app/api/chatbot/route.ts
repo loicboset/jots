@@ -27,14 +27,16 @@ export async function GET(): Promise<Response> {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  const conversation = messages.filter((msg) => msg.role === "user" || msg.role === "assistant");
+  const conversation = messages.filter(
+    (msg) => msg.role === "user" || msg.role === "assistant",
+  );
 
   return new Response(
     JSON.stringify({
       messages: conversation,
       chatID,
     }),
-    { status: 200, headers }
+    { status: 200, headers },
   );
 }
 
@@ -66,7 +68,7 @@ export async function POST(request: Request): Promise<Response> {
         role: "system",
         content: `Here are my journal entries:\n\n${journalEntries}`,
       },
-      { role: "user", content: userMessage }
+      { role: "user", content: userMessage },
     );
   }
 
@@ -93,7 +95,8 @@ export async function POST(request: Request): Promise<Response> {
           type: "CHATBOT",
           model: MODEL,
           inputTokens: chunk.usage?.prompt_tokens ?? 0,
-          inputCachedTokens: chunk.usage?.prompt_tokens_details?.cached_tokens ?? 0,
+          inputCachedTokens:
+            chunk.usage?.prompt_tokens_details?.cached_tokens ?? 0,
           outputTokens: chunk.usage?.completion_tokens ?? 0,
         });
       } else {

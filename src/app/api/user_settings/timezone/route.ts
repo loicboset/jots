@@ -18,7 +18,10 @@ export async function PUT(request: Request): Promise<Response> {
   }
 
   // 1. update user timezone in user_settings table
-  await supabase.from("user_settings").update({ timezone }).eq("user_id", user.id);
+  await supabase
+    .from("user_settings")
+    .update({ timezone })
+    .eq("user_id", user.id);
 
   // 2. check if any cron job exists for the user
   const { data: userPushNotif } = await supabase
@@ -31,7 +34,11 @@ export async function PUT(request: Request): Promise<Response> {
 
   // 3. if exists, update the cron job with the new timezone
   const { cronjob_id, expression } = userPushNotif;
-  const { data, status } = await easyCron.update(cronjob_id, expression, timezone);
+  const { data, status } = await easyCron.update(
+    cronjob_id,
+    expression,
+    timezone,
+  );
   if (![200, 201].includes(status) || !data?.cron_job_id) {
     throw new Error(`Failed to update cron job: ${data?.message}`);
   }

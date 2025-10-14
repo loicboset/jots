@@ -44,7 +44,11 @@ export async function PUT(request: Request): Promise<Response> {
   if (existingCronJob?.cronjob_id) {
     // 2.1 update the existing cron job
     cronJobID = existingCronJob.cronjob_id;
-    const { data, status } = await easyCron.update(cronJobID, cron_expression, timezone);
+    const { data, status } = await easyCron.update(
+      cronJobID,
+      cron_expression,
+      timezone,
+    );
     if (![200, 201].includes(status) || !data?.cron_job_id) {
       throw new Error(`Failed to update cron job: ${data?.message}`);
     }
@@ -63,7 +67,10 @@ export async function PUT(request: Request): Promise<Response> {
   // 3. update the push notification reccord
   const { error } = await supabase
     .from("user_push_notifications")
-    .upsert({ user_id: user.id, cron_expression, cronjob_id: cronJobID }, { onConflict: "cronjob_id" })
+    .upsert(
+      { user_id: user.id, cron_expression, cronjob_id: cronJobID },
+      { onConflict: "cronjob_id" },
+    )
     .select();
 
   if (error) {

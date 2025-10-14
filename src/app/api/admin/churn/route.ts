@@ -5,7 +5,7 @@ import getUserEmail from "../../_utils/getUserEmail";
 export async function GET(): Promise<Response> {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_KEY! // service key, bypasses RLS
+    process.env.SUPABASE_SERVICE_KEY!, // service key, bypasses RLS
   );
 
   const allowedUsers = ["loic.boset@gmail.com", "j.zouzou@icloud.com"];
@@ -56,11 +56,14 @@ export async function GET(): Promise<Response> {
   // Step 3: classify dropped (last entry > 14 days ago)
   const now = new Date();
   const droppedUsers = Object.values(userMap).filter(
-    (u) => (now.getTime() - u.last.getTime()) / (1000 * 60 * 60 * 24) > 14
+    (u) => (now.getTime() - u.last.getTime()) / (1000 * 60 * 60 * 24) > 14,
   );
 
   // Step 4: compute KPI (average entries before churn)
-  const avg = droppedUsers.length > 0 ? droppedUsers.reduce((sum, u) => sum + u.count, 0) / droppedUsers.length : 0;
+  const avg =
+    droppedUsers.length > 0
+      ? droppedUsers.reduce((sum, u) => sum + u.count, 0) / droppedUsers.length
+      : 0;
 
   const result = {
     totalUsers: users.length,

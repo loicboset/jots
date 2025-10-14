@@ -51,7 +51,6 @@ const Modal = (props: Props): React.ReactElement => {
           onClose={toggle}
         >
           <div className="flex items-end justify-center px-4 pt-4 pb-20 text-center md:min-h-dvh sm:block sm:p-0">
-
             <DialogBackdrop
               onClick={toggle}
               className={classNames(
@@ -61,7 +60,10 @@ const Modal = (props: Props): React.ReactElement => {
             />
 
             {/* This element is to trick the browser into centering the modal contents. */}
-            <span className="hidden sm:inline-block sm:align-middle sm:h-dvh" aria-hidden="true">
+            <span
+              className="hidden sm:inline-block sm:align-middle sm:h-dvh"
+              aria-hidden="true"
+            >
               &#8203;
             </span>
             <TransitionChild

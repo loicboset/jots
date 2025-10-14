@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect } from "react";
 
@@ -17,12 +17,13 @@ const CreatePeriodDigestPlugin = (): null => {
   useEffect(() => {
     if (isLoading) return;
 
-    const shouldCreateDigest = date ? dayjs(date).isBefore(dayjs().startOf("isoWeek")) : true;
+    const shouldCreateDigest = date
+      ? dayjs(date).isBefore(dayjs().startOf("isoWeek"))
+      : true;
 
     const formattedDate = dayjs().format("YYYY-MM-DD");
 
     if (shouldCreateDigest) createDigest({ date: formattedDate });
-
   }, [createDigest, date, isLoading]);
 
   return null;

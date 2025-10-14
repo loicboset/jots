@@ -11,7 +11,11 @@ const ChatbotWrapper = (): React.ReactElement => {
 
   return (
     <>
-      <CircularButton className="fixed bottom-4 right-4" size="lg" onClick={toggle}>
+      <CircularButton
+        className="fixed bottom-4 right-4"
+        size="lg"
+        onClick={toggle}
+      >
         <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
       </CircularButton>
 

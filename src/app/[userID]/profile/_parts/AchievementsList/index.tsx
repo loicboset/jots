@@ -1,5 +1,5 @@
-import achievements from '@/achievements.json';
-import { useAchievements } from '@/context/AchievementsProvider';
+import achievements from "@/achievements.json";
+import { useAchievements } from "@/context/AchievementsProvider";
 
 const AchievementsList = (): React.ReactElement => {
   const { unlocked } = useAchievements();
@@ -13,18 +13,24 @@ const AchievementsList = (): React.ReactElement => {
         </p>
       </div>
       {achievements.map((achievement) => {
-        const isUnlocked = unlocked.some(unlockedAchievement => unlockedAchievement.achievement_id === achievement.id);
+        const isUnlocked = unlocked.some(
+          (unlockedAchievement) =>
+            unlockedAchievement.achievement_id === achievement.id,
+        );
         const isHidden = achievement.hidden;
 
         return (
-          <div key={achievement.id} className={`p-4 rounded-lg border ${isUnlocked ? 'border-green-500' : 'border-gray-300'}`}>
-            <h3 className="font-bold">{isHidden ? '???' : achievement.name}</h3>
-            <p>{isHidden ? 'Hidden Achievement' : achievement.description}</p>
+          <div
+            key={achievement.id}
+            className={`p-4 rounded-lg border ${isUnlocked ? "border-green-500" : "border-gray-300"}`}
+          >
+            <h3 className="font-bold">{isHidden ? "???" : achievement.name}</h3>
+            <p>{isHidden ? "Hidden Achievement" : achievement.description}</p>
           </div>
         );
       })}
     </div>
   );
-}
+};
 
 export default AchievementsList;

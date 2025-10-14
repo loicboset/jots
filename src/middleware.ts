@@ -1,14 +1,14 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from "next/server";
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
-import { updateSession } from './lib/supabase/middleware';
+import { updateSession } from "./lib/supabase/middleware";
 
-const excludedPaths = [
-  "/api/push",
-];
+const excludedPaths = ["/api/push"];
 
-export async function middleware(request: NextRequest): Promise<NextResponse<unknown> | undefined> {
+export async function middleware(
+  request: NextRequest,
+): Promise<NextResponse<unknown> | undefined> {
   if (excludedPaths.includes(request.nextUrl.pathname)) return;
 
   const response = await updateSession(request);
@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (user && request.nextUrl.pathname === '/') {
+  if (user && request.nextUrl.pathname === "/") {
     // Redirect to the user's dynamic homepage
     return NextResponse.redirect(new URL(`/${user.id}`, request.url));
   }
@@ -36,6 +36,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

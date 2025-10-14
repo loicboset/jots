@@ -25,7 +25,10 @@ export async function PUT(request: Request): Promise<Response> {
   const req = await request.json();
   const { user_id, name, color } = req as UpsertCategory;
 
-  const { data } = await supabase.from("categories").upsert({ user_id, name, color }).select();
+  const { data } = await supabase
+    .from("categories")
+    .upsert({ user_id, name, color })
+    .select();
 
   return new Response(JSON.stringify(data), { status: 200 });
 }

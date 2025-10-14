@@ -44,7 +44,10 @@ export class PromptNode extends ElementNode {
     return false;
   }
 
-  insertNewAfter(rangeSelection: RangeSelection, restoreSelection: boolean): ParagraphNode {
+  insertNewAfter(
+    rangeSelection: RangeSelection,
+    restoreSelection: boolean,
+  ): ParagraphNode {
     const newElement = $createParagraphNode();
     newElement.setTextFormat(rangeSelection.format);
     newElement.setTextStyle(rangeSelection.style);
@@ -82,13 +85,13 @@ export function $createPromptNode(): PromptNode {
   return new PromptNode(prompt, index);
 }
 
-export function $isPromptNode(node: LexicalNode | null | undefined): node is PromptNode {
+export function $isPromptNode(
+  node: LexicalNode | null | undefined,
+): node is PromptNode {
   return node instanceof PromptNode;
 }
 
-const getPrompt = (index: number): string => {
-  return `<- ${prompts[index]} ->`;
-};
+const getPrompt = (index: number): string => `<- ${prompts[index]} ->`;
 
 const getRandomPromptIndex = (): number => {
   const index = Math.floor(Math.random() * prompts.length);

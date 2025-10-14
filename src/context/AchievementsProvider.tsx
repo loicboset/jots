@@ -3,7 +3,10 @@ import React, { createContext, JSX, useContext, useState } from "react";
 import { Howl } from "howler";
 import toast from "react-hot-toast";
 
-import { useUserAchievements, useUpsertUserAchievement } from "@/services/user_achievements";
+import {
+  useUserAchievements,
+  useUpsertUserAchievement,
+} from "@/services/user_achievements";
 import { UserAchievement } from "@/types/api/user_achievements";
 
 type AchievementContextType = {
@@ -12,11 +15,18 @@ type AchievementContextType = {
   confetti: boolean;
 };
 
-const AchievementSound = new Howl({ src: ['/sounds/achievement.mp3'], volume: 0.1 });
+const AchievementSound = new Howl({
+  src: ["/sounds/achievement.mp3"],
+  volume: 0.1,
+});
 
 const AchievementsContext = createContext<AchievementContextType | null>(null);
 
-export const AchievementsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
+export const AchievementsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element => {
   // RQ
   const { data: unlocked } = useUserAchievements();
   const { mutate: upsertUserAchievement } = useUpsertUserAchievement();
@@ -24,19 +34,19 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
   const [confetti, setConfetti] = useState(false);
 
   const unlockAchievement = (id: string, name: string): void => {
-    if (!unlocked) return
-    if (!unlocked.some(row => row.achievement_id === id)) {
+    if (!unlocked) return;
+    if (!unlocked.some((row) => row.achievement_id === id)) {
       AchievementSound.play();
 
       upsertUserAchievement({ achievement_id: id });
 
       toast.success(`Achievement Unlocked: ${name}`, {
         duration: 8000,
-        icon: '🏆',
+        icon: "🏆",
         style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
         },
       });
 
@@ -45,10 +55,12 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
     }
   };
 
-  if (!unlocked) return <></>
+  if (!unlocked) return <></>;
 
   return (
-    <AchievementsContext.Provider value={{ unlocked, unlockAchievement, confetti }}>
+    <AchievementsContext.Provider
+      value={{ unlocked, unlockAchievement, confetti }}
+    >
       {children}
     </AchievementsContext.Provider>
   );
@@ -57,7 +69,9 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
 export const useAchievements = (): AchievementContextType => {
   const context = useContext(AchievementsContext);
   if (!context) {
-    throw new Error("useAchievements must be used within an AchievementsProvider");
+    throw new Error(
+      "useAchievements must be used within an AchievementsProvider",
+    );
   }
   return context;
 };

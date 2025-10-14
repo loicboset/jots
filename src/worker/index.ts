@@ -20,7 +20,9 @@ self.addEventListener("push", (event) => {
       url: urlToOpen,
     },
   };
-  event.waitUntil(self.registration.showNotification(data.title, notificationOptions));
+  event.waitUntil(
+    self.registration.showNotification(data.title, notificationOptions),
+  );
 });
 
 self.addEventListener("notificationclick", (e) => {
@@ -31,19 +33,25 @@ self.addEventListener("notificationclick", (e) => {
   e.waitUntil(
     self.clients.matchAll({ type: "window" }).then((clientsArr) => {
       // Find the client that matches the notification URL
-      const matchingClient = clientsArr.find((windowClient) => windowClient.url === e.notification.data.url);
+      const matchingClient = clientsArr.find(
+        (windowClient) => windowClient.url === e.notification.data.url,
+      );
 
       if (matchingClient) {
         // Focus the matching client
         return matchingClient.focus();
       } else if (clientsArr.length > 0) {
         // Redirect the first client to the notification URL and focus it
-        clientsArr[0].navigate(e.notification.data.url).then((windowClient) => windowClient && windowClient.focus());
+        clientsArr[0]
+          .navigate(e.notification.data.url)
+          .then((windowClient) => windowClient && windowClient.focus());
       } else {
         // If no clients are open, open a new window to the notification URL
-        self.clients.openWindow(e.notification.data.url).then((windowClient) => windowClient && windowClient.focus());
+        self.clients
+          .openWindow(e.notification.data.url)
+          .then((windowClient) => windowClient && windowClient.focus());
       }
-    })
+    }),
   );
 });
 

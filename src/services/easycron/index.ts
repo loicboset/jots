@@ -14,10 +14,14 @@ const toggleCronJob = async (payload: ToggleEasyCronPayload): Promise<void> => {
   return data;
 };
 
-const useToggleCronJob = (): UseMutationResult<void, Error, ToggleEasyCronPayload, unknown> => {
-  return useMutation({
+const useToggleCronJob = (): UseMutationResult<
+  void,
+  Error,
+  ToggleEasyCronPayload,
+  unknown
+> =>
+  useMutation({
     mutationFn: toggleCronJob,
   });
-};
 
 export { useToggleCronJob };
