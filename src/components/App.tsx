@@ -13,6 +13,7 @@ import { PushNotificationsPlugin } from "@/packages";
 import AppWrapper from "./collections/AppWrapper";
 import MotivationBooster from "./collections/MotivationBooster";
 import NavBar from "./collections/NavBar";
+import ReflectionTemplates from "./collections/ReflectionTemplates";
 import ChatbotWrapper from "./features/ChatbotWrapper";
 import PromptsLibraryModal from "./features/PromptsLibraryModal";
 import ScreenSizeRenderer from "./ui/wrappers/ScreenSizeRenderer";
@@ -31,6 +32,7 @@ const App = ({ userID }: Props): React.ReactElement => {
 
   // STATE
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [page,] = useState('templates')
 
   const handleSetSidebarOpen = (open: boolean): void => setSidebarOpen(open);
 
@@ -78,8 +80,14 @@ const App = ({ userID }: Props): React.ReactElement => {
           <MotivationBooster />
         </div>
         <AppWrapper userID={userID}>
-          <Editor userID={userID} />
-          <PromptsLibraryModal />
+          {page === 'templates' ? (
+            <ReflectionTemplates />
+          ) : (
+            <>
+              <Editor userID={userID} />
+              <PromptsLibraryModal />
+            </>
+          )}
         </AppWrapper>
       </div>
       <Script
