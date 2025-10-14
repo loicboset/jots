@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-
 import { createClient } from '@/lib/supabase/server';
 
 dayjs.extend(isoWeek);
@@ -8,25 +7,47 @@ dayjs.extend(isoWeek);
 export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
-  const { data: journal_entries } = await supabase
+  // --- Fetch journal entries ---
+  const { data: journal_entries, error: journalError } = await supabase
     .from('journal_entries')
     .select('date')
     .lte('date', dayjs().format('YYYY-MM-DD'));
 
-  const weeks = new Set<string>();
+  // --- Fetch user reflections (only submitted if that’s desired) ---
+  const { data: reflections, error: reflectionsError } = await supabase
+    .from('user_reflections')
+    .select('created_at, status')
+    .lte('created_at', dayjs().toISOString())
+    .in('status', ['draft', 'submitted']); // optional filter
 
-  if (journal_entries) {
-    journal_entries.forEach((entry) => {
-      const week = dayjs(entry.date).isoWeek().toString().padStart(2, '0');
-      const year = dayjs(entry.date).year();
-      weeks.add(`${year}-${week}`);
-    });
+  if (journalError || reflectionsError) {
+    console.error('Supabase errors:', { journalError, reflectionsError });
+    return new Response('Error fetching data', { status: 500 });
   }
 
+  // --- Build unified week set ---
+  const weeks = new Set<string>();
+
+  const addToWeeks = (dateString: string): void => {
+    const d = dayjs(dateString);
+    const week = String(d.isoWeek()).padStart(2, '0');
+    const year = d.year();
+    weeks.add(`${year}-${week}`);
+  };
+
+  journal_entries?.forEach((entry) => addToWeeks(entry.date));
+  reflections?.forEach((entry) => addToWeeks(entry.created_at));
+
+  // --- Compute streak ---
   let count = 0;
   let weekPointer;
 
-  const sortedWeeks = Array.from(weeks).sort();
+  // Sorting using ISO-week-aware comparison (important for cross-year streaks)
+  const sortedWeeks = Array.from(weeks).sort((a, b) => {
+    const [ya, wa] = a.split('-').map(Number);
+    const [yb, wb] = b.split('-').map(Number);
+    return dayjs().set('year', ya).isoWeek(wa).diff(dayjs().set('year', yb).isoWeek(wb));
+  });
 
   for (const week of sortedWeeks) {
     if (!weekPointer) {
@@ -40,17 +61,17 @@ export async function GET(): Promise<Response> {
     const followingW = followingWeek.isoWeek();
     const followingY = followingWeek.year();
 
-    if (week === `${followingY}-${followingW}`) {
+    if (week === `${followingY}-${String(followingW).padStart(2, '0')}`) {
       weekPointer = week;
       count++;
     } else {
-      // Streak broken — start fresh from this new week
+      // streak broken — start over from this new week
       weekPointer = week;
       count = 1;
     }
   }
 
-  // Determine if the current streak is still active
+  // --- Check if streak is still active ---
   const currentWeek = dayjs().isoWeek();
   const currentYear = dayjs().year();
   const currentWeekDate = dayjs().set('year', currentYear).isoWeek(currentWeek);
@@ -60,9 +81,8 @@ export async function GET(): Promise<Response> {
     const lastWeekDate = dayjs().set('year', lastYear).isoWeek(lastWeek);
     const diffWeeks = currentWeekDate.diff(lastWeekDate, 'week');
 
-    if (diffWeeks > 1) {
-      count = 0;
-    }
+    // If user missed >1 week, streak is lost
+    if (diffWeeks > 1) count = 0;
   }
 
   return new Response(JSON.stringify(count), {

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import AchievementsList from './_parts/AchievementsList';
 import ConnectGithub from './_parts/ConnectGithub';
 import ExportButton from './_parts/ExportButton';
+
 import ExtensionToken from './_parts/ExtensionToken';
 import Features from './_parts/Features';
 import Insights from './_parts/Insights';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const Profile = ({ email }: Props): React.ReactElement => {
+  // RQ
   const { value: isgithubenabled } = useFeatureFlag('isgithubenabled', false);
 
   return (

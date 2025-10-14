@@ -12,7 +12,10 @@ type AchievementContextType = {
   confetti: boolean;
 };
 
-const AchievementSound = new Howl({ src: ['/sounds/achievement.mp3'], volume: 0.1 });
+const AchievementSound = new Howl({
+  src: ['/sounds/achievement.mp3'],
+  volume: 0.1,
+});
 
 const AchievementsContext = createContext<AchievementContextType | null>(null);
 

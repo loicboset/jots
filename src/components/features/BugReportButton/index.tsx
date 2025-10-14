@@ -13,7 +13,7 @@ const BugReportButton = (): JSX.Element => (
       fixed top-5 right-5 flex items-center gap-2 bg-red-400
       text-white px-4 py-2 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer"
   >
-    <BugAntIcon className="text-white h-5 w-5" />
+    <BugAntIcon className="text-white h-6 w-6" />
   </button>
 );
 

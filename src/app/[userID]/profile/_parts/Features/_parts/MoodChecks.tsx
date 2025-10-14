@@ -15,7 +15,10 @@ const MoodChecks = (): React.ReactElement => {
 
   // METHODS
   const handleToggleMoodChecks = (): void => {
-    editUserSettings({ user_id: user.userID, mood_checks_enabled: !isMoodChecksEnabled });
+    editUserSettings({
+      user_id: user.userID,
+      mood_checks_enabled: !isMoodChecksEnabled,
+    });
   };
 
   // VARS

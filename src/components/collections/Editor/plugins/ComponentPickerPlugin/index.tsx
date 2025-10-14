@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { JSX } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as React from 'react';

@@ -17,7 +17,10 @@ const getuserPushNotifications = async (): Promise<UserPushNotification[]> => {
 };
 
 const useUserPushNotifications = (): UseQueryResult<UserPushNotification[], Error> =>
-  useQuery({ queryKey: ['user_push_notifications'], queryFn: () => getuserPushNotifications() });
+  useQuery({
+    queryKey: ['user_push_notifications'],
+    queryFn: () => getuserPushNotifications(),
+  });
 
 // UPSERT USER PUSH NOTIFICATIONS
 const upsertUserPushNotification = async (body: UpsertUserPushNotif): Promise<void> => {

@@ -21,9 +21,11 @@ export async function login(formData: FormValues): Promise<{ message: string }> 
   } = await supabase.auth.signInWithPassword(data);
 
   if (error || !user) {
-    return { message: error?.message ?? 'An error occurred. Please try again or contact support.' };
+    return {
+      message: error?.message ?? 'An error occurred. Please try again or contact support.',
+    };
   }
 
   revalidatePath('/', 'layout');
-  redirect(`/${user.id}`);
+  redirect(`/${user.id}/reflections`);
 }

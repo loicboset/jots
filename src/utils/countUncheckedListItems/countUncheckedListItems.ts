@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JournalEntry } from '@/types/api/journal_entries';
 
 type ContentNode = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   root: any;
 };
 
@@ -10,7 +10,6 @@ export const countUncheckedListItems = (data: JournalEntry[] | undefined): numbe
 
   let count = 0;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const traverse = (node: any): void => {
     if (!node || typeof node !== 'object') return;
 
