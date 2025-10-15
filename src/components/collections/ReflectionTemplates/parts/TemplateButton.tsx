@@ -16,7 +16,7 @@ const TemplateButton = ({
     onClick={(): void => handleSetTemplate(template)}
     className={`
         border border-gray-300 rounded-xl p-4 hover:bg-gray-700 cursor-pointer
-        max-w-max
+        max-w-max my-auto
         ${index % 2 === 0 ? "justify-self-start" : "justify-self-end"}
       `}
   >

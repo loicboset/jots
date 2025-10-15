@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import TemplateButton from "./parts/TemplateButton";
 import TemplateModel from "./parts/TemplateModel";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import IconButton from "@/components/ui/buttons/IconButton";
 
-export type Template = { label: string; model: string };
+export type Template = { id: string; label: string; model: string };
 
 const ReflectionTemplate = (): React.ReactElement => {
   // STATE
@@ -18,23 +20,36 @@ const ReflectionTemplate = (): React.ReactElement => {
 
   // VARS
   const templates: Template[] = [
-    { label: "Process an event 🧩", model: "bain_5r" },
-    { label: "Learn from mistake/success 🧠", model: "kolb" },
-    { label: "Think through project/decision 🧪", model: "kolb" },
-    { label: "Freestyle ✍", model: "simple_prompt" },
-    { label: "Understand myself ❤️", model: "boud" },
-    { label: "Learn from content 📚", model: "boud" },
+    { id: "process_event", label: "Process an event 🧩", model: "bain_5r" },
+    {
+      id: "learn_from_mistake_or_success",
+      label: "Learn from mistake/success 🧠",
+      model: "kolb",
+    },
+    {
+      id: "think_through",
+      label: "Think through project/decision 🧪",
+      model: "kolb",
+    },
+    { id: "freestyle", label: "Freestyle ✍", model: "simple_prompt" },
+    { id: "understand_myself", label: "Understand myself ❤️", model: "boud" },
+    { id: "learn_from_content", label: "Learn from content 📚", model: "boud" },
   ];
 
   return (
-    <div>
-      <p className="text-center text-lg font-medium">
+    <div className="flex flex-col overflow-hidden">
+      <div className="text-center text-lg font-medium">
         {selectedTemplate ? (
-          <span>{selectedTemplate.label}</span>
+          <div className="flex items-center justify-center">
+            <IconButton onClick={(): void => setSelectedTemplate(null)}>
+              <ArrowLeftIcon className="inline w-5 h-5 mr-2" />
+            </IconButton>
+            <span>{selectedTemplate.label}</span>
+          </div>
         ) : (
           <span>What do you want to get clarity on?</span>
         )}
-      </p>
+      </div>
 
       {selectedTemplate ? (
         <TemplateModel template={selectedTemplate} />
