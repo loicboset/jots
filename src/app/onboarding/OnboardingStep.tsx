@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { redirect } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
+import { redirect } from 'next/navigation';
+import { Controller, useForm } from 'react-hook-form';
+import CreatableSelect from 'react-select/creatable';
 
-import Button from "@/components/ui/buttons/Button";
-import { useUpsertUserSettings } from "@/services/user_settings";
-import { UpsertUserSettings } from "@/types/payload/user_settings";
-import validateTimezone from "@/utils/validateTimezone";
+import Button from '@/components/ui/buttons/Button';
+import { useUpsertUserSettings } from '@/services/user_settings';
+import { UpsertUserSettings } from '@/types/payload/user_settings';
+import validateTimezone from '@/utils/validateTimezone';
 
-import steps from "./steps";
+import steps from './steps';
 
-type FormValues = Omit<UpsertUserSettings, "user_id">;
+type FormValues = Omit<UpsertUserSettings, 'user_id'>;
 
 type Props = {
   userID: string;
@@ -65,7 +65,7 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
       <p className="text-center text-2xl">{title}</p>
 
       <div className="my-4">
-        {stepData.input.type === "select" ? (
+        {stepData.input.type === 'select' ? (
           <div className="flex flex-col space-y-4">
             <Controller
               name={stepData.input.name}
@@ -95,15 +95,13 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
         )}
       </div>
 
-      <div className={`flex ${step > 1 ? "justify-between" : "justify-end"}`}>
+      <div className={`flex ${step > 1 ? 'justify-between' : 'justify-end'}`}>
         {step > 1 && <Button onClick={handlePrevious}>Previous</Button>}
         <div className="flex space-x-4">
           <Button color="white" onClick={handleSkipAll}>
             Skip all
           </Button>
-          <Button type="submit">
-            {step < steps.size ? "Next" : "Complete"}
-          </Button>
+          <Button type="submit">{step < steps.size ? 'Next' : 'Complete'}</Button>
         </div>
       </div>
     </form>

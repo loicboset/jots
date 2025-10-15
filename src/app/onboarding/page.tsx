@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import { QueryClientProvider } from "@tanstack/react-query";
-import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
+import { QueryClientProvider } from '@tanstack/react-query';
+import Link from 'next/link';
+import { redirect, useSearchParams } from 'next/navigation';
 
-import queryClient from "@/lib/tanstackQuery/client";
+import queryClient from '@/lib/tanstackQuery/client';
 
-import OnboardingStep from "./OnboardingStep";
+import OnboardingStep from './OnboardingStep';
 
 const Onboarding = (): React.ReactElement => {
   // RL
   const searchParams = useSearchParams();
-  const userID = searchParams?.get("user_id");
+  const userID = searchParams?.get('user_id');
 
-  if (!userID) redirect("/login");
+  if (!userID) redirect('/login');
 
   return (
     <QueryClientProvider client={queryClient}>

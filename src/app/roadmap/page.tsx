@@ -1,9 +1,9 @@
-import { RocketLaunchIcon } from "@heroicons/react/24/outline";
-import classNames from "classnames";
-import Link from "next/link";
+import { RocketLaunchIcon } from '@heroicons/react/24/outline';
+import classNames from 'classnames';
+import Link from 'next/link';
 
-import Header from "@/components/collections/layouts/Header";
-import getProjectIssues from "@/utils/getProjectIssues";
+import Header from '@/components/collections/layouts/Header';
+import getProjectIssues from '@/utils/getProjectIssues';
 
 const Releases = async (): Promise<React.ReactElement> => {
   const issues = await getProjectIssues();
@@ -18,22 +18,19 @@ const Releases = async (): Promise<React.ReactElement> => {
               Our Roadmap
             </h2>
             <p className="mt-2 mb-2 text-lg/8 text-gray-300">
-              We are dedicated to making Jots your ultimate journaling
-              destination for growth and learning. Below, you can explore the
-              features we are currently working on.
+              We are dedicated to making Jots your ultimate journaling destination for growth and
+              learning. Below, you can explore the features we are currently working on.
             </p>
             <p className="mt-2 text-lg/8 text-gray-300">
-              If you have ideas or suggestions, we’d love to hear from you! Join
-              our{" "}
+              If you have ideas or suggestions, we’d love to hear from you! Join our{' '}
               <Link
-                href={"https://discord.gg/YQP4wwbyfg"}
+                href={'https://discord.gg/YQP4wwbyfg'}
                 target="_blank"
                 className="text-indigo-500"
               >
                 Discord
-              </Link>{" "}
-              community to share your thoughts and help shape the future of
-              Jots.
+              </Link>{' '}
+              community to share your thoughts and help shape the future of Jots.
             </p>
             <div className="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
               <div className="flow-root">
@@ -51,7 +48,7 @@ const Releases = async (): Promise<React.ReactElement> => {
                           <div>
                             <span
                               className={classNames(
-                                "flex size-12 items-center justify-center rounded-full bg-white",
+                                'flex size-12 items-center justify-center rounded-full bg-white',
                               )}
                             >
                               <RocketLaunchIcon
@@ -67,16 +64,12 @@ const Releases = async (): Promise<React.ReactElement> => {
                                 className="font-medium text-white hover:text-gray-300"
                                 target="_blank"
                               >
-                                <p className="text-md">
-                                  {issue.content.title}{" "}
-                                </p>
+                                <p className="text-md">{issue.content.title} </p>
                               </Link>
                             </div>
                             <div className="text-right text-sm whitespace-nowrap text-gray-300">
                               <span>
-                                {issue.content.state === "CLOSED"
-                                  ? "DONE 🥳"
-                                  : issue.content.state}
+                                {issue.content.state === 'CLOSED' ? 'DONE 🥳' : issue.content.state}
                               </span>
                             </div>
                           </div>

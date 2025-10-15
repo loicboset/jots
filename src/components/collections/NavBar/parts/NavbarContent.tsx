@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-import AiUsage from "@/components/features/AiUsage";
-import Calendar from "@/components/features/Calendar";
-import MoodSlider from "@/components/features/MoodSlider";
-import WeeklyStreak from "@/components/features/WeeklyStreak";
-import WeeklyTasks from "@/components/features/WeeklyTasks";
-import Button from "@/components/ui/buttons/Button";
-import { useUserContext } from "@/context/UserProvider";
-import { createClient } from "@/lib/supabase/client";
+import AiUsage from '@/components/features/AiUsage';
+import Calendar from '@/components/features/Calendar';
+import MoodSlider from '@/components/features/MoodSlider';
+import WeeklyStreak from '@/components/features/WeeklyStreak';
+import WeeklyTasks from '@/components/features/WeeklyTasks';
+import Button from '@/components/ui/buttons/Button';
+import { useUserContext } from '@/context/UserProvider';
+import { createClient } from '@/lib/supabase/client';
 
-import AiPathIndicator from "./AiPathIndicator";
-import WeeklyDigestButton from "./WeeklyDigestButton";
+import AiPathIndicator from './AiPathIndicator';
+import WeeklyDigestButton from './WeeklyDigestButton';
 
 type Props = {
   handleSetSidebarOpen?: (open: boolean) => void;
@@ -31,7 +31,7 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
   const handleLogout = async (): Promise<void> => {
     const client = createClient();
     await client.auth.signOut();
-    router.push("/");
+    router.push('/');
   };
 
   return (
@@ -58,11 +58,7 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
         <AiPathIndicator />
       </div>
       <div className="mb-2 mt-4">
-        <Link
-          href={"https://discord.gg/YQP4wwbyfg"}
-          target="_blank"
-          className="flex"
-        >
+        <Link href={'https://discord.gg/YQP4wwbyfg'} target="_blank" className="flex">
           <p className="text-sm pr-2">Join our Discord!</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
-import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
-import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
+import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
+import { ClickableLinkPlugin } from '@lexical/react/LexicalClickableLinkPlugin';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 
-import AiPromptNodePlugin from "./plugins/AiPromptNodePlugin";
-import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
-import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
-import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
-import ComponentPickerMenuPlugin from "./plugins/ComponentPickerPlugin";
-import DailyAutoPromptPlugin from "./plugins/DailyAutoPromptPlugin";
-import DummyDataPlugin from "./plugins/DummyDataPlugin";
-import MarkdownShortcutPlugin from "./plugins/MarkdownShortcutPlugin";
-import OnChangePlugin from "./plugins/OnChangePlugin";
-import PromptNodePlugin from "./plugins/PromptNodePlugin";
-import SkilledPromptNodePlugin from "./plugins/SkilledPromptNodePlugin";
-import TransformCategoryPlugin from "./plugins/TransformCategoryPlugin";
+import AiPromptNodePlugin from './plugins/AiPromptNodePlugin';
+import AutoLinkPlugin from './plugins/AutoLinkPlugin';
+import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
+import CollapsiblePlugin from './plugins/CollapsiblePlugin';
+import ComponentPickerPlugin from './plugins/ComponentPickerPlugin';
+import ComponentPickerMenuPlugin from './plugins/ComponentPickerPlugin';
+import DailyAutoPromptPlugin from './plugins/DailyAutoPromptPlugin';
+import DummyDataPlugin from './plugins/DummyDataPlugin';
+import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
+import OnChangePlugin from './plugins/OnChangePlugin';
+import PromptNodePlugin from './plugins/PromptNodePlugin';
+import SkilledPromptNodePlugin from './plugins/SkilledPromptNodePlugin';
+import TransformCategoryPlugin from './plugins/TransformCategoryPlugin';
 // import TreeViewPlugin from "./plugins/TreeViewPlugin";
 
-import "./index.css";
+import './index.css';
 
 type Props = {
   userID: string;

@@ -1,24 +1,24 @@
-import { createClient } from "@/lib/supabase/server";
-import { UpsertCategory } from "@/types/payload/categories";
+import { createClient } from '@/lib/supabase/server';
+import { UpsertCategory } from '@/types/payload/categories';
 
-import { GET, PUT } from "../../../app/api/categories/route";
+import { GET, PUT } from '../../../app/api/categories/route';
 
 // Mock the createClient function
-jest.mock("@/lib/supabase/server", () => ({
+jest.mock('@/lib/supabase/server', () => ({
   createClient: jest.fn(),
 }));
 
-describe("GET and PUT handlers", () => {
+describe('GET and PUT handlers', () => {
   beforeEach(() => {
     // Clear mocks before each test
     jest.clearAllMocks();
   });
 
-  describe("GET handler", () => {
-    it("should return categories for the user", async () => {
+  describe('GET handler', () => {
+    it('should return categories for the user', async () => {
       const mockCategories = [
-        { id: 1, name: "Category 1", user_id: "123", color: "#ff0000" },
-        { id: 2, name: "Category 2", user_id: "123", color: "#00ff00" },
+        { id: 1, name: 'Category 1', user_id: '123', color: '#ff0000' },
+        { id: 2, name: 'Category 2', user_id: '123', color: '#00ff00' },
       ];
 
       // Mock the response from Supabase
@@ -31,7 +31,7 @@ describe("GET and PUT handlers", () => {
       });
 
       // Create a mock request
-      const request = new Request("https://example.com?user_id=123");
+      const request = new Request('https://example.com?user_id=123');
       const response = await GET(request);
 
       // Parse the response body
@@ -44,10 +44,10 @@ describe("GET and PUT handlers", () => {
     });
   });
 
-  describe("PUT handler", () => {
-    it("should upsert a category", async () => {
+  describe('PUT handler', () => {
+    it('should upsert a category', async () => {
       const mockUpsertResponse = [
-        { id: 1, user_id: "123", name: "New Category", color: "#0000ff" },
+        { id: 1, user_id: '123', name: 'New Category', color: '#0000ff' },
       ];
 
       // Mock the response from Supabase
@@ -59,16 +59,16 @@ describe("GET and PUT handlers", () => {
       });
 
       const mockRequestBody: UpsertCategory = {
-        user_id: "123",
-        name: "New Category",
-        color: "#0000ff",
+        user_id: '123',
+        name: 'New Category',
+        color: '#0000ff',
       };
 
       // Create a mock PUT request
-      const request = new Request("https://example.com", {
-        method: "PUT",
+      const request = new Request('https://example.com', {
+        method: 'PUT',
         body: JSON.stringify(mockRequestBody),
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
       });
 
       const response = await PUT(request);

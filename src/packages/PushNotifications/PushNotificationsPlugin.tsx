@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { useFeatureFlag } from "configcat-react";
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { useFeatureFlag } from 'configcat-react';
 
-import Button from "@/components/ui/buttons/Button";
-import Modal from "@/components/ui/modals/Modal";
-import useModalContent from "@/utils/hooks/useModalContent";
+import Button from '@/components/ui/buttons/Button';
+import Modal from '@/components/ui/modals/Modal';
+import useModalContent from '@/utils/hooks/useModalContent';
 
-import useSubscribeDevice from "./logic/useSubscribeDevice";
-import subscribePushNotification from "./utils/subscribePushNotification";
+import useSubscribeDevice from './logic/useSubscribeDevice';
+import subscribePushNotification from './utils/subscribePushNotification';
 
 const PushNotificationsPlugin = (): React.ReactElement | null => {
   // HOOKS
@@ -17,7 +17,7 @@ const PushNotificationsPlugin = (): React.ReactElement | null => {
 
   // EFFECTS
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then((registration) => {
         registration.pushManager.getSubscription().then(async (sub) => {
           if (!sub) {
@@ -28,20 +28,15 @@ const PushNotificationsPlugin = (): React.ReactElement | null => {
     }
   }, []);
 
-  const {
-    value: ispushnotificationenabledValue,
-    loading: ispushnotificationenabledLoading,
-  } = useFeatureFlag("ispushnotificationenabled", false);
-  if (!ispushnotificationenabledValue || ispushnotificationenabledLoading)
-    return null;
+  const { value: ispushnotificationenabledValue, loading: ispushnotificationenabledLoading } =
+    useFeatureFlag('ispushnotificationenabled', false);
+  if (!ispushnotificationenabledValue || ispushnotificationenabledLoading) return null;
 
   return (
     <Modal open={isOpen} toggle={toggle}>
       <div className="flex items-center space-x-2">
         <InformationCircleIcon className="w-6 text-blue-500" />
-        <p className="text-lg font-medium leading-6 text-gray-900">
-          Enable notifications!
-        </p>
+        <p className="text-lg font-medium leading-6 text-gray-900">Enable notifications!</p>
       </div>
       <p className="mt-2 text-sm text-gray-500">
         Receive your daily reminder directly on your device.

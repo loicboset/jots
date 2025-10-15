@@ -1,5 +1,5 @@
-import { useGetWeekEntries } from "@/services/journal_entries";
-import { countUncheckedListItems } from "@/utils/countUncheckedListItems/countUncheckedListItems";
+import { useGetWeekEntries } from '@/services/journal_entries';
+import { countUncheckedListItems } from '@/utils/countUncheckedListItems/countUncheckedListItems';
 
 const WeeklyTasks = (): React.ReactElement | null => {
   const { data: weekEntries, isLoading } = useGetWeekEntries();

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createServerClient } from "@supabase/ssr";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
+import { createServerClient } from '@supabase/ssr';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
 
-import { Database } from "../../../database.types";
+import { Database } from '../../../database.types';
 
 export async function createClient(
   authHeader?: string | null,
-): Promise<SupabaseClient<Database, "public", any>> {
+): Promise<SupabaseClient<Database, 'public', any>> {
   const cookieStore = await cookies();
 
   return createServerClient(

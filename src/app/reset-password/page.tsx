@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
-import Header from "@/components/collections/layouts/Header";
-import Button from "@/components/ui/buttons/Button";
-import useAlert from "@/utils/hooks/useAlert";
+import Header from '@/components/collections/layouts/Header';
+import Button from '@/components/ui/buttons/Button';
+import useAlert from '@/utils/hooks/useAlert';
 
-import { resetPassword } from "./actions";
+import { resetPassword } from './actions';
 
 export type FormValues = {
   password: string;
@@ -53,26 +53,20 @@ const ResetPassword = (): React.ReactElement => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            onSubmit={handleSubmit(handleResetPassword)}
-            className="space-y-6"
-          >
+          <form onSubmit={handleSubmit(handleResetPassword)} className="space-y-6">
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-white"
-                >
+                <label htmlFor="password" className="block text-sm/6 font-medium text-white">
                   Password
                 </label>
               </div>
               <div className="mt-2">
                 <input
-                  {...register("password", {
-                    required: "Password is required",
+                  {...register('password', {
+                    required: 'Password is required',
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters long",
+                      message: 'Password must be at least 8 characters long',
                     },
                   })}
                   type="password"
@@ -84,28 +78,22 @@ const ResetPassword = (): React.ReactElement => {
                   `}
                 />
                 {errors.password && (
-                  <p className="text-red-500 text-sm">
-                    {errors.password.message}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors.password.message}</p>
                 )}
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-white"
-                >
+                <label htmlFor="password" className="block text-sm/6 font-medium text-white">
                   Repeat Password
                 </label>
               </div>
               <div className="mt-2">
                 <input
-                  {...register("repeatPassword", {
-                    required: "Please confirm your password",
-                    validate: (value) =>
-                      value === watch("password") || "Passwords do not match",
+                  {...register('repeatPassword', {
+                    required: 'Please confirm your password',
+                    validate: (value) => value === watch('password') || 'Passwords do not match',
                   })}
                   type="password"
                   required
@@ -116,9 +104,7 @@ const ResetPassword = (): React.ReactElement => {
                   `}
                 />
                 {errors.repeatPassword && (
-                  <p className="text-red-500 text-sm">
-                    {errors.repeatPassword.message}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors.repeatPassword.message}</p>
                 )}
               </div>
             </div>

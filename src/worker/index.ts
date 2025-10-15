@@ -9,29 +9,27 @@
 
 declare const self: ServiceWorkerGlobalScope;
 
-self.addEventListener("push", (event) => {
+self.addEventListener('push', (event) => {
   const data = JSON.parse(event.data?.text() ?? '{ title: "" }');
   const urlToOpen = new URL(data.redirectLink, self.location.origin).href;
 
   const notificationOptions: NotificationOptions = {
     body: data.body,
-    icon: "/logo/logo_512.png",
+    icon: '/logo/logo_512.png',
     data: {
       url: urlToOpen,
     },
   };
-  event.waitUntil(
-    self.registration.showNotification(data.title, notificationOptions),
-  );
+  event.waitUntil(self.registration.showNotification(data.title, notificationOptions));
 });
 
-self.addEventListener("notificationclick", (e) => {
+self.addEventListener('notificationclick', (e) => {
   // Close the notification popout
   e.notification.close();
 
   // Get all the Window clients
   e.waitUntil(
-    self.clients.matchAll({ type: "window" }).then((clientsArr) => {
+    self.clients.matchAll({ type: 'window' }).then((clientsArr) => {
       // Find the client that matches the notification URL
       const matchingClient = clientsArr.find(
         (windowClient) => windowClient.url === e.notification.data.url,
@@ -55,7 +53,7 @@ self.addEventListener("notificationclick", (e) => {
   );
 });
 
-self.addEventListener("install", () => {
+self.addEventListener('install', () => {
   self.skipWaiting();
 });
 

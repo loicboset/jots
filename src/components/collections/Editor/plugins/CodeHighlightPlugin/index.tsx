@@ -1,9 +1,9 @@
-import type { JSX } from "react";
-import { useEffect } from "react";
+import type { JSX } from 'react';
+import { useEffect } from 'react';
 
-import { $isCodeNode, registerCodeHighlighting } from "@lexical/code";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $findMatchingParent } from "@lexical/utils";
+import { $isCodeNode, registerCodeHighlighting } from '@lexical/code';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $findMatchingParent } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -13,9 +13,9 @@ import {
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
   LexicalNode,
-} from "lexical";
+} from 'lexical';
 
-import "./CodeHighlight.css";
+import './CodeHighlight.css';
 
 export default function CodeHighlightPlugin(): JSX.Element | null {
   // HOOKS
@@ -28,18 +28,14 @@ export default function CodeHighlightPlugin(): JSX.Element | null {
     const $onEscapeUp = (): boolean => {
       const selection = $getSelection();
       if ($isRangeSelection(selection) && selection.anchor.offset === 0) {
-        const container = $findMatchingParent(
-          selection.anchor.getNode(),
-          $isCodeNode,
-        );
+        const container = $findMatchingParent(selection.anchor.getNode(), $isCodeNode);
 
         if ($isCodeNode(container)) {
           const parent = container.getParent<ElementNode>();
           if (
             parent !== null &&
             parent.getFirstChild<LexicalNode>() === container &&
-            selection.anchor.key ===
-              container.getFirstDescendant<LexicalNode>()?.getKey()
+            selection.anchor.key === container.getFirstDescendant<LexicalNode>()?.getKey()
           ) {
             container.insertBefore($createParagraphNode());
           }
@@ -53,16 +49,10 @@ export default function CodeHighlightPlugin(): JSX.Element | null {
       const selection = $getSelection();
 
       if ($isRangeSelection(selection)) {
-        const container = $findMatchingParent(
-          selection.anchor.getNode(),
-          $isCodeNode,
-        );
+        const container = $findMatchingParent(selection.anchor.getNode(), $isCodeNode);
         if ($isCodeNode(container)) {
           const parent = container.getParent<ElementNode>();
-          if (
-            parent !== null &&
-            parent.getLastChild<LexicalNode>() === container
-          ) {
+          if (parent !== null && parent.getLastChild<LexicalNode>() === container) {
             const lastDescendant = container.getLastDescendant<LexicalNode>();
 
             if (
@@ -80,16 +70,8 @@ export default function CodeHighlightPlugin(): JSX.Element | null {
       return false;
     };
 
-    editor.registerCommand(
-      KEY_ARROW_UP_COMMAND,
-      $onEscapeUp,
-      COMMAND_PRIORITY_LOW,
-    );
-    editor.registerCommand(
-      KEY_ARROW_DOWN_COMMAND,
-      $onEscapeDown,
-      COMMAND_PRIORITY_LOW,
-    );
+    editor.registerCommand(KEY_ARROW_UP_COMMAND, $onEscapeUp, COMMAND_PRIORITY_LOW);
+    editor.registerCommand(KEY_ARROW_DOWN_COMMAND, $onEscapeDown, COMMAND_PRIORITY_LOW);
   }, [editor]);
 
   return null;

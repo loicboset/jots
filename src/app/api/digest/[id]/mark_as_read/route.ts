@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 export async function PATCH(
   request: Request,
@@ -7,14 +7,11 @@ export async function PATCH(
   const { id } = await params;
   const supabase = await createClient();
 
-  const { error } = await supabase
-    .from("digests")
-    .update({ is_read: true })
-    .eq("id", Number(id));
+  const { error } = await supabase.from('digests').update({ is_read: true }).eq('id', Number(id));
 
   if (error) {
-    return new Response("Error marking digest as read", { status: 500 });
+    return new Response('Error marking digest as read', { status: 500 });
   }
 
-  return new Response("Success");
+  return new Response('Success');
 }

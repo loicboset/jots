@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
-import Header from "@/components/collections/layouts/Header";
-import Spinner from "@/components/ui/loaders/Spinner";
-import getPostData from "@/utils/getPostData/getPostData";
+import Header from '@/components/collections/layouts/Header';
+import Spinner from '@/components/ui/loaders/Spinner';
+import getPostData from '@/utils/getPostData/getPostData';
 
-import styles from "./blog.module.css";
+import styles from './blog.module.css';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -12,16 +12,16 @@ type Props = {
 
 export function generateStaticParams(): { id: string }[] {
   return [
-    { id: "benefits-of-dev-journaling" },
-    { id: "journaling-for-developers-a-simple-habit-for-big-results" },
-    { id: "learnings-as-a-software-engineer" },
+    { id: 'benefits-of-dev-journaling' },
+    { id: 'journaling-for-developers-a-simple-habit-for-big-results' },
+    { id: 'learnings-as-a-software-engineer' },
   ];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const postData = await getPostData(id);
-  return { title: postData?.title || "Post" };
+  return { title: postData?.title || 'Post' };
 }
 
 const PostPage = async ({ params }: Props): Promise<React.ReactElement> => {
@@ -43,7 +43,7 @@ const PostPage = async ({ params }: Props): Promise<React.ReactElement> => {
               <div className="mb-10 border border-gray-100" />
               <div
                 dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-                className={`${styles["blog-post"]} text-gray-300`}
+                className={`${styles['blog-post']} text-gray-300`}
               />
             </div>
           </div>

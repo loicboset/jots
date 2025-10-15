@@ -1,12 +1,9 @@
-"use client";
+'use client';
 
-import Toggle from "@/components/ui/Toggle/index";
-import InfoTooltip from "@/components/ui/tooltips/InfoTooltip";
-import { useUserContext } from "@/context/UserProvider";
-import {
-  useUpsertUserSettings,
-  useUserSettings,
-} from "@/services/user_settings";
+import Toggle from '@/components/ui/Toggle/index';
+import InfoTooltip from '@/components/ui/tooltips/InfoTooltip';
+import { useUserContext } from '@/context/UserProvider';
+import { useUpsertUserSettings, useUserSettings } from '@/services/user_settings';
 
 const MoodChecks = (): React.ReactElement => {
   // CONTEXT
@@ -30,9 +27,7 @@ const MoodChecks = (): React.ReactElement => {
   return (
     <div className="flex justify-between max-w-2xl">
       <div className="flex">
-        <span className="block text-sm/6 font-medium text-white">
-          Daily Mood Checks
-        </span>
+        <span className="block text-sm/6 font-medium text-white">Daily Mood Checks</span>
         <InfoTooltip
           message={`
           Toggle on to get personalised daily motivation boosters based on your mood levels to help with your writing!

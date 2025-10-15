@@ -1,15 +1,15 @@
-import { JSX, useEffect } from "react";
+import { JSX, useEffect } from 'react';
 
-import dayjs from "dayjs";
-import { getDefaultClassNames, DayPicker } from "react-day-picker";
+import dayjs from 'dayjs';
+import { getDefaultClassNames, DayPicker } from 'react-day-picker';
 
-import { useCalendarContext } from "@/context/CalendarContextProvider";
-import { useUserContext } from "@/context/UserProvider";
-import { useJournalEntriesDates } from "@/services/journal_entries";
-import useCalendarStore from "@/stores/useCalendarStore";
+import { useCalendarContext } from '@/context/CalendarContextProvider';
+import { useUserContext } from '@/context/UserProvider';
+import { useJournalEntriesDates } from '@/services/journal_entries';
+import useCalendarStore from '@/stores/useCalendarStore';
 
-import "react-day-picker/style.css";
-import "./index.css";
+import 'react-day-picker/style.css';
+import './index.css';
 
 const Calendar = (): JSX.Element => {
   // STORE
@@ -25,7 +25,7 @@ const Calendar = (): JSX.Element => {
   // RQ
   const { data: entries = [] } = useJournalEntriesDates(
     userID,
-    dayjs(selectedDate).startOf("month").format("YYYY-MM-DD"),
+    dayjs(selectedDate).startOf('month').format('YYYY-MM-DD'),
   );
 
   // EFFECTS
@@ -61,7 +61,7 @@ const Calendar = (): JSX.Element => {
         filled: filledDays,
       }}
       modifiersClassNames={{
-        filled: "filled-day",
+        filled: 'filled-day',
       }}
       mode="single"
       selected={selectedDate}

@@ -1,10 +1,10 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
-import styles from "./TextButton.module.css";
+import styles from './TextButton.module.css';
 
-type Color = "green" | "red" | "indigo" | "yellow" | "gray";
+type Color = 'green' | 'red' | 'indigo' | 'yellow' | 'gray';
 
-type ButtonType = "button" | "reset" | "submit";
+type ButtonType = 'button' | 'reset' | 'submit';
 
 type Props = {
   children: React.ReactElement | string;
@@ -18,22 +18,14 @@ type Props = {
 
 const TextButton = (props: Props): React.ReactElement => {
   // PROPS
-  const {
-    children,
-    color = "green",
-    onClick,
-    title,
-    className,
-    disabled,
-    type = "button",
-  } = props;
+  const { children, color = 'green', onClick, title, className, disabled, type = 'button' } = props;
 
   const classNameBtn = classNames(
-    "font-medium",
+    'font-medium',
     className,
     styles.button,
     color && styles[`button--${color}`],
-    disabled && styles["button--disabled"],
+    disabled && styles['button--disabled'],
   );
 
   return (

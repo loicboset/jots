@@ -6,7 +6,7 @@ import {
   ParagraphNode,
   RangeSelection,
   SerializedElementNode,
-} from "lexical";
+} from 'lexical';
 
 type SerializedMotivationBoosterNode = SerializedElementNode & {
   placeholder: string;
@@ -21,7 +21,7 @@ export class MotivationBoosterNode extends ElementNode {
   }
 
   static getType(): string {
-    return "motivation-booster";
+    return 'motivation-booster';
   }
 
   static clone(node: MotivationBoosterNode): MotivationBoosterNode {
@@ -30,8 +30,8 @@ export class MotivationBoosterNode extends ElementNode {
 
   createDOM(): HTMLElement {
     // Define the DOM element here
-    const element = document.createElement("p");
-    element.classList.add("node-placeholder");
+    const element = document.createElement('p');
+    element.classList.add('node-placeholder');
     element.dataset.placeholder = this.__placeholder;
     return element;
   }
@@ -44,10 +44,7 @@ export class MotivationBoosterNode extends ElementNode {
     return false;
   }
 
-  insertNewAfter(
-    rangeSelection: RangeSelection,
-    restoreSelection: boolean,
-  ): ParagraphNode {
+  insertNewAfter(rangeSelection: RangeSelection, restoreSelection: boolean): ParagraphNode {
     const newElement = $createParagraphNode();
     newElement.setTextFormat(rangeSelection.format);
     newElement.setTextStyle(rangeSelection.style);
@@ -59,12 +56,8 @@ export class MotivationBoosterNode extends ElementNode {
     return newElement;
   }
 
-  static importJSON(
-    serializedNode: SerializedMotivationBoosterNode,
-  ): MotivationBoosterNode {
-    return $createMotivationBoosterNode(
-      serializedNode.placeholder,
-    ).updateFromJSON(serializedNode);
+  static importJSON(serializedNode: SerializedMotivationBoosterNode): MotivationBoosterNode {
+    return $createMotivationBoosterNode(serializedNode.placeholder).updateFromJSON(serializedNode);
   }
 
   exportJSON(): SerializedMotivationBoosterNode {
@@ -75,9 +68,7 @@ export class MotivationBoosterNode extends ElementNode {
   }
 }
 
-export function $createMotivationBoosterNode(
-  placeholder: string,
-): MotivationBoosterNode {
+export function $createMotivationBoosterNode(placeholder: string): MotivationBoosterNode {
   return new MotivationBoosterNode(placeholder);
 }
 

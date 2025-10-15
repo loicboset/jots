@@ -6,17 +6,17 @@ import {
   TEXT_FORMAT_TRANSFORMERS,
   TEXT_MATCH_TRANSFORMERS,
   Transformer,
-} from "@lexical/markdown";
+} from '@lexical/markdown';
 import {
   $createHorizontalRuleNode,
   $isHorizontalRuleNode,
   HorizontalRuleNode,
-} from "@lexical/react/LexicalHorizontalRuleNode";
-import { LexicalNode } from "lexical";
+} from '@lexical/react/LexicalHorizontalRuleNode';
+import { LexicalNode } from 'lexical';
 
 export const HR: ElementTransformer = {
   dependencies: [HorizontalRuleNode],
-  export: (node: LexicalNode) => ($isHorizontalRuleNode(node) ? "***" : null),
+  export: (node: LexicalNode) => ($isHorizontalRuleNode(node) ? '***' : null),
   regExp: /^(---|\*\*\*|___)\s?$/,
   replace: (parentNode, _1, _2, isImport) => {
     const line = $createHorizontalRuleNode();
@@ -30,7 +30,7 @@ export const HR: ElementTransformer = {
 
     line.selectNext();
   },
-  type: "element",
+  type: 'element',
 };
 
 export const PLAYGROUND_TRANSFORMERS: Array<Transformer> = [

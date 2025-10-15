@@ -1,11 +1,11 @@
-import OpenAI from "openai";
+import OpenAI from 'openai';
 
-import aiUsageLogger from "@/lib/logger/aiUsageLogger";
+import aiUsageLogger from '@/lib/logger/aiUsageLogger';
 
-import getUserID from "../_utils/getUserID";
-import getChat from "./_utils/getChat";
-import getJournalEntries from "./_utils/getJournalEntries";
-import saveChat from "./_utils/saveChat";
+import getUserID from '../_utils/getUserID';
+import getChat from './_utils/getChat';
+import getJournalEntries from './_utils/getJournalEntries';
+import saveChat from './_utils/saveChat';
 
 type ChatbotRequest = {
   userMessage: string;
@@ -13,23 +13,21 @@ type ChatbotRequest = {
 
 const openai = new OpenAI();
 
-const MODEL = "gpt-4o-mini";
+const MODEL = 'gpt-4o-mini';
 // const MODEL = "gpt-4.1-mini";
 
 export async function GET(): Promise<Response> {
   const userID = await getUserID();
   if (!userID) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
 
   const { messages, chatID } = await getChat(userID);
 
   const headers = new Headers();
-  headers.append("Content-Type", "application/json");
+  headers.append('Content-Type', 'application/json');
 
-  const conversation = messages.filter(
-    (msg) => msg.role === "user" || msg.role === "assistant",
-  );
+  const conversation = messages.filter((msg) => msg.role === 'user' || msg.role === 'assistant');
 
   return new Response(
     JSON.stringify({
@@ -45,19 +43,19 @@ export async function POST(request: Request): Promise<Response> {
   const { userMessage } = req as ChatbotRequest;
 
   const userID = await getUserID();
-  if (!userID) return new Response("Unauthorized", { status: 401 });
+  if (!userID) return new Response('Unauthorized', { status: 401 });
 
   let chatID = req?.chatID || null;
   const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [];
 
   if (chatID) {
     const { messages: previousMessages } = await getChat(userID);
-    messages.push(...previousMessages, { role: "user", content: userMessage });
+    messages.push(...previousMessages, { role: 'user', content: userMessage });
   } else {
     const journalEntries = await getJournalEntries(userID);
     messages.push(
       {
-        role: "system",
+        role: 'system',
         content: `
           You are a software engineering career coach - this is your strict boundary.
           Use my journal entries to provide relevant answers.
@@ -65,10 +63,10 @@ export async function POST(request: Request): Promise<Response> {
         `,
       },
       {
-        role: "system",
+        role: 'system',
         content: `Here are my journal entries:\n\n${journalEntries}`,
       },
-      { role: "user", content: userMessage },
+      { role: 'user', content: userMessage },
     );
   }
 
@@ -83,7 +81,7 @@ export async function POST(request: Request): Promise<Response> {
   const writer = writable.getWriter();
   const encoder = new TextEncoder();
 
-  let fullResponse = "";
+  let fullResponse = '';
 
   (async (): Promise<void> => {
     for await (const chunk of stream) {
@@ -92,28 +90,27 @@ export async function POST(request: Request): Promise<Response> {
       if (chunk?.usage) {
         await aiUsageLogger({
           userID,
-          type: "CHATBOT",
+          type: 'CHATBOT',
           model: MODEL,
           inputTokens: chunk.usage?.prompt_tokens ?? 0,
-          inputCachedTokens:
-            chunk.usage?.prompt_tokens_details?.cached_tokens ?? 0,
+          inputCachedTokens: chunk.usage?.prompt_tokens_details?.cached_tokens ?? 0,
           outputTokens: chunk.usage?.completion_tokens ?? 0,
         });
       } else {
-        const content = chunk.choices[0]?.delta?.content || "";
+        const content = chunk.choices[0]?.delta?.content || '';
         fullResponse += content;
         await writer.write(encoder.encode(content));
       }
     }
-    messages.push({ role: "assistant", content: fullResponse });
+    messages.push({ role: 'assistant', content: fullResponse });
     if (chatID) await saveChat(userID, chatID, messages);
     writer.close();
   })();
 
   return new Response(readable, {
     headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Transfer-Encoding": "chunked",
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Transfer-Encoding': 'chunked',
     },
   });
 }

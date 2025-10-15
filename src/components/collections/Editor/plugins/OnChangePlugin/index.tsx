@@ -1,34 +1,33 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import { SerializedEditorState } from "lexical";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import { SerializedEditorState } from 'lexical';
 
-import { useAchievements } from "@/context/AchievementsProvider";
-import { useCalendarContext } from "@/context/CalendarContextProvider";
-import { useUserContext } from "@/context/UserProvider";
+import { useAchievements } from '@/context/AchievementsProvider';
+import { useCalendarContext } from '@/context/CalendarContextProvider';
+import { useUserContext } from '@/context/UserProvider';
 import {
   useDeleteJournalEntry,
   useGetWeekStreakCount,
   useJournalEntries,
   useJournalEntry,
   useUpsertJournalEntry,
-} from "@/services/journal_entries";
-import { useGetWeekEntries } from "@/services/journal_entries";
-import { useUserSkills } from "@/services/user_skills";
-import { checkAchievements } from "@/utils/checkAchievements/checkAchievements";
-import { countUncheckedListItems } from "@/utils/countUncheckedListItems/countUncheckedListItems";
-import useDebounce from "@/utils/hooks/useDebounce";
+} from '@/services/journal_entries';
+import { useGetWeekEntries } from '@/services/journal_entries';
+import { useUserSkills } from '@/services/user_skills';
+import { checkAchievements } from '@/utils/checkAchievements/checkAchievements';
+import { countUncheckedListItems } from '@/utils/countUncheckedListItems/countUncheckedListItems';
+import useDebounce from '@/utils/hooks/useDebounce';
 
-import isLexicalStateEmpty from "../../utils/isLexicalStateEmpty";
+import isLexicalStateEmpty from '../../utils/isLexicalStateEmpty';
 
 dayjs.extend(utc);
 
 const OnChangePlugin = (): null => {
   // STATE
-  const [newEditorState, setNewEditorState] =
-    useState<SerializedEditorState | null>(null);
+  const [newEditorState, setNewEditorState] = useState<SerializedEditorState | null>(null);
 
   // CONTEXT
   const { user } = useUserContext();
@@ -47,7 +46,7 @@ const OnChangePlugin = (): null => {
 
   const journalEntriesTotalCount = entries?.total_count ?? 0;
   const totalAiSkills = skills
-    .filter((el) => el.skill === "AI")
+    .filter((el) => el.skill === 'AI')
     .reduce((sum, el) => sum + el.score, 0);
 
   // HOOKS
@@ -58,16 +57,10 @@ const OnChangePlugin = (): null => {
   useLayoutEffect(
     () =>
       editor.registerUpdateListener(
-        ({
-          editorState,
-          dirtyElements,
-          dirtyLeaves,
-          prevEditorState,
-          tags,
-        }) => {
+        ({ editorState, dirtyElements, dirtyLeaves, prevEditorState, tags }) => {
           if (
             (dirtyElements.size === 0 && dirtyLeaves.size === 0) ||
-            tags.has("history-merge") ||
+            tags.has('history-merge') ||
             prevEditorState.isEmpty()
           ) {
             return;
@@ -80,25 +73,19 @@ const OnChangePlugin = (): null => {
   );
 
   useEffect(() => {
-    if (
-      !debouncedNewEditorState ||
-      isLexicalStateEmpty(debouncedNewEditorState)
-    )
-      return;
+    if (!debouncedNewEditorState || isLexicalStateEmpty(debouncedNewEditorState)) return;
 
     upsertEntry({
       user_id: user.userID,
       content: debouncedNewEditorState,
-      date: dayjs
-        .utc(dayjs(calendar.currentDate).format("YYYY-MM-DD"), "YYYY-MM-DD")
-        .toDate(),
+      date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
     });
 
     checkAchievements({
       stats: {
         totalEntries: journalEntriesTotalCount,
         streak,
-        day: dayjs.utc(calendar.currentDate).format("dddd"),
+        day: dayjs.utc(calendar.currentDate).format('dddd'),
         tasks: unchecked,
         aiSkills: totalAiSkills,
       },

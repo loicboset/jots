@@ -1,16 +1,13 @@
-import { createClient } from "@/lib/supabase/server";
-import { UpsertUserSettings } from "@/types/payload/user_settings";
+import { createClient } from '@/lib/supabase/server';
+import { UpsertUserSettings } from '@/types/payload/user_settings';
 
 export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
-  const { data: settings } = await supabase
-    .from("user_settings")
-    .select("*")
-    .single();
+  const { data: settings } = await supabase.from('user_settings').select('*').single();
 
   const headers = new Headers();
-  headers.append("Content-Type", "application/json");
+  headers.append('Content-Type', 'application/json');
 
   return new Response(JSON.stringify(settings), { status: 200, headers });
 }
@@ -31,7 +28,7 @@ export async function PUT(request: Request): Promise<Response> {
   } = req as UpsertUserSettings;
 
   const { data } = await supabase
-    .from("user_settings")
+    .from('user_settings')
     .upsert(
       {
         user_id,
@@ -43,7 +40,7 @@ export async function PUT(request: Request): Promise<Response> {
         timezone,
         career_coach_mode,
       },
-      { onConflict: "user_id" },
+      { onConflict: 'user_id' },
     )
     .select();
 

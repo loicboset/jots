@@ -6,27 +6,22 @@
   function, the isSubscribing state, the testDeviceNotification function, and the sendTestNotifications function.
 */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
-import { UAParser } from "ua-parser-js";
+import { UAParser } from 'ua-parser-js';
 
-import { useUserContext } from "@/context/UserProvider";
-import subscribePushNotification from "@/packages/PushNotifications/utils/subscribePushNotification";
-import {
-  useUserPushSubscriptions,
-  useUpsertPushSubscription,
-} from "@/services/push_subscriptions";
-import { UserPushSubscription } from "@/types/api/push_subscriptions";
-import sendTestNotifications from "@/worker/utils/sendTestNotification";
+import { useUserContext } from '@/context/UserProvider';
+import subscribePushNotification from '@/packages/PushNotifications/utils/subscribePushNotification';
+import { useUserPushSubscriptions, useUpsertPushSubscription } from '@/services/push_subscriptions';
+import { UserPushSubscription } from '@/types/api/push_subscriptions';
+import sendTestNotifications from '@/worker/utils/sendTestNotification';
 
 type ReturnUseSWManager = {
   swState: ServiceWorkerState | null;
   pushSubscription: PushSubscription | null;
   subscribeDevice: () => Promise<void>;
   isSubscribing: boolean;
-  sendTestNotifications: (
-    subscriptions: UserPushSubscription[],
-  ) => Promise<void>;
+  sendTestNotifications: (subscriptions: UserPushSubscription[]) => Promise<void>;
 };
 
 const usePushNotificationsManager = (): ReturnUseSWManager => {
@@ -35,13 +30,11 @@ const usePushNotificationsManager = (): ReturnUseSWManager => {
 
   // STATE
   const [swState, setSwState] = useState<ServiceWorkerState | null>(null);
-  const [pushSubscription, setPushSubscription] =
-    useState<PushSubscription | null>(null);
+  const [pushSubscription, setPushSubscription] = useState<PushSubscription | null>(null);
 
   // RQ
   const { data: userSubscriptions = [] } = useUserPushSubscriptions();
-  const { mutate: createUserSubscription, isPending: isSubscribing } =
-    useUpsertPushSubscription();
+  const { mutate: createUserSubscription, isPending: isSubscribing } = useUpsertPushSubscription();
 
   // METHODS
   const subscribeDevice = useCallback(async (): Promise<void> => {
@@ -57,8 +50,8 @@ const usePushNotificationsManager = (): ReturnUseSWManager => {
       endpoint: subscription.endpoint,
       auth,
       p256dh,
-      browser: browser.name || "unknown",
-      os: os.name || "unknown",
+      browser: browser.name || 'unknown',
+      os: os.name || 'unknown',
     });
   }, [createUserSubscription, user.userID]);
 
@@ -66,7 +59,7 @@ const usePushNotificationsManager = (): ReturnUseSWManager => {
   // Get the service worker registration and set the state
   useEffect(() => {
     navigator.serviceWorker
-      .getRegistration("/")
+      .getRegistration('/')
       .then((registration) => {
         let serviceWorker;
         if (registration?.installing) {
@@ -74,30 +67,29 @@ const usePushNotificationsManager = (): ReturnUseSWManager => {
           serviceWorker.onstatechange = (e): void => {
             if (e.target) setSwState((e.target as ServiceWorker).state);
           };
-          setSwState("installing");
+          setSwState('installing');
         } else if (registration?.waiting) {
           serviceWorker = registration.waiting;
-          setSwState("installed");
+          setSwState('installed');
         } else if (registration?.active) {
           serviceWorker = registration.active;
-          setSwState("activated");
+          setSwState('activated');
         }
 
-        registration?.addEventListener("updatefound", (e) => {
+        registration?.addEventListener('updatefound', (e) => {
           const sw = e.currentTarget as ServiceWorkerRegistration;
-          if (sw.active) setSwState("activated");
-          if (sw.waiting) setSwState("installed");
+          if (sw.active) setSwState('activated');
+          if (sw.waiting) setSwState('installed');
           if (sw.installing) {
             sw.installing.onstatechange = (event): void => {
-              if (event.target)
-                setSwState((event.target as ServiceWorker).state);
+              if (event.target) setSwState((event.target as ServiceWorker).state);
             };
-            setSwState("installing");
+            setSwState('installing');
           }
         });
       })
       .catch((err) => {
-        console.error("Error getting service worker registration:", err);
+        console.error('Error getting service worker registration:', err);
       });
   }, []);
 

@@ -1,4 +1,4 @@
-export type UserReflectionStatus = "draft" | "submitted";
+export type UserReflectionStatus = 'draft' | 'submitted';
 
 export type UserReflection = {
   id: string;

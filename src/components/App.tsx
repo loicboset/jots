@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Bars3Icon } from "@heroicons/react/24/outline";
-import Script from "next/script";
+import { Bars3Icon } from '@heroicons/react/24/outline';
+import Script from 'next/script';
 
-import Editor from "@/components/collections/Editor";
-import BugReportButton from "@/components/features/BugReportButton";
-import { useCalendarContext } from "@/context/CalendarContextProvider";
-import { PushNotificationsPlugin } from "@/packages";
+import Editor from '@/components/collections/Editor';
+import BugReportButton from '@/components/features/BugReportButton';
+import { useCalendarContext } from '@/context/CalendarContextProvider';
+import { PushNotificationsPlugin } from '@/packages';
 
-import AppWrapper from "./collections/AppWrapper";
-import MotivationBooster from "./collections/MotivationBooster";
-import NavBar from "./collections/NavBar";
-import ReflectionTemplates from "./collections/ReflectionTemplates";
-import ChatbotWrapper from "./features/ChatbotWrapper";
-import PromptsLibraryModal from "./features/PromptsLibraryModal";
-import ScreenSizeRenderer from "./ui/wrappers/ScreenSizeRenderer";
+import AppWrapper from './collections/AppWrapper';
+import MotivationBooster from './collections/MotivationBooster';
+import NavBar from './collections/NavBar';
+import ReflectionTemplates from './collections/ReflectionTemplates';
+import ChatbotWrapper from './features/ChatbotWrapper';
+import PromptsLibraryModal from './features/PromptsLibraryModal';
+import ScreenSizeRenderer from './ui/wrappers/ScreenSizeRenderer';
 
 type Props = {
   userID: string;
@@ -32,40 +32,37 @@ const App = ({ userID }: Props): React.ReactElement => {
 
   // STATE
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [page] = useState("templates");
+  const [page] = useState('templates');
 
   const handleSetSidebarOpen = (open: boolean): void => setSidebarOpen(open);
 
   useEffect(() => {
-    if ("serviceWorker" in navigator && "PushManager" in window) {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
       registerServiceWorker();
     }
   }, []);
 
   const registerServiceWorker = async (): Promise<void> => {
-    await navigator.serviceWorker.register("./sw.js", {
-      scope: "/",
-      updateViaCache: "none",
+    await navigator.serviceWorker.register('./sw.js', {
+      scope: '/',
+      updateViaCache: 'none',
     });
   };
 
   // VARS
-  let displayMode = "browser";
-  const mqStandAlone = "(display-mode: standalone)";
+  let displayMode = 'browser';
+  const mqStandAlone = '(display-mode: standalone)';
   if (
     (window.navigator as ExtendedNavigator)?.standalone ||
     window.matchMedia(mqStandAlone).matches
   ) {
-    displayMode = "standalone";
+    displayMode = 'standalone';
   }
 
   return (
     <>
-      <NavBar
-        sidebarOpen={sidebarOpen}
-        handleSetSidebarOpen={handleSetSidebarOpen}
-      />
-      {displayMode === "standalone" && (
+      <NavBar sidebarOpen={sidebarOpen} handleSetSidebarOpen={handleSetSidebarOpen} />
+      {displayMode === 'standalone' && (
         <ScreenSizeRenderer maxWidth="md">
           <PushNotificationsPlugin />
         </ScreenSizeRenderer>
@@ -81,14 +78,12 @@ const App = ({ userID }: Props): React.ReactElement => {
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon aria-hidden="true" className="size-6" />
             </button>
-            <p className="font-medium text-lg">
-              {calendar.currentDate.toDateString()}
-            </p>
+            <p className="font-medium text-lg">{calendar.currentDate.toDateString()}</p>
           </div>
           <MotivationBooster />
         </div>
         <AppWrapper userID={userID}>
-          {page === "templates" ? (
+          {page === 'templates' ? (
             <ReflectionTemplates />
           ) : (
             <>

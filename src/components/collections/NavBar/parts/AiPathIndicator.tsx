@@ -1,12 +1,12 @@
-import { Cpu } from "lucide-react";
+import { Cpu } from 'lucide-react';
 
-import { useUserSettings } from "@/services/user_settings";
+import { useUserSettings } from '@/services/user_settings';
 
 const AiPathIndicator = (): React.ReactElement => {
   // HOOKS
   const { data: settings } = useUserSettings();
 
-  if (settings?.goal === "Learn AI skills") {
+  if (settings?.goal === 'Learn AI skills') {
     return (
       <div className="flex items-center gap-2 px-3 py-2 mt-4 rounded-lg bg-gray-900 text-white shadow-sm">
         <div className="relative">

@@ -1,4 +1,4 @@
-import webPush from "web-push";
+import webPush from 'web-push';
 
 webPush.setVapidDetails(
   process.env.ENV_URL as string,
@@ -27,7 +27,7 @@ const sendPushNotification = async (args: Args): Promise<void> => {
   try {
     await webPush.sendNotification(subscription, payload);
   } catch (error) {
-    console.error("Error sending push notification:", error);
+    console.error('Error sending push notification:', error);
   }
 };
 

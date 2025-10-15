@@ -1,21 +1,18 @@
 /* eslint-disable max-len */
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from 'react-hook-form';
 
-import Button from "@/components/ui/buttons/Button";
-import CreatableSelect from "@/components/ui/selects/CreatableSelects";
-import { useUserContext } from "@/context/UserProvider";
-import {
-  useUpsertUserSettings,
-  useUserSettings,
-} from "@/services/user_settings";
-import { UpsertUserSettings } from "@/types/payload/user_settings";
-import { GOALSOPTIONS, ROLESOPTIONS } from "@/utils/constants";
+import Button from '@/components/ui/buttons/Button';
+import CreatableSelect from '@/components/ui/selects/CreatableSelects';
+import { useUserContext } from '@/context/UserProvider';
+import { useUpsertUserSettings, useUserSettings } from '@/services/user_settings';
+import { UpsertUserSettings } from '@/types/payload/user_settings';
+import { GOALSOPTIONS, ROLESOPTIONS } from '@/utils/constants';
 
-type FormValues = Omit<UpsertUserSettings, "user_id">;
+type FormValues = Omit<UpsertUserSettings, 'user_id'>;
 
 const PersonalInfo = (): React.ReactElement => {
   // CONTEXT
@@ -31,9 +28,9 @@ const PersonalInfo = (): React.ReactElement => {
   // EFFECTS
   useEffect(() => {
     // set default values
-    setValue("role", settings?.role);
-    setValue("experience", settings?.experience);
-    setValue("goal", settings?.goal);
+    setValue('role', settings?.role);
+    setValue('experience', settings?.experience);
+    setValue('goal', settings?.goal);
   }, [setValue, settings?.experience, settings?.goal, settings?.role]);
 
   // METHODS
@@ -53,21 +50,17 @@ const PersonalInfo = (): React.ReactElement => {
       <div>
         <h2 className="text-base/7 font-semibold text-white">Profile</h2>
         <p className="mt-1 text-sm/6 text-gray-400">
-          This is your personal information. We use this to tailor the AI
-          responses to your needs.
+          This is your personal information. We use this to tailor the AI responses to your needs.
         </p>
       </div>
 
       <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
         <div className="sm:col-span-4">
-          <label
-            htmlFor="role"
-            className="block text-sm/6 mb-2 font-medium text-white"
-          >
+          <label htmlFor="role" className="block text-sm/6 mb-2 font-medium text-white">
             Role
           </label>
           <Controller
-            name={"role"}
+            name={'role'}
             control={control}
             render={({ field: { onChange, value } }): React.ReactElement => (
               <CreatableSelect
@@ -82,16 +75,13 @@ const PersonalInfo = (): React.ReactElement => {
         </div>
 
         <div className="sm:col-span-4">
-          <label
-            htmlFor="experience"
-            className="block text-sm/6 font-medium text-white"
-          >
+          <label htmlFor="experience" className="block text-sm/6 font-medium text-white">
             Experience (in years)
           </label>
           <div className="mt-2">
             <div className="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
               <input
-                {...register("experience")}
+                {...register('experience')}
                 type="number"
                 className="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
               />
@@ -100,14 +90,11 @@ const PersonalInfo = (): React.ReactElement => {
         </div>
 
         <div className="sm:col-span-4">
-          <label
-            htmlFor="goal"
-            className="block text-sm/6 mb-2 font-medium text-white"
-          >
+          <label htmlFor="goal" className="block text-sm/6 mb-2 font-medium text-white">
             Goal
           </label>
           <Controller
-            name={"goal"}
+            name={'goal'}
             control={control}
             render={({ field: { onChange, value } }): React.ReactElement => (
               <CreatableSelect

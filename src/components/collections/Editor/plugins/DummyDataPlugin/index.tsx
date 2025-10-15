@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, TextNode } from "lexical";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $createParagraphNode, TextNode } from 'lexical';
 
-import { useJournalEntries } from "@/services/journal_entries";
+import { useJournalEntries } from '@/services/journal_entries';
 
-import { $createCollapsibleContainerNode } from "../../nodes/CollapsibleContainerNode";
-import { $createCollapsibleContentNode } from "../../nodes/CollapsibleContentNode";
-import { $createCollapsibleTitleNode } from "../../nodes/CollapsibleTitleNode";
-import { $isDayContainerNode } from "../../nodes/DayContainerNode";
-import { $isPromptNode } from "../../nodes/PromptNode";
+import { $createCollapsibleContainerNode } from '../../nodes/CollapsibleContainerNode';
+import { $createCollapsibleContentNode } from '../../nodes/CollapsibleContentNode';
+import { $createCollapsibleTitleNode } from '../../nodes/CollapsibleTitleNode';
+import { $isDayContainerNode } from '../../nodes/DayContainerNode';
+import { $isPromptNode } from '../../nodes/PromptNode';
 
 const DummyDataPlugin = (): null => {
   // RQ
@@ -40,12 +40,12 @@ const DummyDataPlugin = (): null => {
 
         // Welcome!
         const welcome = $createParagraphNode();
-        welcome.append(new TextNode("Welcome to Jots! 🎉"));
+        welcome.append(new TextNode('Welcome to Jots! 🎉'));
         spacingParagraph.insertAfter(welcome);
         const sub = $createParagraphNode();
         sub.append(
           new TextNode(
-            "You’re taking your first step toward building a powerful habit—journaling your dev journey. This practice will help you gain clarity, track progress, and reflect on your growth.",
+            'You’re taking your first step toward building a powerful habit—journaling your dev journey. This practice will help you gain clarity, track progress, and reflect on your growth.',
           ),
         );
         welcome.insertAfter(sub);
@@ -53,18 +53,16 @@ const DummyDataPlugin = (): null => {
 
         // Get started
         const getStarted = $createParagraphNode();
-        getStarted.append(new TextNode("Here’s how to get started:"));
+        getStarted.append(new TextNode('Here’s how to get started:'));
         sub.insertAfter(getStarted);
         getStarted.insertBefore($createParagraphNode());
 
         // The editor
-        const editorTitle = $createParagraphNode().append(
-          new TextNode("📝 The Editor"),
-        );
+        const editorTitle = $createParagraphNode().append(new TextNode('📝 The Editor'));
         const editor = $createParagraphNode();
         editor.append(
           new TextNode(
-            "This is where you’ll write. No strict format—just an automatic date to help you track entries. Organise your thoughts however you like.",
+            'This is where you’ll write. No strict format—just an automatic date to help you track entries. Organise your thoughts however you like.',
           ),
         );
         getStarted.insertAfter(editorTitle);
@@ -73,34 +71,20 @@ const DummyDataPlugin = (): null => {
 
         // Features
         const features = $createParagraphNode();
-        features.append(
-          new TextNode("⚡ Two tools to enhance your journaling:"),
-        );
+        features.append(new TextNode('⚡ Two tools to enhance your journaling:'));
 
         const prompt = $createParagraphNode();
-        prompt.append(
-          new TextNode(
-            "- /prompt – Get writing inspiration with guided prompts",
-          ),
-        );
+        prompt.append(new TextNode('- /prompt – Get writing inspiration with guided prompts'));
 
         const categories = $createParagraphNode();
-        categories.append(
-          new TextNode(
-            "- #category_name – Tag and organise your notes. Example:",
-          ),
-        );
+        categories.append(new TextNode('- #category_name – Tag and organise your notes. Example:'));
 
-        const categoryNode = $createCollapsibleContainerNode(
-          true,
-          "learnings",
-          "f123123",
-        );
+        const categoryNode = $createCollapsibleContainerNode(true, 'learnings', 'f123123');
 
         const titleNode = $createCollapsibleTitleNode();
         const paragraph = $createParagraphNode();
         titleNode.append(paragraph);
-        const textNode = new TextNode("#learnings");
+        const textNode = new TextNode('#learnings');
         paragraph.append(textNode);
 
         const contentNode = $createCollapsibleContentNode();
@@ -108,7 +92,7 @@ const DummyDataPlugin = (): null => {
         const fact = $createParagraphNode();
         fact.append(
           new TextNode(
-            "- journaling improves clarity & focus, strengthens self-reflection, and cultivates emotional intelligence",
+            '- journaling improves clarity & focus, strengthens self-reflection, and cultivates emotional intelligence',
           ),
         );
         contentParagraph.append(fact);
@@ -126,9 +110,7 @@ const DummyDataPlugin = (): null => {
 
         // Enjoy
         const enjoy = $createParagraphNode();
-        enjoy.append(
-          new TextNode("This is just the beginning—enjoy the journey! 🚀"),
-        );
+        enjoy.append(new TextNode('This is just the beginning—enjoy the journey! 🚀'));
         categoryNode.insertAfter(enjoy);
         enjoy.insertBefore($createParagraphNode());
       });

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
-import Header from "@/components/collections/layouts/Header";
-import Button from "@/components/ui/buttons/Button";
-import useToast from "@/utils/hooks/useToast";
+import Header from '@/components/collections/layouts/Header';
+import Button from '@/components/ui/buttons/Button';
+import useToast from '@/utils/hooks/useToast';
 
-import { sendResetPasswordLink } from "./actions";
+import { sendResetPasswordLink } from './actions';
 
 export type FormValues = {
   email: string;
@@ -53,25 +53,18 @@ const ForgotPassword = (): JSX.Element => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            onSubmit={handleSubmit(handleForgotPassword)}
-            className="space-y-6"
-          >
+          <form onSubmit={handleSubmit(handleForgotPassword)} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-medium text-white"
-              >
+              <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
               </label>
               <div className="mt-2">
                 <input
-                  {...register("email", {
-                    required: "Email is required",
+                  {...register('email', {
+                    required: 'Email is required',
                     pattern: {
-                      value:
-                        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "Invalid email address",
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                      message: 'Invalid email address',
                     },
                   })}
                   type="email"
@@ -83,9 +76,7 @@ const ForgotPassword = (): JSX.Element => {
                     focus:outline-indigo-500 sm:text-sm/6
                   `}
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email.message}</p>
-                )}
+                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
               </div>
             </div>
 
@@ -97,11 +88,8 @@ const ForgotPassword = (): JSX.Element => {
           </form>
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
-            Not a member?{" "}
-            <Link
-              href="/signup"
-              className="font-semibold text-indigo-400 hover:text-indigo-300"
-            >
+            Not a member?{' '}
+            <Link href="/signup" className="font-semibold text-indigo-400 hover:text-indigo-300">
               Create an account now
             </Link>
           </p>

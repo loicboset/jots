@@ -1,11 +1,8 @@
 /* eslint-disable max-len */
-import type { JSX } from "react";
-import * as React from "react";
+import type { JSX } from 'react';
+import * as React from 'react';
 
-import {
-  AutoLinkPlugin,
-  createLinkMatcherWithRegExp,
-} from "@lexical/react/LexicalAutoLinkPlugin";
+import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
 
 const URL_REGEX =
   /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)(?<![-.+():%])/;
@@ -15,7 +12,7 @@ const EMAIL_REGEX =
 
 const MATCHERS = [
   createLinkMatcherWithRegExp(URL_REGEX, (text) =>
-    text.startsWith("http") ? text : `https://${text}`,
+    text.startsWith('http') ? text : `https://${text}`,
   ),
   createLinkMatcherWithRegExp(EMAIL_REGEX, (text) => `mailto:${text}`),
 ];

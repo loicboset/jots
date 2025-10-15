@@ -1,9 +1,7 @@
-import Spinner from "../../loaders/Spinner";
+import Spinner from '../../loaders/Spinner';
 
 type Props = {
-  onClick?: (
-    e: React.SyntheticEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => void;
+  onClick?: (e: React.SyntheticEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   srOnlyText?: string;
   children: React.ReactNode;
   className?: string;

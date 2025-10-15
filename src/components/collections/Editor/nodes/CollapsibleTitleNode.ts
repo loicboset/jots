@@ -17,12 +17,12 @@ import {
   LexicalNode,
   RangeSelection,
   SerializedElementNode,
-} from "lexical";
+} from 'lexical';
 
-import { $isCollapsibleContainerNode } from "./CollapsibleContainerNode";
-import { $isCollapsibleContentNode } from "./CollapsibleContentNode";
-import { IS_CHROME } from "../utils/environment";
-import invariant from "../utils/invariant";
+import { $isCollapsibleContainerNode } from './CollapsibleContainerNode';
+import { $isCollapsibleContentNode } from './CollapsibleContentNode';
+import { IS_CHROME } from '../utils/environment';
+import invariant from '../utils/invariant';
 
 type SerializedCollapsibleTitleNode = SerializedElementNode;
 
@@ -40,7 +40,7 @@ export function $convertSummaryElement(): DOMConversionOutput | null {
 
 export class CollapsibleTitleNode extends ElementNode {
   static getType(): string {
-    return "collapsible-title";
+    return 'collapsible-title';
   }
 
   static clone(node: CollapsibleTitleNode): CollapsibleTitleNode {
@@ -48,15 +48,15 @@ export class CollapsibleTitleNode extends ElementNode {
   }
 
   createDOM(config: EditorConfig, editor: LexicalEditor): HTMLElement {
-    const dom = document.createElement("summary");
-    dom.classList.add("Collapsible__title");
+    const dom = document.createElement('summary');
+    dom.classList.add('Collapsible__title');
     if (IS_CHROME) {
-      dom.addEventListener("click", () => {
+      dom.addEventListener('click', () => {
         editor.update(() => {
           const collapsibleContainer = this.getLatest().getParentOrThrow();
           invariant(
             $isCollapsibleContainerNode(collapsibleContainer),
-            "Expected parent node to be a CollapsibleContainerNode",
+            'Expected parent node to be a CollapsibleContainerNode',
           );
           collapsibleContainer.toggleOpen();
         });
@@ -78,9 +78,7 @@ export class CollapsibleTitleNode extends ElementNode {
     };
   }
 
-  static importJSON(
-    serializedNode: SerializedCollapsibleTitleNode,
-  ): CollapsibleTitleNode {
+  static importJSON(serializedNode: SerializedCollapsibleTitleNode): CollapsibleTitleNode {
     return $createCollapsibleTitleNode().updateFromJSON(serializedNode);
   }
 
@@ -91,10 +89,7 @@ export class CollapsibleTitleNode extends ElementNode {
 
   static transform(): (node: LexicalNode) => void {
     return (node: LexicalNode) => {
-      invariant(
-        $isCollapsibleTitleNode(node),
-        "node is not a CollapsibleTitleNode",
-      );
+      invariant($isCollapsibleTitleNode(node), 'node is not a CollapsibleTitleNode');
       if (node.isEmpty()) {
         node.remove();
       }
@@ -105,17 +100,13 @@ export class CollapsibleTitleNode extends ElementNode {
     const containerNode = this.getParentOrThrow();
 
     if (!$isCollapsibleContainerNode(containerNode)) {
-      throw new Error(
-        "CollapsibleTitleNode expects to be child of CollapsibleContainerNode",
-      );
+      throw new Error('CollapsibleTitleNode expects to be child of CollapsibleContainerNode');
     }
 
     if (containerNode.getOpen()) {
       const contentNode = this.getNextSibling();
       if (!$isCollapsibleContentNode(contentNode)) {
-        throw new Error(
-          "CollapsibleTitleNode expects to have CollapsibleContentNode sibling",
-        );
+        throw new Error('CollapsibleTitleNode expects to have CollapsibleContentNode sibling');
       }
 
       const firstChild = contentNode.getFirstChild();

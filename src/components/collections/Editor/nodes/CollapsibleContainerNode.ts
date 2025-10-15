@@ -8,11 +8,11 @@ import {
   NodeKey,
   SerializedElementNode,
   Spread,
-} from "lexical";
+} from 'lexical';
 
-import { setDomHiddenUntilFound } from "../plugins/CollapsiblePlugin/CollapsibleUtils";
-import { IS_CHROME } from "../utils/environment";
-import invariant from "../utils/invariant";
+import { setDomHiddenUntilFound } from '../plugins/CollapsiblePlugin/CollapsibleUtils';
+import { IS_CHROME } from '../utils/environment';
+import invariant from '../utils/invariant';
 
 type SerializedCollapsibleContainerNode = Spread<
   {
@@ -28,12 +28,10 @@ type ContainerConversionDetails = {
   priority: 0 | 1 | 2 | 3 | 4 | undefined;
 };
 
-export function $convertDetailsElement(
-  domNode: HTMLDetailsElement,
-): DOMConversionOutput | null {
+export function $convertDetailsElement(domNode: HTMLDetailsElement): DOMConversionOutput | null {
   const isOpen = domNode.open !== undefined ? domNode.open : true;
   const name = domNode.name;
-  const color = domNode.getAttribute("color") || "";
+  const color = domNode.getAttribute('color') || '';
   const node = $createCollapsibleContainerNode(isOpen, name, color);
   return {
     node,
@@ -53,22 +51,17 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   static getType(): string {
-    return "collapsible-container";
+    return 'collapsible-container';
   }
 
   static clone(node: CollapsibleContainerNode): CollapsibleContainerNode {
-    return new CollapsibleContainerNode(
-      node.__open,
-      node.__name,
-      node.__color,
-      node.__key,
-    );
+    return new CollapsibleContainerNode(node.__open, node.__name, node.__color, node.__key);
   }
 
   createDOM(): HTMLElement {
-    const dom = document.createElement("div");
-    dom.setAttribute("name", this.__name);
-    dom.classList.add("Collapsible__container");
+    const dom = document.createElement('div');
+    dom.setAttribute('name', this.__name);
+    dom.classList.add('Collapsible__container');
     dom.style.borderColor = this.__color;
 
     return dom;
@@ -76,21 +69,18 @@ export class CollapsibleContainerNode extends ElementNode {
 
   updateDOM(prevNode: this, dom: HTMLDetailsElement): boolean {
     const currentOpen = this.__open;
-    dom.setAttribute("name", this.__name);
+    dom.setAttribute('name', this.__name);
 
     if (prevNode.__open !== currentOpen) {
       // details is not well supported in Chrome #5582
       if (IS_CHROME) {
         const contentDom = dom.children[1];
-        invariant(
-          isHTMLElement(contentDom),
-          "Expected contentDom to be an HTMLElement",
-        );
+        invariant(isHTMLElement(contentDom), 'Expected contentDom to be an HTMLElement');
         if (currentOpen) {
-          dom.setAttribute("open", "");
+          dom.setAttribute('open', '');
           contentDom.hidden = false;
         } else {
-          dom.removeAttribute("open");
+          dom.removeAttribute('open');
           setDomHiddenUntilFound(contentDom);
         }
       } else {
@@ -110,21 +100,17 @@ export class CollapsibleContainerNode extends ElementNode {
     };
   }
 
-  static importJSON(
-    serializedNode: SerializedCollapsibleContainerNode,
-  ): CollapsibleContainerNode {
+  static importJSON(serializedNode: SerializedCollapsibleContainerNode): CollapsibleContainerNode {
     const { name, color } = serializedNode;
-    return $createCollapsibleContainerNode(true, name, color).updateFromJSON(
-      serializedNode,
-    );
+    return $createCollapsibleContainerNode(true, name, color).updateFromJSON(serializedNode);
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement("details");
-    element.classList.add("Collapsible__container");
-    element.setAttribute("open", this.__open.toString());
-    element.setAttribute("name", this.__name.toString());
-    element.setAttribute("color", this.__color.toString());
+    const element = document.createElement('details');
+    element.classList.add('Collapsible__container');
+    element.setAttribute('open', this.__open.toString());
+    element.setAttribute('name', this.__name.toString());
+    element.setAttribute('color', this.__color.toString());
     return { element };
   }
 

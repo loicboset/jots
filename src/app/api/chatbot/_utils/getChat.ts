@@ -1,6 +1,6 @@
-import OpenAI from "openai";
+import OpenAI from 'openai';
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 type Response = {
   chatID: string | null;
@@ -11,9 +11,9 @@ const getChat = async (userID: string): Promise<Response> => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("chats")
-    .select("chat_id, messages")
-    .eq("user_id", userID)
+    .from('chats')
+    .select('chat_id, messages')
+    .eq('user_id', userID)
     .maybeSingle();
 
   if (error) {
@@ -23,9 +23,7 @@ const getChat = async (userID: string): Promise<Response> => {
   return {
     chatID: data?.chat_id || null,
     messages: data?.messages
-      ? (JSON.parse(
-          data.messages,
-        ) as OpenAI.Chat.Completions.ChatCompletionMessageParam[])
+      ? (JSON.parse(data.messages) as OpenAI.Chat.Completions.ChatCompletionMessageParam[])
       : [],
   };
 };

@@ -1,12 +1,6 @@
-import {
-  ElementNode,
-  LexicalNode,
-  NodeKey,
-  SerializedElementNode,
-  Spread,
-} from "lexical";
+import { ElementNode, LexicalNode, NodeKey, SerializedElementNode, Spread } from 'lexical';
 
-import { $isSkilledPromptNode } from "./SkilledPromptNode";
+import { $isSkilledPromptNode } from './SkilledPromptNode';
 
 type SerializedSkilledPromptNode = Spread<
   {
@@ -21,7 +15,7 @@ export class SkilledPromptWrapperNode extends ElementNode {
   __skill: string;
 
   static getType(): string {
-    return "skilled-prompt-wrapper";
+    return 'skilled-prompt-wrapper';
   }
 
   static clone(node: SkilledPromptWrapperNode): SkilledPromptWrapperNode {
@@ -35,27 +29,26 @@ export class SkilledPromptWrapperNode extends ElementNode {
   }
 
   createDOM(): HTMLElement {
-    const wrapper = document.createElement("div");
-    wrapper.className = "skilled-prompt-node border rounded flex flex-col my-2";
-    wrapper.dataset["skill"] = this.__skill;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'skilled-prompt-node border rounded flex flex-col my-2';
+    wrapper.dataset['skill'] = this.__skill;
 
-    const header = document.createElement("div");
-    header.className =
-      "header flex justify-between items-center border-b p-2 select-none";
+    const header = document.createElement('div');
+    header.className = 'header flex justify-between items-center border-b p-2 select-none';
 
-    const prompt = document.createElement("span");
-    prompt.className = "font-medium";
+    const prompt = document.createElement('span');
+    prompt.className = 'font-medium';
     prompt.textContent = this.__text;
 
-    const skill = document.createElement("span");
-    skill.className = "text-gray-100 text-xs";
+    const skill = document.createElement('span');
+    skill.className = 'text-gray-100 text-xs';
     skill.textContent = `+1 ${this.__skill}`;
 
     header.appendChild(prompt);
     header.appendChild(skill);
 
-    const content = document.createElement("div");
-    content.className = "content-container";
+    const content = document.createElement('div');
+    content.className = 'content-container';
 
     wrapper.appendChild(header);
     wrapper.appendChild(content);
@@ -68,7 +61,7 @@ export class SkilledPromptWrapperNode extends ElementNode {
     let hasText = false;
     children.forEach((child) => {
       if ($isSkilledPromptNode(child)) {
-        hasText = child.getTextContent().trim() !== "";
+        hasText = child.getTextContent().trim() !== '';
       }
     });
 
@@ -89,13 +82,8 @@ export class SkilledPromptWrapperNode extends ElementNode {
     };
   }
 
-  static importJSON(
-    serializedNode: SerializedSkilledPromptNode,
-  ): SkilledPromptWrapperNode {
-    return new SkilledPromptWrapperNode(
-      serializedNode.text,
-      serializedNode.skill,
-    );
+  static importJSON(serializedNode: SerializedSkilledPromptNode): SkilledPromptWrapperNode {
+    return new SkilledPromptWrapperNode(serializedNode.text, serializedNode.skill);
   }
 }
 

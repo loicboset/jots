@@ -1,16 +1,16 @@
-import Spinner from "@/components/ui/loaders/Spinner";
-import { useUserContext } from "@/context/UserProvider";
-import { useMoodCheck, useUpsertMoodCheck } from "@/services/mood_checks";
-import { useUserSettings } from "@/services/user_settings";
+import Spinner from '@/components/ui/loaders/Spinner';
+import { useUserContext } from '@/context/UserProvider';
+import { useMoodCheck, useUpsertMoodCheck } from '@/services/mood_checks';
+import { useUserSettings } from '@/services/user_settings';
 
-import IconButton from "../ui/buttons/IconButton";
+import IconButton from '../ui/buttons/IconButton';
 
 const moodLabels = [
-  { icon: "😞", score: 1 },
-  { icon: "😐", score: 2 },
-  { icon: "🙂", score: 3 },
-  { icon: "😀", score: 4 },
-  { icon: "🤩", score: 5 },
+  { icon: '😞', score: 1 },
+  { icon: '😐', score: 2 },
+  { icon: '🙂', score: 3 },
+  { icon: '😀', score: 4 },
+  { icon: '🤩', score: 5 },
 ];
 
 const MoodSlider = (): React.ReactElement => {
@@ -29,10 +29,8 @@ const MoodSlider = (): React.ReactElement => {
 
   // VARS
   const isMoodChecksEnabled = settings?.mood_checks_enabled ?? true;
-  const currentMood =
-    moodCheck &&
-    moodLabels.find((mood) => mood.score === moodCheck.score)?.icon;
-  const isDisabled = ["pending", "success"].includes(status);
+  const currentMood = moodCheck && moodLabels.find((mood) => mood.score === moodCheck.score)?.icon;
+  const isDisabled = ['pending', 'success'].includes(status);
 
   if (!isMoodChecksEnabled) return <div></div>;
 

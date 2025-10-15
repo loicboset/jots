@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
 /* eslint-disable max-len */
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
-import AchievementsList from "./_parts/AchievementsList";
-import ExtensionToken from "./_parts/ExtensionToken";
-import Features from "./_parts/Features";
-import Insights from "./_parts/Insights";
-import PersonalInfo from "./_parts/PersonalInfo";
+import AchievementsList from './_parts/AchievementsList';
+import ExtensionToken from './_parts/ExtensionToken';
+import Features from './_parts/Features';
+import Insights from './_parts/Insights';
+import PersonalInfo from './_parts/PersonalInfo';
 
 type Props = {
   email: string;
@@ -43,16 +43,11 @@ const Profile = ({ email }: Props): React.ReactElement => (
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 md:pb-6 md:grid-cols-3">
             <div>
               <h2 className="text-base/7 font-semibold text-white">Account</h2>
-              <p className="mt-1 text-sm/6 text-gray-400">
-                This is your account information.
-              </p>
+              <p className="mt-1 text-sm/6 text-gray-400">This is your account information.</p>
             </div>
             <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div className="sm:col-span-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm/6 font-medium text-white"
-                >
+                <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                   Email address
                 </label>
                 <div className="mt-2">

@@ -1,9 +1,7 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
 
-export async function updateSession(
-  request: NextRequest,
-): Promise<NextResponse<unknown>> {
+export async function updateSession(request: NextRequest): Promise<NextResponse<unknown>> {
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -17,9 +15,7 @@ export async function updateSession(
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({
             request,
           });
@@ -43,10 +39,10 @@ export async function updateSession(
 
   const isUserPage = request.nextUrl.pathname.match(/[0-9a-fA-F-]{36}/);
 
-  if (!user && isUserPage && !request.nextUrl.pathname.startsWith("/auth")) {
+  if (!user && isUserPage && !request.nextUrl.pathname.startsWith('/auth')) {
     // no user
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = '/';
     return NextResponse.redirect(url);
   }
 

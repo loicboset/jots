@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { InformationCircleIcon } from '@heroicons/react/24/solid';
 
 type Props = {
   message: string;

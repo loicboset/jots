@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
-"use client";
+'use client';
 
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
-import { useDigests } from "@/services/digests";
+import { useDigests } from '@/services/digests';
 
-import WeeklyDigest from "./WeeklyDigest";
+import WeeklyDigest from './WeeklyDigest';
 
 const Digests = (): React.ReactElement => {
   // RQ
@@ -33,9 +33,8 @@ const Digests = (): React.ReactElement => {
           <div className="text-center mb-4 max-w-1/2">
             <h2 className="font-medium text-2xl mb-2">Your Weekly Digests</h2>
             <p className="text-sm text-gray-400">
-              Every Monday, you get smart weekly reflections based on your
-              journal entries and goals. The more you write, the more valuable
-              it becomes.
+              Every Monday, you get smart weekly reflections based on your journal entries and
+              goals. The more you write, the more valuable it becomes.
             </p>
           </div>
         </div>

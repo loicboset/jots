@@ -1,34 +1,44 @@
-import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
-import axios from "axios";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from '@tanstack/react-query';
+import axios from 'axios';
 
-import { UserReflection } from "@/types/api/user_reflections";
-import { CreateUserReflection, UpdateUserReflection } from "@/types/payload/user_reflections";
+import { UserReflection } from '@/types/api/user_reflections';
+import { CreateUserReflection, UpdateUserReflection } from '@/types/payload/user_reflections';
 
 // GET USER_REFLECTIONS
 const getUserReflections = async (): Promise<UserReflection[]> => {
-  const { data } = await axios.get("/api/user_reflections");
+  const { data } = await axios.get('/api/user_reflections');
   return data;
 };
 
 export const useUserReflections = (): UseQueryResult<UserReflection[], Error> =>
   useQuery({
-    queryKey: ["user_reflections"],
+    queryKey: ['user_reflections'],
     queryFn: getUserReflections,
   });
 
 // CREATE USER_REFLECTION
 const createUserReflection = async (body: CreateUserReflection): Promise<UserReflection> => {
-  const { data } = await axios.post("/api/user_reflections", body);
+  const { data } = await axios.post('/api/user_reflections', body);
   return data;
 };
 
-export const useCreateUserReflection = (): UseMutationResult<UserReflection, Error, CreateUserReflection> => {
+export const useCreateUserReflection = (): UseMutationResult<
+  UserReflection,
+  Error,
+  CreateUserReflection
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createUserReflection,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user_reflections"] });
+      queryClient.invalidateQueries({ queryKey: ['user_reflections'] });
     },
   });
 };
@@ -39,15 +49,19 @@ const updateUserReflection = async (body: UpdateUserReflection): Promise<UserRef
   return data;
 };
 
-export const useUpdateUserReflection = (): UseMutationResult<UserReflection, Error, UpdateUserReflection> => {
+export const useUpdateUserReflection = (): UseMutationResult<
+  UserReflection,
+  Error,
+  UpdateUserReflection
+> => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: updateUserReflection,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["user_reflections"] });
+      queryClient.invalidateQueries({ queryKey: ['user_reflections'] });
       queryClient.invalidateQueries({
-        queryKey: ["user_reflection", data.id],
+        queryKey: ['user_reflection', data.id],
       });
     },
   });

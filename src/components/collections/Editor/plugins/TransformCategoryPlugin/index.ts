@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $insertNodeToNearestRoot, mergeRegister } from "@lexical/utils";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -9,12 +9,12 @@ import {
   COMMAND_PRIORITY_LOW,
   INSERT_PARAGRAPH_COMMAND,
   TextNode,
-} from "lexical";
+} from 'lexical';
 
-import { $createCollapsibleContainerNode } from "@/components/collections/Editor/nodes/CollapsibleContainerNode";
-import { $createCollapsibleContentNode } from "@/components/collections/Editor/nodes/CollapsibleContentNode";
-import { $createCollapsibleTitleNode } from "@/components/collections/Editor/nodes/CollapsibleTitleNode";
-import { useCategories } from "@/services/categories";
+import { $createCollapsibleContainerNode } from '@/components/collections/Editor/nodes/CollapsibleContainerNode';
+import { $createCollapsibleContentNode } from '@/components/collections/Editor/nodes/CollapsibleContentNode';
+import { $createCollapsibleTitleNode } from '@/components/collections/Editor/nodes/CollapsibleTitleNode';
+import { useCategories } from '@/services/categories';
 
 type Props = {
   userID: string;
@@ -39,18 +39,12 @@ const TransformPlugin = ({ userID }: Props): null => {
           if ($isRangeSelection(selection)) {
             const node = selection.anchor.getNode();
             const textContent = node.getTextContent();
-            if (node.__type === "text" && textContent.startsWith("#")) {
+            if (node.__type === 'text' && textContent.startsWith('#')) {
               editor.update(() => {
                 const categoryName = textContent.slice(1).trim();
-                const category = categories.find(
-                  (category) => category.name === categoryName,
-                );
-                const color = category?.color || "white";
-                const containerNode = $createCollapsibleContainerNode(
-                  true,
-                  categoryName,
-                  color,
-                );
+                const category = categories.find((category) => category.name === categoryName);
+                const color = category?.color || 'white';
+                const containerNode = $createCollapsibleContainerNode(true, categoryName, color);
 
                 const titleNode = $createCollapsibleTitleNode();
                 const paragraph = $createParagraphNode();
@@ -62,9 +56,7 @@ const TransformPlugin = ({ userID }: Props): null => {
                 const contentParagraph = $createParagraphNode();
                 contentNode.append(contentParagraph);
 
-                $insertNodeToNearestRoot(
-                  containerNode.append(titleNode, contentNode),
-                );
+                $insertNodeToNearestRoot(containerNode.append(titleNode, contentNode));
 
                 contentParagraph.select();
 

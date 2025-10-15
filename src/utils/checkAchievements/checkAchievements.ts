@@ -1,4 +1,4 @@
-import achievements from "@/achievements.json";
+import achievements from '@/achievements.json';
 
 type Stats = {
   totalEntries: number;
@@ -15,24 +15,21 @@ type CheckAchievementsProps = {
   unlock: UnlockFunction;
 };
 
-export const checkAchievements = ({
-  stats,
-  unlock,
-}: CheckAchievementsProps): void => {
+export const checkAchievements = ({ stats, unlock }: CheckAchievementsProps): void => {
   achievements.forEach((achievement) => {
     const condition = achievement.condition;
 
     if (
-      typeof condition.value === "number" &&
-      condition.type === "entries_count" &&
+      typeof condition.value === 'number' &&
+      condition.type === 'entries_count' &&
       stats.totalEntries >= condition.value
     ) {
       unlock(achievement.id, achievement.name);
     }
 
     if (
-      typeof condition.value === "number" &&
-      condition.type === "streak" &&
+      typeof condition.value === 'number' &&
+      condition.type === 'streak' &&
       stats.streak >= condition.value
     ) {
       unlock(achievement.id, achievement.name);
@@ -40,23 +37,23 @@ export const checkAchievements = ({
 
     if (
       Array.isArray(condition.value) &&
-      condition.type === "day" &&
+      condition.type === 'day' &&
       condition.value.includes(stats.day)
     ) {
       unlock(achievement.id, achievement.name);
     }
 
     if (
-      typeof condition.value === "number" &&
-      condition.type === "task" &&
+      typeof condition.value === 'number' &&
+      condition.type === 'task' &&
       stats.tasks >= condition.value
     ) {
       unlock(achievement.id, achievement.name);
     }
 
     if (
-      typeof condition.value === "number" &&
-      condition.type === "ai_skills" &&
+      typeof condition.value === 'number' &&
+      condition.type === 'ai_skills' &&
       stats.aiSkills >= condition.value
     ) {
       unlock(achievement.id, achievement.name);

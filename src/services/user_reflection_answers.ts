@@ -4,14 +4,14 @@ import {
   useQueryClient,
   UseQueryResult,
   UseMutationResult,
-} from "@tanstack/react-query";
-import axios from "axios";
+} from '@tanstack/react-query';
+import axios from 'axios';
 
-import { UserReflectionAnswer } from "@/types/api/user_reflection_answers";
+import { UserReflectionAnswer } from '@/types/api/user_reflection_answers';
 import {
   CreateUserReflectionAnswer,
   UpdateUserReflectionAnswer,
-} from "@/types/payload/user_reflection_answers";
+} from '@/types/payload/user_reflection_answers';
 
 // GET ANSWERS FOR A SPECIFIC REFLECTION
 const getUserReflectionAnswers = async (
@@ -25,7 +25,7 @@ export const useUserReflectionAnswers = (
   userReflectionId: string,
 ): UseQueryResult<UserReflectionAnswer[], Error> =>
   useQuery({
-    queryKey: ["user_reflection_answers", userReflectionId],
+    queryKey: ['user_reflection_answers', userReflectionId],
     queryFn: () => getUserReflectionAnswers(userReflectionId),
     enabled: !!userReflectionId,
   });
@@ -34,7 +34,7 @@ export const useUserReflectionAnswers = (
 const createUserReflectionAnswer = async (
   body: CreateUserReflectionAnswer,
 ): Promise<UserReflectionAnswer> => {
-  const { data } = await axios.post("/api/user_reflection_answers", body);
+  const { data } = await axios.post('/api/user_reflection_answers', body);
   return data;
 };
 
@@ -49,7 +49,7 @@ export const useCreateUserReflectionAnswer = (): UseMutationResult<
     mutationFn: createUserReflectionAnswer,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["user_reflection_answers", data.user_reflection_id],
+        queryKey: ['user_reflection_answers', data.user_reflection_id],
       });
     },
   });
@@ -74,7 +74,7 @@ export const useUpdateUserReflectionAnswer = (): UseMutationResult<
     mutationFn: updateUserReflectionAnswer,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["user_reflection_answers", data.user_reflection_id],
+        queryKey: ['user_reflection_answers', data.user_reflection_id],
       });
     },
   });

@@ -1,4 +1,4 @@
-import { SerializedEditorState } from "lexical";
+import { SerializedEditorState } from 'lexical';
 
 type CreateJournalEntry = {
   user_id: string;

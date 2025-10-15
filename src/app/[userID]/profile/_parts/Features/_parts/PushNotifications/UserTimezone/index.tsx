@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import ReactTimezoneSelect, { ITimezoneOption } from "react-timezone-select";
+import ReactTimezoneSelect, { ITimezoneOption } from 'react-timezone-select';
 
-import { useEditTimezone, useUserSettings } from "@/services/user_settings";
-import useToast from "@/utils/hooks/useToast";
-import validateTimezone from "@/utils/validateTimezone";
+import { useEditTimezone, useUserSettings } from '@/services/user_settings';
+import useToast from '@/utils/hooks/useToast';
+import validateTimezone from '@/utils/validateTimezone';
 
 const UserTimezone = (): React.ReactElement => {
   // RQ
@@ -18,14 +18,14 @@ const UserTimezone = (): React.ReactElement => {
   useEffect(() => {
     clearToast();
 
-    if (status === "success") {
-      setToast({ message: "Timezone updated!" });
+    if (status === 'success') {
+      setToast({ message: 'Timezone updated!' });
     }
 
-    if (status === "error") {
+    if (status === 'error') {
       setToast({
-        type: "error",
-        message: "Please try again or contact support",
+        type: 'error',
+        message: 'Please try again or contact support',
       });
     }
   }, [status, error, setToast, clearToast]);
@@ -44,10 +44,7 @@ const UserTimezone = (): React.ReactElement => {
     <>
       {toast}
 
-      <label
-        htmlFor="first-name"
-        className="text-sm font-semibold leading-6 text-gray-900"
-      >
+      <label htmlFor="first-name" className="text-sm font-semibold leading-6 text-gray-900">
         Timezone
       </label>
       <div className="mt-2">
@@ -55,33 +52,33 @@ const UserTimezone = (): React.ReactElement => {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              backgroundColor: "black",
+              backgroundColor: 'black',
             }),
             input: (baseStyles) => ({
               ...baseStyles,
-              color: "white",
+              color: 'white',
             }),
             singleValue: (baseStyles) => ({
               ...baseStyles,
-              color: "white",
+              color: 'white',
             }),
             valueContainer: (baseStyles) => ({
               ...baseStyles,
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: 'black',
+              color: 'white',
             }),
             menu: (baseStyles) => ({
               ...baseStyles,
-              backgroundColor: "black",
-              border: "1px solid #4B5563",
+              backgroundColor: 'black',
+              border: '1px solid #4B5563',
             }),
             option: (baseStyles, state) => ({
               ...baseStyles,
-              backgroundColor: state.isFocused ? "#99a1af" : "black",
+              backgroundColor: state.isFocused ? '#99a1af' : 'black',
             }),
           }}
           className="react-select-remove-ring text-white"
-          value={userSettings?.timezone || "UTC/UTC"}
+          value={userSettings?.timezone || 'UTC/UTC'}
           onChange={handleUpdateTimezone}
         />
       </div>

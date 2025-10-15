@@ -1,29 +1,29 @@
-import { createClient } from "@/lib/supabase/server";
-import { CreateJournalEntry } from "@/types/payload/journal_entries";
+import { createClient } from '@/lib/supabase/server';
+import { CreateJournalEntry } from '@/types/payload/journal_entries';
 
-import { GET, PUT } from "../../../app/api/journal_entries/route";
+import { GET, PUT } from '../../../app/api/journal_entries/route';
 
 // Mock the createClient function
-jest.mock("@/lib/supabase/server", () => ({
+jest.mock('@/lib/supabase/server', () => ({
   createClient: jest.fn(),
 }));
 
-describe("GET and PUT handlers for journal entries", () => {
+describe('GET and PUT handlers for journal entries', () => {
   beforeEach(() => {
     // Clear mocks before each test
     jest.clearAllMocks();
   });
 
-  describe("GET handler", () => {
-    it("should return journal entries for the user", async () => {
+  describe('GET handler', () => {
+    it('should return journal entries for the user', async () => {
       const mockJournalEntries = {
         journal_entries: [
-          { id: 1, user_id: "123", content: "First Entry", date: "2025-01-01" },
+          { id: 1, user_id: '123', content: 'First Entry', date: '2025-01-01' },
           {
             id: 2,
-            user_id: "123",
-            content: "Second Entry",
-            date: "2025-02-01",
+            user_id: '123',
+            content: 'Second Entry',
+            date: '2025-02-01',
           },
         ],
       };
@@ -38,7 +38,7 @@ describe("GET and PUT handlers for journal entries", () => {
       });
 
       // Create a mock request
-      const request = new Request("https://example.com?user_id=123");
+      const request = new Request('https://example.com?user_id=123');
       const response = await GET(request);
 
       // Parse the response body
@@ -51,14 +51,14 @@ describe("GET and PUT handlers for journal entries", () => {
     });
   });
 
-  describe("PUT handler", () => {
-    it("should upsert a journal entry", async () => {
+  describe('PUT handler', () => {
+    it('should upsert a journal entry', async () => {
       const mockUpsertResponse = [
         {
           id: 1,
-          user_id: "123",
-          content: "Updated Journal Entry",
-          date: "2025-03-01",
+          user_id: '123',
+          content: 'Updated Journal Entry',
+          date: '2025-03-01',
         },
       ];
 
@@ -71,16 +71,16 @@ describe("GET and PUT handlers for journal entries", () => {
       });
 
       const mockRequestBody: CreateJournalEntry = {
-        user_id: "123",
-        content: "Updated Journal Entry",
-        date: "2025-03-01",
+        user_id: '123',
+        content: 'Updated Journal Entry',
+        date: '2025-03-01',
       };
 
       // Create a mock PUT request
-      const request = new Request("https://example.com", {
-        method: "PUT",
+      const request = new Request('https://example.com', {
+        method: 'PUT',
         body: JSON.stringify(mockRequestBody),
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
       });
 
       const response = await PUT(request);

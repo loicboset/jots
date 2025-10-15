@@ -1,6 +1,6 @@
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
-import { BugAntIcon } from "@heroicons/react/24/outline";
+import { BugAntIcon } from '@heroicons/react/24/outline';
 
 const BugReportButton = (): JSX.Element => (
   <button

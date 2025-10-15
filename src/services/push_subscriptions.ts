@@ -4,13 +4,13 @@ import {
   useQueryClient,
   useQuery,
   UseQueryResult,
-} from "@tanstack/react-query";
-import axios from "axios";
+} from '@tanstack/react-query';
+import axios from 'axios';
 
-import { UserPushSubscription } from "@/types/api/push_subscriptions";
-import { UpsertPushSubscriptionPayload } from "@/types/payload/push_subscription";
+import { UserPushSubscription } from '@/types/api/push_subscriptions';
+import { UpsertPushSubscriptionPayload } from '@/types/payload/push_subscription';
 
-const PUSHSUBSCRIPTIONS = "push_subscriptions";
+const PUSHSUBSCRIPTIONS = 'push_subscriptions';
 
 // GET PUSH SUBSCRIPTION
 const getPushSubscriptions = async (): Promise<UserPushSubscription[]> => {
@@ -18,10 +18,7 @@ const getPushSubscriptions = async (): Promise<UserPushSubscription[]> => {
   return data;
 };
 
-const useUserPushSubscriptions = (): UseQueryResult<
-  UserPushSubscription[],
-  Error
-> =>
+const useUserPushSubscriptions = (): UseQueryResult<UserPushSubscription[], Error> =>
   useQuery({
     queryKey: [PUSHSUBSCRIPTIONS],
     queryFn: () => getPushSubscriptions(),

@@ -1,11 +1,11 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
-import { UAParser } from "ua-parser-js";
+import { UAParser } from 'ua-parser-js';
 
-import { useUserContext } from "@/context/UserProvider";
-import { useUpsertPushSubscription } from "@/services/push_subscriptions";
+import { useUserContext } from '@/context/UserProvider';
+import { useUpsertPushSubscription } from '@/services/push_subscriptions';
 
-import subscribePushNotification from "../utils/subscribePushNotification";
+import subscribePushNotification from '../utils/subscribePushNotification';
 
 type UseUpsertPushSubscriptionReturn = {
   subscribeDevice: () => Promise<void>;
@@ -32,8 +32,8 @@ const useSubscribeDevice = (): UseUpsertPushSubscriptionReturn => {
       endpoint: subscription.endpoint,
       auth,
       p256dh,
-      browser: browser.name || "unknown",
-      os: os.name || "unknown",
+      browser: browser.name || 'unknown',
+      os: os.name || 'unknown',
     });
   }, [createUserSubscription, user?.userID]);
 

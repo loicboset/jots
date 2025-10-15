@@ -1,31 +1,31 @@
 /* eslint-disable max-len */
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import { useQueryClient } from "@tanstack/react-query";
-import dayjs from "dayjs";
-import OpenAI from "openai";
-import Markdown from "react-markdown";
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import OpenAI from 'openai';
+import Markdown from 'react-markdown';
 
-import Button from "@/components/ui/buttons/Button";
-import { useChatbot } from "@/services/chatbot";
-import { useUserAiUsage } from "@/services/user_ai_usage";
-import { MAX_AI_TOKENS } from "@/utils/constants";
+import Button from '@/components/ui/buttons/Button';
+import { useChatbot } from '@/services/chatbot';
+import { useUserAiUsage } from '@/services/user_ai_usage';
+import { MAX_AI_TOKENS } from '@/utils/constants';
 
-import "./Chatbot.css";
+import './Chatbot.css';
 
 const Chatbot = (): React.ReactElement => {
   // STATE
-  const [messages, setMessages] = useState<
-    OpenAI.Chat.Completions.ChatCompletionMessageParam[]
-  >([]);
-  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<OpenAI.Chat.Completions.ChatCompletionMessageParam[]>(
+    [],
+  );
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   // RQ
   const queryClient = useQueryClient();
   const { data: chatbot, isLoading: isLoadingChatbot } = useChatbot();
-  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format("YYYY-MM-DD"));
+  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format('YYYY-MM-DD'));
 
   useEffect(() => {
     if (isLoadingChatbot) return;
@@ -40,19 +40,19 @@ const Chatbot = (): React.ReactElement => {
     if (!input.trim()) return;
 
     const userMessage = input.trim();
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
-    setInput("");
+    setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
+    setInput('');
     setIsLoading(true);
 
-    const res = await fetch("/api/chatbot", {
-      method: "POST",
+    const res = await fetch('/api/chatbot', {
+      method: 'POST',
       body: JSON.stringify({ userMessage, chatID: chatbot?.chatID }),
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const reader = res.body?.getReader();
-    const decoder = new TextDecoder("utf-8");
-    let botReply = "";
+    const decoder = new TextDecoder('utf-8');
+    let botReply = '';
 
     while (true) {
       const { value, done } = await reader!.read();
@@ -61,18 +61,15 @@ const Chatbot = (): React.ReactElement => {
       botReply += chunk;
       setMessages((prev) => {
         const last = prev[prev.length - 1];
-        if (last?.role === "assistant") {
-          return [
-            ...prev.slice(0, -1),
-            { role: "assistant", content: botReply },
-          ];
+        if (last?.role === 'assistant') {
+          return [...prev.slice(0, -1), { role: 'assistant', content: botReply }];
         }
-        return [...prev, { role: "assistant", content: chunk }];
+        return [...prev, { role: 'assistant', content: chunk }];
       });
     }
 
-    queryClient.invalidateQueries({ queryKey: ["user_ai_usage"] });
-    queryClient.invalidateQueries({ queryKey: ["chatbot"] });
+    queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
+    queryClient.invalidateQueries({ queryKey: ['chatbot'] });
     setIsLoading(false);
   };
 
@@ -89,23 +86,17 @@ const Chatbot = (): React.ReactElement => {
   return (
     <div className="fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
       <div className="bg-indigo-600 border-b border-gray-200 text-white text-lg font-semibold p-4 rounded-t-xl">
-        Career Coach Chatbot (experimental{" "}
-        <QuestionMarkCircleIcon
-          className="ml-1 w-5 text-white inline"
-          title={tooltip}
-        />
-        )
+        Career Coach Chatbot (experimental{' '}
+        <QuestionMarkCircleIcon className="ml-1 w-5 text-white inline" title={tooltip} />)
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-          >
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div
-              className={`markdown p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${msg.role === "user" ? "bg-indigo-500" : "bg-gray-500"
-                }`}
+              className={`markdown p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${
+                msg.role === 'user' ? 'bg-indigo-500' : 'bg-gray-500'
+              }`}
             >
               <Markdown>{msg.content as string}</Markdown>
             </div>
@@ -113,10 +104,7 @@ const Chatbot = (): React.ReactElement => {
         ))}
       </div>
 
-      <form
-        className="p-4 flex flex-col gap-2 border-t"
-        onSubmit={handleSubmit}
-      >
+      <form className="p-4 flex flex-col gap-2 border-t" onSubmit={handleSubmit}>
         <textarea
           rows={3}
           className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -126,7 +114,7 @@ const Chatbot = (): React.ReactElement => {
           disabled={isDisabled}
         />
         <Button type="submit" isDisabled={isDisabled}>
-          {isLoading ? "Sending..." : "Send"}
+          {isLoading ? 'Sending...' : 'Send'}
         </Button>
       </form>
     </div>

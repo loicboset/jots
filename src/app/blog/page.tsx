@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import Header from "@/components/collections/layouts/Header";
+import Header from '@/components/collections/layouts/Header';
 
-import { BlogPostListElement } from "../../types/blog/blog_post_data";
-import getSortedPostsData from "../../utils/getSortedPostsData/getSortedPostsData";
+import { BlogPostListElement } from '../../types/blog/blog_post_data';
+import getSortedPostsData from '../../utils/getSortedPostsData/getSortedPostsData';
 
 const Blog = async (): Promise<React.ReactElement> => {
   const posts: BlogPostListElement[] = getSortedPostsData();
@@ -14,12 +14,8 @@ const Blog = async (): Promise<React.ReactElement> => {
       <div className="py-24">
         <div className="px-6 mx-auto max-w-7xl lg:px-8">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Our Blog
-            </h2>
-            <p className="mt-2 text-lg leading-8">
-              We also write. Its healthy.
-            </p>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Our Blog</h2>
+            <p className="mt-2 text-lg leading-8">We also write. Its healthy.</p>
             <div className="pt-10 mt-10 space-y-16 border-t border-gray-200 sm:mt-16 sm:pt-16">
               {posts.map((post) => (
                 <article
@@ -36,9 +32,7 @@ const Blog = async (): Promise<React.ReactElement> => {
                         {post.title}
                       </Link>
                     </h3>
-                    <p className="mt-5 text-sm leading-6 line-clamp-3">
-                      {post.excerpt}
-                    </p>
+                    <p className="mt-5 text-sm leading-6 line-clamp-3">{post.excerpt}</p>
                   </div>
                 </article>
               ))}

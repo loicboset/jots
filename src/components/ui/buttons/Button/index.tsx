@@ -1,18 +1,18 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import classNames from "classnames";
-import Link from "next/link";
+import classNames from 'classnames';
+import Link from 'next/link';
 
-import styles from "./Button.module.css";
-import Spinner from "../../loaders/Spinner";
+import styles from './Button.module.css';
+import Spinner from '../../loaders/Spinner';
 
 type Props = {
   children: ReactNode;
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   isLoading?: boolean;
   isDisabled?: boolean;
-  color?: "white" | "indigo";
+  color?: 'white' | 'indigo';
   href?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -20,11 +20,11 @@ const Button = (props: Props): React.ReactElement => {
   // PROPS
   const {
     children,
-    size = "md",
+    size = 'md',
     className,
     isLoading,
     isDisabled,
-    color = "indigo",
+    color = 'indigo',
     href,
     ...rest
   } = props;
@@ -36,32 +36,28 @@ const Button = (props: Props): React.ReactElement => {
   `;
 
   const sizes = {
-    xs: "rounded-sm px-2 py-1 text-xs",
-    sm: "rounded-sm px-2 py-1 text-sm",
-    md: "rounded-md px-2.5 py-1.5 text-sm",
-    lg: "rounded-md px-3 py-2 text-sm",
-    xl: "rounded-md px-3.5 py-2.5 text-sm",
+    xs: 'rounded-sm px-2 py-1 text-xs',
+    sm: 'rounded-sm px-2 py-1 text-sm',
+    md: 'rounded-md px-2.5 py-1.5 text-sm',
+    lg: 'rounded-md px-3 py-2 text-sm',
+    xl: 'rounded-md px-3.5 py-2.5 text-sm',
   };
 
   const colors = {
-    white:
-      "text-black bg-white hover:bg-gray-400 focus-visible:outline-gray-500",
-    indigo:
-      "text-white bg-indigo-500 hover:bg-indigo-400 focus-visible:outline-indigo-500",
+    white: 'text-black bg-white hover:bg-gray-400 focus-visible:outline-gray-500',
+    indigo: 'text-white bg-indigo-500 hover:bg-indigo-400 focus-visible:outline-indigo-500',
   };
 
   const buttonStyle = classNames(
     baseStyles,
     sizes[size],
-    isDisabled && styles["button--disabled"],
-    isLoading && styles["button--loading"],
+    isDisabled && styles['button--disabled'],
+    isLoading && styles['button--loading'],
     colors[color],
     className,
   );
 
-  const loadingMarkup = (
-    <Spinner size="small" className={styles.button__spinner} />
-  );
+  const loadingMarkup = <Spinner size="small" className={styles.button__spinner} />;
 
   if (href) {
     return (
@@ -72,12 +68,7 @@ const Button = (props: Props): React.ReactElement => {
   }
 
   return (
-    <button
-      type="button"
-      className={buttonStyle}
-      {...rest}
-      disabled={isDisabled || isLoading}
-    >
+    <button type="button" className={buttonStyle} {...rest} disabled={isDisabled || isLoading}>
       {children}
       {isLoading && loadingMarkup}
     </button>

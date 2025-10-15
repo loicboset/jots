@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $findMatchingParent, mergeRegister } from "@lexical/utils";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -16,20 +16,23 @@ import {
   KEY_ARROW_RIGHT_COMMAND,
   KEY_ARROW_UP_COMMAND,
   LexicalNode,
-} from "lexical";
+} from 'lexical';
 
 import {
   CollapsibleContentNode,
   $isCollapsibleContentNode,
-} from "@/components/collections/Editor/nodes/CollapsibleContentNode";
-import { useCategories, useUpsertCategory } from "@/services/categories";
-import randomColor from "@/utils/color/randomColor";
+} from '@/components/collections/Editor/nodes/CollapsibleContentNode';
+import { useCategories, useUpsertCategory } from '@/services/categories';
+import randomColor from '@/utils/color/randomColor';
 
-import { CollapsibleContainerNode, $isCollapsibleContainerNode } from "../../nodes/CollapsibleContainerNode";
-import { CollapsibleTitleNode, $isCollapsibleTitleNode } from "../../nodes/CollapsibleTitleNode";
-import "./Collapsible.css";
-import { $isDayContainerNode, DayContainerNode } from "../../nodes/DayContainerNode";
-import { $isDayContentNode } from "../../nodes/DayContentNode";
+import {
+  CollapsibleContainerNode,
+  $isCollapsibleContainerNode,
+} from '../../nodes/CollapsibleContainerNode';
+import { CollapsibleTitleNode, $isCollapsibleTitleNode } from '../../nodes/CollapsibleTitleNode';
+import './Collapsible.css';
+import { $isDayContainerNode, DayContainerNode } from '../../nodes/DayContainerNode';
+import { $isDayContentNode } from '../../nodes/DayContentNode';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 export const FILTER_CATEGORY_COMMAND = createCommand<string>();
@@ -92,7 +95,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
         });
         return true;
       },
-      COMMAND_PRIORITY_LOW
+      COMMAND_PRIORITY_LOW,
     );
 
     return (): void => {
@@ -121,7 +124,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
         });
         return true;
       },
-      COMMAND_PRIORITY_LOW
+      COMMAND_PRIORITY_LOW,
     );
 
     return (): void => {
@@ -159,17 +162,26 @@ export default function CollapsiblePlugin({ userID }: Props): null {
   }, [categories, editor, isLoading, upsertCategory, userID]);
 
   useEffect(() => {
-    if (!editor.hasNodes([CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode])) {
+    if (
+      !editor.hasNodes([CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode])
+    ) {
       throw new Error(
         // eslint-disable-next-line max-len
-        "CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor"
+        'CollapsiblePlugin: CollapsibleContainerNode, CollapsibleTitleNode, or CollapsibleContentNode not registered on editor',
       );
     }
 
     const $onEscapeUp = (): boolean => {
       const selection = $getSelection();
-      if ($isRangeSelection(selection) && selection.isCollapsed() && selection.anchor.offset === 0) {
-        const container = $findMatchingParent(selection.anchor.getNode(), $isCollapsibleContainerNode);
+      if (
+        $isRangeSelection(selection) &&
+        selection.isCollapsed() &&
+        selection.anchor.offset === 0
+      ) {
+        const container = $findMatchingParent(
+          selection.anchor.getNode(),
+          $isCollapsibleContainerNode,
+        );
 
         if ($isCollapsibleContainerNode(container)) {
           const parent = container.getParent<ElementNode>();
@@ -189,7 +201,10 @@ export default function CollapsiblePlugin({ userID }: Props): null {
     const $onEscapeDown = (): boolean => {
       const selection = $getSelection();
       if ($isRangeSelection(selection) && selection.isCollapsed()) {
-        const container = $findMatchingParent(selection.anchor.getNode(), $isCollapsibleContainerNode);
+        const container = $findMatchingParent(
+          selection.anchor.getNode(),
+          $isCollapsibleContainerNode,
+        );
 
         if ($isCollapsibleContainerNode(container)) {
           const parent = container.getParent<ElementNode>();
@@ -239,7 +254,11 @@ export default function CollapsiblePlugin({ userID }: Props): null {
 
       editor.registerNodeTransform(CollapsibleContainerNode, (node) => {
         const children = node.getChildren<LexicalNode>();
-        if (children.length !== 2 || !$isCollapsibleTitleNode(children[0]) || !$isCollapsibleContentNode(children[1])) {
+        if (
+          children.length !== 2 ||
+          !$isCollapsibleTitleNode(children[0]) ||
+          !$isCollapsibleContentNode(children[1])
+        ) {
           for (const child of children) {
             node.insertBefore(child);
           }
@@ -255,7 +274,11 @@ export default function CollapsiblePlugin({ userID }: Props): null {
         DELETE_CHARACTER_COMMAND,
         () => {
           const selection = $getSelection();
-          if (!$isRangeSelection(selection) || !selection.isCollapsed() || selection.anchor.offset !== 0) {
+          if (
+            !$isRangeSelection(selection) ||
+            !selection.isCollapsed() ||
+            selection.anchor.offset !== 0
+          ) {
             return false;
           }
 
@@ -273,7 +296,7 @@ export default function CollapsiblePlugin({ userID }: Props): null {
           container.setOpen(true);
           return true;
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
 
       // When collapsible is the last child pressing down/right arrow will insert paragraph
@@ -298,7 +321,9 @@ export default function CollapsiblePlugin({ userID }: Props): null {
         () => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
-            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) => $isCollapsibleTitleNode(node));
+            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) =>
+              $isCollapsibleTitleNode(node),
+            );
 
             if ($isCollapsibleTitleNode(titleNode)) {
               const container = titleNode.getParent<ElementNode>();
@@ -314,8 +339,8 @@ export default function CollapsiblePlugin({ userID }: Props): null {
 
           return false;
         },
-        COMMAND_PRIORITY_LOW
-      )
+        COMMAND_PRIORITY_LOW,
+      ),
     );
   }, [editor]);
 

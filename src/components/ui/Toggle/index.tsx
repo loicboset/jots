@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-"use client";
+'use client';
 
-import { Switch } from "@headlessui/react";
+import { Switch } from '@headlessui/react';
 
 type Props = {
   enabled: boolean;

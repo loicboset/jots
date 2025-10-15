@@ -1,8 +1,8 @@
-import MediaQuery from "react-responsive";
+import MediaQuery from 'react-responsive';
 
-import { BREAKPOINTS } from "@/utils/constants";
+import { BREAKPOINTS } from '@/utils/constants';
 
-type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 type Props = {
   children: React.ReactNode;
@@ -10,11 +10,7 @@ type Props = {
   maxWidth?: Breakpoint;
 };
 
-const ScreenSizeRenderer = ({
-  children,
-  minWidth,
-  maxWidth,
-}: Props): React.ReactElement | null => (
+const ScreenSizeRenderer = ({ children, minWidth, maxWidth }: Props): React.ReactElement | null => (
   <MediaQuery
     minWidth={minWidth ? BREAKPOINTS[minWidth] : undefined}
     maxWidth={maxWidth ? BREAKPOINTS[maxWidth] : undefined}

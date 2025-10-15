@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
 const EmailSignupForm = (): JSX.Element => (
   <form
@@ -9,8 +9,8 @@ const EmailSignupForm = (): JSX.Element => (
   >
     <h2 className="text-xl font-semibold text-gray-800">Stay in the loop</h2>
     <p className="text-gray-600 text-sm">
-      Get updates on our latest features, dev tips and news. And also exclusive
-      perks through early access.
+      Get updates on our latest features, dev tips and news. And also exclusive perks through early
+      access.
     </p>
     <input
       type="email"

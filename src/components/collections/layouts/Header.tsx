@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 
-import Link from "next/link";
+import Link from 'next/link';
 
-import Icon from "@/components/ui/Icon";
+import Icon from '@/components/ui/Icon';
 
 // This header is user on static pages like /releases and /privacy
 
@@ -11,15 +11,12 @@ const Header = (): React.ReactElement => (
     <header className="flex justify-between items-center p-4 relative">
       <Link href="/">
         <Icon
-          src={"logo.svg"}
+          src={'logo.svg'}
           className="text-indigo-600 w-40 h-40 -top-10 -left-4 md:w-60 md:-top-16 md:-left-8 lg:w-72 lg:h-72 lg:-top-18 lg:-left-8 absolute"
         />
       </Link>
       <div className="flex justify-end space-x-4 items-center">
-        <Link
-          href="/roadmap"
-          className="text-sm/6 mr-8 font-semibold text-white lg:block"
-        >
+        <Link href="/roadmap" className="text-sm/6 mr-8 font-semibold text-white lg:block">
           Roadmap
         </Link>
         <Link
@@ -28,10 +25,7 @@ const Header = (): React.ReactElement => (
         >
           Blog
         </Link>
-        <Link
-          href="/login"
-          className="text-sm/6 font-semibold text-white lg:block"
-        >
+        <Link href="/login" className="text-sm/6 font-semibold text-white lg:block">
           Log in
         </Link>
         <Link
@@ -78,7 +72,7 @@ const Header = (): React.ReactElement => (
       <div
         style={{
           clipPath:
-            "polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)",
+            'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
         }}
         className="aspect-1108/632 w-[69.25rem] bg-linear-to-r from-[#80caff] to-[#4f46e5] opacity-20"
       />

@@ -1,11 +1,7 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import {
-  $findMatchingParent,
-  $insertFirst,
-  mergeRegister,
-} from "@lexical/utils";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $findMatchingParent, $insertFirst, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getSelection,
@@ -18,20 +14,17 @@ import {
   KEY_DOWN_COMMAND,
   RootNode,
   TextNode,
-} from "lexical";
+} from 'lexical';
 
-import "./DayNode.css";
-import "../CollapsiblePlugin/Collapsible.css";
+import './DayNode.css';
+import '../CollapsiblePlugin/Collapsible.css';
 
-import { $createDayContentNode } from "@/components/collections/Editor/nodes/DayContentNode";
-import formatDate from "@/utils/datetime/formatDate";
+import { $createDayContentNode } from '@/components/collections/Editor/nodes/DayContentNode';
+import formatDate from '@/utils/datetime/formatDate';
 
-import {
-  $createDayContainerNode,
-  $isDayContainerNode,
-} from "../../nodes/DayContainerNode";
-import { $createDayTitleNode, $isDayTitleNode } from "../../nodes/DayTitleNode";
-import { $createPromptNode } from "../../nodes/PromptNode";
+import { $createDayContainerNode, $isDayContainerNode } from '../../nodes/DayContainerNode';
+import { $createDayTitleNode, $isDayTitleNode } from '../../nodes/DayTitleNode';
+import { $createPromptNode } from '../../nodes/PromptNode';
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 
@@ -39,7 +32,7 @@ const DayContainerPlugin = (): null => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    const today = new Intl.DateTimeFormat("en-US").format(new Date());
+    const today = new Intl.DateTimeFormat('en-US').format(new Date());
 
     const removeTransform = editor.registerNodeTransform(RootNode, (root) => {
       const children = root.getChildren();
@@ -82,9 +75,8 @@ const DayContainerPlugin = (): null => {
         (event) => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
-            const titleNode = $findMatchingParent(
-              selection.anchor.getNode(),
-              (node) => $isDayTitleNode(node),
+            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) =>
+              $isDayTitleNode(node),
             );
             if ($isDayTitleNode(titleNode)) {
               event.preventDefault();
@@ -101,9 +93,8 @@ const DayContainerPlugin = (): null => {
         () => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
-            const titleNode = $findMatchingParent(
-              selection.anchor.getNode(),
-              (node) => $isDayTitleNode(node),
+            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) =>
+              $isDayTitleNode(node),
             );
 
             if ($isDayTitleNode(titleNode)) {

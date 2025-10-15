@@ -1,19 +1,19 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-import Link from "next/link";
+import Link from 'next/link';
 
-import Header from "@/components/collections/layouts/Header";
+import Header from '@/components/collections/layouts/Header';
 
 const Releases = (): React.ReactElement => {
-  const versionsDir = path.join(process.cwd(), "versions");
+  const versionsDir = path.join(process.cwd(), 'versions');
   const files = fs.readdirSync(versionsDir);
 
   const releases = files
     .map((file) => {
       const filePath = path.join(versionsDir, file);
-      const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
-      return { ...content, version: file.replace(".json", "") };
+      const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      return { ...content, version: file.replace('.json', '') };
     })
     .reverse();
 
@@ -27,22 +27,20 @@ const Releases = (): React.ReactElement => {
               Our Releases
             </h2>
             <p className="mt-2 mb-2 text-lg/8 text-gray-300">
-              We&apos;re working hard to make this app as useful for you as
-              possible. You can check what&apos;s new on this page , and you can
-              even join our{" "}
+              We&apos;re working hard to make this app as useful for you as possible. You can check
+              what&apos;s new on this page , and you can even join our{' '}
               <Link
-                href={"https://discord.gg/YQP4wwbyfg"}
+                href={'https://discord.gg/YQP4wwbyfg'}
                 target="_blank"
                 className="text-indigo-500"
               >
                 Discord
-              </Link>{" "}
+              </Link>{' '}
               to share ideas and participate to the project!
             </p>
             <p className="mt-2 text-lg/8 text-gray-300">
-              We are in the process of building exciting new features to help
-              you build knowledge and progress, some leveraging the newest AI
-              technologies. So stay tuned!
+              We are in the process of building exciting new features to help you build knowledge
+              and progress, some leveraging the newest AI technologies. So stay tuned!
             </p>
             <div className="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
               {releases.map((release) => (

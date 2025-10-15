@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 const getUserID = async (): Promise<string | null> => {
   const supabase = await createClient();

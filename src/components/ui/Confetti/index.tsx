@@ -1,9 +1,9 @@
-import { JSX } from "react";
+import { JSX } from 'react';
 
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
-import { useAchievements } from "../../../context/AchievementsProvider";
+import { useAchievements } from '../../../context/AchievementsProvider';
 
 const ConfettiAnimation = (): JSX.Element | null => {
   const { width, height } = useWindowSize();

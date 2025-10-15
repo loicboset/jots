@@ -4,11 +4,11 @@ import {
   useQueryClient,
   UseQueryResult,
   UseMutationResult,
-} from "@tanstack/react-query";
-import axios from "axios";
+} from '@tanstack/react-query';
+import axios from 'axios';
 
-import { Category } from "@/types/api/categories";
-import { UpsertCategory } from "@/types/payload/categories";
+import { Category } from '@/types/api/categories';
+import { UpsertCategory } from '@/types/payload/categories';
 
 // GET CATEGORIES
 const getCategories = async (userID: string): Promise<Category[]> => {
@@ -17,26 +17,21 @@ const getCategories = async (userID: string): Promise<Category[]> => {
 };
 
 const useCategories = (userID: string): UseQueryResult<Category[], Error> =>
-  useQuery({ queryKey: ["categories"], queryFn: () => getCategories(userID) });
+  useQuery({ queryKey: ['categories'], queryFn: () => getCategories(userID) });
 
 // UPSERT CATEGORY
 const upsertCategory = async (body: UpsertCategory): Promise<void> => {
-  const { data } = await axios.put("/api/categories", body);
+  const { data } = await axios.put('/api/categories', body);
   return data;
 };
 
-const useUpsertCategory = (): UseMutationResult<
-  void,
-  Error,
-  UpsertCategory,
-  unknown
-> => {
+const useUpsertCategory = (): UseMutationResult<void, Error, UpsertCategory, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: upsertCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
   });
 };
@@ -47,18 +42,13 @@ const deleteCategory = async (id: number): Promise<void> => {
   return data;
 };
 
-const useDeleteCategory = (): UseMutationResult<
-  void,
-  Error,
-  number,
-  unknown
-> => {
+const useDeleteCategory = (): UseMutationResult<void, Error, number, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (id: number) => deleteCategory(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
   });
 };

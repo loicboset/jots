@@ -1,27 +1,20 @@
-"use client";
+'use client';
 
-import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 
-import NavbarContent from "./parts/NavbarContent";
+import NavbarContent from './parts/NavbarContent';
 
 type Props = {
   sidebarOpen: boolean;
   handleSetSidebarOpen: (open: boolean) => void;
 };
 
-const bgColor = "rgb(40 40 40)";
+const bgColor = 'rgb(40 40 40)';
 
-const NavBar = ({
-  sidebarOpen,
-  handleSetSidebarOpen,
-}: Props): React.ReactElement => (
+const NavBar = ({ sidebarOpen, handleSetSidebarOpen }: Props): React.ReactElement => (
   <>
     <div className="md:hidden">
-      <Dialog
-        open={sidebarOpen}
-        onClose={handleSetSidebarOpen}
-        className="relative z-50 lg:hidden"
-      >
+      <Dialog open={sidebarOpen} onClose={handleSetSidebarOpen} className="relative z-50 lg:hidden">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-closed:opacity-0"

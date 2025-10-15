@@ -4,11 +4,11 @@ import {
   useQuery,
   useQueryClient,
   UseQueryResult,
-} from "@tanstack/react-query";
-import axios, { AxiosError, AxiosResponse } from "axios";
+} from '@tanstack/react-query';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import { Digest } from "@/types/api/digests";
-import { CreateDigest } from "@/types/payload/digests";
+import { Digest } from '@/types/api/digests';
+import { CreateDigest } from '@/types/payload/digests';
 
 // GET DIGESTS
 const getDigests = async (): Promise<Digest[]> => {
@@ -17,7 +17,7 @@ const getDigests = async (): Promise<Digest[]> => {
 };
 
 const useDigests = (): UseQueryResult<Digest[], AxiosError> =>
-  useQuery({ queryKey: ["digests"], queryFn: () => getDigests() });
+  useQuery({ queryKey: ['digests'], queryFn: () => getDigests() });
 
 // GET DIGESTS UNREAD COUNT
 const getUnreadCount = async (): Promise<number> => {
@@ -27,7 +27,7 @@ const getUnreadCount = async (): Promise<number> => {
 
 const useDigestsUnreadCount = (): UseQueryResult<number, AxiosError> =>
   useQuery({
-    queryKey: ["digests/unread_count"],
+    queryKey: ['digests/unread_count'],
     queryFn: () => getUnreadCount(),
   });
 
@@ -39,29 +39,24 @@ const getLatestDigestDate = async (): Promise<string> => {
 
 const useGetLatestDigestDate = (): UseQueryResult<string, AxiosError> =>
   useQuery({
-    queryKey: ["latest_digest_date"],
+    queryKey: ['latest_digest_date'],
     queryFn: () => getLatestDigestDate(),
   });
 
 // CREATE DIGEST
 const createDigest = async (payload: CreateDigest): Promise<AxiosResponse> => {
-  const { data } = await axios.post("/api/digest", payload);
+  const { data } = await axios.post('/api/digest', payload);
   return data;
 };
 
-const useCreateDigest = (): UseMutationResult<
-  AxiosResponse,
-  AxiosError,
-  CreateDigest,
-  unknown
-> => {
+const useCreateDigest = (): UseMutationResult<AxiosResponse, AxiosError, CreateDigest, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createDigest,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["digests"] });
-      queryClient.invalidateQueries({ queryKey: ["digests/unread_count"] });
+      queryClient.invalidateQueries({ queryKey: ['digests'] });
+      queryClient.invalidateQueries({ queryKey: ['digests/unread_count'] });
     },
   });
 };
@@ -72,19 +67,14 @@ const markAsRead = async (id: number): Promise<AxiosResponse> => {
   return data;
 };
 
-const useDigestMarkAsRead = (): UseMutationResult<
-  AxiosResponse,
-  AxiosError,
-  number,
-  unknown
-> => {
+const useDigestMarkAsRead = (): UseMutationResult<AxiosResponse, AxiosError, number, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: markAsRead,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["digests"] });
-      queryClient.invalidateQueries({ queryKey: ["digests/unread_count"] });
+      queryClient.invalidateQueries({ queryKey: ['digests'] });
+      queryClient.invalidateQueries({ queryKey: ['digests/unread_count'] });
     },
   });
 };

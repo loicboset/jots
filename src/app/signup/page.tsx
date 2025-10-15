@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
-import Header from "@/components/collections/layouts/Header";
-import Button from "@/components/ui/buttons/Button";
-import useAlert from "@/utils/hooks/useAlert";
+import Header from '@/components/collections/layouts/Header';
+import Button from '@/components/ui/buttons/Button';
+import useAlert from '@/utils/hooks/useAlert';
 
-import { signup } from "./actions";
+import { signup } from './actions';
 
 export type FormValues = {
   email: string;
@@ -37,7 +37,7 @@ const Signup = (): JSX.Element => {
     if (message) {
       setAlert({
         message,
-        type: "danger",
+        type: 'danger',
       });
     }
   };
@@ -62,20 +62,16 @@ const Signup = (): JSX.Element => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit(handleSignUp)} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-medium text-white"
-              >
+              <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
               </label>
               <div className="mt-2">
                 <input
-                  {...register("email", {
-                    required: "Email is required",
+                  {...register('email', {
+                    required: 'Email is required',
                     pattern: {
-                      value:
-                        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "Invalid email address",
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                      message: 'Invalid email address',
                     },
                   })}
                   type="email"
@@ -87,28 +83,23 @@ const Signup = (): JSX.Element => {
                     focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6
                   `}
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email.message}</p>
-                )}
+                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-white"
-                >
+                <label htmlFor="password" className="block text-sm/6 font-medium text-white">
                   Password
                 </label>
               </div>
               <div className="mt-2">
                 <input
-                  {...register("password", {
-                    required: "Password is required",
+                  {...register('password', {
+                    required: 'Password is required',
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters long",
+                      message: 'Password must be at least 8 characters long',
                     },
                   })}
                   type="password"
@@ -120,28 +111,22 @@ const Signup = (): JSX.Element => {
                   `}
                 />
                 {errors.password && (
-                  <p className="text-red-500 text-sm">
-                    {errors.password.message}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors.password.message}</p>
                 )}
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-white"
-                >
+                <label htmlFor="password" className="block text-sm/6 font-medium text-white">
                   Repeat Password
                 </label>
               </div>
               <div className="mt-2">
                 <input
-                  {...register("repeatPassword", {
-                    required: "Please confirm your password",
-                    validate: (value) =>
-                      value === watch("password") || "Passwords do not match",
+                  {...register('repeatPassword', {
+                    required: 'Please confirm your password',
+                    validate: (value) => value === watch('password') || 'Passwords do not match',
                   })}
                   type="password"
                   required
@@ -152,9 +137,7 @@ const Signup = (): JSX.Element => {
                   `}
                 />
                 {errors.repeatPassword && (
-                  <p className="text-red-500 text-sm">
-                    {errors.repeatPassword.message}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors.repeatPassword.message}</p>
                 )}
               </div>
             </div>
@@ -167,11 +150,8 @@ const Signup = (): JSX.Element => {
           </form>
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
-            Already a member?{" "}
-            <Link
-              href="/login"
-              className="font-semibold text-indigo-400 hover:text-indigo-300"
-            >
+            Already a member?{' '}
+            <Link href="/login" className="font-semibold text-indigo-400 hover:text-indigo-300">
               Log in here
             </Link>
           </p>

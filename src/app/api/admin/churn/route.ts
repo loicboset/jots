@@ -1,6 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
-import getUserEmail from "../../_utils/getUserEmail";
+import getUserEmail from '../../_utils/getUserEmail';
 
 export async function GET(): Promise<Response> {
   const supabase = createClient(
@@ -8,15 +8,15 @@ export async function GET(): Promise<Response> {
     process.env.SUPABASE_SERVICE_KEY!, // service key, bypasses RLS
   );
 
-  const allowedUsers = ["loic.boset@gmail.com", "j.zouzou@icloud.com"];
+  const allowedUsers = ['loic.boset@gmail.com', 'j.zouzou@icloud.com'];
 
   const userEmail = await getUserEmail();
 
   if (!userEmail) {
-    return new Response("Not authenticated", { status: 401 });
+    return new Response('Not authenticated', { status: 401 });
   }
   if (!allowedUsers.includes(userEmail)) {
-    return new Response("Not authorized", { status: 401 });
+    return new Response('Not authorized', { status: 401 });
   }
 
   const {
@@ -28,9 +28,9 @@ export async function GET(): Promise<Response> {
 
   // Step 1: get entries grouped by user
   const { data, error } = await supabase
-    .from("journal_entries")
-    .select("user_id, created_at")
-    .order("created_at", { ascending: true });
+    .from('journal_entries')
+    .select('user_id, created_at')
+    .order('created_at', { ascending: true });
 
   if (error) {
     return new Response(error.message, { status: 500 });
@@ -73,7 +73,7 @@ export async function GET(): Promise<Response> {
   };
 
   const headers = new Headers();
-  headers.append("Content-Type", "application/json");
+  headers.append('Content-Type', 'application/json');
 
   return new Response(JSON.stringify(result), { status: 200, headers });
 }

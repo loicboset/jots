@@ -1,5 +1,5 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
 
 type Churn = {
   totalUsers: number;
@@ -15,7 +15,7 @@ const getChurn = async (): Promise<Churn> => {
 };
 
 const useChurn = (): UseQueryResult<Churn, AxiosError> =>
-  useQuery({ queryKey: ["admin/churn"], queryFn: () => getChurn() });
+  useQuery({ queryKey: ['admin/churn'], queryFn: () => getChurn() });
 
 type Retention = {
   totalUsers: number;
@@ -29,6 +29,6 @@ const getRetention = async (): Promise<Retention> => {
 };
 
 const useRetention = (): UseQueryResult<Retention, AxiosError> =>
-  useQuery({ queryKey: ["admin/retention"], queryFn: () => getRetention() });
+  useQuery({ queryKey: ['admin/retention'], queryFn: () => getRetention() });
 
 export { useChurn, useRetention };

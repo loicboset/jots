@@ -1,17 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  ResponsiveContainer,
-} from "recharts";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
-import Spinner from "@/components/ui/loaders/Spinner";
-import InfoTooltip from "@/components/ui/tooltips/InfoTooltip";
-import { useUserSkills } from "@/services/user_skills";
-import { XP_PER_LEVEL } from "@/utils/constants";
+import Spinner from '@/components/ui/loaders/Spinner';
+import InfoTooltip from '@/components/ui/tooltips/InfoTooltip';
+import { useUserSkills } from '@/services/user_skills';
+import { XP_PER_LEVEL } from '@/utils/constants';
 
 function getSkillProgress(score: number): {
   level: number;
@@ -51,8 +45,8 @@ const SkillsCharts = (): React.ReactElement => {
         <p className="text-md text-white">Skills Data</p>
         <p className="text-sm/6 text-gray-400">No skills data available.</p>
         <p className="text-sm/6 text-gray-400">
-          You can gain skills points by filling in some prompts accessible via
-          the /prompts command in the editor.
+          You can gain skills points by filling in some prompts accessible via the /prompts command
+          in the editor.
         </p>
       </div>
     );
@@ -63,10 +57,7 @@ const SkillsCharts = (): React.ReactElement => {
       <p className="text-md text-white text-center mb-4">Skills Data</p>
 
       {chartData.length >= 3 ? (
-        <div
-          className="w-full flex flex-col items-center"
-          style={{ height: "400px" }}
-        >
+        <div className="w-full flex flex-col items-center" style={{ height: '400px' }}>
           <div className="mb-4 flex justify-center">
             <p className="text-sm/6 text-gray-400">Skill Radar Chart</p>
             <InfoTooltip message="You gain XP by answering prompts. More entries grow your skills over time." />
@@ -75,20 +66,14 @@ const SkillsCharts = (): React.ReactElement => {
             <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chartData}>
               <PolarGrid />
               <PolarAngleAxis dataKey="subject" />
-              <Radar
-                name="Mike"
-                dataKey="A"
-                stroke="#4f39f6"
-                fill="#4f39f6"
-                fillOpacity={0.6}
-              />
+              <Radar name="Mike" dataKey="A" stroke="#4f39f6" fill="#4f39f6" fillOpacity={0.6} />
             </RadarChart>
           </ResponsiveContainer>
         </div>
       ) : (
         <div className="px-4 py-2 text-sm mb-4 text-center text-gray-400">
-          Not enough skills data. Gain more XP by completing prompts to unlock
-          the skills radar chart.
+          Not enough skills data. Gain more XP by completing prompts to unlock the skills radar
+          chart.
         </div>
       )}
 
@@ -96,10 +81,7 @@ const SkillsCharts = (): React.ReactElement => {
         {skills.map(({ skill, score }) => {
           const { level, progress, nextLevelScore } = getSkillProgress(score);
           return (
-            <div
-              key={skill}
-              className="mb-4 p-4 bg-gray-800 rounded-xl shadow-md"
-            >
+            <div key={skill} className="mb-4 p-4 bg-gray-800 rounded-xl shadow-md">
               <div className="flex justify-between text-sm text-gray-200 mb-1">
                 <span className="capitalize">
                   {skill} — Lv {level}

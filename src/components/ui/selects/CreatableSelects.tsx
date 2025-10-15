@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { SingleValue } from "react-select";
-import ReactCreatableSelect from "react-select/creatable";
+import { SingleValue } from 'react-select';
+import ReactCreatableSelect from 'react-select/creatable';
 
 type RestProps = Omit<
   React.ComponentProps<typeof ReactCreatableSelect>,
-  "options" | "value" | "onChange"
+  'options' | 'value' | 'onChange'
 >;
 
 type Props = {
@@ -25,34 +25,34 @@ const CreatableSelect = ({
   <ReactCreatableSelect
     options={options}
     value={value}
-    onChange={(option) => onChange(option as Props["value"])}
+    onChange={(option) => onChange(option as Props['value'])}
     placeholder={placeholder}
     styles={{
       control: (baseStyles) => ({
         ...baseStyles,
-        backgroundColor: "black",
+        backgroundColor: 'black',
       }),
       input: (baseStyles) => ({
         ...baseStyles,
-        color: "white",
+        color: 'white',
       }),
       singleValue: (baseStyles) => ({
         ...baseStyles,
-        color: "white",
+        color: 'white',
       }),
       valueContainer: (baseStyles) => ({
         ...baseStyles,
-        backgroundColor: "black",
-        color: "white",
+        backgroundColor: 'black',
+        color: 'white',
       }),
       menu: (baseStyles) => ({
         ...baseStyles,
-        backgroundColor: "black",
-        border: "1px solid #4B5563",
+        backgroundColor: 'black',
+        border: '1px solid #4B5563',
       }),
       option: (baseStyles, state) => ({
         ...baseStyles,
-        backgroundColor: state.isFocused ? "#99a1af" : "black",
+        backgroundColor: state.isFocused ? '#99a1af' : 'black',
       }),
     }}
     {...rest}

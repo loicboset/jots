@@ -1,5 +1,5 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import axios from 'axios';
 
 // GET USER SETTINGS
 const getUserAiUsage = async (date: string): Promise<number> => {
@@ -9,7 +9,7 @@ const getUserAiUsage = async (date: string): Promise<number> => {
 
 const useUserAiUsage = (date: string): UseQueryResult<number, Error> =>
   useQuery({
-    queryKey: ["user_ai_usage"],
+    queryKey: ['user_ai_usage'],
     queryFn: () => getUserAiUsage(date),
   });
 

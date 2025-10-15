@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-import { EasyCronAddResponse } from "@/types/api/easycron";
+import { EasyCronAddResponse } from '@/types/api/easycron';
 
 export async function PATCH(request: Request): Promise<Response> {
   const req = await request.json();
@@ -11,10 +11,10 @@ export async function PATCH(request: Request): Promise<Response> {
 
   try {
     await axios.patch<EasyCronAddResponse>(easyCronUrl, body, {
-      headers: { "X-API-Key": process.env.EASY_CRON_API_KEY as string },
+      headers: { 'X-API-Key': process.env.EASY_CRON_API_KEY as string },
     });
 
-    return new Response("success", { status: 200 });
+    return new Response('success', { status: 200 });
   } catch (error) {
     return Response.json(`Error sending notification: ${error}`, {
       status: 500,

@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { mergeRegister } from "@lexical/utils";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { mergeRegister } from '@lexical/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   $getRoot,
   $createTextNode,
@@ -11,12 +11,12 @@ import {
   COMMAND_PRIORITY_LOW,
   DELETE_CHARACTER_COMMAND,
   $isElementNode,
-} from "lexical";
+} from 'lexical';
 
-import { generateAiPrompt } from "@/services/ai_prompts";
-import { useJournalEntries } from "@/services/journal_entries";
+import { generateAiPrompt } from '@/services/ai_prompts';
+import { useJournalEntries } from '@/services/journal_entries';
 
-import { $isAiPromptNode, AiPromptNode } from "../../nodes/AiPromptNode";
+import { $isAiPromptNode, AiPromptNode } from '../../nodes/AiPromptNode';
 
 const AiPromptNodePlugin = (): null => {
   // HOOKS
@@ -37,9 +37,7 @@ const AiPromptNodePlugin = (): null => {
         parsedEditorState._nodeMap.forEach((node) => {
           if ($isElementNode(node)) {
             const textNodes = node.getAllTextNodes();
-            textNodes.forEach((node) =>
-              textContent.push(node.getTextContent()),
-            );
+            textNodes.forEach((node) => textContent.push(node.getTextContent()));
           }
         });
       });
@@ -68,14 +66,14 @@ const AiPromptNodePlugin = (): null => {
       AiPromptNode,
       (mutations) => {
         mutations.forEach(async (mutation) => {
-          if (mutation === "created") {
+          if (mutation === 'created') {
             try {
-              let prompt = "";
+              let prompt = '';
               if (textContent.length === 0) {
                 prompt = `You haven't written anything yet. Start writing to get AI suggestions.`;
               } else {
                 const result = await generateAiPrompt();
-                queryClient.invalidateQueries({ queryKey: ["user_ai_usage"] });
+                queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
                 prompt = result.prompt;
               }
 
@@ -90,7 +88,7 @@ const AiPromptNodePlugin = (): null => {
                 }
               });
             } catch (error) {
-              console.error("Error fetching AI prompt:", error);
+              console.error('Error fetching AI prompt:', error);
             }
           }
         });

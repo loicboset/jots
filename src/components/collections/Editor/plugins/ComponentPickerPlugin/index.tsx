@@ -1,32 +1,32 @@
-import type { JSX } from "react";
-import { useCallback, useMemo, useState } from "react";
-import * as React from "react";
+import type { JSX } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import * as React from 'react';
 
-import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import SparklesIcon from '@heroicons/react/24/outline/SparklesIcon';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
   MenuOption,
   useBasicTypeaheadTriggerMatch,
-} from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $setBlocksType } from "@lexical/selection";
-import { useFeatureFlag } from "configcat-react";
-import dayjs from "dayjs";
+} from '@lexical/react/LexicalTypeaheadMenuPlugin';
+import { $setBlocksType } from '@lexical/selection';
+import { useFeatureFlag } from 'configcat-react';
+import dayjs from 'dayjs';
 import {
   $createParagraphNode,
   $getSelection,
   $isRangeSelection,
   LexicalEditor,
   TextNode,
-} from "lexical";
-import * as ReactDOM from "react-dom";
+} from 'lexical';
+import * as ReactDOM from 'react-dom';
 
-import "./ComponentPicker.css";
-import { useUserAiUsage } from "@/services/user_ai_usage";
-import usePromptsLibraryStore from "@/stores/usePromptsLibraryStore";
-import { MAX_AI_TOKENS } from "@/utils/constants";
+import './ComponentPicker.css';
+import { useUserAiUsage } from '@/services/user_ai_usage';
+import usePromptsLibraryStore from '@/stores/usePromptsLibraryStore';
+import { MAX_AI_TOKENS } from '@/utils/constants';
 
-import { $createAiPromptNode } from "../../nodes/AiPromptNode";
+import { $createAiPromptNode } from '../../nodes/AiPromptNode';
 
 class ComponentPickerOption extends MenuOption {
   // What shows up in the editor
@@ -71,9 +71,9 @@ const ComponentPickerMenuItem = ({
   onMouseEnter: () => void;
   option: ComponentPickerOption;
 }): JSX.Element => {
-  let className = "item";
+  let className = 'item';
   if (isSelected) {
-    className += " selected";
+    className += ' selected';
   }
   return (
     <li
@@ -83,7 +83,7 @@ const ComponentPickerMenuItem = ({
       ref={option.setRefElement}
       role="option"
       aria-selected={isSelected}
-      id={"typeahead-item-" + index}
+      id={'typeahead-item-' + index}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
@@ -98,24 +98,20 @@ const getAiPromptOption = (
   editor: LexicalEditor,
   isAiUsageExceeded: boolean,
 ): ComponentPickerOption =>
-  new ComponentPickerOption("AI Prompt", {
+  new ComponentPickerOption('AI Prompt', {
     icon: <SparklesIcon className="icon paragraph" />,
-    keywords: ["ai", "prompt", "aiprompt"],
+    keywords: ['ai', 'prompt', 'aiprompt'],
     onSelect: (): void =>
       editor.update(() => {
         if (isAiUsageExceeded) {
-          alert(
-            "You have exceeded your AI usage for today. Please try again tomorrow.",
-          );
+          alert('You have exceeded your AI usage for today. Please try again tomorrow.');
           return;
         }
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
           $setBlocksType(selection, () => {
             const paragraph = $createParagraphNode();
-            const prompt = $createAiPromptNode(
-              "Generating prompt with AI, please wait ...",
-            );
+            const prompt = $createAiPromptNode('Generating prompt with AI, please wait ...');
             paragraph.append(prompt);
             return paragraph;
           });
@@ -132,17 +128,19 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   const setSelection = usePromptsLibraryStore((state) => state.setSelection);
 
   // RQ
-  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format("YYYY-MM-DD"));
+  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format('YYYY-MM-DD'));
 
   // HOOKS
-  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } =
-    useFeatureFlag("isaipromptenabled", false);
+  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag(
+    'isaipromptenabled',
+    false,
+  );
   const [editor] = useLexicalComposerContext();
 
   // VARS
   const isAiUsageExceeded = usedTokens >= MAX_AI_TOKENS;
 
-  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
+  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
     minLength: 0,
   });
 
@@ -150,9 +148,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
     const baseOptions = [];
 
     baseOptions.push(
-      new ComponentPickerOption("Prompts", {
+      new ComponentPickerOption('Prompts', {
         icon: <i className="icon paragraph" />,
-        keywords: ["prompts"],
+        keywords: ['prompts'],
         onSelect: (): void => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
@@ -175,23 +173,16 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       return allowedOptions;
     }
 
-    const regex = new RegExp(queryString, "i");
+    const regex = new RegExp(queryString, 'i');
 
     return [
       ...allowedOptions.filter(
         (option) =>
-          regex.test(option.title) ||
-          option.keywords.some((keyword) => regex.test(keyword)),
+          regex.test(option.title) || option.keywords.some((keyword) => regex.test(keyword)),
       ),
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    editor,
-    isAiUsageExceeded,
-    isaipromptenabledValue,
-    isaipromptenabledLoading,
-    queryString,
-  ]);
+  }, [editor, isAiUsageExceeded, isaipromptenabledValue, isaipromptenabledLoading, queryString]);
 
   const onSelectOption = useCallback(
     (
@@ -222,27 +213,27 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         ) =>
           anchorElementRef.current && options.length
             ? ReactDOM.createPortal(
-              <div className="typeahead-popover component-picker-menu">
-                <ul>
-                  {options.map((option, i: number) => (
-                    <ComponentPickerMenuItem
-                      index={i}
-                      isSelected={selectedIndex === i}
-                      onClick={() => {
-                        setHighlightedIndex(i);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(i);
-                      }}
-                      key={option.key}
-                      option={option}
-                    />
-                  ))}
-                </ul>
-              </div>,
-              anchorElementRef.current,
-            )
+                <div className="typeahead-popover component-picker-menu">
+                  <ul>
+                    {options.map((option, i: number) => (
+                      <ComponentPickerMenuItem
+                        index={i}
+                        isSelected={selectedIndex === i}
+                        onClick={() => {
+                          setHighlightedIndex(i);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(i);
+                        }}
+                        key={option.key}
+                        option={option}
+                      />
+                    ))}
+                  </ul>
+                </div>,
+                anchorElementRef.current,
+              )
             : null
         }
       />
