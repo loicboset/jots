@@ -1,6 +1,7 @@
 import Button from '@/components/ui/buttons/Button';
 import { Template } from '..';
 import { useForm } from 'react-hook-form';
+import { useCreateUserReflection } from '@/services/user_reflections';
 
 type Props = {
   template: Template;
@@ -73,12 +74,23 @@ type FormValues = {
 };
 
 const TemplateModel = ({ template }: Props): React.ReactElement => {
+  // RQ
+  const { mutate: createUserReflection } = useCreateUserReflection();
+
   // RHF
   const { register, handleSubmit } = useForm<FormValues>();
 
   // METHODS
   const onSubmit = (data: FormValues): void => {
-    console.log(data);
+    createUserReflection({
+      reflectionModelID: template.id,
+      status: 'submitted',
+      answers: Object.values(data).map((answer, index) => ({
+        question: templates.find((t) => t.id === template.id)?.questions[index] || '',
+        answer,
+        order: index + 1,
+      })),
+    });
   };
 
   // VARS

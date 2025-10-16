@@ -1,10 +1,15 @@
 export type CreateUserReflection = {
-  reflection_model_id: string;
-  status?: 'draft' | 'submitted';
+  reflectionModelID: string;
+  status: 'draft' | 'submitted';
+  answers: {
+    question: string;
+    answer: string;
+    order: number;
+  }[];
 };
 
 export type UpdateUserReflection = {
   id: string;
-  reflection_model_id?: string;
-  status?: 'draft' | 'submitted';
+  reflectionModelID: string;
+  status: 'draft' | 'submitted';
 };

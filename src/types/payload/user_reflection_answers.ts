@@ -1,7 +1,7 @@
 export type CreateUserReflectionAnswer = {
   user_reflection_id: string;
   question: string;
-  answer?: string;
+  answer: string;
   order: number;
 };
 
