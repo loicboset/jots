@@ -5,7 +5,7 @@ import {
   UseQueryResult,
   UseMutationResult,
 } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { UserReflection } from '@/types/api/user_reflections';
 import { CreateUserReflection, UpdateUserReflection } from '@/types/payload/user_reflections';
@@ -23,14 +23,14 @@ export const useUserReflections = (): UseQueryResult<UserReflection[], Error> =>
   });
 
 // CREATE USER_REFLECTION
-const createUserReflection = async (body: CreateUserReflection): Promise<UserReflection> => {
+const createUserReflection = async (body: CreateUserReflection): Promise<AxiosResponse> => {
   const { data } = await axios.post('/api/user_reflections', body);
   return data;
 };
 
 export const useCreateUserReflection = (): UseMutationResult<
-  UserReflection,
-  Error,
+  AxiosResponse,
+  AxiosError,
   CreateUserReflection
 > => {
   const queryClient = useQueryClient();

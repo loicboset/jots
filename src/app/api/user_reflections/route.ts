@@ -3,6 +3,23 @@ import { createClient } from '@/lib/supabase/server';
 import getUserID from '../_utils/getUserID';
 import { CreateUserReflection } from '@/types/payload/user_reflections';
 
+export async function GET(): Promise<Response> {
+  const supabase = await createClient();
+
+  const { data: userReflections } = await supabase
+    .from('user_reflections')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+
+  return new Response(JSON.stringify(userReflections), {
+    status: 200,
+    headers,
+  });
+}
+
 export async function POST(request: Request): Promise<Response> {
   const supabase = await createClient();
 
@@ -12,11 +29,12 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const req = await request.json();
-  const { reflectionModelID, status, answers } = req as CreateUserReflection;
+  const { name, reflectionModelID, status, answers } = req as CreateUserReflection;
   const { data: userReflection, error } = await supabase
     .from('user_reflections')
     .insert({
       user_id: userID,
+      name,
       reflection_model_id: reflectionModelID,
       status,
     })

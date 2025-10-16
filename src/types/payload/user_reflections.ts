@@ -1,5 +1,6 @@
 export type CreateUserReflection = {
-  reflectionModelID: string;
+  name: string;
+  reflectionModelID: number;
   status: 'draft' | 'submitted';
   answers: {
     question: string;

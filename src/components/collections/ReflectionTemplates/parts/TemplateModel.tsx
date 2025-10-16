@@ -2,6 +2,9 @@ import Button from '@/components/ui/buttons/Button';
 import { Template } from '..';
 import { useForm } from 'react-hook-form';
 import { useCreateUserReflection } from '@/services/user_reflections';
+import Input from '@/components/ui/inputs/Input';
+import useToast from '@/utils/hooks/useToast';
+import useStatusLogging from '@/utils/hooks/useStatusLogging';
 
 type Props = {
   template: Template;
@@ -70,20 +73,26 @@ const templates = [
 ];
 
 type FormValues = {
+  name: string;
   [key: string]: string;
 };
 
 const TemplateModel = ({ template }: Props): React.ReactElement => {
   // RQ
-  const { mutate: createUserReflection } = useCreateUserReflection();
+  const { mutate: createUserReflection, status, data, error } = useCreateUserReflection();
 
   // RHF
   const { register, handleSubmit } = useForm<FormValues>();
 
+  // HOOKS
+  const [toast, setToast, clearToast] = useToast();
+  useStatusLogging({ status, data, error, setterFn: setToast, clearFn: clearToast });
+
   // METHODS
   const onSubmit = (data: FormValues): void => {
     createUserReflection({
-      reflectionModelID: template.id,
+      name: data.name,
+      reflectionModelID: 1,
       status: 'submitted',
       answers: Object.values(data).map((answer, index) => ({
         question: templates.find((t) => t.id === template.id)?.questions[index] || '',
@@ -97,26 +106,31 @@ const TemplateModel = ({ template }: Props): React.ReactElement => {
   const questions = templates.find((t) => t.id === template.id)?.questions || [];
 
   return (
-    <form
-      className="mt-10 flex-1 overflow-auto flex flex-col gap-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      {questions.map((question, index) => (
-        <div key={index}>
-          <p className="text-md mb-2 font-semibold">
-            {index + 1}. {question}
-          </p>
-          <textarea
-            {...register(`question_${index + 1}`)}
-            rows={3}
-            className="bg-gray-700 border border-gray-100 rounded-md text-white w-full"
-          />
+    <>
+      {toast}
+
+      <form
+        className="mt-10 flex-1 overflow-auto flex flex-col gap-6"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Input {...register('name')} label="Name" placeholder="E.g. HR Meeting" />
+        {questions.map((question, index) => (
+          <div key={index}>
+            <p className="text-md mb-2 font-semibold">
+              {index + 1}. {question}
+            </p>
+            <textarea
+              {...register(`question_${index + 1}`)}
+              rows={3}
+              className="bg-gray-700 border border-gray-100 rounded-md text-white w-full"
+            />
+          </div>
+        ))}
+        <div>
+          <Button type="submit">Submit</Button>
         </div>
-      ))}
-      <div>
-        <Button type="submit">Submit</Button>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };
 
