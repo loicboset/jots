@@ -52,7 +52,7 @@ const ReflectionTemplate = (): React.ReactElement => {
       {selectedTemplate ? (
         <TemplateModel template={selectedTemplate} />
       ) : (
-        <div className="grid grid-cols-2 gap-10 mt-10 max-w-3xl mx-auto">
+        <div className="flex flex-col flex-1 overflow-auto md:grid md:grid-cols-2 gap-10 mt-10 max-w-3xl mx-auto">
           {templates.map((template, index) => (
             <TemplateButton
               key={template.label}

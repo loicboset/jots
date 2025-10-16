@@ -27,5 +27,5 @@ export async function login(formData: FormValues): Promise<{ message: string }> 
   }
 
   revalidatePath('/', 'layout');
-  redirect(`/${user.id}`);
+  redirect(`/${user.id}/reflections`);
 }

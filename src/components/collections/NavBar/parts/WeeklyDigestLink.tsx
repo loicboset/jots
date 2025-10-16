@@ -1,22 +1,22 @@
 import classNames from 'classnames';
-import { usePathname } from 'next/navigation';
 
 import Button from '@/components/ui/buttons/Button';
 import { useDigestsUnreadCount } from '@/services/digests';
+import { useUserContext } from '@/context/UserProvider';
 
-const WeeklyDigestButton = (): React.ReactElement => {
+const WeeklyDigestLink = (): React.ReactElement => {
+  // CONTEXT
+  const { user } = useUserContext();
+
   // RQ
   const { data: count = 0 } = useDigestsUnreadCount();
-
-  // ROUTER
-  const path = usePathname();
 
   // VARS
   const hasUnread = count > 0;
 
   return (
     <div className="relative w-full flex">
-      <Button href={path + `/digests`} color="white" className="w-full">
+      <Button href={`/${user.userID}/digests`} color="white" className="w-full">
         Weekly Digests
       </Button>
       {hasUnread && (
@@ -33,4 +33,4 @@ const WeeklyDigestButton = (): React.ReactElement => {
   );
 };
 
-export default WeeklyDigestButton;
+export default WeeklyDigestLink;

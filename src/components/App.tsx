@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Script from 'next/script';
 
-import Editor from '@/components/collections/Editor';
 import BugReportButton from '@/components/features/BugReportButton';
 import { useCalendarContext } from '@/context/CalendarContextProvider';
 import { PushNotificationsPlugin } from '@/packages';
@@ -13,26 +12,24 @@ import { PushNotificationsPlugin } from '@/packages';
 import AppWrapper from './collections/AppWrapper';
 import MotivationBooster from './collections/MotivationBooster';
 import NavBar from './collections/NavBar';
-import ReflectionTemplates from './collections/ReflectionTemplates';
 import ChatbotWrapper from './features/ChatbotWrapper';
-import PromptsLibraryModal from './features/PromptsLibraryModal';
 import ScreenSizeRenderer from './ui/wrappers/ScreenSizeRenderer';
 
 type Props = {
   userID: string;
+  children: React.ReactNode;
 };
 
 type ExtendedNavigator = Navigator & {
   standalone?: boolean;
 };
 
-const App = ({ userID }: Props): React.ReactElement => {
+const App = ({ userID, children }: Props): React.ReactElement => {
   // CONTEXT
   const { calendar } = useCalendarContext();
 
   // STATE
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [page] = useState('templates');
 
   const handleSetSidebarOpen = (open: boolean): void => setSidebarOpen(open);
 
@@ -43,7 +40,7 @@ const App = ({ userID }: Props): React.ReactElement => {
   }, []);
 
   const registerServiceWorker = async (): Promise<void> => {
-    await navigator.serviceWorker.register('./sw.js', {
+    await navigator.serviceWorker.register('../sw.js', {
       scope: '/',
       updateViaCache: 'none',
     });
@@ -60,7 +57,7 @@ const App = ({ userID }: Props): React.ReactElement => {
   }
 
   return (
-    <>
+    <div className="flex h-dvh">
       <NavBar sidebarOpen={sidebarOpen} handleSetSidebarOpen={handleSetSidebarOpen} />
       {displayMode === 'standalone' && (
         <ScreenSizeRenderer maxWidth="md">
@@ -82,21 +79,12 @@ const App = ({ userID }: Props): React.ReactElement => {
           </div>
           <MotivationBooster />
         </div>
-        <AppWrapper userID={userID}>
-          {page === 'templates' ? (
-            <ReflectionTemplates />
-          ) : (
-            <>
-              <Editor userID={userID} />
-              <PromptsLibraryModal />
-            </>
-          )}
-        </AppWrapper>
+        <AppWrapper userID={userID}>{children}</AppWrapper>
       </div>
       <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
       <BugReportButton />
       <ChatbotWrapper />
-    </>
+    </div>
   );
 };
 
