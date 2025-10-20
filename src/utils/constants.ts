@@ -73,6 +73,24 @@ const MAX_AI_TOKENS = 100;
 
 const XP_PER_LEVEL = 15;
 
+export type Template = { id: string; label: string; model: string };
+const TEMPLATES: Template[] = [
+  { id: 'process_event', label: 'Process an event 🧩', model: 'bain_5r' },
+  {
+    id: 'learn_from_mistake_or_success',
+    label: 'Learn from mistake/success 🧠',
+    model: 'kolb',
+  },
+  {
+    id: 'think_through',
+    label: 'Think through project/decision 🧪',
+    model: 'kolb',
+  },
+  { id: 'freestyle', label: 'Freestyle ✍', model: 'simple_prompt' },
+  { id: 'understand_myself', label: 'Understand myself ❤️', model: 'boud' },
+  { id: 'learn_from_content', label: 'Learn from content 📚', model: 'boud' },
+];
+
 export {
   BREAKPOINTS,
   MAX_AI_TOKENS,
@@ -82,4 +100,5 @@ export {
   NEUTRAL_SCORE_MOTIVATION_BOOSTERS,
   NEGATIVE_SCORE_MOTIVATION_BOOSTERS,
   XP_PER_LEVEL,
+  TEMPLATES,
 };

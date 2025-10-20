@@ -1,5 +1,6 @@
+'use client';
+
 import Button from '@/components/ui/buttons/Button';
-import { Template } from '..';
 import { useForm } from 'react-hook-form';
 import { useCreateUserReflection } from '@/services/user_reflections';
 import Input from '@/components/ui/inputs/Input';
@@ -7,7 +8,7 @@ import useToast from '@/utils/hooks/useToast';
 import useStatusLogging from '@/utils/hooks/useStatusLogging';
 
 type Props = {
-  template: Template;
+  templateID: string;
 };
 
 const templates = [
@@ -77,7 +78,7 @@ type FormValues = {
   [key: string]: string;
 };
 
-const TemplateModel = ({ template }: Props): React.ReactElement => {
+const TemplateModel = ({ templateID }: Props): React.ReactElement => {
   // RQ
   const { mutate: createUserReflection, status, data, error } = useCreateUserReflection();
 
@@ -95,7 +96,7 @@ const TemplateModel = ({ template }: Props): React.ReactElement => {
       reflectionModelID: 1,
       status: 'submitted',
       answers: Object.values(data).map((answer, index) => ({
-        question: templates.find((t) => t.id === template.id)?.questions[index] || '',
+        question: templates.find((t) => t.id === templateID)?.questions[index] || '',
         answer,
         order: index + 1,
       })),
@@ -103,7 +104,7 @@ const TemplateModel = ({ template }: Props): React.ReactElement => {
   };
 
   // VARS
-  const questions = templates.find((t) => t.id === template.id)?.questions || [];
+  const questions = templates.find((t) => t.id === templateID)?.questions || [];
 
   return (
     <>

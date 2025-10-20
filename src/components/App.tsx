@@ -1,69 +1,37 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Script from 'next/script';
 
 import BugReportButton from '@/components/features/BugReportButton';
 import { useCalendarContext } from '@/context/CalendarContextProvider';
-import { PushNotificationsPlugin } from '@/packages';
 
-import AppWrapper from './collections/AppWrapper';
+import EditorWrapper from './collections/EditorWrapper';
 import MotivationBooster from './collections/MotivationBooster';
 import NavBar from './collections/NavBar';
 import ChatbotWrapper from './features/ChatbotWrapper';
-import ScreenSizeRenderer from './ui/wrappers/ScreenSizeRenderer';
+import { useUserContext } from '@/context/UserProvider';
 
 type Props = {
-  userID: string;
   children: React.ReactNode;
 };
 
-type ExtendedNavigator = Navigator & {
-  standalone?: boolean;
-};
-
-const App = ({ userID, children }: Props): React.ReactElement => {
+const App = ({ children }: Props): React.ReactElement => {
   // CONTEXT
   const { calendar } = useCalendarContext();
+  const { user } = useUserContext();
 
   // STATE
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSetSidebarOpen = (open: boolean): void => setSidebarOpen(open);
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      registerServiceWorker();
-    }
-  }, []);
-
-  const registerServiceWorker = async (): Promise<void> => {
-    await navigator.serviceWorker.register('../sw.js', {
-      scope: '/',
-      updateViaCache: 'none',
-    });
-  };
-
-  // VARS
-  let displayMode = 'browser';
-  const mqStandAlone = '(display-mode: standalone)';
-  if (
-    (window.navigator as ExtendedNavigator)?.standalone ||
-    window.matchMedia(mqStandAlone).matches
-  ) {
-    displayMode = 'standalone';
-  }
-
   return (
     <div className="flex h-dvh">
       <NavBar sidebarOpen={sidebarOpen} handleSetSidebarOpen={handleSetSidebarOpen} />
-      {displayMode === 'standalone' && (
-        <ScreenSizeRenderer maxWidth="md">
-          <PushNotificationsPlugin />
-        </ScreenSizeRenderer>
-      )}
+
       <div className="w-full focus:outline-none flex flex-col p-8 pb-12">
         <div className="mb-8 pb-2 border-b border-gray-500">
           <div className="flex items-center space-x-2 mb-2">
@@ -79,7 +47,7 @@ const App = ({ userID, children }: Props): React.ReactElement => {
           </div>
           <MotivationBooster />
         </div>
-        <AppWrapper userID={userID}>{children}</AppWrapper>
+        <EditorWrapper userID={user.userID}>{children}</EditorWrapper>
       </div>
       <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
       <BugReportButton />
