@@ -1,21 +1,23 @@
 'use client';
 
 import App from '@/components/App';
-import ReflectionTemplate from '@/components/collections/ReflectionTemplates';
-import { useUserReflections } from '@/services/user_reflections';
+import TemplateLink from './parts/TemplateLink';
+import { TEMPLATES } from '@/utils/constants';
 
-const Reflection = (): React.ReactElement => {
-  // RQ
-  const { data: userReflections = [] } = useUserReflections();
+const Reflection = (): React.ReactElement => (
+  <App>
+    <div className="flex flex-col overflow-hidden">
+      <div className="text-center text-lg font-medium">
+        <span>What do you want to get clarity on?</span>
+      </div>
 
-  return (
-    <App>
-      {userReflections.map((reflection) => (
-        <div key={reflection.id}>{reflection.status}</div>
-      ))}
-      <ReflectionTemplate />
-    </App>
-  );
-};
+      <div className="flex flex-col flex-1 overflow-auto md:grid md:grid-cols-2 gap-10 mt-10 max-w-3xl mx-auto">
+        {TEMPLATES.map((template, index) => (
+          <TemplateLink key={template.label} index={index} template={template} />
+        ))}
+      </div>
+    </div>
+  </App>
+);
 
 export default Reflection;
