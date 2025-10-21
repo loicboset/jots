@@ -34,6 +34,3 @@ export async function GET(): Promise<Response> {
     `https://github.com/login/oauth/authorize?${params.toString()}`
   );
 }
-
-
-

@@ -5,8 +5,6 @@ import { encrypt } from "@/lib/crypto";
 import { createClient } from "@/lib/supabase/server";
 import type { MutableCookies } from "@/types/github";
 
-
-
 export async function GET(req: Request): Promise<Response> {
   const supabase = await createClient();
   const { searchParams } = new URL(req.url);
@@ -58,6 +56,3 @@ export async function GET(req: Request): Promise<Response> {
 
   return Response.redirect(url.toString());
 }
-
-
-

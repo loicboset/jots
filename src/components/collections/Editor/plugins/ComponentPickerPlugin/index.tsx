@@ -128,7 +128,6 @@ const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): C
     }
   })
 
-
 export default function ComponentPickerMenuPlugin(): JSX.Element {
   // STATE
   const [queryString, setQueryString] = useState<string | null>(null);

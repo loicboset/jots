@@ -84,9 +84,10 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div
         ref={containerRef}
-        className="bg-white rounded-2xl shadow-xl w-[520px] max-h-[80vh] flex flex-col relative animate-fadeIn"
+        className="bg-white rounded-2xl shadow-xl w-[520px] max-h-[80vh] flex flex-col relative animate-fadeIn overflow-hidden"
       >
         <h2 className="text-xl font-bold px-6 pt-6 pb-3 text-gray-900">Select GitHub Commits</h2>
+        <p className="font-semibold px-6 pt-2 pb-3 text-gray-400">This information will be used as context to offer targeted reflections based on your work.</p>
 
         {/* Scrollable list */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 relative">
@@ -180,6 +181,3 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
 };
 
 export default GitHubContextPopup;
-
-
-

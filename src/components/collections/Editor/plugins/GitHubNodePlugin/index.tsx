@@ -10,7 +10,6 @@ import { GitHubPR } from "@/types/github";
 
 import { $createGitHubChipNode } from "../../nodes/GitHubChipNode";
 
-
 // Command triggered from ComponentPickerPlugin
 export const FETCH_GITHUB_CONTEXT_COMMAND = createCommand("FETCH_GITHUB_CONTEXT_COMMAND");
 
@@ -78,5 +77,3 @@ const GitHubNodePlugin = (): JSX.Element | null => {
 };
 
 export default GitHubNodePlugin;
-
-

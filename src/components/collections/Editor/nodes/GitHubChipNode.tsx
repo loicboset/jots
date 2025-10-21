@@ -64,7 +64,6 @@ export const GitHubChip = ({ url, title, label, description }: GitHubChipProps):
         )}
       </div>
     </a>
-
   );
 }
 
@@ -98,7 +97,6 @@ export class GitHubChipNode extends DecoratorNode<React.ReactNode> {
   updateDOM(): false {
     return false;
   }
-
 
   // This is where the React component is rendered
   decorate(): React.ReactNode {
@@ -147,4 +145,3 @@ export function $createGitHubChipNode({
 export function $isGitHubChipNode(node: LexicalNode | null | undefined): node is GitHubChipNode {
   return node instanceof GitHubChipNode;
 }
-
