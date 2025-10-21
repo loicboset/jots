@@ -1,14 +1,25 @@
 'use client'
 import { useState } from 'react'
 
+import Button from '@/components/ui/buttons/Button';
+import CreatableSelect from "@/components/ui/selects/CreatableSelects";
+import useToast from '@/utils/hooks/useToast';
+
 const ExportButton = (): React.ReactElement => {
-  const [format, setFormat] = useState('json')
+  const [format, setFormat] = useState({ label: 'JSON', value: 'json' })
   const [loading, setLoading] = useState(false)
+  const [toast, setToast] = useToast();
+
+  const options = [
+    { label: 'JSON', value: 'json' },
+    { label: 'Markdown', value: 'md' },
+    { label: 'PDF', value: 'pdf' },
+  ]
 
   const handleExport = async (): Promise<void> => {
     try {
       setLoading(true)
-      const res = await fetch(`/api/export?format=${format}`)
+      const res = await fetch(`/api/export?format=${format.value}`)
 
       if (!res.ok) {
         const { error } = await res.json()
@@ -22,7 +33,7 @@ const ExportButton = (): React.ReactElement => {
 
       const today = new Date()
       const dateStr = today.toISOString().split('T')[0]
-      const filename = `jots-export-${dateStr}.${format}`
+      const filename = `jots-export-${dateStr}.${format.value}`
 
       link.href = url
       link.download = filename
@@ -30,9 +41,10 @@ const ExportButton = (): React.ReactElement => {
       link.click()
       link.remove()
       window.URL.revokeObjectURL(url)
+      setToast({ message: "Entries successfully exported!" })
     } catch (err) {
+      setToast({ type: "error", message: "Something went wrong" });
       console.error('Export failed:', err)
-      alert('Something went wrong.')
     } finally {
       setLoading(false)
     }
@@ -40,6 +52,7 @@ const ExportButton = (): React.ReactElement => {
 
   return (
     <div className="grid grid-cols-1 gap-4">
+      {toast}
       <div>
         <h2 className="text-base/7 font-semibold text-white">Export</h2>
         <p className="mt-1 text-sm/6 text-gray-400">
@@ -47,25 +60,12 @@ const ExportButton = (): React.ReactElement => {
         </p>
       </div>
       <div className="flex gap-2 items-center">
-        <select
-          className="border rounded p-2"
+        <CreatableSelect
+          options={options}
           value={format}
-          onChange={(e) => setFormat(e.target.value)}
-          disabled={loading}
-        >
-          <option value="json">JSON</option>
-          <option value="md">Markdown</option>
-          <option value="pdf">PDF</option>
-        </select>
-        <button
-          onClick={handleExport}
-          className={`rounded p-2 text-white transition ${
-            loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-          }`}
-          disabled={loading}
-        >
-          {loading ? 'Exporting...' : 'Export'}
-        </button>
+          onChange={(e) => e && setFormat({ label: e.label, value: e.value })}
+        />
+        <Button onClick={handleExport} disabled={loading}>Export</Button>
       </div>
     </div>
   )
