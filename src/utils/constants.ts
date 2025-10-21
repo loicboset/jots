@@ -42,7 +42,7 @@ const NEUTRAL_SCORE_MOTIVATION_BOOSTERS = [
   'Think of today as writing tests for tomorrow’s success.',
   'Some days you build features, others you build resilience.',
   'Just checking in—your breakpoint isn’t a breakdown. 💡',
-  'A slow sprint is still forward motion. 🐢💨',
+  'A short sprint is still forward motion. 🐢💨',
   'Code today, conquer tomorrow.',
 ];
 

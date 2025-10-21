@@ -3,12 +3,17 @@ import { createClient } from '@/lib/supabase/server';
 import getUserID from '../_utils/getUserID';
 import { CreateUserReflection } from '@/types/payload/user_reflections';
 
-export async function GET(): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
+  const { searchParams } = new URL(request.url);
+  const date = new Date(searchParams.get('date') as string);
+  const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
   const supabase = await createClient();
 
   const { data: userReflections } = await supabase
     .from('user_reflections')
-    .select('*')
+    .select('*, user_reflection_answers(*)')
+    .eq('date', formattedDate)
     .order('created_at', { ascending: false });
 
   const headers = new Headers();
@@ -29,11 +34,12 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const req = await request.json();
-  const { name, reflectionModelID, status, answers } = req as CreateUserReflection;
+  const { name, reflectionModelID, status, answers, date } = req as CreateUserReflection;
   const { data: userReflection, error } = await supabase
     .from('user_reflections')
     .insert({
       user_id: userID,
+      date,
       name,
       reflection_model_id: reflectionModelID,
       status,
@@ -60,9 +66,8 @@ export async function POST(request: Request): Promise<Response> {
   );
 
   if (answersError) {
-    console.error('Error inserting user reflection answers:', answersError);
     return new Response(answersError.message, { status: 500 });
   }
 
-  return new Response('Success', { status: 200 });
+  return new Response(JSON.stringify({ id: userReflection.id }), { status: 200 });
 }

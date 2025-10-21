@@ -1,4 +1,5 @@
 export type CreateUserReflection = {
+  date: Date;
   name: string;
   reflectionModelID: number;
   status: 'draft' | 'submitted';

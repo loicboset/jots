@@ -1,11 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/buttons/Button';
 import { useForm } from 'react-hook-form';
 import { useCreateUserReflection } from '@/services/user_reflections';
 import Input from '@/components/ui/inputs/Input';
-import useToast from '@/utils/hooks/useToast';
-import useStatusLogging from '@/utils/hooks/useStatusLogging';
+import { useEffect } from 'react';
+import { useCalendarContext } from '@/context/CalendarContextProvider';
 
 type Props = {
   templateID: string;
@@ -79,19 +80,29 @@ type FormValues = {
 };
 
 const TemplateModel = ({ templateID }: Props): React.ReactElement => {
+  // CONTEXT
+  const { calendar } = useCalendarContext();
+
   // RQ
-  const { mutate: createUserReflection, status, data, error } = useCreateUserReflection();
+  const { mutate: createUserReflection, status, data } = useCreateUserReflection();
+
+  // ROUTER
+  const router = useRouter();
 
   // RHF
   const { register, handleSubmit } = useForm<FormValues>();
 
-  // HOOKS
-  const [toast, setToast, clearToast] = useToast();
-  useStatusLogging({ status, data, error, setterFn: setToast, clearFn: clearToast });
+  // EFFECTS
+  useEffect(() => {
+    if (status === 'success' && data?.data?.id) {
+      router.push(`done/${data?.data?.id}`);
+    }
+  }, [status, data, router]);
 
   // METHODS
   const onSubmit = (data: FormValues): void => {
     createUserReflection({
+      date: calendar.currentDate,
       name: data.name,
       reflectionModelID: 1,
       status: 'submitted',
@@ -108,8 +119,6 @@ const TemplateModel = ({ templateID }: Props): React.ReactElement => {
 
   return (
     <>
-      {toast}
-
       <form
         className="mt-10 flex-1 overflow-auto flex flex-col gap-6"
         onSubmit={handleSubmit(onSubmit)}
@@ -123,12 +132,17 @@ const TemplateModel = ({ templateID }: Props): React.ReactElement => {
             <textarea
               {...register(`question_${index + 1}`)}
               rows={3}
-              className="bg-gray-700 border border-gray-100 rounded-md text-white w-full"
+              className="
+                bg-gray-700 p-2 border focus:ring-inset focus:ring-0
+                focus:outline-none border-gray-100 rounded-md text-white w-full
+              "
             />
           </div>
         ))}
         <div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" isLoading={status === 'pending'} disabled={status === 'pending'}>
+            Submit
+          </Button>
         </div>
       </form>
     </>
