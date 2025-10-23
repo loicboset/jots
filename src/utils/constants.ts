@@ -41,7 +41,7 @@ const NEUTRAL_SCORE_MOTIVATION_BOOSTERS = [
   'Remember: even clean code needs a messy draft first.',
   'Think of today as writing tests for tomorrow’s success.',
   'Some days you build features, others you build resilience.',
-  'Just checking in—your breakpoint isn’t a breakdown. 💡',
+  'Just checking in — your breakpoint isn’t a breakdown. 💡',
   'A short sprint is still forward motion. 🐢💨',
   'Code today, conquer tomorrow.',
 ];

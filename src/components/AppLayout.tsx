@@ -60,7 +60,7 @@ const AppLayout = ({ children }: Props): React.ReactElement => {
           <MotivationBooster />
         </div>
         {showTabs && (
-          <div className="mb-4">
+          <div className="mb-4 mt-4 sm:mt-0">
             <LocationTabs tabs={tabs} />
           </div>
         )}
