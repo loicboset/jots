@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import classNames from 'classnames';
-import ScreenSizeRenderer from '../../wrappers/ScreenSizeRenderer';
+import ScreenSizeRenderer from '../wrappers/ScreenSizeRenderer';
 
 type Tab = {
   name: string;

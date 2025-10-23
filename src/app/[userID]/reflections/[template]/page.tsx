@@ -1,4 +1,4 @@
-import App from '@/components/App';
+import AppLayout from '@/components/AppLayout';
 import TemplateModel from '@/app/[userID]/reflections/[template]/TemplateModel';
 import { TEMPLATES } from '@/utils/constants';
 
@@ -16,12 +16,12 @@ const Template = async ({ params }: Props): Promise<React.ReactElement> => {
   const templateName = TEMPLATES.find((t) => t.id === template)?.label || 'Template';
 
   return (
-    <App>
+    <AppLayout>
       <div className="flex flex-col overflow-hidden">
         <TemplateHeader templateName={templateName} />
         <TemplateModel templateID={template} />
       </div>
-    </App>
+    </AppLayout>
   );
 };
 

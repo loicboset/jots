@@ -1,6 +1,6 @@
 'use client';
 
-import App from '@/components/App';
+import AppLayout from '@/components/AppLayout';
 import { useUserReflections } from '@/services/user_reflections';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ const ReflectionsDone = (): React.ReactElement => {
   const { data: reflections = [] } = useUserReflections(calendar.currentDate);
 
   return (
-    <App>
+    <AppLayout>
       <div className="flex flex-col overflow-hidden">
         <div className="flex items-center justify-center text-lg font-medium mb-4">
           <Link href={`../reflections`}>
@@ -37,7 +37,7 @@ const ReflectionsDone = (): React.ReactElement => {
           ))}
         </div>
       </div>
-    </App>
+    </AppLayout>
   );
 };
 

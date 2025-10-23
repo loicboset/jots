@@ -1,4 +1,4 @@
-import App from '@/components/App';
+import AppLayout from '@/components/AppLayout';
 import TemplateHeader from './parts/TemplateHeader';
 import Reflection from './parts/Reflection';
 import ReflectionAssessment from './parts/ReflectionAssessment';
@@ -12,7 +12,7 @@ const ReflectionDone = async ({ params }: Props): Promise<React.ReactElement> =>
   const id = (await params).id;
 
   return (
-    <App>
+    <AppLayout>
       <div className="flex flex-col gap-4 overflow-hidden">
         <TemplateHeader reflectionID={id} />
         <div className="flex-1 overflow-auto">
@@ -20,7 +20,7 @@ const ReflectionDone = async ({ params }: Props): Promise<React.ReactElement> =>
           <Reflection reflectionID={id} />
         </div>
       </div>
-    </App>
+    </AppLayout>
   );
 };
 

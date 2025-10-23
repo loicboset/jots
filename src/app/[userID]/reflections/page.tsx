@@ -1,6 +1,6 @@
 'use client';
 
-import App from '@/components/App';
+import AppLayout from '@/components/AppLayout';
 import TemplateLink from './parts/TemplateLink';
 import { TEMPLATES } from '@/utils/constants';
 import { useUserReflections } from '@/services/user_reflections';
@@ -15,7 +15,7 @@ const Reflection = (): React.ReactElement => {
   const { data = [] } = useUserReflections(calendar.currentDate);
 
   return (
-    <App>
+    <AppLayout>
       <div className="flex flex-col overflow-hidden">
         {data.length > 0 && (
           <div className="text-center text-lg font-medium mb-2">
@@ -38,7 +38,7 @@ const Reflection = (): React.ReactElement => {
           ))}
         </div>
       </div>
-    </App>
+    </AppLayout>
   );
 };
 

@@ -8,7 +8,7 @@ import AiUsage from '@/components/features/AiUsage';
 import Calendar from '@/components/features/Calendar';
 import MoodSlider from '@/components/features/MoodSlider';
 import WeeklyStreak from '@/components/features/WeeklyStreak';
-// import WeeklyTasks from '@/components/features/WeeklyTasks';
+import WeeklyTasks from '@/components/features/WeeklyTasks';
 import Button from '@/components/ui/buttons/Button';
 import { useUserContext } from '@/context/UserProvider';
 import { createClient } from '@/lib/supabase/client';
@@ -51,16 +51,10 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
       </div>
       <div className="flex h-full flex-col gap-6 mt-6 items-center">
         <WeeklyStreak />
-        <Button href={`/${user.userID}/reflections`} color="white" className="w-full">
-          Reflections
-        </Button>
-        <Button href={`/${user.userID}/journaling`} color="white" className="w-full">
-          Journaling
-        </Button>
         <WeeklyDigestLink />
         <MoodSlider />
         <AiUsage />
-        {/* <WeeklyTasks /> */}
+        <WeeklyTasks />
         <AiPathIndicator />
       </div>
       <div className="mb-2 mt-4">
