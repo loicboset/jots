@@ -1,6 +1,8 @@
 
 import { useRouter } from "next/navigation";
 
+import Button from '@/components/ui/buttons/Button';
+
 const ExtensionToken = (): React.ReactElement => {
   // ROUTER
   const router = useRouter();
@@ -24,24 +26,7 @@ const ExtensionToken = (): React.ReactElement => {
         </p>
       </div>
       <div className="sm:col-span-4 flex justify-end">
-        <button
-          onClick={() => router.push('/extension-token')}
-          style={{
-            backgroundColor: '#007acc',
-            color: '#fff',
-            border: 'none',
-            padding: '10px 18px',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            fontSize: '16px',
-            fontWeight: '600',
-            transition: 'background-color 0.3s ease'
-          }}
-          onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#005f99')}
-          onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#007acc')}
-        >
-          Generate Token
-        </button>
+        <Button onClick={() => router.push('/extension-token')}>Generate Token</Button>
       </div>
     </div>
   )

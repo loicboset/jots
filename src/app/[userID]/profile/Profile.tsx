@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import AchievementsList from "./_parts/AchievementsList";
+import ExportButton from "./_parts/ExportButton";
 import ExtensionToken from "./_parts/ExtensionToken";
 import Features from "./_parts/Features";
 import Insights from "./_parts/Insights";
@@ -89,8 +90,12 @@ const Profile = ({ email }: Props): React.ReactElement => {
             <Insights />
             <hr className="border-gray-500 mb-6" />
 
-             {/* ACHIEVEMENTS */}
+            {/* ACHIEVEMENTS */}
             <AchievementsList />
+            <hr className="border-gray-500 mb-6" />
+
+            {/* EXPORT ENTRIES */}
+            <ExportButton />
           </div>
         </div>
       </div>
