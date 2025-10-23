@@ -2,6 +2,7 @@
 
 /* eslint-disable max-len */
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useFeatureFlag } from "configcat-react";
 import Link from "next/link";
 
 import AchievementsList from "./_parts/AchievementsList";
@@ -17,6 +18,8 @@ type Props = {
 };
 
 const Profile = ({ email }: Props): React.ReactElement => {
+  const { value: isgithubenabled } = useFeatureFlag("isgithubenabled", false);
+
   return (
     <div className="pb-10">
       <div className="flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900">
@@ -83,8 +86,12 @@ const Profile = ({ email }: Props): React.ReactElement => {
             <hr className="border-gray-500 mb-6" />
 
             {/* GITHUB OAUTH CONNECTION */}
-            <ConnectGithub />
-            <hr className="border-gray-500 mb-6" />
+            {isgithubenabled && (
+              <>
+                <ConnectGithub />
+                <hr className="border-gray-500 mb-6" />
+              </>
+            )}
 
             {/* VS CODE TOKEN GENERATOR */}
             <ExtensionToken />

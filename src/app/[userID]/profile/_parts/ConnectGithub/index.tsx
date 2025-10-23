@@ -1,17 +1,12 @@
-import { useFeatureFlag } from "configcat-react";
-
 import Button from "@/components/ui/buttons/Button";
 import InfoTooltip from "@/components/ui/tooltips/InfoTooltip";
 import { useUserSettings } from "@/services/user_settings";
 
 const ConnectGithub = (): React.ReactElement => {
-  const { value: isgithubenabled } = useFeatureFlag("isgithubenabled", false);
   const { data: userSettings, isLoading: isUserSettingsLoading } = useUserSettings();
 
   // VARS
-  if (!isgithubenabled) return <></>;
-
-  const isGithubConnected = !isUserSettingsLoading && Boolean(userSettings?.github_token_encrypted);
+  const isGithubConnected = !isUserSettingsLoading && !!userSettings?.github_token_encrypted;
 
   const handleConnect = (): void => {
     if (isGithubConnected) return; // do nothing if already connected
