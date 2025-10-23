@@ -12,7 +12,7 @@ export async function GET(request: Request): Promise<Response> {
 
   const { data: userReflections } = await supabase
     .from('user_reflections')
-    .select('*, user_reflection_answers(*)')
+    .select('*, user_reflection_answers(*), user_reflection_assessments(score)')
     .eq('date', formattedDate)
     .order('created_at', { ascending: false });
 

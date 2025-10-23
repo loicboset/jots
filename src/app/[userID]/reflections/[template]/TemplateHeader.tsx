@@ -14,11 +14,11 @@ const TemplateHeader = ({ templateName }: Props): React.ReactElement => {
 
   return (
     <div className="text-center text-lg font-medium">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center text-lg font-medium mb-4">
         <Link href={`/${user.userID}/reflections`}>
           <ArrowLeftIcon className="inline w-5 h-5 mr-2" />
         </Link>
-        <span>{templateName}</span>
+        <span className="flex-1 text-center">{templateName}</span>
       </div>
     </div>
   );

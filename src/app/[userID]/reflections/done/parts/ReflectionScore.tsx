@@ -3,7 +3,7 @@ type Props = {
 };
 
 const ReflectionScore = ({ score }: Props): React.ReactElement => {
-  if (!score) {
+  if (score === undefined) {
     return (
       <div
         className="

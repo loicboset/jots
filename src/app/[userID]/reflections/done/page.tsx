@@ -17,13 +17,11 @@ const ReflectionsDone = (): React.ReactElement => {
   return (
     <App>
       <div className="flex flex-col overflow-hidden">
-        <div className="text-center text-lg font-medium mb-4">
-          <div className="flex items-center justify-center">
-            <Link href={`../reflections`}>
-              <ArrowLeftIcon className="inline w-5 h-5 mr-2" />
-            </Link>
-            <span>Reflections done 💪</span>
-          </div>
+        <div className="flex items-center justify-center text-lg font-medium mb-4">
+          <Link href={`../reflections`}>
+            <ArrowLeftIcon className="inline w-5 h-5 mr-2" />
+          </Link>
+          <span className="flex-1 text-center">Reflections done 💪</span>
         </div>
 
         <div className="flex-1 flex flex-col gap-4 overflow-auto">
@@ -34,7 +32,7 @@ const ReflectionsDone = (): React.ReactElement => {
               className="flex items-center justify-between border rounded-md p-4"
             >
               <p>{reflection.name}</p>
-              <ReflectionScore score={4} />
+              <ReflectionScore score={reflection.user_reflection_assessments[0]?.score} />
             </Link>
           ))}
         </div>
