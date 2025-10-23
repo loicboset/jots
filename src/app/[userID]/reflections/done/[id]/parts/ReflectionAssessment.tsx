@@ -1,15 +1,19 @@
-import { useParams } from 'next/navigation';
-import ScoreInput from './ScoreInput';
-import { Controller, useForm } from 'react-hook-form';
+'use client';
+
+import { useEffect } from 'react';
+import ReflectionScore from '../../parts/ReflectionScore';
 import {
   useCreateUserReflectionAssessment,
   useUserReflectionAssessment,
 } from '@/services/user_reflection_assessments';
+import { useParams } from 'next/navigation';
+import { ASSESSMENTTRAITS } from '@/utils/constants';
+import { Controller, useForm } from 'react-hook-form';
 import Button from '@/components/ui/buttons/Button';
-import useToast from '@/utils/hooks/useToast';
+import ScoreInput from './ScoreInput';
 import useStatusLogging from '@/utils/hooks/useStatusLogging';
+import useToast from '@/utils/hooks/useToast';
 import calculateReflectionScore from '../utils/calculateReflectionScore';
-import { useEffect } from 'react';
 
 export type TraitDetail = {
   trait: string;
@@ -21,7 +25,7 @@ type FormValues = {
   details: TraitDetail[];
 };
 
-const AdvancedSelfAssessment = (): React.ReactElement => {
+const ReflectionAssessment = (): React.ReactElement => {
   // ROUTER
   const params = useParams<{ id: string }>();
 
@@ -68,50 +72,54 @@ const AdvancedSelfAssessment = (): React.ReactElement => {
   };
 
   // VARS
-  const assessmentTraits = [
-    { name: 'Description', description: 'Facts, recounting events' },
-    { name: 'Emotion', description: 'Acknowledged feelings' },
-    { name: 'Connection', description: 'Links to past or external knowledge' },
-    { name: 'Analysis', description: 'Explains causes, patterns, reasoning' },
-    { name: 'Integration', description: 'Synthesizes new understanding' },
-    { name: 'Transformation', description: 'Plans new action or mindset' },
-  ];
-
   const noSavedAssessment = !reflectionAssessment && !isLoading;
 
   return (
-    <form className="flex flex-col space-y-4" onSubmit={handleSubmit(handleCreateAssessment)}>
-      {toast}
+    <div className="border p-4 mb-6 rounded-md">
+      <div className="flex items-center justify-between">
+        <p className="font-medium text-lg mb-4">Reflection Depth Score</p>
+        <ReflectionScore score={reflectionAssessment?.score} />
+      </div>
+      <form
+        className="flex flex-col space-y-4 mt-6"
+        onSubmit={handleSubmit(handleCreateAssessment)}
+      >
+        {toast}
 
-      {assessmentTraits.map((trait, index) => (
-        <div
-          key={trait.name}
-          className="flex sm:items-center flex-col sm:flex-row sm:justify-between"
-        >
-          <div>
-            <p className="font-semibold">{trait.name}</p>
-            <p className="text-sm text-gray-500">{trait.description}</p>
-          </div>
-
-          <Controller
+        {ASSESSMENTTRAITS.map((trait, index) => (
+          <div
             key={trait.name}
-            name={`details.${index}.score`}
-            control={control}
-            render={({ field: { value, onChange } }): React.ReactElement => (
-              <ScoreInput value={value} onChange={onChange} />
-            )}
-          />
-        </div>
-      ))}
-      {noSavedAssessment && (
-        <div className="mt-4">
-          <Button type="submit" isLoading={status === 'pending'} disabled={!!reflectionAssessment}>
-            Submit
-          </Button>
-        </div>
-      )}
-    </form>
+            className="flex sm:items-center flex-col sm:flex-row sm:justify-between"
+          >
+            <div>
+              <p className="font-semibold">{trait.name}</p>
+              <p className="text-sm text-gray-500">{trait.description}</p>
+            </div>
+
+            <Controller
+              key={trait.name}
+              name={`details.${index}.score`}
+              control={control}
+              render={({ field: { value, onChange } }): React.ReactElement => (
+                <ScoreInput value={value} onChange={onChange} />
+              )}
+            />
+          </div>
+        ))}
+        {noSavedAssessment && (
+          <div className="mt-4">
+            <Button
+              type="submit"
+              isLoading={status === 'pending'}
+              disabled={!!reflectionAssessment}
+            >
+              Submit
+            </Button>
+          </div>
+        )}
+      </form>
+    </div>
   );
 };
 
-export default AdvancedSelfAssessment;
+export default ReflectionAssessment;

@@ -1,5 +1,5 @@
 import { TRAITWEIGHTMAP } from '@/utils/constants';
-import { TraitDetail } from '../parts/AdvancedSelfAssessment';
+import { TraitDetail } from '../parts/ReflectionAssessment';
 
 const calculateReflectionScore = (details: TraitDetail[]): number => {
   let totalWeightedScore = 0;

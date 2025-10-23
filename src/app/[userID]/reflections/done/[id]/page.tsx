@@ -1,7 +1,7 @@
 import App from '@/components/App';
 import TemplateHeader from './parts/TemplateHeader';
 import Reflection from './parts/Reflection';
-import ReflectionSelfAssessment from './parts/ReflectionSelfAssessment';
+import ReflectionAssessment from './parts/ReflectionAssessment';
 
 type Props = {
   params: Promise<{ id: number }>;
@@ -16,7 +16,7 @@ const ReflectionDone = async ({ params }: Props): Promise<React.ReactElement> =>
       <div className="flex flex-col gap-4 overflow-hidden">
         <TemplateHeader reflectionID={id} />
         <div className="flex-1 overflow-auto">
-          <ReflectionSelfAssessment />
+          <ReflectionAssessment />
           <Reflection reflectionID={id} />
         </div>
       </div>

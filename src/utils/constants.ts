@@ -100,6 +100,15 @@ const TRAITWEIGHTMAP: { [key: string]: number } = {
   transformation: 5,
 };
 
+const ASSESSMENTTRAITS = [
+  { name: 'Description', description: 'Facts, recounting events' },
+  { name: 'Emotion', description: 'Acknowledged feelings' },
+  { name: 'Connection', description: 'Links to past or external knowledge' },
+  { name: 'Analysis', description: 'Explains causes, patterns, reasoning' },
+  { name: 'Integration', description: 'Synthesizes new understanding' },
+  { name: 'Transformation', description: 'Plans new action or mindset' },
+];
+
 export {
   BREAKPOINTS,
   MAX_AI_TOKENS,
@@ -111,4 +120,5 @@ export {
   XP_PER_LEVEL,
   TEMPLATES,
   TRAITWEIGHTMAP,
+  ASSESSMENTTRAITS,
 };
