@@ -101,12 +101,14 @@ const TemplateModel = ({ templateID }: Props): React.ReactElement => {
 
   // METHODS
   const onSubmit = (data: FormValues): void => {
+    const { name, ...answers } = data;
+
     createUserReflection({
       date: calendar.currentDate,
-      name: data.name,
+      name,
       reflectionModelID: 1,
       status: 'submitted',
-      answers: Object.values(data).map((answer, index) => ({
+      answers: Object.values(answers).map((answer, index) => ({
         question: templates.find((t) => t.id === templateID)?.questions[index] || '',
         answer,
         order: index + 1,

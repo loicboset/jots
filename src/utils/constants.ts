@@ -91,6 +91,15 @@ const TEMPLATES: Template[] = [
   { id: 'learn_from_content', label: 'Learn from content 📚', model: 'boud' },
 ];
 
+const TRAITWEIGHTMAP: { [key: string]: number } = {
+  description: 1,
+  emotion: 1,
+  connection: 2,
+  analysis: 3,
+  integration: 4,
+  transformation: 5,
+};
+
 export {
   BREAKPOINTS,
   MAX_AI_TOKENS,
@@ -101,4 +110,5 @@ export {
   NEGATIVE_SCORE_MOTIVATION_BOOSTERS,
   XP_PER_LEVEL,
   TEMPLATES,
+  TRAITWEIGHTMAP,
 };

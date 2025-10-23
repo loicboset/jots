@@ -22,6 +22,7 @@ const useUserReflection = (id: number): UseQueryResult<UserReflection, Error> =>
     queryFn: () => getUserReflection(id),
   });
 
+// GET USER_REFLECTIONS
 const getUserReflections = async (date: Date): Promise<UserReflection[]> => {
   const { data } = await axios.get(`/api/user_reflections?date=${date}`);
   return data;
