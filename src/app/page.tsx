@@ -150,23 +150,9 @@ const LandingPage = (): JSX.Element => (
               >
                 Start a new habit now
               </Link>
-            </div>
-            <div className="mt-10">
-              <h2>✨ VSCode Extension</h2>
-              <p>Log your developer journal right from VSCode!</p>
-              <div className="mt-4">
-                <a
-                  href="https://marketplace.visualstudio.com/items?itemName=Jots.daily-jots"
-                  rel="noreferrer"
-                  target="_blank"
-                  className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 cursor:pointer"
-                >
-                  <button>Install VSCode Extension</button>
-                </a>
-              </div>
-            </div>
-            <div className="mt-20">
-              <EmailSignupForm />
+              <p className="text-sm/6 font-semibold text-white">
+                It’s free, healthy and open source.
+              </p>
             </div>
           </div>
         </div>

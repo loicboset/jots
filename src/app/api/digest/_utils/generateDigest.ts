@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import OpenAI from 'openai';
 
 import aiUsageLogger from '@/lib/logger/aiUsageLogger';
@@ -12,7 +11,8 @@ const MODEL = 'gpt-4.1';
 const baseSystemContent = `
   You are my software engineering career coach.
   Give advice based on my journal entries.
-  Your goal is to help me improve. I need you to provide me guidance for the week ahead based on my journal entries. Be specific and actionable.
+  Your goal is to help me improve. I need you to provide me guidance for
+  the week ahead based on my journal entries. Be specific and actionable.
 
   Break down the text into small paragraphs.
   It should be effortless to read — short, clear, and very useful.
@@ -41,7 +41,8 @@ const generateDigest = async ({ entries, settings, userID }: Params): Promise<st
 
   if (settings?.career_coach_mode) {
     systemContent +=
-      `You are ${settings.career_coach_mode}. Make sure the user recognize who you are, without being explicit (dont say your name). ` +
+      `You are ${settings.career_coach_mode}.
+       Make sure the user recognize who you are, without being explicit (dont say your name). ` +
       baseSystemContent;
   } else {
     systemContent += `Don't talk like a AI, talk like a human. ` + baseSystemContent;
@@ -54,7 +55,8 @@ const generateDigest = async ({ entries, settings, userID }: Params): Promise<st
   userContent += JSON.stringify(entries);
 
   if (settings) {
-    userContent += `Consider the user's professional situation, but be subtle (no need to remind the user of the goal or experience).`;
+    userContent += `Consider the user's professional situation,
+    but be subtle (no need to remind the user of the goal or experience).`;
     if (settings.role) userContent += ` The user's role is ${settings.role}.`;
     if (settings.experience) userContent += ` The user's experience is ${settings.experience}.`;
     if (settings.goal) userContent += ` The user's goal is ${settings.goal}.`;

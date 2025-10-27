@@ -89,8 +89,8 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
       <div
         ref={containerRef}
         className="
-          bg-white rounded-2xl shadow-xl w-[520px] max-h-[80vh] flex flex-col relative animate-fadeIn overflow-hidden
-          "
+          bg-white rounded-2xl shadow-xl w-[520px] max-h-[80vh]
+          flex flex-col relative animate-fadeIn overflow-hidden"
       >
         <h2 className="text-xl font-bold px-6 pt-6 pb-3 text-gray-900">Select GitHub Commits</h2>
         <p className="font-semibold px-6 pt-2 pb-3 text-gray-400">

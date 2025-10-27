@@ -58,7 +58,6 @@ export async function GET(): Promise<Response> {
   if (weekPointer) {
     const [lastYear, lastWeek] = weekPointer.split('-').map(Number);
     const lastWeekDate = dayjs().set('year', lastYear).isoWeek(lastWeek);
-
     const diffWeeks = currentWeekDate.diff(lastWeekDate, 'week');
 
     if (diffWeeks > 1) {

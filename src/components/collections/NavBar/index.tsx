@@ -23,8 +23,9 @@ const NavBar = ({ sidebarOpen, handleSetSidebarOpen }: Props): React.ReactElemen
         <div className="fixed inset-0 flex">
           <DialogPanel
             transition
-            className={`relative mr-16 flex w-full max-w-[350px] flex-1 transform transition duration-300
-              ease-in-out data-closed:-translate-x-full`}
+            className="
+              relative mr-16 flex w-full max-w-[350px] flex-1 transform
+              transition duration-300 ease-in-out data-closed:-translate-x-full"
           >
             <div
               className="flex h-dvh flex-col gap-y-5 overflow-y-auto px-4 pb-4"

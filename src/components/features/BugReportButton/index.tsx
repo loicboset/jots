@@ -9,8 +9,9 @@ const BugReportButton = (): JSX.Element => (
     data-tally-hide-title="1"
     data-tally-overlay="1"
     data-tally-auto-close="1000"
-    className={`fixed bottom-20 right-4 flex items-center gap-2 bg-red-400
-      text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer`}
+    className="
+      fixed top-5 right-5 flex items-center gap-2 bg-red-400
+      text-white px-4 py-2 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer"
   >
     <BugAntIcon className="text-white h-6 w-6" />
   </button>

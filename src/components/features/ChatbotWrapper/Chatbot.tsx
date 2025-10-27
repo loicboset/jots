@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
@@ -80,11 +79,16 @@ const Chatbot = (): React.ReactElement => {
   const tooltip = `
     We are experimenting with this chatbot!
 
-    You can play around with it, but kindly note that the conversations you have with it might not be retained when we move on to a future version.
+    You can play around with it, but kindly note that the conversations you
+    have with it might not be retained when we move on to a future version.
   `;
 
   return (
-    <div className="fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl shadow-xl flex flex-col h-[500px] border border-gray-200">
+    <div
+      className="
+      fixed bottom-24 right-6 w-xl bg-gray-700 text-gray-300 rounded-xl
+      shadow-xl flex flex-col h-[500px] border border-gray-200"
+    >
       <div className="bg-indigo-600 border-b border-gray-200 text-white text-lg font-semibold p-4 rounded-t-xl">
         Career Coach Chatbot (experimental{' '}
         <QuestionMarkCircleIcon className="ml-1 w-5 text-white inline" title={tooltip} />)
@@ -94,9 +98,9 @@ const Chatbot = (): React.ReactElement => {
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div
-              className={`markdown p-3 text-sm rounded-lg text-gray-200 max-w-[75%] ${
-                msg.role === 'user' ? 'bg-indigo-500' : 'bg-gray-500'
-              }`}
+              className={`
+                markdown p-3 text-sm rounded-lg text-gray-200
+                max-w-[75%] ${msg.role === 'user' ? 'bg-indigo-500' : 'bg-gray-500'}`}
             >
               <Markdown>{msg.content as string}</Markdown>
             </div>

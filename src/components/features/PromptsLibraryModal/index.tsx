@@ -65,8 +65,9 @@ const PromptsLibraryModal = (): React.ReactElement => {
                       key={prompt.text}
                       as="dd"
                       onClick={() => handleAddPromptToEditor(prompt.text, prompt.skill)}
-                      className={`mt-2 border-2 rounded-md hover:cursor-pointer border-transparent ml-4
-                        hover:ml-3 box-border hover:px-1 hover:border-gray-700`}
+                      className="
+                        mt-2 border-2 rounded-md hover:cursor-pointer
+                        border-transparent ml-4 hover:ml-3 box-border hover:px-1 hover:border-gray-700"
                     >
                       {prompt.text}
                     </DisclosurePanel>
