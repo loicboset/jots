@@ -18,7 +18,6 @@ export async function GET(request: Request): Promise<Response | undefined> {
       .select('auth, endpoint, p256dh')
       .eq('user_id', userID);
     if (error) {
-      console.log(' error', error);
       return new Response(`Error fetching push subscriptions: ${error}`, {
         status: 500,
       });

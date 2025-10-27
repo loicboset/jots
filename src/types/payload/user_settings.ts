@@ -7,6 +7,7 @@ type UpsertUserSettings = {
   mood_checks_enabled?: boolean;
   daily_prompt_enabled?: boolean;
   career_coach_mode?: string | null;
+  github_token_encrypted?: string | null;
 };
 
 type EditUserTimezone = {

@@ -1,7 +1,10 @@
+/* eslint-disable prettier/prettier */
 import type { JSX } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as React from 'react';
 
+import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
+import CodeBracketIcon from '@heroicons/react/24/outline/CodeBracketIcon';
 import SparklesIcon from '@heroicons/react/24/outline/SparklesIcon';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
@@ -23,10 +26,12 @@ import * as ReactDOM from 'react-dom';
 
 import './ComponentPicker.css';
 import { useUserAiUsage } from '@/services/user_ai_usage';
+import { useUserSettings } from '@/services/user_settings';
 import usePromptsLibraryStore from '@/stores/usePromptsLibraryStore';
 import { MAX_AI_TOKENS } from '@/utils/constants';
 
 import { $createAiPromptNode } from '../../nodes/AiPromptNode';
+import { FETCH_GITHUB_CONTEXT_COMMAND } from '../../plugins/GitHubNodePlugin';
 
 class ComponentPickerOption extends MenuOption {
   // What shows up in the editor
@@ -119,6 +124,15 @@ const getAiPromptOption = (
       }),
   });
 
+const getGitHubChipOption = (editor: LexicalEditor): ComponentPickerOption =>
+  new ComponentPickerOption('Github', {
+    icon: <CodeBracketIcon className="icon paragraph" />,
+    keywords: ['github', 'prompt', 'pr', 'commit'],
+    onSelect: (): void => {
+      editor.dispatchCommand(FETCH_GITHUB_CONTEXT_COMMAND, undefined);
+    },
+  });
+
 export default function ComponentPickerMenuPlugin(): JSX.Element {
   // STATE
   const [queryString, setQueryString] = useState<string | null>(null);
@@ -129,16 +143,22 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
   // RQ
   const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format('YYYY-MM-DD'));
+  const { data: userSettings } = useUserSettings();
 
   // HOOKS
   const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag(
     'isaipromptenabled',
     false,
   );
+  const { value: isgithubenabled, loading: isgithubenabledLoading } = useFeatureFlag(
+    'isgithubenabled',
+    false,
+  );
   const [editor] = useLexicalComposerContext();
 
   // VARS
   const isAiUsageExceeded = usedTokens >= MAX_AI_TOKENS;
+  const isGithubConnected = userSettings?.github_token_encrypted ?? false;
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
     minLength: 0,
@@ -148,8 +168,8 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
     const baseOptions = [];
 
     baseOptions.push(
-      new ComponentPickerOption('Prompts', {
-        icon: <i className="icon paragraph" />,
+      new ComponentPickerOption('Prompts Library', {
+        icon: <Bars3Icon className="icon paragraph" />,
         keywords: ['prompts'],
         onSelect: (): void => {
           const selection = $getSelection();
@@ -162,11 +182,16 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
     );
 
     const aiPromptOption = getAiPromptOption(editor, isAiUsageExceeded);
+    const gitHubChipOption = getGitHubChipOption(editor);
 
     const allowedOptions = [...baseOptions];
 
     if (isaipromptenabledValue && !isaipromptenabledLoading) {
       allowedOptions.push(aiPromptOption);
+    }
+
+    if (isgithubenabled && !isgithubenabledLoading && isGithubConnected) {
+      allowedOptions.push(gitHubChipOption);
     }
 
     if (!queryString) {
@@ -182,7 +207,15 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       ),
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor, isAiUsageExceeded, isaipromptenabledValue, isaipromptenabledLoading, queryString]);
+  }, [
+    editor,
+    isAiUsageExceeded,
+    isaipromptenabledValue,
+    isaipromptenabledLoading,
+    isgithubenabled,
+    isgithubenabledLoading,
+    queryString,
+  ]);
 
   const onSelectOption = useCallback(
     (
@@ -213,27 +246,27 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         ) =>
           anchorElementRef.current && options.length
             ? ReactDOM.createPortal(
-                <div className="typeahead-popover component-picker-menu">
-                  <ul>
-                    {options.map((option, i: number) => (
-                      <ComponentPickerMenuItem
-                        index={i}
-                        isSelected={selectedIndex === i}
-                        onClick={() => {
-                          setHighlightedIndex(i);
-                          selectOptionAndCleanUp(option);
-                        }}
-                        onMouseEnter={() => {
-                          setHighlightedIndex(i);
-                        }}
-                        key={option.key}
-                        option={option}
-                      />
-                    ))}
-                  </ul>
-                </div>,
-                anchorElementRef.current,
-              )
+              <div className="typeahead-popover component-picker-menu">
+                <ul>
+                  {options.map((option, i: number) => (
+                    <ComponentPickerMenuItem
+                      index={i}
+                      isSelected={selectedIndex === i}
+                      onClick={() => {
+                        setHighlightedIndex(i);
+                        selectOptionAndCleanUp(option);
+                      }}
+                      onMouseEnter={() => {
+                        setHighlightedIndex(i);
+                      }}
+                      key={option.key}
+                      option={option}
+                    />
+                  ))}
+                </ul>
+              </div>,
+              anchorElementRef.current,
+            )
             : null
         }
       />
