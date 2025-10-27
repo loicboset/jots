@@ -8,10 +8,10 @@ import {
   LexicalNode,
   RangeSelection,
   SerializedElementNode,
-} from "lexical";
+} from 'lexical';
 
-import { $isDayContainerNode } from "./DayContainerNode";
-import invariant from "../utils/invariant";
+import { $isDayContainerNode } from './DayContainerNode';
+import invariant from '../utils/invariant';
 
 type SerializedDayTitleNode = SerializedElementNode;
 
@@ -29,7 +29,7 @@ export function $convertSummaryElement(): DOMConversionOutput | null {
 
 export class DayTitleNode extends ElementNode {
   static getType(): string {
-    return "day-title";
+    return 'day-title';
   }
 
   static clone(node: DayTitleNode): DayTitleNode {
@@ -37,13 +37,16 @@ export class DayTitleNode extends ElementNode {
   }
 
   createDOM(config: EditorConfig, editor: LexicalEditor): HTMLElement {
-    const dom = document.createElement("div");
-    dom.classList.add("Day__title");
+    const dom = document.createElement('div');
+    dom.classList.add('Day__title');
 
-    dom.addEventListener("click", () => {
+    dom.addEventListener('click', () => {
       editor.update(() => {
         const collapsibleContainer = this.getLatest().getParentOrThrow();
-        invariant($isDayContainerNode(collapsibleContainer), "Expected parent node to be a CollapsibleContainerNode");
+        invariant(
+          $isDayContainerNode(collapsibleContainer),
+          'Expected parent node to be a CollapsibleContainerNode',
+        );
         collapsibleContainer.toggleOpen();
       });
     });
@@ -57,12 +60,10 @@ export class DayTitleNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      summary: (): DayTitleConversionDetails => {
-        return {
-          conversion: $convertSummaryElement,
-          priority: 1,
-        };
-      },
+      summary: (): DayTitleConversionDetails => ({
+        conversion: $convertSummaryElement,
+        priority: 1,
+      }),
     };
   }
 
@@ -77,7 +78,7 @@ export class DayTitleNode extends ElementNode {
 
   static transform(): (node: LexicalNode) => void {
     return (node: LexicalNode) => {
-      invariant($isDayTitleNode(node), "node is not a DayTitleNode");
+      invariant($isDayTitleNode(node), 'node is not a DayTitleNode');
       if (node.isEmpty()) {
         node.remove();
       }
@@ -88,7 +89,7 @@ export class DayTitleNode extends ElementNode {
     const containerNode = this.getParentOrThrow();
 
     if (!$isDayContainerNode(containerNode)) {
-      throw new Error("DayTitleNode expects to be child of DayContainerNode");
+      throw new Error('DayTitleNode expects to be child of DayContainerNode');
     }
     const paragraph = $createParagraphNode();
     containerNode.insertAfter(paragraph, restoreSelection);

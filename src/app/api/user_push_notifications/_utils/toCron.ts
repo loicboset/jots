@@ -9,8 +9,8 @@ const dayMap = {
 } as const;
 
 const toCron = (days: string[], time: string): string => {
-  const [hour, minute] = time.split(":").map(Number);
-  const cronDays = days.map((d) => dayMap[d as keyof typeof dayMap]).join(",");
+  const [hour, minute] = time.split(':').map(Number);
+  const cronDays = days.map((d) => dayMap[d as keyof typeof dayMap]).join(',');
   return `${minute} ${hour} * * ${cronDays}`;
 };
 

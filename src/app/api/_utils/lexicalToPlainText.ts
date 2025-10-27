@@ -1,24 +1,26 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function extractTextFromLexicalJSON(node: any): string {
-  if (!node) return "";
+  if (!node) return '';
 
   // Handle plain text
   if (node.text) return node.text;
 
   // Handle custom GitHub chip node
-  if (node.type === "github-chip") {
+  if (node.type === 'github-chip') {
     return `[GitHub: ${node.label} — ${node.title}${
-      node.description ? " | " + node.description : ""
+      node.description ? ' | ' + node.description : ''
     } (${node.url})]`;
   }
 
   // Handle children recursively
   if (Array.isArray(node.children)) {
-    return node.children.map(extractTextFromLexicalJSON).join(" ");
+    return node.children.map(extractTextFromLexicalJSON).join(' ');
   }
 
-  return "";
+  return '';
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function lexicalToPlainText(editorState: any): string {
   return extractTextFromLexicalJSON(editorState.root).trim();
 }

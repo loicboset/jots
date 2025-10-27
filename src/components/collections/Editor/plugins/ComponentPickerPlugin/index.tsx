@@ -2,9 +2,9 @@ import type { JSX } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as React from 'react';
 
-import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
-import CodeBracketIcon from "@heroicons/react/24/outline/CodeBracketIcon";
-import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
+import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
+import CodeBracketIcon from '@heroicons/react/24/outline/CodeBracketIcon';
+import SparklesIcon from '@heroicons/react/24/outline/SparklesIcon';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
@@ -12,7 +12,7 @@ import {
   useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $setBlocksType } from '@lexical/selection';
-import { useFeatureFlag } from "configcat-react";
+import { useFeatureFlag } from 'configcat-react';
 import dayjs from 'dayjs';
 import {
   $createParagraphNode,
@@ -23,14 +23,14 @@ import {
 } from 'lexical';
 import * as ReactDOM from 'react-dom';
 
-import './ComponentPicker.css'
+import './ComponentPicker.css';
 import { useUserAiUsage } from '@/services/user_ai_usage';
-import { useUserSettings } from "@/services/user_settings";
+import { useUserSettings } from '@/services/user_settings';
 import usePromptsLibraryStore from '@/stores/usePromptsLibraryStore';
 import { MAX_AI_TOKENS } from '@/utils/constants';
 
-import { $createAiPromptNode } from '../../nodes/AiPromptNode'
-import { FETCH_GITHUB_CONTEXT_COMMAND } from "../../plugins/GitHubNodePlugin";
+import { $createAiPromptNode } from '../../nodes/AiPromptNode';
+import { FETCH_GITHUB_CONTEXT_COMMAND } from '../../plugins/GitHubNodePlugin';
 
 class ComponentPickerOption extends MenuOption {
   // What shows up in the editor
@@ -89,15 +89,19 @@ const ComponentPickerMenuItem = ({
       aria-selected={isSelected}
       id={'typeahead-item-' + index}
       onMouseEnter={onMouseEnter}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {option.icon}
       <span className="text">{option.title}</span>
     </li>
   );
-}
+};
 
 // TODO: only show this option if user has a min 5 day streak, add as condition below when streaks are live
-const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): ComponentPickerOption =>
+const getAiPromptOption = (
+  editor: LexicalEditor,
+  isAiUsageExceeded: boolean,
+): ComponentPickerOption =>
   new ComponentPickerOption('AI Prompt', {
     icon: <SparklesIcon className="icon paragraph" />,
     keywords: ['ai', 'prompt', 'aiprompt'],
@@ -117,16 +121,16 @@ const getAiPromptOption = (editor: LexicalEditor, isAiUsageExceeded: boolean): C
           });
         }
       }),
-  })
+  });
 
-  const getGitHubChipOption = (editor: LexicalEditor): ComponentPickerOption =>
+const getGitHubChipOption = (editor: LexicalEditor): ComponentPickerOption =>
   new ComponentPickerOption('Github', {
     icon: <CodeBracketIcon className="icon paragraph" />,
-    keywords: ['github', 'prompt', "pr", "commit"],
+    keywords: ['github', 'prompt', 'pr', 'commit'],
     onSelect: (): void => {
       editor.dispatchCommand(FETCH_GITHUB_CONTEXT_COMMAND, undefined);
-    }
-  })
+    },
+  });
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
   // STATE
@@ -137,12 +141,18 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   const setSelection = usePromptsLibraryStore((state) => state.setSelection);
 
   // RQ
-  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format("YYYY-MM-DD"));
+  const { data: usedTokens = 0 } = useUserAiUsage(dayjs().format('YYYY-MM-DD'));
   const { data: userSettings } = useUserSettings();
 
   // HOOKS
-  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag("isaipromptenabled", false);
-  const { value: isgithubenabled, loading: isgithubenabledLoading } = useFeatureFlag("isgithubenabled", false);
+  const { value: isaipromptenabledValue, loading: isaipromptenabledLoading } = useFeatureFlag(
+    'isaipromptenabled',
+    false,
+  );
+  const { value: isgithubenabled, loading: isgithubenabledLoading } = useFeatureFlag(
+    'isgithubenabled',
+    false,
+  );
   const [editor] = useLexicalComposerContext();
 
   // VARS
@@ -156,29 +166,31 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   const options = useMemo(() => {
     const baseOptions = [];
 
-    baseOptions.push(new ComponentPickerOption('Prompts Library', {
-      icon: <Bars3Icon className="icon paragraph" />,
-      keywords: ['prompts'],
-      onSelect: (): void => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          setSelection(selection);
-          toggle()
-        }
-      },
-    }))
+    baseOptions.push(
+      new ComponentPickerOption('Prompts Library', {
+        icon: <Bars3Icon className="icon paragraph" />,
+        keywords: ['prompts'],
+        onSelect: (): void => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            setSelection(selection);
+            toggle();
+          }
+        },
+      }),
+    );
 
     const aiPromptOption = getAiPromptOption(editor, isAiUsageExceeded);
-    const gitHubChipOption = getGitHubChipOption(editor)
+    const gitHubChipOption = getGitHubChipOption(editor);
 
     const allowedOptions = [...baseOptions];
 
     if (isaipromptenabledValue && !isaipromptenabledLoading) {
-      allowedOptions.push(aiPromptOption)
+      allowedOptions.push(aiPromptOption);
     }
 
     if (isgithubenabled && !isgithubenabledLoading && isGithubConnected) {
-      allowedOptions.push(gitHubChipOption)
+      allowedOptions.push(gitHubChipOption);
     }
 
     if (!queryString) {
@@ -190,12 +202,19 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
     return [
       ...allowedOptions.filter(
         (option) =>
-          regex.test(option.title) ||
-          option.keywords.some((keyword) => regex.test(keyword)),
+          regex.test(option.title) || option.keywords.some((keyword) => regex.test(keyword)),
       ),
     ];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor, isAiUsageExceeded, isaipromptenabledValue, isaipromptenabledLoading, isgithubenabled, isgithubenabledLoading, queryString]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    editor,
+    isAiUsageExceeded,
+    isaipromptenabledValue,
+    isaipromptenabledLoading,
+    isgithubenabled,
+    isgithubenabledLoading,
+    queryString,
+  ]);
 
   const onSelectOption = useCallback(
     (
@@ -226,27 +245,27 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         ) =>
           anchorElementRef.current && options.length
             ? ReactDOM.createPortal(
-              <div className="typeahead-popover component-picker-menu">
-                <ul>
-                  {options.map((option, i: number) => (
-                    <ComponentPickerMenuItem
-                      index={i}
-                      isSelected={selectedIndex === i}
-                      onClick={() => {
-                        setHighlightedIndex(i);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(i);
-                      }}
-                      key={option.key}
-                      option={option}
-                    />
-                  ))}
-                </ul>
-              </div>,
-              anchorElementRef.current,
-            )
+                <div className="typeahead-popover component-picker-menu">
+                  <ul>
+                    {options.map((option, i: number) => (
+                      <ComponentPickerMenuItem
+                        index={i}
+                        isSelected={selectedIndex === i}
+                        onClick={() => {
+                          setHighlightedIndex(i);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(i);
+                        }}
+                        key={option.key}
+                        option={option}
+                      />
+                    ))}
+                  </ul>
+                </div>,
+                anchorElementRef.current,
+              )
             : null
         }
       />

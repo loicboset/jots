@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef, type JSX } from "react";
+import { useState, useEffect, useRef, type JSX } from 'react';
 
 type CommitItem = {
   id: string;
@@ -14,7 +14,9 @@ type CommitItem = {
 
 type Props = {
   contextData: CommitItem[];
-  onConfirm: (selected: { url: string; title: string; label: string, description?: string }[]) => void;
+  onConfirm: (
+    selected: { url: string; title: string; label: string; description?: string }[],
+  ) => void;
   onCancel: () => void;
 };
 
@@ -31,9 +33,7 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
   }, {});
 
   const toggleSelect = (id: string): void => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    );
+    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
   };
 
   const toggleSelectPR = (commits: CommitItem[]): void => {
@@ -41,7 +41,10 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
     if (allSelected) {
       setSelectedIds((prev) => prev.filter((id) => !commits.some((c) => c.id === id)));
     } else {
-      setSelectedIds((prev) => [...prev, ...commits.filter((c) => !prev.includes(c.id)).map((c) => c.id)]);
+      setSelectedIds((prev) => [
+        ...prev,
+        ...commits.filter((c) => !prev.includes(c.id)).map((c) => c.id),
+      ]);
     }
   };
 
@@ -54,40 +57,44 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
   useEffect(() => {
     const handleKey = (e: KeyboardEvent): void => {
       if (!scrollRef.current) return;
-      const items = Array.from(scrollRef.current.querySelectorAll<HTMLLIElement>("[data-commit]"));
+      const items = Array.from(scrollRef.current.querySelectorAll<HTMLLIElement>('[data-commit]'));
       if (!items.length) return;
       const currentIndex = items.findIndex((el) => el === document.activeElement);
 
-      if (e.key === "ArrowDown") {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
         items[nextIndex].focus();
       }
-      if (e.key === "ArrowUp") {
+      if (e.key === 'ArrowUp') {
         e.preventDefault();
         const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
         items[prevIndex].focus();
       }
-      if (e.key === " " || e.key === "Enter") {
+      if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        if (document.activeElement?.hasAttribute("data-commit-id")) {
-          const id = document.activeElement.getAttribute("data-commit-id")!;
+        if (document.activeElement?.hasAttribute('data-commit-id')) {
+          const id = document.activeElement.getAttribute('data-commit-id')!;
           toggleSelect(id);
         }
       }
     };
-    window.addEventListener("keydown", handleKey);
-    return (): void => window.removeEventListener("keydown", handleKey);
+    window.addEventListener('keydown', handleKey);
+    return (): void => window.removeEventListener('keydown', handleKey);
   }, [selectedIds]);
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div
         ref={containerRef}
-        className="bg-white rounded-2xl shadow-xl w-[520px] max-h-[80vh] flex flex-col relative animate-fadeIn overflow-hidden"
+        className="
+          bg-white rounded-2xl shadow-xl w-[520px] max-h-[80vh]
+          flex flex-col relative animate-fadeIn overflow-hidden"
       >
         <h2 className="text-xl font-bold px-6 pt-6 pb-3 text-gray-900">Select GitHub Commits</h2>
-        <p className="font-semibold px-6 pt-2 pb-3 text-gray-400">This information will be used as context to offer targeted reflections based on your work.</p>
+        <p className="font-semibold px-6 pt-2 pb-3 text-gray-400">
+          This information will be used as context to offer targeted reflections based on your work.
+        </p>
 
         {/* Scrollable list */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 relative">
@@ -102,15 +109,19 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
                   >
                     <div>
                       <p className="font-semibold text-gray-800">{commits[0].prTitle}</p>
-                      <p className="text-sm text-gray-500">{commits[0].label} — PR #{commits[0].prNumber}</p>
-                      <p className="text-xs text-gray-500 mt-1 line-clamp-2">{commits[0].description}</p>
+                      <p className="text-sm text-gray-500">
+                        {commits[0].label} — PR #{commits[0].prNumber}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                        {commits[0].description}
+                      </p>
                     </div>
                     <button
                       type="button"
                       onClick={() => toggleSelectPR(commits)}
                       className="text-sm text-indigo-500 hover:underline font-semibold"
                     >
-                      {allSelected ? "Deselect All" : "Select All"}
+                      {allSelected ? 'Deselect All' : 'Select All'}
                     </button>
                   </div>
                   <ul className="space-y-1 pl-2">
@@ -120,11 +131,12 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
                         tabIndex={0}
                         data-commit
                         data-commit-id={commit.id}
-                        className={`flex justify-between items-center p-2 rounded-lg border transition-all duration-200 transform cursor-pointer
-                          ${
-                            selectedIds.includes(commit.id)
-                              ? "bg-indigo-50 border-indigo-400 shadow-sm scale-[1.01]"
-                              : "border-gray-200 hover:bg-gray-50 hover:scale-[1.01]"
+                        className={`
+                          flex justify-between items-center p-2 rounded-lg border
+                          transition-all duration-200 transform cursor-pointer
+                          ${selectedIds.includes(commit.id)
+                            ? 'bg-indigo-50 border-indigo-400 shadow-sm scale-[1.01]'
+                            : 'border-gray-200 hover:bg-gray-50 hover:scale-[1.01]'
                           }`}
                         onClick={() => toggleSelect(commit.id)}
                       >
@@ -140,9 +152,10 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
                           </a>
                         </div>
                         <span
-                          className={`text-indigo-500 font-bold select-none transition-opacity duration-200 ${
-                            selectedIds.includes(commit.id) ? "opacity-100" : "opacity-0"
-                          }`}
+                          className={`
+                            text-indigo-500 font-bold select-none transition-opacity
+                            duration-200 ${selectedIds.includes(commit.id) ? 'opacity-100' : 'opacity-0'
+                            }`}
                         >
                           ✓
                         </span>
@@ -166,11 +179,10 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
           <button
             onClick={confirmSelection}
             disabled={selectedIds.length === 0}
-            className={`px-4 py-2 rounded-lg text-white font-semibold transition-colors ${
-              selectedIds.length === 0
-                ? "bg-indigo-300 cursor-not-allowed"
-                : "bg-indigo-600 hover:bg-indigo-700"
-            }`}
+            className={`px-4 py-2 rounded-lg text-white font-semibold transition-colors ${selectedIds.length === 0
+                ? 'bg-indigo-300 cursor-not-allowed'
+                : 'bg-indigo-600 hover:bg-indigo-700'
+              }`}
           >
             Confirm
           </button>

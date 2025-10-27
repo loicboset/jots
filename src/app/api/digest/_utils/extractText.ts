@@ -1,16 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const extractText = (children: any[]): string[] => {
   const text: string[] = [];
 
   children.forEach((child) => {
-    if (child.type === "text") {
+    if (child.type === 'text') {
       text.push(child.text);
     }
     // Handle GitHub chip nodes
-    else if (child.type === "github-chip") {
+    else if (child.type === 'github-chip') {
       text.push(
         `[GitHub: ${child.label} — ${child.title}${
-          child.description ? " | " + child.description : ""
-        } (${child.url})]`
+          child.description ? ' | ' + child.description : ''
+        } (${child.url})]`,
       );
     }
     // Recurse into children if any
@@ -23,4 +24,3 @@ const extractText = (children: any[]): string[] => {
 };
 
 export default extractText;
-

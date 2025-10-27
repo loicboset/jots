@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import OpenAI from 'openai';
 
 type Chatbot = {
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[];

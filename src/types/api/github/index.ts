@@ -3,7 +3,7 @@ type Issue = {
     number: number;
     title: string;
     url: string;
-    state: "OPEN" | "CLOSED";
+    state: 'OPEN' | 'CLOSED';
   };
 };
 

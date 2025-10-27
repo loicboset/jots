@@ -1,8 +1,8 @@
-import Select from "react-select";
+import Select from 'react-select';
 
-import InfoTooltip from "@/components/ui/tooltips/InfoTooltip";
-import { useUserContext } from "@/context/UserProvider";
-import { useUpsertUserSettings, useUserSettings } from "@/services/user_settings";
+import InfoTooltip from '@/components/ui/tooltips/InfoTooltip';
+import { useUserContext } from '@/context/UserProvider';
+import { useUpsertUserSettings, useUserSettings } from '@/services/user_settings';
 
 const CareerCoach = (): React.ReactElement => {
   // CONTEXT
@@ -21,7 +21,7 @@ const CareerCoach = (): React.ReactElement => {
       user_id: user.userID,
       career_coach_mode: value,
     });
-  }
+  };
 
   // VARS
   const options = [
@@ -32,21 +32,22 @@ const CareerCoach = (): React.ReactElement => {
     { value: 'Prof. McGonagall', label: 'Prof. McGonagall' },
   ];
 
-  const currentValue = options.find((option) => option.value === settings?.career_coach_mode) || options[0];
+  const currentValue =
+    options.find((option) => option.value === settings?.career_coach_mode) || options[0];
 
   return (
-    <div className='flex flex-col max-w-2xl'>
-      <div className='flex items-center'>
-        <span className="block text-sm/6 font-medium text-white">
-          Career Coach
-        </span>
-        <InfoTooltip message='Every Monday, get a personalised recap of your journal entries with some guidance from our AI career coach!' />
+    <div className="flex flex-col max-w-2xl">
+      <div className="flex items-center">
+        <span className="block text-sm/6 font-medium text-white">Career Coach</span>
+        <InfoTooltip
+          message="
+        Every Monday, get a personalised recap of your journal entries with some guidance
+        from our AI career coach!"
+        />
       </div>
 
       <div className="flex items-center justify-between mt-2 mb-4">
-        <span className="block text-sm text-white">
-          Mode
-        </span>
+        <span className="block text-sm text-white">Mode</span>
         <Select
           className="w-48"
           options={options}
@@ -76,12 +77,10 @@ const CareerCoach = (): React.ReactElement => {
               backgroundColor: 'black',
               border: '1px solid #4B5563',
             }),
-            option: (baseStyles, state) => {
-              return {
-                ...baseStyles,
-                backgroundColor: state.isFocused ? '#99a1af' : 'black',
-              }
-            },
+            option: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: state.isFocused ? '#99a1af' : 'black',
+            }),
           }}
         />
       </div>

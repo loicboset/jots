@@ -61,10 +61,18 @@ const Alert = (props: AlertProps): React.ReactElement | null => {
     <div className={`p-4 border-l-4 rounded-md ${styles.container}`}>
       <div className="flex">
         <div className="flex-shrink-0">
-          {type === 'success' && <CheckCircleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />}
-          {type === 'info' && <InformationCircleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />}
-          {type === 'danger' && <XCircleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />}
-          {type === 'warning' && <ExclamationTriangleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />}
+          {type === 'success' && (
+            <CheckCircleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />
+          )}
+          {type === 'info' && (
+            <InformationCircleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />
+          )}
+          {type === 'danger' && (
+            <XCircleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />
+          )}
+          {type === 'warning' && (
+            <ExclamationTriangleIcon className={`w-5 h-5 ${styles.icon}`} aria-hidden="true" />
+          )}
         </div>
         <div className="ml-3">
           <div style={{ overflowWrap: 'anywhere' }} className={`text-sm ${styles.text}`}>

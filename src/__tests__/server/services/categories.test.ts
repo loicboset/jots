@@ -39,7 +39,9 @@ describe('API Handlers', () => {
   });
 
   test('PUT should upsert category and return data', async () => {
-    supabaseMock.select.mockResolvedValue({ data: [{ id: 1, user_id: '123', name: 'New Category', color: 'red' }] });
+    supabaseMock.select.mockResolvedValue({
+      data: [{ id: 1, user_id: '123', name: 'New Category', color: 'red' }],
+    });
 
     const request = new Request('https://example.com/api', {
       method: 'PUT',
@@ -49,7 +51,11 @@ describe('API Handlers', () => {
     const response = await PUT(request);
 
     expect(supabaseMock.from).toHaveBeenCalledWith('categories');
-    expect(supabaseMock.upsert).toHaveBeenCalledWith({ user_id: '123', name: 'New Category', color: 'red' });
+    expect(supabaseMock.upsert).toHaveBeenCalledWith({
+      user_id: '123',
+      name: 'New Category',
+      color: 'red',
+    });
     expect(supabaseMock.select).toHaveBeenCalled();
 
     const responseData = await response.json();

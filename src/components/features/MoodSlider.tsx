@@ -1,23 +1,23 @@
-import Spinner from "@/components/ui/loaders/Spinner";
-import { useUserContext } from "@/context/UserProvider";
-import { useMoodCheck, useUpsertMoodCheck } from "@/services/mood_checks"
-import { useUserSettings } from "@/services/user_settings";
+import Spinner from '@/components/ui/loaders/Spinner';
+import { useUserContext } from '@/context/UserProvider';
+import { useMoodCheck, useUpsertMoodCheck } from '@/services/mood_checks';
+import { useUserSettings } from '@/services/user_settings';
 
 import IconButton from '../ui/buttons/IconButton';
 
 const moodLabels = [
-  { icon: "😞", score: 1 },
-  { icon: "😐", score: 2 },
-  { icon: "🙂", score: 3 },
-  { icon: "😀", score: 4 },
-  { icon: "🤩", score: 5 }
+  { icon: '😞', score: 1 },
+  { icon: '😐', score: 2 },
+  { icon: '🙂', score: 3 },
+  { icon: '😀', score: 4 },
+  { icon: '🤩', score: 5 },
 ];
 
 const MoodSlider = (): React.ReactElement => {
   // METHODS
   const onSubmitMoodCheck = (score: number): void => {
     upsertMoodCheck({ user_id: user.userID, score });
-  }
+  };
 
   // CONTEXT
   const { user } = useUserContext();
@@ -41,7 +41,9 @@ const MoodSlider = (): React.ReactElement => {
       {currentMood ? (
         <span
           className="text-sm font-medium text-center"
-          title="Your daily mood check was submitted. This score will help tailor motivation boosters/messages for your daily writing habit."
+          title="
+            Your daily mood check was submitted.
+            This score will help tailor motivation boosters/messages for your daily writing habit."
         >
           Daily Mood Check: {currentMood} (submitted)
         </span>
@@ -56,8 +58,7 @@ const MoodSlider = (): React.ReactElement => {
         >
           How is your mood today? 👀
         </span>
-      )
-      }
+      )}
       {!currentMood && (
         <div>
           {moodLabels.map((mood) => (
@@ -74,8 +75,6 @@ const MoodSlider = (): React.ReactElement => {
       )}
     </div>
   );
-}
+};
 
 export default MoodSlider;
-
-

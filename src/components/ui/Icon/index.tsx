@@ -7,8 +7,6 @@ type Props = {
   className?: string;
 };
 
-const Wrapper = (props: Props): React.ReactElement => {
-  return <ClientSideIcon {...props} />;
-};
+const Wrapper = (props: Props): React.ReactElement => <ClientSideIcon {...props} />;
 
 export default memo(Wrapper);

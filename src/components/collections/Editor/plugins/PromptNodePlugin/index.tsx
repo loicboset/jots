@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { mergeRegister } from "@lexical/utils";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { mergeRegister } from '@lexical/utils';
 import {
   $createTextNode,
   $getSelection,
@@ -10,9 +10,9 @@ import {
   DELETE_CHARACTER_COMMAND,
   KEY_ARROW_LEFT_COMMAND,
   KEY_ARROW_RIGHT_COMMAND,
-} from "lexical";
+} from 'lexical';
 
-import { $isPromptNode, PromptNode } from "../../nodes/PromptNode";
+import { $isPromptNode, PromptNode } from '../../nodes/PromptNode';
 
 const PromptNodePlugin = (): null => {
   // HOOKS
@@ -59,7 +59,7 @@ const PromptNodePlugin = (): null => {
       }
 
       return false;
-    }
+    };
 
     const previousPrompt = (event: KeyboardEvent): boolean => {
       const selection = $getSelection();
@@ -76,21 +76,21 @@ const PromptNodePlugin = (): null => {
       }
 
       return false;
-    }
+    };
 
     return mergeRegister(
       editor.registerCommand(
         DELETE_CHARACTER_COMMAND,
         () => replacePromptNode(),
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
 
       editor.registerCommand(KEY_ARROW_RIGHT_COMMAND, nextPrompt, COMMAND_PRIORITY_LOW),
       editor.registerCommand(KEY_ARROW_LEFT_COMMAND, previousPrompt, COMMAND_PRIORITY_LOW),
-    )
-  }, [editor])
+    );
+  }, [editor]);
 
   return null;
-}
+};
 
 export default PromptNodePlugin;

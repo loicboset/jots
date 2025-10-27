@@ -1,5 +1,4 @@
-
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/ui/buttons/Button';
 
@@ -29,7 +28,7 @@ const ExtensionToken = (): React.ReactElement => {
         <Button onClick={() => router.push('/extension-token')}>Generate Token</Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ExtensionToken;

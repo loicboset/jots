@@ -12,4 +12,4 @@ type BlogPostListElement = {
   excerpt?: string;
 };
 
-export type { BlogPostData, BlogPostListElement}
+export type { BlogPostData, BlogPostListElement };

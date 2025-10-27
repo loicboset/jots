@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 import Toggle from '@/components/ui/Toggle';
 import InfoTooltip from '@/components/ui/tooltips/InfoTooltip';
@@ -20,7 +20,6 @@ export const ActivatePushNotification = (): React.ReactElement | null => {
   const { mutate: togglePushNotification } = useTogglePushNotification(); // this could use some description)
   const { mutate: toggleCronJob } = useToggleCronJob(); // this could use some description)
 
-
   // HOOKS
   const { subscribeDevice } = usePushNotificationsManager();
 
@@ -33,8 +32,8 @@ export const ActivatePushNotification = (): React.ReactElement | null => {
 
   // METHODS
   const handleTogglePushNotif = async (isActive: boolean): Promise<void> => {
-    if (!("Notification" in window)) {
-      alert("This browser does not support push notification");
+    if (!('Notification' in window)) {
+      alert('This browser does not support push notification');
       return;
     }
     if (permission === 'denied') {
@@ -48,7 +47,6 @@ export const ActivatePushNotification = (): React.ReactElement | null => {
           togglePushNotification(isActive);
           const existingCronJob = pushNotifications[0];
           if (existingCronJob) toggleCronJob({ easycronID: existingCronJob.cronjob_id, isActive });
-
         } else {
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.ready.then(async (registration) => {
@@ -57,7 +55,8 @@ export const ActivatePushNotification = (): React.ReactElement | null => {
               await subscribeDevice();
               togglePushNotification(isActive);
               const existingCronJob = pushNotifications[0];
-              if (existingCronJob) toggleCronJob({ easycronID: existingCronJob.cronjob_id, isActive });
+              if (existingCronJob)
+                toggleCronJob({ easycronID: existingCronJob.cronjob_id, isActive });
             });
           }
         }
@@ -67,19 +66,22 @@ export const ActivatePushNotification = (): React.ReactElement | null => {
 
   if (permission === 'denied') {
     return (
-      <p className="text-sm text-purple-600 sm:text-base">Notification permission denied. You can grant permissions from your browser settings.</p>
+      <p className="text-sm text-purple-600 sm:text-base">
+        Notification permission denied. You can grant permissions from your browser settings.
+      </p>
     );
   }
 
   return (
-    <div className='flex justify-between max-w-2xl'>
-      <div className='flex'>
-        <span className="block text-sm/6 font-medium text-white">
-          Reminders
-        </span>
-        <InfoTooltip message='Never forget to journal by receiving reminders at the time that suits you best.' />
+    <div className="flex justify-between max-w-2xl">
+      <div className="flex">
+        <span className="block text-sm/6 font-medium text-white">Reminders</span>
+        <InfoTooltip message="Never forget to journal by receiving reminders at the time that suits you best." />
       </div>
-      <Toggle enabled={!!userSettings?.is_push_notifications_active} onChange={handleTogglePushNotif} />
+      <Toggle
+        enabled={!!userSettings?.is_push_notifications_active}
+        onChange={handleTogglePushNotif}
+      />
     </div>
   );
-}
+};

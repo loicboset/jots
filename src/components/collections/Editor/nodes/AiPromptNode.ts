@@ -6,7 +6,7 @@ import {
   ParagraphNode,
   RangeSelection,
   SerializedElementNode,
-} from "lexical";
+} from 'lexical';
 
 type SerializedAiPromptNode = SerializedElementNode & {
   placeholder: string;
@@ -21,7 +21,7 @@ export class AiPromptNode extends ElementNode {
   }
 
   static getType(): string {
-    return "ai-prompt";
+    return 'ai-prompt';
   }
 
   static clone(node: AiPromptNode): AiPromptNode {
@@ -30,8 +30,8 @@ export class AiPromptNode extends ElementNode {
 
   createDOM(): HTMLElement {
     // Define the DOM element here
-    const element = document.createElement("p");
-    element.classList.add("node-placeholder");
+    const element = document.createElement('p');
+    element.classList.add('node-placeholder');
     element.dataset.placeholder = this.__placeholder;
     return element;
   }

@@ -6,10 +6,13 @@ const JWT_SECRET = process.env.EXTENSION_JWT_SECRET!;
 
 export async function POST(): Promise<Response> {
   const supabase = await createClient();
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
   if (error || !user) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
 
   const token = jwt.sign(
@@ -19,14 +22,11 @@ export async function POST(): Promise<Response> {
       aud: 'extension',
     },
     JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: '7d' },
   );
 
   // Clean up old tokens first
-  await supabase
-    .from('extension_tokens')
-    .delete()
-    .eq('user_id', user.id);
+  await supabase.from('extension_tokens').delete().eq('user_id', user.id);
 
   // Insert the new token
   // TODO: support expires_at column
@@ -36,7 +36,7 @@ export async function POST(): Promise<Response> {
 
   if (insertError) {
     console.error('Extension token insert failed:', insertError);
-    return new Response("Failed to store extension token", { status: 500 });
+    return new Response('Failed to store extension token', { status: 500 });
   }
 
   return Response.json({ token }, { status: 200 });

@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { redirect } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
+import { redirect } from 'next/navigation';
+import { Controller, useForm } from 'react-hook-form';
+import CreatableSelect from 'react-select/creatable';
 
-import Button from "@/components/ui/buttons/Button";
-import { useUpsertUserSettings } from "@/services/user_settings";
-import { UpsertUserSettings } from "@/types/payload/user_settings";
-import validateTimezone from "@/utils/validateTimezone";
+import Button from '@/components/ui/buttons/Button';
+import { useUpsertUserSettings } from '@/services/user_settings';
+import { UpsertUserSettings } from '@/types/payload/user_settings';
+import validateTimezone from '@/utils/validateTimezone';
 
-import steps from "./steps";
+import steps from './steps';
 
 type FormValues = Omit<UpsertUserSettings, 'user_id'>;
 
@@ -31,29 +31,29 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
   const handlePrevious = (): void => setStep(step - 1);
 
   const handleSkipAll = (): void => {
-    const values = getValues()
+    const values = getValues();
     const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const timezone = validateTimezone(detectedTimezone);
-    editUserSettings({ user_id: userID, ...values, timezone })
+    editUserSettings({ user_id: userID, ...values, timezone });
     redirect(`/${userID}`);
-  }
+  };
 
   const handleSave = (): void => {
-    const values = getValues()
+    const values = getValues();
     const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const timezone = validateTimezone(detectedTimezone);
-    editUserSettings({ user_id: userID, ...values, timezone })
+    editUserSettings({ user_id: userID, ...values, timezone });
 
     const isOnboardingOver = step >= steps.size;
     if (isOnboardingOver) redirect(`/${userID}`);
 
     setStep(step + 1);
-  }
+  };
 
   // VARS
   const stepData = steps.get(step);
 
-  if (!stepData) return <p>Step not found.</p>
+  if (!stepData) return <p>Step not found.</p>;
 
   const title = stepData.title;
   const options = stepData.input.options
@@ -65,7 +65,7 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
       <p className="text-center text-2xl">{title}</p>
 
       <div className="my-4">
-        {stepData.input.type === "select" ? (
+        {stepData.input.type === 'select' ? (
           <div className="flex flex-col space-y-4">
             <Controller
               name={stepData.input.name}
@@ -81,7 +81,6 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
                 />
               )}
             />
-
           </div>
         ) : (
           <input
@@ -96,11 +95,13 @@ const OnboardingStep = ({ userID }: Props): React.ReactElement => {
         )}
       </div>
 
-      <div className={`flex ${step > 1 ? "justify-between" : "justify-end"}`}>
+      <div className={`flex ${step > 1 ? 'justify-between' : 'justify-end'}`}>
         {step > 1 && <Button onClick={handlePrevious}>Previous</Button>}
         <div className="flex space-x-4">
-          <Button color="white" onClick={handleSkipAll}>Skip all</Button>
-          <Button type="submit">{step < steps.size ? "Next" : "Complete"}</Button>
+          <Button color="white" onClick={handleSkipAll}>
+            Skip all
+          </Button>
+          <Button type="submit">{step < steps.size ? 'Next' : 'Complete'}</Button>
         </div>
       </div>
     </form>

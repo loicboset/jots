@@ -16,24 +16,15 @@ import {
   TextNode,
 } from 'lexical';
 
-import "./DayNode.css";
+import './DayNode.css';
 import '../CollapsiblePlugin/Collapsible.css';
 
-import {
-  $createDayContentNode,
-} from '@/components/collections/Editor/nodes/DayContentNode';
+import { $createDayContentNode } from '@/components/collections/Editor/nodes/DayContentNode';
 import formatDate from '@/utils/datetime/formatDate';
 
-import {
-  $createDayContainerNode,
-  $isDayContainerNode,
-} from '../../nodes/DayContainerNode';
-import {
-  $createDayTitleNode,
-  $isDayTitleNode,
-} from '../../nodes/DayTitleNode';
+import { $createDayContainerNode, $isDayContainerNode } from '../../nodes/DayContainerNode';
+import { $createDayTitleNode, $isDayTitleNode } from '../../nodes/DayTitleNode';
 import { $createPromptNode } from '../../nodes/PromptNode';
-
 
 export const INSERT_COLLAPSIBLE_COMMAND = createCommand<void>();
 
@@ -41,7 +32,7 @@ const DayContainerPlugin = (): null => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    const today = new Intl.DateTimeFormat("en-US").format(new Date());
+    const today = new Intl.DateTimeFormat('en-US').format(new Date());
 
     const removeTransform = editor.registerNodeTransform(RootNode, (root) => {
       const children = root.getChildren();
@@ -75,8 +66,7 @@ const DayContainerPlugin = (): null => {
         if (!$isDayContainerNode(child)) {
           child.remove();
         }
-      })
-
+      });
     });
 
     mergeRegister(
@@ -85,7 +75,9 @@ const DayContainerPlugin = (): null => {
         (event) => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
-            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) => $isDayTitleNode(node));
+            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) =>
+              $isDayTitleNode(node),
+            );
             if ($isDayTitleNode(titleNode)) {
               event.preventDefault();
               return true;
@@ -94,14 +86,16 @@ const DayContainerPlugin = (): null => {
 
           return false;
         },
-        COMMAND_PRIORITY_CRITICAL
+        COMMAND_PRIORITY_CRITICAL,
       ),
       editor.registerCommand(
         INSERT_PARAGRAPH_COMMAND,
         () => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
-            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) => $isDayTitleNode(node));
+            const titleNode = $findMatchingParent(selection.anchor.getNode(), (node) =>
+              $isDayTitleNode(node),
+            );
 
             if ($isDayTitleNode(titleNode)) {
               const container = titleNode.getParent<ElementNode>();
@@ -116,15 +110,14 @@ const DayContainerPlugin = (): null => {
         },
         COMMAND_PRIORITY_LOW,
       ),
-    )
+    );
 
     return (): void => {
       removeTransform();
-    }
+    };
   }, [editor]);
 
-
   return null;
-}
+};
 
 export default DayContainerPlugin;

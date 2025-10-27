@@ -1,19 +1,26 @@
 import { JSX } from 'react';
 
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
 
-import Spinner from "@/components/ui/loaders/Spinner";
+import Spinner from '@/components/ui/loaders/Spinner';
 import InfoTooltip from '@/components/ui/tooltips/InfoTooltip';
 import { useUserContext } from '@/context/UserProvider';
 import { useMoodChecks } from '@/services/mood_checks';
-
 
 const formatToShortDate = (dateStr: string): string => {
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', {
     weekday: 'short', // Mon, Tue, etc.
-    month: 'short',   // Jan, Feb, etc.
-    day: '2-digit',   // 01, 02, etc.
+    month: 'short', // Jan, Feb, etc.
+    day: '2-digit', // 01, 02, etc.
     timeZone: 'UTC',
   });
 };
@@ -34,7 +41,9 @@ const CustomTooltip = ({ active, payload, label }: any): JSX.Element | null => {
         }}
       >
         <div style={{ fontWeight: 600, marginBottom: '4px' }}>{label}</div>
-        <div>Mood score: <strong>{payload[0].value}</strong></div>
+        <div>
+          Mood score: <strong>{payload[0].value}</strong>
+        </div>
       </div>
     );
   }
@@ -51,41 +60,41 @@ const MoodChart = (): JSX.Element => {
 
   if (isLoading) {
     return (
-      <div className='w-full flex items-start justify-center h-40'>
+      <div className="w-full flex items-start justify-center h-40">
         <Spinner />
       </div>
-    )
+    );
   }
 
   const chartData = data
     .slice() // clone the array to avoid mutating the original
     .sort((b, a) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .map(entry => ({
+    .map((entry) => ({
       ...entry,
       date: formatToShortDate(entry.created_at),
     }));
 
   if (chartData.length < 7) {
     return (
-      <div className='w-full flex flex-col space-y-4 m-4 text-center border-b border-gray-500 pb-4'>
-        <p className='text-md text-white'>Mood Data</p>
+      <div className="w-full flex flex-col space-y-4 m-4 text-center border-b border-gray-500 pb-4">
+        <p className="text-md text-white">Mood Data</p>
         <p className="text-sm/6 text-gray-400 text-center">Not enought mood entries found.</p>
         <p className="text-sm/6 text-gray-400 text-center">
-          You need at least 7 mood logs to see the insights chart. Log your mood to be able to track your evolution.</p>
+          You need at least 7 mood logs to see the insights chart. Log your mood to be able to track
+          your evolution.
+        </p>
       </div>
     );
   }
 
   return (
     <>
-      <p className='text-md text-white text-center mb-4'>Mood Data</p>
+      <p className="text-md text-white text-center mb-4">Mood Data</p>
 
-      <div className='w-full flex flex-col items-center' style={{ height: '400px' }}>
-        <div className='mb-4 flex justify-center' >
-          <p className="text-sm/6 text-gray-400">
-            Mood Chart
-          </p>
-          <InfoTooltip message='Your mood score for your last 7 entries.' />
+      <div className="w-full flex flex-col items-center" style={{ height: '400px' }}>
+        <div className="mb-4 flex justify-center">
+          <p className="text-sm/6 text-gray-400">Mood Chart</p>
+          <InfoTooltip message="Your mood score for your last 7 entries." />
         </div>
         <ResponsiveContainer width="80%" height="80%">
           <LineChart data={chartData} margin={{ left: 15, right: 15, bottom: 60 }}>
@@ -99,6 +108,6 @@ const MoodChart = (): JSX.Element => {
       </div>
     </>
   );
-}
+};
 
 export default MoodChart;

@@ -1,9 +1,9 @@
-import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 
-import CircularButton from "@/components/ui/buttons/CircularButton";
-import useModalContent from "@/utils/hooks/useModalContent";
+import CircularButton from '@/components/ui/buttons/CircularButton';
+import useModalContent from '@/utils/hooks/useModalContent';
 
-import Chatbot from "./Chatbot";
+import Chatbot from './Chatbot';
 
 const ChatbotWrapper = (): React.ReactElement => {
   // HOOKS

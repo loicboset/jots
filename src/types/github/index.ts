@@ -10,7 +10,7 @@ export type MutableCookies = {
     value: string;
     httpOnly?: boolean;
     secure?: boolean;
-    sameSite?: "lax" | "strict" | "none";
+    sameSite?: 'lax' | 'strict' | 'none';
     path?: string;
   }) => void;
 };

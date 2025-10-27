@@ -1,8 +1,8 @@
-import MediaQuery from "react-responsive";
+import MediaQuery from 'react-responsive';
 
-import { BREAKPOINTS } from "@/utils/constants";
+import { BREAKPOINTS } from '@/utils/constants';
 
-type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 type Props = {
   children: React.ReactNode;

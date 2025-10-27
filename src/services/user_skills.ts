@@ -1,8 +1,14 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
-import axios from "axios";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from '@tanstack/react-query';
+import axios from 'axios';
 
-import { UserSkill } from "@/types/api/user_skills";
-import { EditUserSkills } from "@/types/payload/user_skills";
+import { UserSkill } from '@/types/api/user_skills';
+import { EditUserSkills } from '@/types/payload/user_skills';
 
 // GET USER SKILLS
 const getUserSkills = async (): Promise<UserSkill[]> => {
@@ -10,13 +16,12 @@ const getUserSkills = async (): Promise<UserSkill[]> => {
   return data;
 };
 
-const useUserSkills = (): UseQueryResult<UserSkill[], Error> => {
-  return useQuery({ queryKey: ["user_skills"], queryFn: () => getUserSkills() });
-};
+const useUserSkills = (): UseQueryResult<UserSkill[], Error> =>
+  useQuery({ queryKey: ['user_skills'], queryFn: () => getUserSkills() });
 
 // UPSERT USER SKILLS
 const editUserSkills = async (body: EditUserSkills): Promise<void> => {
-  const { data } = await axios.put("/api/user_skills", body);
+  const { data } = await axios.put('/api/user_skills', body);
   return data;
 };
 
@@ -26,7 +31,7 @@ const useEditUserSkills = (): UseMutationResult<void, Error, EditUserSkills, unk
   return useMutation({
     mutationFn: editUserSkills,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user_skills"] });
+      queryClient.invalidateQueries({ queryKey: ['user_skills'] });
     },
   });
 };

@@ -89,5 +89,3 @@ describe('GET handler for OTP verification', () => {
     expect(redirect).toHaveBeenCalledWith('/error');
   });
 });
-
-

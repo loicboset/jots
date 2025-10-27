@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import  { type JSX, type RefObject, useRef } from 'react';
+import { type JSX, type RefObject, useRef } from 'react';
 
 import { DraggableBlockPlugin_EXPERIMENTAL } from '@lexical/react/LexicalDraggableBlockPlugin';
 
@@ -37,9 +37,7 @@ export default function DraggableBlockPlugin({
           <div className="icon" />
         </div>
       }
-      targetLineComponent={
-        <div ref={targetLineRef} className="draggable-block-target-line" />
-      }
+      targetLineComponent={<div ref={targetLineRef} className="draggable-block-target-line" />}
       isOnMenu={isOnMenu}
     />
   );

@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import dayjs from "dayjs";
-import isoWeek from "dayjs/plugin/isoWeek";
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 dayjs.extend(isoWeek);
 
-import { useCreateDigest, useGetLatestDigestDate } from "@/services/digests";
+import { useCreateDigest, useGetLatestDigestDate } from '@/services/digests';
 
 const CreatePeriodDigestPlugin = (): null => {
   // RQ
@@ -17,12 +17,11 @@ const CreatePeriodDigestPlugin = (): null => {
   useEffect(() => {
     if (isLoading) return;
 
-    const shouldCreateDigest = date ? dayjs(date).isBefore(dayjs().startOf("isoWeek")) : true;
+    const shouldCreateDigest = date ? dayjs(date).isBefore(dayjs().startOf('isoWeek')) : true;
 
-    const formattedDate = dayjs().format("YYYY-MM-DD");
+    const formattedDate = dayjs().format('YYYY-MM-DD');
 
     if (shouldCreateDigest) createDigest({ date: formattedDate });
-
   }, [createDigest, date, isLoading]);
 
   return null;
