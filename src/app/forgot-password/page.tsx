@@ -1,23 +1,27 @@
-'use client'
+'use client';
 
 import type { JSX } from 'react';
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
 import Header from '@/components/collections/layouts/Header';
 import Button from '@/components/ui/buttons/Button';
 import useToast from '@/utils/hooks/useToast';
 
-import { sendResetPasswordLink } from "./actions";
+import { sendResetPasswordLink } from './actions';
 
 export type FormValues = {
   email: string;
-}
+};
 
 const ForgotPassword = (): JSX.Element => {
   // RHF
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>();
 
   // HOOKS
   const [alert, setAlert, clearAlert] = useToast();
@@ -30,7 +34,7 @@ const ForgotPassword = (): JSX.Element => {
     if (message) {
       setAlert({ message, type });
     }
-  }
+  };
 
   return (
     <>
@@ -38,15 +42,18 @@ const ForgotPassword = (): JSX.Element => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Link href="/">
-            <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">Jots</h1>
+            <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">
+              Jots
+            </h1>
           </Link>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Forgot Password?</h2>
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
+            Forgot Password?
+          </h2>
           {alert && <div className="mt-4">{alert}</div>}
         </div>
 
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={(handleSubmit(handleForgotPassword))} className="space-y-6">
+          <form onSubmit={handleSubmit(handleForgotPassword)} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
@@ -54,11 +61,11 @@ const ForgotPassword = (): JSX.Element => {
               <div className="mt-2">
                 <input
                   {...register('email', {
-                    required: "Email is required",
+                    required: 'Email is required',
                     pattern: {
                       value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "Invalid email address"
-                    }
+                      message: 'Invalid email address',
+                    },
                   })}
                   type="email"
                   required
@@ -73,13 +80,8 @@ const ForgotPassword = (): JSX.Element => {
               </div>
             </div>
 
-
             <div>
-              <Button
-                type="submit"
-                className='w-full'
-                isLoading={isSubmitting}
-              >
+              <Button type="submit" className="w-full" isLoading={isSubmitting}>
                 Send a reset link
               </Button>
             </div>

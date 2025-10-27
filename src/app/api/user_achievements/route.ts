@@ -6,7 +6,7 @@ export async function GET(): Promise<Response> {
   const { data: user_achievements } = await supabase
     .from('user_achievements')
     .select('*')
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: false });
 
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');

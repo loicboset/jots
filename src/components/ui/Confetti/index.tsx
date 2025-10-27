@@ -10,6 +10,6 @@ const ConfettiAnimation = (): JSX.Element | null => {
   const { confetti } = useAchievements();
 
   return confetti ? <Confetti width={width} height={height} /> : null;
-}
+};
 
-export default ConfettiAnimation
+export default ConfettiAnimation;

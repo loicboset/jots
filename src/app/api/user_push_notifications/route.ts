@@ -1,16 +1,16 @@
-import easyCron from "@/lib/easycron";
-import { createClient } from "@/lib/supabase/server";
-import { UpsertUserPushNotif } from "@/types/payload/user_push_notifications";
+import easyCron from '@/lib/easycron';
+import { createClient } from '@/lib/supabase/server';
+import { UpsertUserPushNotif } from '@/types/payload/user_push_notifications';
 
-import toCron from "./_utils/toCron";
+import toCron from './_utils/toCron';
 
 export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
-  const { data } = await supabase.from("user_push_notifications").select("*");
+  const { data } = await supabase.from('user_push_notifications').select('*');
 
   const headers = new Headers();
-  headers.append("Content-Type", "application/json");
+  headers.append('Content-Type', 'application/json');
 
   return new Response(JSON.stringify(data), { status: 200, headers });
 }
@@ -23,7 +23,7 @@ export async function PUT(request: Request): Promise<Response> {
   } = await supabase.auth.getUser();
 
   if (!user || !user?.id) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
 
   const req = await request.json();
@@ -36,9 +36,9 @@ export async function PUT(request: Request): Promise<Response> {
   let cronJobID;
 
   const { data: existingCronJob } = await supabase
-    .from("user_push_notifications")
-    .select("cronjob_id")
-    .eq("user_id", user.id)
+    .from('user_push_notifications')
+    .select('cronjob_id')
+    .eq('user_id', user.id)
     .single();
 
   if (existingCronJob?.cronjob_id) {
@@ -62,13 +62,16 @@ export async function PUT(request: Request): Promise<Response> {
 
   // 3. update the push notification reccord
   const { error } = await supabase
-    .from("user_push_notifications")
-    .upsert({ user_id: user.id, cron_expression, cronjob_id: cronJobID }, { onConflict: "cronjob_id" })
+    .from('user_push_notifications')
+    .upsert(
+      { user_id: user.id, cron_expression, cronjob_id: cronJobID },
+      { onConflict: 'cronjob_id' },
+    )
     .select();
 
   if (error) {
-    return new Response("Error while creating push notif", { status: 500 });
+    return new Response('Error while creating push notif', { status: 500 });
   }
 
-  return new Response("Success", { status: 200 });
+  return new Response('Success', { status: 200 });
 }

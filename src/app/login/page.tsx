@@ -1,24 +1,28 @@
-'use client'
+'use client';
 
 import type { JSX } from 'react';
 
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
 import Header from '@/components/collections/layouts/Header';
 import Button from '@/components/ui/buttons/Button';
 import useAlert from '@/utils/hooks/useAlert';
 
-import { login } from "./actions";
+import { login } from './actions';
 
 export type FormValues = {
   email: string;
   password: string;
-}
+};
 
 const Login = (): JSX.Element => {
   // RHF
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>();
 
   // HOOKS
   const [alert, setAlert, clearAlert] = useAlert();
@@ -34,7 +38,7 @@ const Login = (): JSX.Element => {
         type: 'danger',
       });
     }
-  }
+  };
 
   return (
     <>
@@ -42,15 +46,18 @@ const Login = (): JSX.Element => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Link href="/">
-            <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">Jots</h1>
+            <h1 className="text-indigo-500 text-5xl font-semibold tracking-tight text-pretty text-center">
+              Jots
+            </h1>
           </Link>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Log in to your account</h2>
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
+            Log in to your account
+          </h2>
           {alert && <div className="mt-4">{alert}</div>}
         </div>
 
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={(handleSubmit(handleLogin))} className="space-y-6">
+          <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Email address
@@ -58,11 +65,11 @@ const Login = (): JSX.Element => {
               <div className="mt-2">
                 <input
                   {...register('email', {
-                    required: "Email is required",
+                    required: 'Email is required',
                     pattern: {
                       value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "Invalid email address"
-                    }
+                      message: 'Invalid email address',
+                    },
                   })}
                   type="email"
                   required
@@ -83,7 +90,10 @@ const Login = (): JSX.Element => {
                   Password
                 </label>
                 <div className="text-sm">
-                  <Link href="/forgot-password" className="font-semibold text-indigo-400 hover:text-indigo-300">
+                  <Link
+                    href="/forgot-password"
+                    className="font-semibold text-indigo-400 hover:text-indigo-300"
+                  >
                     Forgot password?
                   </Link>
                 </div>
@@ -91,11 +101,11 @@ const Login = (): JSX.Element => {
               <div className="mt-2">
                 <input
                   {...register('password', {
-                    required: "Password is required",
+                    required: 'Password is required',
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters long"
-                    }
+                      message: 'Password must be at least 8 characters long',
+                    },
                   })}
                   type="password"
                   required
@@ -106,16 +116,14 @@ const Login = (): JSX.Element => {
                     focus:outline-indigo-500 sm:text-sm/6
                   `}
                 />
-                {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                {errors.password && (
+                  <p className="text-red-500 text-sm">{errors.password.message}</p>
+                )}
               </div>
             </div>
 
             <div>
-              <Button
-                type="submit"
-                className='w-full'
-                isLoading={isSubmitting}
-              >
+              <Button type="submit" className="w-full" isLoading={isSubmitting}>
                 Log in
               </Button>
             </div>

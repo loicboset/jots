@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Toast, { ToastProps } from '@/components/ui/notifications/Alert/Toast';
 
-
 export type SetToastProps = {
   type?: ToastProps['type'];
   message: ToastProps['message'];

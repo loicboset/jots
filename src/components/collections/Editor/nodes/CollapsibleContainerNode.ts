@@ -8,11 +8,11 @@ import {
   NodeKey,
   SerializedElementNode,
   Spread,
-} from "lexical";
+} from 'lexical';
 
-import { setDomHiddenUntilFound } from "../plugins/CollapsiblePlugin/CollapsibleUtils";
-import { IS_CHROME } from "../utils/environment";
-import invariant from "../utils/invariant";
+import { setDomHiddenUntilFound } from '../plugins/CollapsiblePlugin/CollapsibleUtils';
+import { IS_CHROME } from '../utils/environment';
+import invariant from '../utils/invariant';
 
 type SerializedCollapsibleContainerNode = Spread<
   {
@@ -31,7 +31,7 @@ type ContainerConversionDetails = {
 export function $convertDetailsElement(domNode: HTMLDetailsElement): DOMConversionOutput | null {
   const isOpen = domNode.open !== undefined ? domNode.open : true;
   const name = domNode.name;
-  const color = domNode.getAttribute("color") || "";
+  const color = domNode.getAttribute('color') || '';
   const node = $createCollapsibleContainerNode(isOpen, name, color);
   return {
     node,
@@ -51,7 +51,7 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   static getType(): string {
-    return "collapsible-container";
+    return 'collapsible-container';
   }
 
   static clone(node: CollapsibleContainerNode): CollapsibleContainerNode {
@@ -59,9 +59,9 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   createDOM(): HTMLElement {
-    const dom = document.createElement("div");
-    dom.setAttribute("name", this.__name);
-    dom.classList.add("Collapsible__container");
+    const dom = document.createElement('div');
+    dom.setAttribute('name', this.__name);
+    dom.classList.add('Collapsible__container');
     dom.style.borderColor = this.__color;
 
     return dom;
@@ -69,18 +69,18 @@ export class CollapsibleContainerNode extends ElementNode {
 
   updateDOM(prevNode: this, dom: HTMLDetailsElement): boolean {
     const currentOpen = this.__open;
-    dom.setAttribute("name", this.__name);
+    dom.setAttribute('name', this.__name);
 
     if (prevNode.__open !== currentOpen) {
       // details is not well supported in Chrome #5582
       if (IS_CHROME) {
         const contentDom = dom.children[1];
-        invariant(isHTMLElement(contentDom), "Expected contentDom to be an HTMLElement");
+        invariant(isHTMLElement(contentDom), 'Expected contentDom to be an HTMLElement');
         if (currentOpen) {
-          dom.setAttribute("open", "");
+          dom.setAttribute('open', '');
           contentDom.hidden = false;
         } else {
-          dom.removeAttribute("open");
+          dom.removeAttribute('open');
           setDomHiddenUntilFound(contentDom);
         }
       } else {
@@ -93,12 +93,10 @@ export class CollapsibleContainerNode extends ElementNode {
 
   static importDOM(): DOMConversionMap<HTMLDetailsElement> | null {
     return {
-      details: (): ContainerConversionDetails => {
-        return {
-          conversion: $convertDetailsElement,
-          priority: 1,
-        };
-      },
+      details: (): ContainerConversionDetails => ({
+        conversion: $convertDetailsElement,
+        priority: 1,
+      }),
     };
   }
 
@@ -108,11 +106,11 @@ export class CollapsibleContainerNode extends ElementNode {
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement("details");
-    element.classList.add("Collapsible__container");
-    element.setAttribute("open", this.__open.toString());
-    element.setAttribute("name", this.__name.toString());
-    element.setAttribute("color", this.__color.toString());
+    const element = document.createElement('details');
+    element.classList.add('Collapsible__container');
+    element.setAttribute('open', this.__open.toString());
+    element.setAttribute('name', this.__name.toString());
+    element.setAttribute('color', this.__color.toString());
     return { element };
   }
 
@@ -152,11 +150,13 @@ export class CollapsibleContainerNode extends ElementNode {
 export function $createCollapsibleContainerNode(
   isOpen: boolean,
   name: string,
-  color: string
+  color: string,
 ): CollapsibleContainerNode {
   return new CollapsibleContainerNode(isOpen, name, color);
 }
 
-export function $isCollapsibleContainerNode(node: LexicalNode | null | undefined): node is CollapsibleContainerNode {
+export function $isCollapsibleContainerNode(
+  node: LexicalNode | null | undefined,
+): node is CollapsibleContainerNode {
   return node instanceof CollapsibleContainerNode;
 }

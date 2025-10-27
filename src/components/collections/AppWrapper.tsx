@@ -1,25 +1,25 @@
-import { CodeHighlightNode, CodeNode } from "@lexical/code";
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 
-import { useCalendarContext } from "@/context/CalendarContextProvider";
-import { useJournalEntry } from "@/services/journal_entries";
+import { useCalendarContext } from '@/context/CalendarContextProvider';
+import { useJournalEntry } from '@/services/journal_entries';
 
-import { AiPromptNode } from "./Editor/nodes/AiPromptNode";
-import { CollapsibleContainerNode } from "./Editor/nodes/CollapsibleContainerNode";
-import { CollapsibleContentNode } from "./Editor/nodes/CollapsibleContentNode";
-import { CollapsibleTitleNode } from "./Editor/nodes/CollapsibleTitleNode";
-import { DayContainerNode } from "./Editor/nodes/DayContainerNode";
-import { DayContentNode } from "./Editor/nodes/DayContentNode";
-import { DayTitleNode } from "./Editor/nodes/DayTitleNode";
-import { GitHubChipNode } from "./Editor/nodes/GitHubChipNode";
-import { MotivationBoosterNode } from "./Editor/nodes/MotivationBoosterNode";
-import { PromptNode } from "./Editor/nodes/PromptNode";
-import { SkilledPromptNode } from "./Editor/nodes/SkilledPromptNode";
-import { SkilledPromptWrapperNode } from "./Editor/nodes/SkilledPromptWrapperNode";
+import { AiPromptNode } from './Editor/nodes/AiPromptNode';
+import { CollapsibleContainerNode } from './Editor/nodes/CollapsibleContainerNode';
+import { CollapsibleContentNode } from './Editor/nodes/CollapsibleContentNode';
+import { CollapsibleTitleNode } from './Editor/nodes/CollapsibleTitleNode';
+import { DayContainerNode } from './Editor/nodes/DayContainerNode';
+import { DayContentNode } from './Editor/nodes/DayContentNode';
+import { DayTitleNode } from './Editor/nodes/DayTitleNode';
+import { GitHubChipNode } from './Editor/nodes/GitHubChipNode';
+import { MotivationBoosterNode } from './Editor/nodes/MotivationBoosterNode';
+import { PromptNode } from './Editor/nodes/PromptNode';
+import { SkilledPromptNode } from './Editor/nodes/SkilledPromptNode';
+import { SkilledPromptWrapperNode } from './Editor/nodes/SkilledPromptWrapperNode';
 
 type Props = {
   children: React.ReactNode;
@@ -33,13 +33,12 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   // RQ
   const { data: entry, isLoading } = useJournalEntry(userID, calendar.currentDate);
 
-  if (isLoading) return <>Loading...</>
-
+  if (isLoading) return <>Loading...</>;
 
   // METHODS
   const onError = (error: Error): void => {
     console.error(error);
-  }
+  };
 
   // VARS
   const initialConfig = {
@@ -55,13 +54,7 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
         nested: {
           listitem: 'editor_nestedListItem',
         },
-        olDepth: [
-          'editor_ol1',
-          'editor_ol2',
-          'editor_ol3',
-          'editor_ol4',
-          'editor_ol5',
-        ],
+        olDepth: ['editor_ol1', 'editor_ol2', 'editor_ol3', 'editor_ol4', 'editor_ol5'],
         ul: 'editor_ul',
       },
     },
@@ -91,14 +84,7 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
     onError,
   };
 
-  return (
-    <LexicalComposer initialConfig={initialConfig}>
-      {children}
-    </LexicalComposer >
-
-  );
+  return <LexicalComposer initialConfig={initialConfig}>{children}</LexicalComposer>;
 };
 
 export default AppWrapper;
-
-

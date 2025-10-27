@@ -1,10 +1,10 @@
-import React, { createContext, JSX, useContext, useState } from "react";
+import React, { createContext, JSX, useContext, useState } from 'react';
 
-import { Howl } from "howler";
-import toast from "react-hot-toast";
+import { Howl } from 'howler';
+import toast from 'react-hot-toast';
 
-import { useUserAchievements, useUpsertUserAchievement } from "@/services/user_achievements";
-import { UserAchievement } from "@/types/api/user_achievements";
+import { useUserAchievements, useUpsertUserAchievement } from '@/services/user_achievements';
+import { UserAchievement } from '@/types/api/user_achievements';
 
 type AchievementContextType = {
   unlocked: UserAchievement[];
@@ -24,8 +24,8 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
   const [confetti, setConfetti] = useState(false);
 
   const unlockAchievement = (id: string, name: string): void => {
-    if (!unlocked) return
-    if (!unlocked.some(row => row.achievement_id === id)) {
+    if (!unlocked) return;
+    if (!unlocked.some((row) => row.achievement_id === id)) {
       AchievementSound.play();
 
       upsertUserAchievement({ achievement_id: id });
@@ -45,7 +45,7 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
     }
   };
 
-  if (!unlocked) return <></>
+  if (!unlocked) return <></>;
 
   return (
     <AchievementsContext.Provider value={{ unlocked, unlockAchievement, confetti }}>
@@ -57,7 +57,7 @@ export const AchievementsProvider = ({ children }: { children: React.ReactNode }
 export const useAchievements = (): AchievementContextType => {
   const context = useContext(AchievementsContext);
   if (!context) {
-    throw new Error("useAchievements must be used within an AchievementsProvider");
+    throw new Error('useAchievements must be used within an AchievementsProvider');
   }
   return context;
 };

@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
-import isoWeek from "dayjs/plugin/isoWeek";
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 dayjs.extend(isoWeek);
 
@@ -9,15 +9,15 @@ export async function GET(): Promise<Response> {
   const supabase = await createClient();
 
   const { data: journal_entries } = await supabase
-    .from("journal_entries")
-    .select("date")
-    .lte("date", dayjs().format("YYYY-MM-DD"));
+    .from('journal_entries')
+    .select('date')
+    .lte('date', dayjs().format('YYYY-MM-DD'));
 
   const weeks = new Set<string>();
 
   if (journal_entries) {
     journal_entries.forEach((entry) => {
-      const week = dayjs(entry.date).isoWeek().toString().padStart(2, "0");
+      const week = dayjs(entry.date).isoWeek().toString().padStart(2, '0');
       const year = dayjs(entry.date).year();
       weeks.add(`${year}-${week}`);
     });
@@ -35,8 +35,8 @@ export async function GET(): Promise<Response> {
       continue;
     }
 
-    const [year, w] = weekPointer.split("-") as [string, string];
-    const followingWeek = dayjs().set("year", Number(year)).isoWeek(Number(w)).add(1, "week");
+    const [year, w] = weekPointer.split('-') as [string, string];
+    const followingWeek = dayjs().set('year', Number(year)).isoWeek(Number(w)).add(1, 'week');
     const followingW = followingWeek.isoWeek();
     const followingY = followingWeek.year();
 
@@ -53,12 +53,12 @@ export async function GET(): Promise<Response> {
   // Determine if the current streak is still active
   const currentWeek = dayjs().isoWeek();
   const currentYear = dayjs().year();
-  const currentWeekDate = dayjs().set("year", currentYear).isoWeek(currentWeek);
+  const currentWeekDate = dayjs().set('year', currentYear).isoWeek(currentWeek);
 
   if (weekPointer) {
-    const [lastYear, lastWeek] = weekPointer.split("-").map(Number);
-    const lastWeekDate = dayjs().set("year", lastYear).isoWeek(lastWeek);
-    const diffWeeks = currentWeekDate.diff(lastWeekDate, "week");
+    const [lastYear, lastWeek] = weekPointer.split('-').map(Number);
+    const lastWeekDate = dayjs().set('year', lastYear).isoWeek(lastWeek);
+    const diffWeeks = currentWeekDate.diff(lastWeekDate, 'week');
 
     if (diffWeeks > 1) {
       count = 0;
@@ -67,6 +67,6 @@ export async function GET(): Promise<Response> {
 
   return new Response(JSON.stringify(count), {
     status: 200,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   });
 }

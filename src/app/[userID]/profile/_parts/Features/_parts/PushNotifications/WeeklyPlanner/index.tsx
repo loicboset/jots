@@ -2,7 +2,10 @@
 
 import './index.css';
 
-import { useUpsertUserPushNotification, useUserPushNotifications } from '@/services/user_push_notifications';
+import {
+  useUpsertUserPushNotification,
+  useUserPushNotifications,
+} from '@/services/user_push_notifications';
 import { useUserSettings } from '@/services/user_settings';
 import useToast from '@/utils/hooks/useToast';
 
@@ -14,7 +17,7 @@ const weekDays = [
   { name: 'Friday', short: 'F', index: 5 },
   { name: 'Saturday', short: 'S', index: 6 },
   { name: 'Sunday', short: 'S', index: 0 },
-]
+];
 
 const getDaysFromCron = (cron: string): string[] => {
   const daysIndex = cron.split(' ')[4].split(',');
@@ -25,7 +28,7 @@ const getDaysFromCron = (cron: string): string[] => {
   });
 
   return daysName;
-}
+};
 
 const WeeklyPlanner = (): React.ReactElement => {
   // RQ
@@ -37,11 +40,13 @@ const WeeklyPlanner = (): React.ReactElement => {
   const [toast, setToast, clearToast] = useToast();
 
   // VARS
-  const days: string[] = pushNotifications[0] ? getDaysFromCron(pushNotifications[0].cron_expression) : [];
+  const days: string[] = pushNotifications[0]
+    ? getDaysFromCron(pushNotifications[0].cron_expression)
+    : [];
 
   const minutes = pushNotifications[0] ? pushNotifications[0].cron_expression.split(' ')[0] : '00';
   const hours = pushNotifications[0] ? pushNotifications[0].cron_expression.split(' ')[1] : '18';
-  const time = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`
+  const time = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
 
   // METHODS
   const handleDayChange = (day: string): void => {
@@ -59,7 +64,7 @@ const WeeklyPlanner = (): React.ReactElement => {
         message: 'You must select at least one day. You can disable the functionality though.',
       });
       return;
-    };
+    }
 
     const timezone = userSettings?.timezone || 'UTC/UTC';
     upsertPushNotif({ days: selectedDays, time, timezone });
@@ -69,14 +74,14 @@ const WeeklyPlanner = (): React.ReactElement => {
     clearToast();
     const timezone = userSettings?.timezone || 'UTC/UTC';
     upsertPushNotif({ days, time, timezone });
-  }
+  };
 
   return (
     <>
       {toast}
 
-      <form className='flex justify-between items-center mt-4 flex-wrap'>
-        <div className='flex space-x-2'>
+      <form className="flex justify-between items-center mt-4 flex-wrap">
+        <div className="flex space-x-2">
           {weekDays.map((day) => (
             <span
               key={day.name}
@@ -95,13 +100,13 @@ const WeeklyPlanner = (): React.ReactElement => {
         </div>
         <input
           type="time"
-          className='bg-gray-900 text-gray-50 text-xs px-2 py-1 border border-white rounded-2xl'
+          className="bg-gray-900 text-gray-50 text-xs px-2 py-1 border border-white rounded-2xl"
           value={time}
           onChange={(e) => handleTimeChange(e.target.value)}
         />
       </form>
     </>
-  )
-}
+  );
+};
 
 export default WeeklyPlanner;

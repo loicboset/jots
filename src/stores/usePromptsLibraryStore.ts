@@ -1,5 +1,5 @@
-import { BaseSelection } from "lexical";
-import { create } from "zustand";
+import { BaseSelection } from 'lexical';
+import { create } from 'zustand';
 
 type Store = {
   isOpen: boolean;

@@ -27,9 +27,9 @@ import invariant from '../utils/invariant';
 type SerializedCollapsibleTitleNode = SerializedElementNode;
 
 type TitleConversionDetails = {
-  conversion: () => DOMConversionOutput | null
-  priority: 0 | 1 | 2 | 3 | 4 | undefined
-}
+  conversion: () => DOMConversionOutput | null;
+  priority: 0 | 1 | 2 | 3 | 4 | undefined;
+};
 
 export function $convertSummaryElement(): DOMConversionOutput | null {
   const node = $createCollapsibleTitleNode();
@@ -71,12 +71,10 @@ export class CollapsibleTitleNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      summary: (): TitleConversionDetails => {
-        return {
-          conversion: $convertSummaryElement,
-          priority: 1,
-        };
-      },
+      summary: (): TitleConversionDetails => ({
+        conversion: $convertSummaryElement,
+        priority: 1,
+      }),
     };
   }
 
@@ -131,6 +129,8 @@ export function $createCollapsibleTitleNode(): CollapsibleTitleNode {
   return new CollapsibleTitleNode();
 }
 
-export function $isCollapsibleTitleNode(node: LexicalNode | null | undefined): node is CollapsibleTitleNode {
+export function $isCollapsibleTitleNode(
+  node: LexicalNode | null | undefined,
+): node is CollapsibleTitleNode {
   return node instanceof CollapsibleTitleNode;
 }

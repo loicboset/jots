@@ -1,10 +1,10 @@
-import OpenAI from "openai";
+import OpenAI from 'openai';
 
-import aiUsageLogger from "@/lib/logger/aiUsageLogger";
-import { createClient } from "@/lib/supabase/server";
+import aiUsageLogger from '@/lib/logger/aiUsageLogger';
+import { createClient } from '@/lib/supabase/server';
 
-import getUserID from "../_utils/getUserID";
-import getJournalEntries from "./_utils/getJournalEntries";
+import getUserID from '../_utils/getUserID';
+import getJournalEntries from './_utils/getJournalEntries';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -16,12 +16,16 @@ export async function POST(): Promise<Response> {
 
     const userID = await getUserID();
     if (!userID) {
-      return new Response("Unauthorized", { status: 401 });
+      return new Response('Unauthorized', { status: 401 });
     }
 
     const journalEntries = await getJournalEntries(userID, 3);
 
-    const { data: settings } = await supabase.from("user_settings").select("*").eq("user_id", userID).single();
+    const { data: settings } = await supabase
+      .from('user_settings')
+      .select('*')
+      .eq('user_id', userID)
+      .single();
 
     let content = `
       You are an insightful prompt generator, skilled in generating clear and engaging prompts.
@@ -36,28 +40,30 @@ export async function POST(): Promise<Response> {
       if (settings.role) content += ` The user's role is ${settings.role}.`;
       if (settings.experience) content += ` The user's experience is ${settings.experience}.`;
       if (settings.goal) content += ` The user's goal is ${settings.goal}.`;
-      if (settings.goal === "Learn AI skills") content +=  'Provide latest trends and resources to help the user get up to speed with AI topics.';
+      if (settings.goal === 'Learn AI skills')
+        content +=
+          'Provide latest trends and resources to help the user get up to speed with AI topics.';
       content += ` *** `;
     }
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: 'gpt-4o-mini',
       messages: [
         {
-          role: "system",
+          role: 'system',
           content,
         },
         {
-          role: "user",
-          content: journalEntries || "",
+          role: 'user',
+          content: journalEntries || '',
         },
       ],
     });
 
     await aiUsageLogger({
       userID: userID,
-      type: "AI_PROMPT",
-      model: "gpt-4o-mini",
+      type: 'AI_PROMPT',
+      model: 'gpt-4o-mini',
       inputTokens: completion.usage?.prompt_tokens ?? 0,
       inputCachedTokens: completion.usage?.prompt_tokens_details?.cached_tokens ?? 0,
       outputTokens: completion.usage?.completion_tokens ?? 0,
@@ -65,7 +71,8 @@ export async function POST(): Promise<Response> {
 
     const messageContent = completion.choices[0].message.content;
 
-    const prompt = messageContent ?? "We are unable to generate a prompt for you. Please try again later.";
+    const prompt =
+      messageContent ?? 'We are unable to generate a prompt for you. Please try again later.';
 
     return Response.json({ prompt });
   } catch (error) {

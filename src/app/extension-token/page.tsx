@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type JSX } from 'react';
 
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function ExtensionTokenPage(): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
@@ -40,9 +40,13 @@ export default function ExtensionTokenPage(): JSX.Element {
 
   return (
     <main className="max-w-xl mx-auto p-6">
-      <div className='flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900'>
+      <div
+        className="
+        flex p-4 backdrop-blur-xs justify-between items-center
+        sticky top-0 z-10 border-b border-gray-900"
+      >
         <Link href="/">
-          <h1 className='text-3xl text-indigo-500'>Jots</h1>
+          <h1 className="text-3xl text-indigo-500">Jots</h1>
         </Link>
       </div>
       <h1 className="text-2xl font-semibold mb-4">Your VS Code Extension Token</h1>
@@ -53,15 +57,13 @@ export default function ExtensionTokenPage(): JSX.Element {
 
       {token && (
         <div className="bg-gray-100 p-4 rounded border font-mono text-sm break-all">
-          <p className="mt-4 text-black">
-          {token}
-          </p>
+          <p className="mt-4 text-black">{token}</p>
           <p className="mt-4 text-gray-500">
-            Copy and paste this token into the VS Code extension using the “Journal: Set Token” command.
+            Copy and paste this token into the VS Code extension using the “Journal: Set Token”
+            command.
           </p>
         </div>
       )}
-
     </main>
   );
 }

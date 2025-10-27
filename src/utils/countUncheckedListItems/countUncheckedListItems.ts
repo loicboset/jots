@@ -1,7 +1,7 @@
-
-import { JournalEntry } from "@/types/api/journal_entries";
+import { JournalEntry } from '@/types/api/journal_entries';
 
 type ContentNode = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   root: any;
 };
 
@@ -10,10 +10,11 @@ export const countUncheckedListItems = (data: JournalEntry[] | undefined): numbe
 
   let count = 0;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const traverse = (node: any): void => {
-    if (!node || typeof node !== "object") return;
+    if (!node || typeof node !== 'object') return;
 
-    if (node.type === "listitem" && node.checked === false) {
+    if (node.type === 'listitem' && node.checked === false) {
       count++;
     }
 
@@ -23,7 +24,8 @@ export const countUncheckedListItems = (data: JournalEntry[] | undefined): numbe
   };
 
   // Type guard to check if content is an object with root
-  const isContentNode = (content: unknown): content is ContentNode => typeof content === "object" && content !== null && "root" in content;
+  const isContentNode = (content: unknown): content is ContentNode =>
+    typeof content === 'object' && content !== null && 'root' in content;
 
   data.forEach((entry) => {
     const content = entry.content;
@@ -34,5 +36,3 @@ export const countUncheckedListItems = (data: JournalEntry[] | undefined): numbe
 
   return count;
 };
-
-

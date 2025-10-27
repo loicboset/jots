@@ -1,20 +1,20 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 
-import Select from "react-select";
+import Select from 'react-select';
 
-import Button from "@/components/ui/buttons/Button";
-import useToast from "@/utils/hooks/useToast";
+import Button from '@/components/ui/buttons/Button';
+import useToast from '@/utils/hooks/useToast';
 
 const ExportButton = (): React.ReactElement => {
-  const [format, setFormat] = useState({ label: "JSON", value: "json" });
+  const [format, setFormat] = useState({ label: 'JSON', value: 'json' });
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useToast();
 
   const options = [
-    { label: "JSON", value: "json" },
-    { label: "Markdown", value: "md" },
-    { label: "PDF", value: "pdf" },
+    { label: 'JSON', value: 'json' },
+    { label: 'Markdown', value: 'md' },
+    { label: 'PDF', value: 'pdf' },
   ];
 
   const handleExport = async (): Promise<void> => {
@@ -24,16 +24,16 @@ const ExportButton = (): React.ReactElement => {
 
       if (!res.ok) {
         const { error } = await res.json();
-        alert(error || "Failed to export entries.");
+        alert(error || 'Failed to export entries.');
         return;
       }
 
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
+      const link = document.createElement('a');
 
       const today = new Date();
-      const dateStr = today.toISOString().split("T")[0];
+      const dateStr = today.toISOString().split('T')[0];
       const filename = `jots-export-${dateStr}.${format.value}`;
 
       link.href = url;
@@ -42,10 +42,10 @@ const ExportButton = (): React.ReactElement => {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-      setToast({ message: "Entries successfully exported!" });
+      setToast({ message: 'Entries successfully exported!' });
     } catch (err) {
-      setToast({ type: "error", message: "Something went wrong" });
-      console.error("Export failed:", err);
+      setToast({ type: 'error', message: 'Something went wrong' });
+      console.error('Export failed:', err);
     } finally {
       setLoading(false);
     }
@@ -70,32 +70,30 @@ const ExportButton = (): React.ReactElement => {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              backgroundColor: "black",
+              backgroundColor: 'black',
             }),
             input: (baseStyles) => ({
               ...baseStyles,
-              color: "white",
+              color: 'white',
             }),
             singleValue: (baseStyles) => ({
               ...baseStyles,
-              color: "white",
+              color: 'white',
             }),
             valueContainer: (baseStyles) => ({
               ...baseStyles,
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: 'black',
+              color: 'white',
             }),
             menu: (baseStyles) => ({
               ...baseStyles,
-              backgroundColor: "black",
-              border: "1px solid #4B5563",
+              backgroundColor: 'black',
+              border: '1px solid #4B5563',
             }),
-            option: (baseStyles, state) => {
-              return {
-                ...baseStyles,
-                backgroundColor: state.isFocused ? "#99a1af" : "black",
-              };
-            },
+            option: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: state.isFocused ? '#99a1af' : 'black',
+            }),
           }}
         />
         <Button onClick={handleExport} disabled={loading}>

@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from 'react';
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { mergeRegister } from "@lexical/utils";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { mergeRegister } from '@lexical/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   $getRoot,
   $createTextNode,
@@ -11,13 +11,12 @@ import {
   COMMAND_PRIORITY_LOW,
   DELETE_CHARACTER_COMMAND,
   $isElementNode,
-} from "lexical";
+} from 'lexical';
 
-import { generateAiPrompt } from "@/services/ai_prompts";
-import { useJournalEntries } from "@/services/journal_entries";
+import { generateAiPrompt } from '@/services/ai_prompts';
+import { useJournalEntries } from '@/services/journal_entries';
 
-import { $isAiPromptNode, AiPromptNode } from "../../nodes/AiPromptNode";
-
+import { $isAiPromptNode, AiPromptNode } from '../../nodes/AiPromptNode';
 
 const AiPromptNodePlugin = (): null => {
   // HOOKS
@@ -33,20 +32,21 @@ const AiPromptNodePlugin = (): null => {
 
   if (!isLoading) {
     entries.forEach((entry) => {
-      const parsedEditorState = editor.parseEditorState(entry.content)
+      const parsedEditorState = editor.parseEditorState(entry.content);
       parsedEditorState.read(() => {
         parsedEditorState._nodeMap.forEach((node) => {
           if ($isElementNode(node)) {
             const textNodes = node.getAllTextNodes();
             textNodes.forEach((node) => textContent.push(node.getTextContent()));
           }
-        })
-      })
-    })
+        });
+      });
+    });
   }
 
   // EFFECTS
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const findAiPromptNode = (node: any): AiPromptNode | null => {
       if ($isAiPromptNode(node)) {
         return node;
@@ -59,38 +59,42 @@ const AiPromptNodePlugin = (): null => {
         }
       }
       return null;
-    }
+    };
 
     // Register listener for new nodes
-    return editor.registerMutationListener(AiPromptNode, (mutations) => {
-      mutations.forEach(async (mutation) => {
-        if (mutation === "created") {
-          try {
-            let prompt = '';
-            if (textContent.length === 0) {
-              prompt = `You haven't written anything yet. Start writing to get AI suggestions.`;
-            } else {
-              const result = await generateAiPrompt();
-              queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
-              prompt = result.prompt;
-            }
-
-            editor.update(() => {
-              const root = $getRoot();
-              const aiNode = findAiPromptNode(root);
-
-              if (aiNode) {
-                // Update the AiPromptNode with Ai content
-                const writableNode = aiNode.getWritable();
-                writableNode.__placeholder = prompt;
+    return editor.registerMutationListener(
+      AiPromptNode,
+      (mutations) => {
+        mutations.forEach(async (mutation) => {
+          if (mutation === 'created') {
+            try {
+              let prompt = '';
+              if (textContent.length === 0) {
+                prompt = `You haven't written anything yet. Start writing to get AI suggestions.`;
+              } else {
+                const result = await generateAiPrompt();
+                queryClient.invalidateQueries({ queryKey: ['user_ai_usage'] });
+                prompt = result.prompt;
               }
-            });
-          } catch (error) {
-            console.error("Error fetching AI prompt:", error);
+
+              editor.update(() => {
+                const root = $getRoot();
+                const aiNode = findAiPromptNode(root);
+
+                if (aiNode) {
+                  // Update the AiPromptNode with Ai content
+                  const writableNode = aiNode.getWritable();
+                  writableNode.__placeholder = prompt;
+                }
+              });
+            } catch (error) {
+              console.error('Error fetching AI prompt:', error);
+            }
           }
-        }
-      });
-    }, { skipInitialization: true });
+        });
+      },
+      { skipInitialization: true },
+    );
   }, [editor, queryClient, textContent]);
 
   useEffect(() => {
@@ -122,12 +126,12 @@ const AiPromptNodePlugin = (): null => {
       editor.registerCommand(
         DELETE_CHARACTER_COMMAND,
         () => replaceAiPromptNode(),
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
-    )
-  }, [editor])
+    );
+  }, [editor]);
 
   return null;
-}
+};
 
 export default AiPromptNodePlugin;

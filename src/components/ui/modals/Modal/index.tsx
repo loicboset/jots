@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Fragment } from "react";
+import { Fragment } from 'react';
 
 import {
   Dialog,
@@ -7,16 +7,16 @@ import {
   DialogTitle,
   Transition,
   TransitionChild,
-} from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import classNames from "classnames";
+} from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import classNames from 'classnames';
 
 type Props = {
   open: boolean;
   toggle: () => void;
   children: React.ReactNode;
   title?: string;
-  size?: "sm" | "lg" | "xl" | "2xl";
+  size?: 'sm' | 'lg' | 'xl' | '2xl';
   overlayCanClose?: boolean;
   isOverflowing?: boolean;
 };
@@ -28,17 +28,17 @@ const Modal = (props: Props): React.ReactElement => {
     toggle,
     children,
     title,
-    size = "sm",
+    size = 'sm',
     overlayCanClose = true,
     isOverflowing = false,
   } = props;
 
   // VARS
   const modalSize = {
-    sm: "sm:max-w-sm",
-    lg: "sm:max-w-lg",
-    xl: "sm:max-w-xl",
-    "2xl": "sm:max-w-2xl",
+    sm: 'sm:max-w-sm',
+    lg: 'sm:max-w-lg',
+    xl: 'sm:max-w-xl',
+    '2xl': 'sm:max-w-2xl',
   };
 
   return (
@@ -51,12 +51,11 @@ const Modal = (props: Props): React.ReactElement => {
           onClose={toggle}
         >
           <div className="flex items-end justify-center px-4 pt-4 pb-20 text-center md:min-h-dvh sm:block sm:p-0">
-
             <DialogBackdrop
               onClick={toggle}
               className={classNames(
-                "fixed inset-0 bg-gray-500 opacity-75",
-                !overlayCanClose && "pointer-events-none",
+                'fixed inset-0 bg-gray-500 opacity-75',
+                !overlayCanClose && 'pointer-events-none',
               )}
             />
 
@@ -75,9 +74,9 @@ const Modal = (props: Props): React.ReactElement => {
             >
               <div
                 className={classNames(
-                  "relative inline-block px-4 pt-5 pb-4 text-left align-bottom transition-all transform bg-gray-900 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:w-full sm:p-6",
+                  'relative inline-block px-4 pt-5 pb-4 text-left align-bottom transition-all transform bg-gray-900 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:w-full sm:p-6',
                   modalSize[size],
-                  !isOverflowing && "overflow-hidden",
+                  !isOverflowing && 'overflow-hidden',
                 )}
               >
                 {title && (

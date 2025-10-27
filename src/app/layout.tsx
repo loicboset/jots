@@ -1,19 +1,17 @@
 import { Analytics } from '@vercel/analytics/next';
-import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata } from 'next';
+import { JetBrains_Mono } from 'next/font/google';
 
-
-import "./globals.css";
-import LayoutWrapper from "@/components/LayoutWrapper";
+import './globals.css';
+import LayoutWrapper from '@/components/LayoutWrapper';
 
 const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+  subsets: ['latin'],
 });
 
-
 export const metadata: Metadata = {
-  title: "Jots",
-  description: "Level up your engineering skills. Every day.",
+  title: 'Jots',
+  description: 'Level up your engineering skills. Every day.',
 };
 
 export default function RootLayout({
@@ -24,9 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jetBrainsMono.className} antialiased`}>
-        <LayoutWrapper>
-          {children}
-        </LayoutWrapper>
+        <LayoutWrapper>{children}</LayoutWrapper>
         <Analytics />
       </body>
     </html>

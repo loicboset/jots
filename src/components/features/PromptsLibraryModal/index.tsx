@@ -1,13 +1,13 @@
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $isRangeSelection } from "lexical";
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $isRangeSelection } from 'lexical';
 
-import { $createSkilledPromptNode } from "@/components/collections/Editor/nodes/SkilledPromptNode";
-import { $createSkilledPromptWrapperNode } from "@/components/collections/Editor/nodes/SkilledPromptWrapperNode";
-import Modal from "@/components/ui/modals/Modal";
-import { prompts } from "@/prompts";
-import usePromptsLibraryStore from "@/stores/usePromptsLibraryStore";
+import { $createSkilledPromptNode } from '@/components/collections/Editor/nodes/SkilledPromptNode';
+import { $createSkilledPromptWrapperNode } from '@/components/collections/Editor/nodes/SkilledPromptWrapperNode';
+import Modal from '@/components/ui/modals/Modal';
+import { prompts } from '@/prompts';
+import usePromptsLibraryStore from '@/stores/usePromptsLibraryStore';
 
 const PromptsLibraryModal = (): React.ReactElement => {
   // STORE
@@ -19,7 +19,7 @@ const PromptsLibraryModal = (): React.ReactElement => {
   const [editor] = useLexicalComposerContext();
 
   // VARS
-  const groups = new Set(prompts.map(prompt => prompt.skill));
+  const groups = new Set(prompts.map((prompt) => prompt.skill));
 
   // METHODS
   const handleAddPromptToEditor = (text: string, skill: string): void => {
@@ -58,16 +58,20 @@ const PromptsLibraryModal = (): React.ReactElement => {
                     </span>
                   </DisclosureButton>
                 </dt>
-                {prompts.filter(prompt => prompt.skill === skill).map((prompt) => (
-                  <DisclosurePanel
-                    key={prompt.text}
-                    as="dd"
-                    onClick={() => handleAddPromptToEditor(prompt.text, prompt.skill)}
-                    className="mt-2 border-2 rounded-md hover:cursor-pointer border-transparent ml-4 hover:ml-3 box-border hover:px-1 hover:border-gray-700"
-                  >
-                    {prompt.text}
-                  </DisclosurePanel>
-                ))}
+                {prompts
+                  .filter((prompt) => prompt.skill === skill)
+                  .map((prompt) => (
+                    <DisclosurePanel
+                      key={prompt.text}
+                      as="dd"
+                      onClick={() => handleAddPromptToEditor(prompt.text, prompt.skill)}
+                      className="
+                        mt-2 border-2 rounded-md hover:cursor-pointer
+                        border-transparent ml-4 hover:ml-3 box-border hover:px-1 hover:border-gray-700"
+                    >
+                      {prompt.text}
+                    </DisclosurePanel>
+                  ))}
               </Disclosure>
             </div>
           ))}

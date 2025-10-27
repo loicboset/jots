@@ -1,19 +1,19 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
 
-import { BlogPostData } from "../../types/blog/blog_post_data";
+import { BlogPostData } from '../../types/blog/blog_post_data';
 
-const postsDirectory = path.join(process.cwd(), "src/app/blog/_posts");
+const postsDirectory = path.join(process.cwd(), 'src/app/blog/_posts');
 
 const getPostData = async (id: string): Promise<BlogPostData> => {
   const fileNames = fs.readdirSync(postsDirectory);
   const fileName = fileNames.find((name) => {
     // Remove ".md" from file name to get id
-    const postID = name.replace(/\.md$/, "");
+    const postID = name.replace(/\.md$/, '');
     if (postID === id) return true;
   });
 
@@ -22,7 +22,7 @@ const getPostData = async (id: string): Promise<BlogPostData> => {
   }
 
   const fullPath = path.join(postsDirectory, fileName);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents, { excerpt: true });

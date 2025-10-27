@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
 'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from 'react-hook-form';
 
-import Button from "@/components/ui/buttons/Button";
-import CreatableSelect from "@/components/ui/selects/CreatableSelects";
-import { useUserContext } from "@/context/UserProvider";
-import { useUpsertUserSettings, useUserSettings } from "@/services/user_settings";
-import { UpsertUserSettings } from "@/types/payload/user_settings";
-import { GOALSOPTIONS, ROLESOPTIONS } from "@/utils/constants";
+import Button from '@/components/ui/buttons/Button';
+import CreatableSelect from '@/components/ui/selects/CreatableSelects';
+import { useUserContext } from '@/context/UserProvider';
+import { useUpsertUserSettings, useUserSettings } from '@/services/user_settings';
+import { UpsertUserSettings } from '@/types/payload/user_settings';
+import { GOALSOPTIONS, ROLESOPTIONS } from '@/utils/constants';
 
 type FormValues = Omit<UpsertUserSettings, 'user_id'>;
 

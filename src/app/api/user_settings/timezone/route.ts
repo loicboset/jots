@@ -1,6 +1,6 @@
-import easyCron from "@/lib/easycron";
-import { createClient } from "@/lib/supabase/server";
-import { EditUserTimezone } from "@/types/payload/user_settings";
+import easyCron from '@/lib/easycron';
+import { createClient } from '@/lib/supabase/server';
+import { EditUserTimezone } from '@/types/payload/user_settings';
 
 export async function PUT(request: Request): Promise<Response> {
   const supabase = await createClient();
@@ -14,20 +14,20 @@ export async function PUT(request: Request): Promise<Response> {
   } = await supabase.auth.getUser();
 
   if (error || !user || !user.id) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
 
   // 1. update user timezone in user_settings table
-  await supabase.from("user_settings").update({ timezone }).eq("user_id", user.id);
+  await supabase.from('user_settings').update({ timezone }).eq('user_id', user.id);
 
   // 2. check if any cron job exists for the user
   const { data: userPushNotif } = await supabase
-    .from("user_push_notifications")
-    .select("*")
-    .eq("user_id", user.id)
+    .from('user_push_notifications')
+    .select('*')
+    .eq('user_id', user.id)
     .single();
 
-  if (!userPushNotif) return new Response("Success", { status: 200 });
+  if (!userPushNotif) return new Response('Success', { status: 200 });
 
   // 3. if exists, update the cron job with the new timezone
   const { cronjob_id, expression } = userPushNotif;
@@ -36,5 +36,5 @@ export async function PUT(request: Request): Promise<Response> {
     throw new Error(`Failed to update cron job: ${data?.message}`);
   }
 
-  return new Response("Success", { status: 200 });
+  return new Response('Success', { status: 200 });
 }

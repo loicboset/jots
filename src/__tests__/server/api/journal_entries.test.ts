@@ -16,10 +16,12 @@ describe('GET and PUT handlers for journal entries', () => {
 
   describe('GET handler', () => {
     it('should return journal entries for the user', async () => {
-      const mockJournalEntries = {journal_entries: [
-        { id: 1, user_id: '123', content: 'First Entry', date: '2025-01-01' },
-        { id: 2, user_id: '123', content: 'Second Entry', date: '2025-02-01' },
-      ]};
+      const mockJournalEntries = {
+        journal_entries: [
+          { id: 1, user_id: '123', content: 'First Entry', date: '2025-01-01' },
+          { id: 2, user_id: '123', content: 'Second Entry', date: '2025-02-01' },
+        ],
+      };
 
       // Mock the response from Supabase
       (createClient as jest.Mock).mockResolvedValue({
@@ -39,7 +41,7 @@ describe('GET and PUT handlers for journal entries', () => {
 
       // Assertions
       expect(response.status).toBe(200);
-      expect(responseBody).toEqual({journal_entries: mockJournalEntries});
+      expect(responseBody).toEqual({ journal_entries: mockJournalEntries });
       expect(createClient).toHaveBeenCalledTimes(1);
     });
   });

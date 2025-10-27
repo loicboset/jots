@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 import { Toaster } from 'react-hot-toast';
 
-import ConfettiAnimation from "@/components/ui/Confetti";
-import { AchievementsProvider } from "@/context/AchievementsProvider";
-import { CalendarContextProvider, CalendarData } from "@/context/CalendarContextProvider";
-import { CurrentAuthenticatedUser, UserContextProvider } from "@/context/UserProvider";
-import { createClient } from "@/lib/supabase/client";
+import ConfettiAnimation from '@/components/ui/Confetti';
+import { AchievementsProvider } from '@/context/AchievementsProvider';
+import { CalendarContextProvider, CalendarData } from '@/context/CalendarContextProvider';
+import { CurrentAuthenticatedUser, UserContextProvider } from '@/context/UserProvider';
+import { createClient } from '@/lib/supabase/client';
 
-import CreatePeriodDigestPlugin from "./_parts/CreatePeriodDigestPlugin";
+import CreatePeriodDigestPlugin from './_parts/CreatePeriodDigestPlugin';
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): React.ReactElement => {
   // STATE
@@ -20,14 +20,16 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): Reac
 
   // EFFECTS
   useEffect(() => {
-    createClient().auth.getUser().then(({ data, error }) => {
-      if (error) {
-        console.error('Error fetching user:', error);
-      } else {
-        setUser({ userID: data.user.id });
-        setIsLoading(false);
-      }
-    });
+    createClient()
+      .auth.getUser()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching user:', error);
+        } else {
+          setUser({ userID: data.user.id });
+          setIsLoading(false);
+        }
+      });
   }, []);
 
   if (isLoading) {
@@ -48,6 +50,6 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>): Reac
       </AchievementsProvider>
     </UserContextProvider>
   );
-}
+};
 
-export default RootLayout
+export default RootLayout;

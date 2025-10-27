@@ -6,7 +6,7 @@ import {
   ParagraphNode,
   RangeSelection,
   SerializedElementNode,
-} from "lexical";
+} from 'lexical';
 
 type SerializedMotivationBoosterNode = SerializedElementNode & {
   placeholder: string;
@@ -21,7 +21,7 @@ export class MotivationBoosterNode extends ElementNode {
   }
 
   static getType(): string {
-    return "motivation-booster";
+    return 'motivation-booster';
   }
 
   static clone(node: MotivationBoosterNode): MotivationBoosterNode {
@@ -30,8 +30,8 @@ export class MotivationBoosterNode extends ElementNode {
 
   createDOM(): HTMLElement {
     // Define the DOM element here
-    const element = document.createElement("p");
-    element.classList.add("node-placeholder");
+    const element = document.createElement('p');
+    element.classList.add('node-placeholder');
     element.dataset.placeholder = this.__placeholder;
     return element;
   }
@@ -70,8 +70,10 @@ export class MotivationBoosterNode extends ElementNode {
 
 export function $createMotivationBoosterNode(placeholder: string): MotivationBoosterNode {
   return new MotivationBoosterNode(placeholder);
-};
+}
 
-export function $isMotivationBoosterNode(node: LexicalNode | null | undefined): node is MotivationBoosterNode {
+export function $isMotivationBoosterNode(
+  node: LexicalNode | null | undefined,
+): node is MotivationBoosterNode {
   return node instanceof MotivationBoosterNode;
-};
+}

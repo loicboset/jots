@@ -12,19 +12,17 @@ import {
   ElementNode,
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
-  LexicalNode
+  LexicalNode,
 } from 'lexical';
 
-import "./CodeHighlight.css";
+import './CodeHighlight.css';
 
 export default function CodeHighlightPlugin(): JSX.Element | null {
   // HOOKS
   const [editor] = useLexicalComposerContext();
 
   // EFFECTS
-  useEffect(() => {
-    return registerCodeHighlighting(editor);
-  }, [editor]);
+  useEffect(() => registerCodeHighlighting(editor), [editor]);
 
   useEffect(() => {
     const $onEscapeUp = (): boolean => {
@@ -58,9 +56,9 @@ export default function CodeHighlightPlugin(): JSX.Element | null {
             const lastDescendant = container.getLastDescendant<LexicalNode>();
 
             if (
-              (lastDescendant !== null &&
-                selection.anchor.key === lastDescendant.getKey() &&
-                selection.anchor.offset === lastDescendant.getTextContentSize())
+              lastDescendant !== null &&
+              selection.anchor.key === lastDescendant.getKey() &&
+              selection.anchor.offset === lastDescendant.getTextContentSize()
             ) {
               const paragraph = $createParagraphNode();
               container.insertAfter(paragraph);
@@ -74,7 +72,7 @@ export default function CodeHighlightPlugin(): JSX.Element | null {
 
     editor.registerCommand(KEY_ARROW_UP_COMMAND, $onEscapeUp, COMMAND_PRIORITY_LOW);
     editor.registerCommand(KEY_ARROW_DOWN_COMMAND, $onEscapeDown, COMMAND_PRIORITY_LOW);
-  }, [editor])
+  }, [editor]);
 
   return null;
 }
