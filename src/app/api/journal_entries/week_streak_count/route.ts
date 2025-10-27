@@ -36,7 +36,7 @@ export async function GET(): Promise<Response> {
     }
 
     const [year, w] = weekPointer.split("-") as [string, string];
-    const followingWeek = dayjs().set("y", Number(year)).isoWeek(Number(w)).add(1, "week");
+    const followingWeek = dayjs().set("year", Number(year)).isoWeek(Number(w)).add(1, "week");
     const followingW = followingWeek.isoWeek();
     const followingY = followingWeek.year();
 
@@ -44,11 +44,13 @@ export async function GET(): Promise<Response> {
       weekPointer = week;
       count++;
     } else {
+      // Streak broken — start fresh from this new week
       weekPointer = week;
-      count = 0;
+      count = 1;
     }
   }
 
+  // Determine if the current streak is still active
   const currentWeek = dayjs().isoWeek();
   const currentYear = dayjs().year();
   const currentWeekDate = dayjs().set("year", currentYear).isoWeek(currentWeek);
@@ -56,15 +58,15 @@ export async function GET(): Promise<Response> {
   if (weekPointer) {
     const [lastYear, lastWeek] = weekPointer.split("-").map(Number);
     const lastWeekDate = dayjs().set("year", lastYear).isoWeek(lastWeek);
-
     const diffWeeks = currentWeekDate.diff(lastWeekDate, "week");
 
     if (diffWeeks > 1) {
       count = 0;
     }
   }
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
 
-  return new Response(JSON.stringify(count), { status: 200, headers });
+  return new Response(JSON.stringify(count), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
