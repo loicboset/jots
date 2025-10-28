@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use client';
 
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
@@ -13,11 +14,7 @@ const Digests = (): React.ReactElement => {
 
   return (
     <div className="h-dvh">
-      <div
-        className="
-        flex p-4 backdrop-blur-xs justify-between items-center
-        sticky top-0 z-10 border-b border-gray-900"
-      >
+      <div className="flex p-4 backdrop-blur-xs justify-between items-center sticky top-0 z-10 border-b border-gray-900">
         <Link href="/">
           <h1 className="text-3xl text-indigo-500">Jots</h1>
         </Link>

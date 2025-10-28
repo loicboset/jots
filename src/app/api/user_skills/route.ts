@@ -32,9 +32,12 @@ export async function PUT(request: Request): Promise<Response> {
     .eq('skill', skill);
 
   if (!data || data.length === 0) {
-    const { error: insertError } = await supabase
-      .from('user_skills')
-      .insert({ user_id: userID, skill, score: delta || 0, updated_at: new Date() });
+    const { error: insertError } = await supabase.from('user_skills').insert({
+      user_id: userID,
+      skill,
+      score: delta || 0,
+      updated_at: new Date(),
+    });
 
     if (insertError) {
       return new Response(insertError.message, { status: 500 });

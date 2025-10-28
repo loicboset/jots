@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client';
 
 import { useState, useEffect, useRef, type JSX } from 'react';
@@ -180,8 +181,8 @@ const GitHubContextPopup = ({ contextData, onConfirm, onCancel }: Props): JSX.El
             onClick={confirmSelection}
             disabled={selectedIds.length === 0}
             className={`px-4 py-2 rounded-lg text-white font-semibold transition-colors ${selectedIds.length === 0
-                ? 'bg-indigo-300 cursor-not-allowed'
-                : 'bg-indigo-600 hover:bg-indigo-700'
+              ? 'bg-indigo-300 cursor-not-allowed'
+              : 'bg-indigo-600 hover:bg-indigo-700'
               }`}
           >
             Confirm

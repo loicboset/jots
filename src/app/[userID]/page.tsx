@@ -1,13 +1,12 @@
 import { redirect } from 'next/navigation';
 
-import App from '@/components/App';
 import { createClient } from '@/lib/supabase/server';
 
 type Props = {
   params: Promise<{ userID: string }>;
 };
 
-const UserAppRoot = async ({ params }: Props): Promise<React.ReactElement> => {
+const UserAppRoot = async ({ params }: Props): Promise<null> => {
   // PROPS
   const userID = (await params).userID;
 
@@ -19,11 +18,7 @@ const UserAppRoot = async ({ params }: Props): Promise<React.ReactElement> => {
     redirect('/login');
   }
 
-  return (
-    <div className="flex h-dvh">
-      <App userID={data.user.id} />
-    </div>
-  );
+  return redirect(`/${userID}/reflections`);
 };
 
 export default UserAppRoot;

@@ -15,7 +15,10 @@ const DailyPrompt = (): React.ReactElement => {
 
   // METHODS
   const handleToggleMoodChecks = (): void => {
-    editUserSettings({ user_id: user.userID, daily_prompt_enabled: !isDailyPromptEnabled });
+    editUserSettings({
+      user_id: user.userID,
+      daily_prompt_enabled: !isDailyPromptEnabled,
+    });
   };
 
   // VARS

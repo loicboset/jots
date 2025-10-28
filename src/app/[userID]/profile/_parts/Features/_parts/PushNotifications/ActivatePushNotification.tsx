@@ -56,7 +56,10 @@ export const ActivatePushNotification = (): React.ReactElement | null => {
               togglePushNotification(isActive);
               const existingCronJob = pushNotifications[0];
               if (existingCronJob)
-                toggleCronJob({ easycronID: existingCronJob.cronjob_id, isActive });
+                toggleCronJob({
+                  easycronID: existingCronJob.cronjob_id,
+                  isActive,
+                });
             });
           }
         }

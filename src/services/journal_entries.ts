@@ -46,7 +46,10 @@ const getJournalEntries = async (
 const useJournalEntries = (
   params?: UseJournalEntriesParams,
 ): UseQueryResult<UseJournalEntriesResponse, Error> =>
-  useQuery({ queryKey: ['journal_entries'], queryFn: () => getJournalEntries(params) });
+  useQuery({
+    queryKey: ['journal_entries'],
+    queryFn: () => getJournalEntries(params),
+  });
 
 // UPSERT JOURNAL ENTRY
 const upsertJournalEntry = async (body: CreateJournalEntry): Promise<JournalEntry> => {
@@ -67,7 +70,9 @@ const useUpsertJournalEntry = (): UseMutationResult<
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journal_entry'] });
       queryClient.invalidateQueries({ queryKey: ['journal_entries'] });
-      queryClient.invalidateQueries({ queryKey: ['journal_entries/month/dates'] });
+      queryClient.invalidateQueries({
+        queryKey: ['journal_entries/month/dates'],
+      });
       queryClient.invalidateQueries({ queryKey: ['week_streak_count'] });
       queryClient.invalidateQueries({ queryKey: ['week_entries'] });
     },
@@ -88,7 +93,9 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journal_entry'] });
       queryClient.invalidateQueries({ queryKey: ['journal_entries'] });
-      queryClient.invalidateQueries({ queryKey: ['journal_entries/month/dates'] });
+      queryClient.invalidateQueries({
+        queryKey: ['journal_entries/month/dates'],
+      });
       queryClient.invalidateQueries({ queryKey: ['week_streak_count'] });
       queryClient.invalidateQueries({ queryKey: ['week_entries'] });
     },
@@ -123,7 +130,10 @@ const getWeekStreakCount = async (): Promise<number> => {
 };
 
 const useGetWeekStreakCount = (): UseQueryResult<number, Error> =>
-  useQuery({ queryKey: ['week_streak_count'], queryFn: () => getWeekStreakCount() });
+  useQuery({
+    queryKey: ['week_streak_count'],
+    queryFn: () => getWeekStreakCount(),
+  });
 
 // GET WEEK ENTRIES
 const getWeekEntries = async (): Promise<JournalEntry[]> => {

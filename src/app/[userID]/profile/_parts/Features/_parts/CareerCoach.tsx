@@ -40,9 +40,9 @@ const CareerCoach = (): React.ReactElement => {
       <div className="flex items-center">
         <span className="block text-sm/6 font-medium text-white">Career Coach</span>
         <InfoTooltip
-          message="
-        Every Monday, get a personalised recap of your journal entries with some guidance
-        from our AI career coach!"
+          message={`
+            Every Monday, get a personalised recap of your journal entries with some guidance from our AI career coach!
+          `}
         />
       </div>
 

@@ -19,7 +19,12 @@ describe('GET and PUT handlers for journal entries', () => {
       const mockJournalEntries = {
         journal_entries: [
           { id: 1, user_id: '123', content: 'First Entry', date: '2025-01-01' },
-          { id: 2, user_id: '123', content: 'Second Entry', date: '2025-02-01' },
+          {
+            id: 2,
+            user_id: '123',
+            content: 'Second Entry',
+            date: '2025-02-01',
+          },
         ],
       };
 
@@ -49,7 +54,12 @@ describe('GET and PUT handlers for journal entries', () => {
   describe('PUT handler', () => {
     it('should upsert a journal entry', async () => {
       const mockUpsertResponse = [
-        { id: 1, user_id: '123', content: 'Updated Journal Entry', date: '2025-03-01' },
+        {
+          id: 1,
+          user_id: '123',
+          content: 'Updated Journal Entry',
+          date: '2025-03-01',
+        },
       ];
 
       // Mock the response from Supabase

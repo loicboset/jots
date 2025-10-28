@@ -17,7 +17,10 @@ const getUserAchievements = async (): Promise<UserAchievement[]> => {
 };
 
 const useUserAchievements = (): UseQueryResult<UserAchievement[], Error> =>
-  useQuery({ queryKey: ['user_achievements'], queryFn: () => getUserAchievements() });
+  useQuery({
+    queryKey: ['user_achievements'],
+    queryFn: () => getUserAchievements(),
+  });
 
 // UPSERT USER_ACHIEVEMENT
 const upsertUserAchievement = async (body: UpsertUserAchievement): Promise<UserAchievement> => {

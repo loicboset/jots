@@ -31,7 +31,9 @@ describe('API Handlers', () => {
     expect(supabaseMock.from).toHaveBeenCalledWith('categories');
     expect(supabaseMock.select).toHaveBeenCalledWith('*');
     expect(supabaseMock.eq).toHaveBeenCalledWith('user_id', '123');
-    expect(supabaseMock.order).toHaveBeenCalledWith('name', { ascending: true });
+    expect(supabaseMock.order).toHaveBeenCalledWith('name', {
+      ascending: true,
+    });
 
     const responseData = await response.json();
     expect(response.status).toBe(200);
@@ -45,7 +47,11 @@ describe('API Handlers', () => {
 
     const request = new Request('https://example.com/api', {
       method: 'PUT',
-      body: JSON.stringify({ user_id: '123', name: 'New Category', color: 'red' }),
+      body: JSON.stringify({
+        user_id: '123',
+        name: 'New Category',
+        color: 'red',
+      }),
     });
 
     const response = await PUT(request);

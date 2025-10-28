@@ -31,7 +31,10 @@ const getMoodChecks = async (userID: string, limit?: number): Promise<MoodCheck[
 };
 
 const useMoodChecks = (userID: string, limit?: number): UseQueryResult<MoodCheck[], Error> =>
-  useQuery({ queryKey: ['mood_checks'], queryFn: () => getMoodChecks(userID, limit) });
+  useQuery({
+    queryKey: ['mood_checks'],
+    queryFn: () => getMoodChecks(userID, limit),
+  });
 
 // UPSERT MOOD_CHECK
 const upsertMoodCheck = async (body: UpsertMoodCheck): Promise<MoodCheck> => {

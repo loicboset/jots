@@ -30,7 +30,9 @@ export async function GET(request: Request): Promise<Response | undefined> {
         });
         return new Response('success', { status: 200, headers });
       } catch (error) {
-        return Response.json(`Failed to send push notification: ${error}`, { status: 500 });
+        return Response.json(`Failed to send push notification: ${error}`, {
+          status: 500,
+        });
       }
     }
   }

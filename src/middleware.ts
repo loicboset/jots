@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
 
   if (user && request.nextUrl.pathname === '/') {
     // Redirect to the user's dynamic homepage
-    return NextResponse.redirect(new URL(`/${user.id}`, request.url));
+    return NextResponse.redirect(new URL(`/${user.id}/reflections`, request.url));
   }
 
   return response;

@@ -114,7 +114,7 @@ const LandingPage = (): JSX.Element => (
                   What&apos;s new
                 </span>
                 <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                  <span className="hidden md:inline">Just shipped v2025.10.24</span>
+                  <span className="hidden md:inline">Just shipped v2025.08.19</span>
                   <ChevronRightIcon aria-hidden="true" className="size-5 text-gray-500" />
                 </span>
               </Link>
@@ -282,7 +282,7 @@ const LandingPage = (): JSX.Element => (
             <p>Log your developer journal right from VSCode!</p>
             <div className="mt-4">
               <a
-                href="https://marketplace.visualstudio.com/items?itemName=Jots.daily-jots"
+                href="https://marketplace.visualstudio.com/items?itemName=jots.dev-journal"
                 rel="noreferrer"
                 target="_blank"
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 cursor:pointer"

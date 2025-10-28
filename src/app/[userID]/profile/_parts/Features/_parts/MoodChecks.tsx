@@ -15,7 +15,10 @@ const MoodChecks = (): React.ReactElement => {
 
   // METHODS
   const handleToggleMoodChecks = (): void => {
-    editUserSettings({ user_id: user.userID, mood_checks_enabled: !isMoodChecksEnabled });
+    editUserSettings({
+      user_id: user.userID,
+      mood_checks_enabled: !isMoodChecksEnabled,
+    });
   };
 
   // VARS
@@ -26,9 +29,9 @@ const MoodChecks = (): React.ReactElement => {
       <div className="flex">
         <span className="block text-sm/6 font-medium text-white">Daily Mood Checks</span>
         <InfoTooltip
-          message="
-          Toggle on to get personalised daily motivation boosters based on
-          your mood levels to help with your writing!"
+          message={`
+          Toggle on to get personalised daily motivation boosters based on your mood levels to help with your writing!
+          `}
         />
       </div>
       <Toggle enabled={isMoodChecksEnabled} onChange={handleToggleMoodChecks} />

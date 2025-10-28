@@ -21,7 +21,9 @@ export async function signup(formData: FormValues): Promise<{ message: string }>
   } = await supabase.auth.signUp(payload);
 
   if (error) {
-    return { message: error?.message ?? 'An error occurred. Please try again or contact support.' };
+    return {
+      message: error?.message ?? 'An error occurred. Please try again or contact support.',
+    };
   }
 
   revalidatePath('/', 'layout');

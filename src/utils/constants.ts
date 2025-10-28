@@ -41,8 +41,8 @@ const NEUTRAL_SCORE_MOTIVATION_BOOSTERS = [
   'Remember: even clean code needs a messy draft first.',
   'Think of today as writing tests for tomorrow’s success.',
   'Some days you build features, others you build resilience.',
-  'Just checking in—your breakpoint isn’t a breakdown. 💡',
-  'A slow sprint is still forward motion. 🐢💨',
+  'Just checking in — your breakpoint isn’t a breakdown. 💡',
+  'A short sprint is still forward motion. 🐢💨',
   'Code today, conquer tomorrow.',
 ];
 
@@ -73,6 +73,42 @@ const MAX_AI_TOKENS = 100;
 
 const XP_PER_LEVEL = 15;
 
+export type Template = { id: string; label: string; model: string };
+const TEMPLATES: Template[] = [
+  { id: 'process_event', label: 'Process an event 🧩', model: 'bain_5r' },
+  {
+    id: 'learn_from_mistake_or_success',
+    label: 'Learn from mistake/success 🧠',
+    model: 'kolb',
+  },
+  {
+    id: 'think_through',
+    label: 'Think through project/decision 🧪',
+    model: 'kolb',
+  },
+  { id: 'freestyle', label: 'Freestyle ✍', model: 'simple_prompt' },
+  { id: 'understand_myself', label: 'Understand myself ❤️', model: 'boud' },
+  { id: 'learn_from_content', label: 'Learn from content 📚', model: 'boud' },
+];
+
+const TRAITWEIGHTMAP: { [key: string]: number } = {
+  description: 1,
+  emotion: 1,
+  connection: 2,
+  analysis: 3,
+  integration: 4,
+  transformation: 5,
+};
+
+const ASSESSMENTTRAITS = [
+  { name: 'Description', description: 'Facts, recounting events' },
+  { name: 'Emotion', description: 'Acknowledged feelings' },
+  { name: 'Connection', description: 'Links to past or external knowledge' },
+  { name: 'Analysis', description: 'Explains causes, patterns, reasoning' },
+  { name: 'Integration', description: 'Synthesizes new understanding' },
+  { name: 'Transformation', description: 'Plans new action or mindset' },
+];
+
 export {
   BREAKPOINTS,
   MAX_AI_TOKENS,
@@ -82,4 +118,7 @@ export {
   NEUTRAL_SCORE_MOTIVATION_BOOSTERS,
   NEGATIVE_SCORE_MOTIVATION_BOOSTERS,
   XP_PER_LEVEL,
+  TEMPLATES,
+  TRAITWEIGHTMAP,
+  ASSESSMENTTRAITS,
 };

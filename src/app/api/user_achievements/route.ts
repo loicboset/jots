@@ -11,5 +11,8 @@ export async function GET(): Promise<Response> {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
-  return new Response(JSON.stringify(user_achievements), { status: 200, headers });
+  return new Response(JSON.stringify(user_achievements), {
+    status: 200,
+    headers,
+  });
 }

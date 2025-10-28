@@ -19,7 +19,10 @@ const getPushSubscriptions = async (): Promise<UserPushSubscription[]> => {
 };
 
 const useUserPushSubscriptions = (): UseQueryResult<UserPushSubscription[], Error> =>
-  useQuery({ queryKey: [PUSHSUBSCRIPTIONS], queryFn: () => getPushSubscriptions() });
+  useQuery({
+    queryKey: [PUSHSUBSCRIPTIONS],
+    queryFn: () => getPushSubscriptions(),
+  });
 
 // ------ UPSERT PUSH SUBSCRIPTION ------
 const upsertPushSubscription = async (

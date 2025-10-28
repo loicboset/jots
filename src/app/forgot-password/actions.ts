@@ -20,5 +20,8 @@ export async function sendResetPasswordLink(
 
   revalidatePath('/', 'layout');
 
-  return { message: 'A reset link has been sent to your email address.', type: 'success' };
+  return {
+    message: 'A reset link has been sent to your email address.',
+    type: 'success',
+  };
 }

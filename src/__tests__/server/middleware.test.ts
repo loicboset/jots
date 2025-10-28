@@ -45,7 +45,7 @@ describe('Middleware', () => {
     (updateSession as jest.Mock).mockResolvedValue({ status: 200, body: {} });
   });
 
-  it('should redirect to user dynamic homepage if user is authenticated', async () => {
+  it('should redirect to user dynamic reflections page if user is authenticated', async () => {
     const mockUser = { id: 'user-id' };
     mockGetUser.mockResolvedValue({ data: { user: mockUser } });
 
@@ -55,7 +55,7 @@ describe('Middleware', () => {
     expect(createClient).toHaveBeenCalled();
     expect(mockGetUser).toHaveBeenCalled();
     expect(response.status).toBe(302); // Expect redirect
-    expect(response.url.toString()).toBe('https://example.com/user-id');
+    expect(response.url.toString()).toBe('https://example.com/user-id/reflections');
   });
 
   it('should call updateSession if no user is authenticated', async () => {

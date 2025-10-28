@@ -14,7 +14,7 @@ import { useUserContext } from '@/context/UserProvider';
 import { createClient } from '@/lib/supabase/client';
 
 import AiPathIndicator from './AiPathIndicator';
-import WeeklyDigestButton from './WeeklyDigestButton';
+import WeeklyDigestLink from './WeeklyDigestLink';
 
 type Props = {
   handleSetSidebarOpen?: (open: boolean) => void;
@@ -51,13 +51,12 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
       </div>
       <div className="flex h-full flex-col gap-6 mt-6 items-center">
         <WeeklyStreak />
-        <WeeklyTasks />
-        <WeeklyDigestButton />
         <MoodSlider />
         <AiUsage />
+        <WeeklyTasks />
         <AiPathIndicator />
       </div>
-      <div className="mb-2 mt-4">
+      <div className="my-4">
         <Link href={'https://discord.gg/YQP4wwbyfg'} target="_blank" className="flex">
           <p className="text-sm pr-2">Join our Discord!</p>
           <svg
@@ -73,7 +72,9 @@ const NavbarContent = ({ handleSetSidebarOpen }: Props): React.ReactElement => {
           </svg>
         </Link>
       </div>
-      <div className="flex justify-between w-full">
+
+      <div className="flex flex-col gap-4">
+        <WeeklyDigestLink />
         <Button href={`/${user.userID}/profile`} color="white">
           Profile
         </Button>

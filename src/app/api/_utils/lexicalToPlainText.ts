@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function extractTextFromLexicalJSON(node: any): string {
   if (!node) return '';
 
@@ -20,7 +20,6 @@ function extractTextFromLexicalJSON(node: any): string {
   return '';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function lexicalToPlainText(editorState: any): string {
   return extractTextFromLexicalJSON(editorState.root).trim();
 }

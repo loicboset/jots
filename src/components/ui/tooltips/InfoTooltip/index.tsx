@@ -19,9 +19,8 @@ const InfoTooltip = ({ message }: Props): React.ReactElement => {
 
       {showTooltip && (
         <div
-          className="
-          absolute bottom-8 left-1/2 -translate-x-1/2 w-60 p-2
-          text-xs text-white bg-gray-800 rounded-md shadow-lg z-10"
+          className={`absolute bottom-8 left-1/2 -translate-x-1/2 w-60 p-2
+            text-xs text-white bg-gray-800 rounded-md shadow-lg z-10`}
         >
           {message}
         </div>

@@ -37,7 +37,9 @@ export async function POST(request: Request): Promise<Response> {
       );
       return new Response('success', { status: 200, headers });
     } catch (error) {
-      return Response.json(`Error sending notification: ${error}`, { status: 500 });
+      return Response.json(`Error sending notification: ${error}`, {
+        status: 500,
+      });
     }
   } else {
     return Response.json('Method not allowed', { status: 405 });

@@ -26,7 +26,10 @@ const getUnreadCount = async (): Promise<number> => {
 };
 
 const useDigestsUnreadCount = (): UseQueryResult<number, AxiosError> =>
-  useQuery({ queryKey: ['digests/unread_count'], queryFn: () => getUnreadCount() });
+  useQuery({
+    queryKey: ['digests/unread_count'],
+    queryFn: () => getUnreadCount(),
+  });
 
 // GET LATEST DIGEST DATE
 const getLatestDigestDate = async (): Promise<string> => {
@@ -35,7 +38,10 @@ const getLatestDigestDate = async (): Promise<string> => {
 };
 
 const useGetLatestDigestDate = (): UseQueryResult<string, AxiosError> =>
-  useQuery({ queryKey: ['latest_digest_date'], queryFn: () => getLatestDigestDate() });
+  useQuery({
+    queryKey: ['latest_digest_date'],
+    queryFn: () => getLatestDigestDate(),
+  });
 
 // CREATE DIGEST
 const createDigest = async (payload: CreateDigest): Promise<AxiosResponse> => {

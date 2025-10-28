@@ -41,9 +41,8 @@ const MoodSlider = (): React.ReactElement => {
       {currentMood ? (
         <span
           className="text-sm font-medium text-center"
-          title="
-            Your daily mood check was submitted.
-            This score will help tailor motivation boosters/messages for your daily writing habit."
+          title={`Your daily mood check was submitted. This score will help tailor
+            motivation boosters/messages for your daily writing habit.`}
         >
           Daily Mood Check: {currentMood} (submitted)
         </span>

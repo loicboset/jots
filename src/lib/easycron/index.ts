@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosResponse } from 'axios';
 
 import { EasyCronAddResponse } from '@/types/api/easycron';
@@ -15,7 +16,6 @@ const add = async (
       headers: { 'X-API-Key': process.env.EASY_CRON_API_KEY as string },
     });
     return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return error.response;
   }
@@ -34,7 +34,6 @@ const update = async (
       headers: { 'X-API-Key': process.env.EASY_CRON_API_KEY as string },
     });
     return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return error.response;
   }

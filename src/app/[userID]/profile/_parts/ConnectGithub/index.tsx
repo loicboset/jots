@@ -20,8 +20,8 @@ const ConnectGithub = (): React.ReactElement => {
           <h2 className="text-base/7 font-semibold text-white">Github Extension</h2>
           <InfoTooltip
             message="
-            This information will be used as extra context to offer targeted
-            reflections based on your work."
+            This information will be used as extra context to offer targeted reflections based on your work.
+            "
           />
         </div>
         <p className="mt-1 text-sm/6 text-gray-400">

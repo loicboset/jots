@@ -2,22 +2,24 @@
 
 /* eslint-disable max-len */
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useFeatureFlag } from 'configcat-react';
 import Link from 'next/link';
 
 import AchievementsList from './_parts/AchievementsList';
-import ConnectGithub from './_parts/ConnectGithub';
-import ExportButton from './_parts/ExportButton';
 import ExtensionToken from './_parts/ExtensionToken';
 import Features from './_parts/Features';
 import Insights from './_parts/Insights';
 import PersonalInfo from './_parts/PersonalInfo';
+import { useFeatureFlag } from 'configcat-react';
+
+import ConnectGithub from './_parts/ConnectGithub';
+import ExportButton from './_parts/ExportButton';
 
 type Props = {
   email: string;
 };
 
 const Profile = ({ email }: Props): React.ReactElement => {
+  // RQ
   const { value: isgithubenabled } = useFeatureFlag('isgithubenabled', false);
 
   return (
@@ -86,7 +88,7 @@ const Profile = ({ email }: Props): React.ReactElement => {
               </>
             )}
 
-            {/* VS CODE TOKEN GENERATOR */}
+            {/* EXTENSION TOKEN GENERATOR */}
             <ExtensionToken />
             <hr className="border-gray-500 mb-6" />
 

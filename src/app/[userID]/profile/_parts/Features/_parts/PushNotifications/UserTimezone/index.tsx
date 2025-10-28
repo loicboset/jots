@@ -23,7 +23,10 @@ const UserTimezone = (): React.ReactElement => {
     }
 
     if (status === 'error') {
-      setToast({ type: 'error', message: 'Please try again or contact support' });
+      setToast({
+        type: 'error',
+        message: 'Please try again or contact support',
+      });
     }
   }, [status, error, setToast, clearToast]);
 

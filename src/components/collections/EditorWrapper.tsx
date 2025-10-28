@@ -26,7 +26,7 @@ type Props = {
   userID: string;
 };
 
-const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
+const EditorWrapper = ({ children, userID }: Props): React.ReactElement => {
   // CONTEXT
   const { calendar } = useCalendarContext();
 
@@ -87,4 +87,4 @@ const AppWrapper = ({ children, userID }: Props): React.ReactElement => {
   return <LexicalComposer initialConfig={initialConfig}>{children}</LexicalComposer>;
 };
 
-export default AppWrapper;
+export default EditorWrapper;

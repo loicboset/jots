@@ -38,7 +38,9 @@ export async function POST(request: Request): Promise<Response> {
     .order('date', { ascending: false });
 
   if (last_week_entries && last_week_entries.length < 2) {
-    return new Response('Not enough entries to generate digest', { status: 200 });
+    return new Response('Not enough entries to generate digest', {
+      status: 200,
+    });
   }
 
   const { data: settings } = await supabase

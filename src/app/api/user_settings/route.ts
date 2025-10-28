@@ -25,7 +25,6 @@ export async function PUT(request: Request): Promise<Response> {
     daily_prompt_enabled,
     timezone,
     career_coach_mode,
-    github_token_encrypted,
   } = req as UpsertUserSettings;
 
   const { data } = await supabase
@@ -40,7 +39,6 @@ export async function PUT(request: Request): Promise<Response> {
         daily_prompt_enabled,
         timezone,
         career_coach_mode,
-        github_token_encrypted,
       },
       { onConflict: 'user_id' },
     )
