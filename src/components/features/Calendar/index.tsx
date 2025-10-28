@@ -5,11 +5,11 @@ import { getDefaultClassNames, DayPicker } from 'react-day-picker';
 
 import { useCalendarContext } from '@/context/CalendarContextProvider';
 import { useUserContext } from '@/context/UserProvider';
-import { useJournalEntriesDates } from '@/services/journal_entries';
 import useCalendarStore from '@/stores/useCalendarStore';
 
 import 'react-day-picker/style.css';
 import './index.css';
+import { useUserActivityDates } from '@/services/aggregate';
 
 const Calendar = (): JSX.Element => {
   // STORE
@@ -23,7 +23,7 @@ const Calendar = (): JSX.Element => {
   } = useUserContext();
 
   // RQ
-  const { data: entries = [] } = useJournalEntriesDates(
+  const { data: entries = [] } = useUserActivityDates(
     userID,
     dayjs(selectedDate).startOf('month').format('YYYY-MM-DD'),
   );

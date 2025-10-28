@@ -51,32 +51,9 @@ const useCreateUserReflection = (): UseMutationResult<
     mutationFn: createUserReflection,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user_reflections'] });
+      queryClient.invalidateQueries({ queryKey: ['user_activity_dates'] });
     },
   });
 };
-
-// // UPDATE USER_REFLECTION
-// const updateUserReflection = async (body: UpdateUserReflection): Promise<UserReflection> => {
-//   const { data } = await axios.patch(`/api/user_reflections/${body.id}`, body);
-//   return data;
-// };
-
-// const useUpdateUserReflection = (): UseMutationResult<
-//   UserReflection,
-//   Error,
-//   UpdateUserReflection
-// > => {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: updateUserReflection,
-//     onSuccess: (data) => {
-//       queryClient.invalidateQueries({ queryKey: ['user_reflections'] });
-//       queryClient.invalidateQueries({
-//         queryKey: ['user_reflection', data.id],
-//       });
-//     },
-//   });
-// };
 
 export { useUserReflection, useUserReflections, useCreateUserReflection };

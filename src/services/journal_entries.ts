@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { JournalEntry, JournalEntryDate } from '@/types/api/journal_entries';
+import { JournalEntry } from '@/types/api/journal_entries';
 import { CreateJournalEntry } from '@/types/payload/journal_entries';
 
 type UseJournalEntriesParams = {
@@ -67,7 +67,7 @@ const useUpsertJournalEntry = (): UseMutationResult<
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journal_entry'] });
       queryClient.invalidateQueries({ queryKey: ['journal_entries'] });
-      queryClient.invalidateQueries({ queryKey: ['journal_entries/month/dates'] });
+      queryClient.invalidateQueries({ queryKey: ['user_activity_dates'] });
       queryClient.invalidateQueries({ queryKey: ['week_streak_count'] });
       queryClient.invalidateQueries({ queryKey: ['week_entries'] });
     },
@@ -88,33 +88,12 @@ const useDeleteJournalEntry = (): UseMutationResult<JournalEntry, Error, number,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journal_entry'] });
       queryClient.invalidateQueries({ queryKey: ['journal_entries'] });
-      queryClient.invalidateQueries({ queryKey: ['journal_entries/month/dates'] });
+      queryClient.invalidateQueries({ queryKey: ['user_activity_dates'] });
       queryClient.invalidateQueries({ queryKey: ['week_streak_count'] });
       queryClient.invalidateQueries({ queryKey: ['week_entries'] });
     },
   });
 };
-
-// GET JOURNAL ENTRIES DATES
-const getJournalEntriesDates = async (
-  userID: string,
-  from?: string,
-): Promise<JournalEntryDate[]> => {
-  const { data } = await axios.get(
-    `/api/journal_entries/month/dates?user_id=${userID}&from=${from}`,
-  );
-  return data;
-};
-
-const useJournalEntriesDates = (
-  userID: string,
-  from?: string,
-): UseQueryResult<JournalEntryDate[], Error> =>
-  useQuery({
-    queryKey: ['journal_entries/month/dates', userID, from],
-    queryFn: () => getJournalEntriesDates(userID, from),
-    enabled: !!from,
-  });
 
 // GET WEEK STREAK COUNT
 const getWeekStreakCount = async (): Promise<number> => {
@@ -138,7 +117,6 @@ export {
   useJournalEntry,
   useJournalEntries,
   useUpsertJournalEntry,
-  useJournalEntriesDates,
   useDeleteJournalEntry,
   useGetWeekStreakCount,
   useGetWeekEntries,

@@ -7,6 +7,7 @@ import { useCreateUserReflection } from '@/services/user_reflections';
 import Input from '@/components/ui/inputs/Input';
 import { useEffect } from 'react';
 import { useCalendarContext } from '@/context/CalendarContextProvider';
+import dayjs from 'dayjs';
 
 type Props = {
   templateID: string;
@@ -104,7 +105,7 @@ const TemplateModel = ({ templateID }: Props): React.ReactElement => {
     const { name, ...answers } = data;
 
     createUserReflection({
-      date: calendar.currentDate,
+      date: dayjs.utc(dayjs(calendar.currentDate).format('YYYY-MM-DD'), 'YYYY-MM-DD').toDate(),
       name,
       reflectionModelID: 1,
       status: 'submitted',
