@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { CreateJournalEntry } from '@/types/payload/journal_entries';
 
-import { GET, PUT } from '../../../app/api/journal_entries/route';
+import { GET, PUT } from '@/app/api/journal_entries/route';
 
 // Mock the createClient function
 jest.mock('@/lib/supabase/server', () => ({

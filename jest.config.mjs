@@ -1,4 +1,14 @@
-module.exports = {
+// jest.config.mjs
+
+import dotenv from 'dotenv';
+
+// ✅ Load environment variables for test environment
+if (process.env.NODE_ENV === 'test') {
+  dotenv.config({ path: '.env.test' });
+}
+
+// ✅ Proper ESM export — not module.exports
+const config = {
   projects: [
     {
       displayName: 'server',
@@ -8,14 +18,14 @@ module.exports = {
       ],
       testEnvironment: 'node',
       moduleNameMapper: {
-        '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // Mock styles
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
         '^@/(.*)$': '<rootDir>/src/$1',
       },
       transform: {
-        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './jest.babel.config.js' }], // Ensure Babel handles all JS/TS/JSX/TSX files
+        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './jest.babel.config.js' }],
       },
       moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-      transformIgnorePatterns: ['/node_modules/(?!(@next|next))/'], // Make sure to transpile Next.js and related modules
+      transformIgnorePatterns: ['/node_modules/(?!(@next|next))/'],
     },
     {
       displayName: 'client',
@@ -26,14 +36,16 @@ module.exports = {
       ],
       testEnvironment: 'jsdom',
       moduleNameMapper: {
-        '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // Mock styles
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
         '^@/(.*)$': '<rootDir>/src/$1',
       },
       transform: {
-        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './jest.babel.config.js' }], // Ensure Babel handles all JS/TS/JSX/TSX files
+        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './jest.babel.config.js' }],
       },
       moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-      transformIgnorePatterns: ['/node_modules/(?!(@next|next))/'], // Make sure to transpile Next.js and related modules
+      transformIgnorePatterns: ['/node_modules/(?!(@next|next))/'],
     },
   ],
 };
+
+export default config;

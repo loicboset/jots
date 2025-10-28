@@ -4,21 +4,27 @@ import { createClient } from '@/lib/supabase/server';
 
 dayjs.extend(isoWeek);
 
-export async function GET(): Promise<Response> {
-  const supabase = await createClient();
+export async function GET(request: Request): Promise<Response> {
+  const authHeader = request.headers.get('Authorization');
+  const { searchParams } = new URL(request.url);
+  const userIdParam = searchParams.get('user_id');
+
+  const supabase = await createClient(authHeader);
 
   // --- Fetch journal entries ---
   const { data: journal_entries, error: journalError } = await supabase
     .from('journal_entries')
     .select('date')
-    .lte('date', dayjs().format('YYYY-MM-DD'));
+    .lte('date', dayjs().format('YYYY-MM-DD'))
+    .match(userIdParam ? { user_id: userIdParam } : {});
 
   // --- Fetch user reflections (only submitted if that’s desired) ---
   const { data: reflections, error: reflectionsError } = await supabase
     .from('user_reflections')
-    .select('created_at, status')
-    .lte('created_at', dayjs().toISOString())
-    .in('status', ['draft', 'submitted']); // optional filter
+    .select('date, status')
+    .lte('date', dayjs().toISOString())
+    .in('status', ['draft', 'submitted'])
+    .match(userIdParam ? { user_id: userIdParam } : {}); // optional filter
 
   if (journalError || reflectionsError) {
     console.error('Supabase errors:', { journalError, reflectionsError });
@@ -36,7 +42,7 @@ export async function GET(): Promise<Response> {
   };
 
   journal_entries?.forEach((entry) => addToWeeks(entry.date));
-  reflections?.forEach((entry) => addToWeeks(entry.created_at));
+  reflections?.forEach((reflection) => addToWeeks(reflection.date));
 
   // --- Compute streak ---
   let count = 0;
